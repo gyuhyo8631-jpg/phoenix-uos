@@ -14,7 +14,7 @@ const asset = {
 const content = {
   ko: {
     code: "KO", languageName: "한국어", homeAria: "Phoenix UOS 홈", navAria: "주요 메뉴", menuOpen: "메뉴 닫기", menuClosed: "메뉴 열기", languageAria: "언어 선택",
-    nav: ["비전", "핵심 시스템", "20 Homes Pilot", "수익모델", "Global"], contactNav: "프로젝트 문의",
+    nav: ["비전", "핵심 시스템", "20 Homes Pilot", "수익모델", "Global"], portalNav: "포털", contactNav: "프로젝트 문의",
     heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["빈집을 다시", "살아있는 생태계로"], heroDescription: ["Phoenix UOS는 방치된 빈집을 친환경 주거, 분산형 에너지, 생태 회복, AI 운영 데이터가 결합된 ", "지역 자산", "으로 전환하는 통합 플랫폼입니다."], heroMobile: "빈집을 친환경 주거와 지역 에너지·생태계로 전환합니다.", pilotButton: "20채 시범사업 보기", mobilePilotButton: "20채 시범사업", systemButton: "생태계 구조 보기", mobileSystemButton: "생태계 구조",
     signalPilot: "1차 Pilot Target", statOne: "1차 Pilot Target", statTwo: "주거 · 에너지 · 생태 · AI", statThree: "통합 운영 데이터", scroll: "SCROLL TO REGENERATE",
     visionTitle: ["빈집은 비용이 아니라", "새로운 지역 자산입니다."], visionBody: "Phoenix UOS는 노후 빈집을 단순 리모델링하는 사업이 아닙니다. 주거·재생에너지·생태·데이터를 하나의 운영체계로 연결합니다.", visionLink: "시스템의 연결 구조",
@@ -27,7 +27,7 @@ const content = {
   },
   en: {
     code: "EN", languageName: "English", homeAria: "Phoenix UOS home", navAria: "Primary navigation", menuOpen: "Close menu", menuClosed: "Open menu", languageAria: "Select language",
-    nav: ["Vision", "Core systems", "20 Homes Pilot", "Model", "Global"], contactNav: "Project inquiry",
+    nav: ["Vision", "Core systems", "20 Homes Pilot", "Model", "Global"], portalNav: "Portal", contactNav: "Project inquiry",
     heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["Bring empty homes back", "into living ecosystems"], heroDescription: ["Phoenix UOS is an integrated platform that turns neglected homes into ", "local assets", "—combining sustainable living, distributed energy, ecological recovery, and AI operations data."], heroMobile: "Turning neglected homes into local energy and ecological assets.", pilotButton: "View the 20-home pilot", mobilePilotButton: "20-home pilot", systemButton: "Explore the ecosystem", mobileSystemButton: "Explore system",
     signalPilot: "First pilot target", statOne: "First pilot target", statTwo: "Housing · Energy · Ecology · AI", statThree: "Integrated operations data", scroll: "SCROLL TO REGENERATE",
     visionTitle: ["An empty home is not a cost.", "It is a new local asset."], visionBody: "Phoenix UOS is more than renovation. It links housing, renewable energy, ecology, and data into one operating system.", visionLink: "See how the systems connect",
@@ -40,7 +40,7 @@ const content = {
   },
   ja: {
     code: "JA", languageName: "日本語", homeAria: "Phoenix UOS ホーム", navAria: "メインメニュー", menuOpen: "メニューを閉じる", menuClosed: "メニューを開く", languageAria: "言語を選択",
-    nav: ["ビジョン", "コアシステム", "20 Homes Pilot", "収益モデル", "Global"], contactNav: "プロジェクト相談",
+    nav: ["ビジョン", "コアシステム", "20 Homes Pilot", "収益モデル", "Global"], portalNav: "ポータル", contactNav: "プロジェクト相談",
     heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["空き家をもう一度", "息づく生態系へ"], heroDescription: ["Phoenix UOSは、放置された空き家を、環境配慮型の住まい・分散型エネルギー・生態系の回復・AI運用データが結びつく ", "地域資産", "へと転換する統合プラットフォームです。"], heroMobile: "空き家を、地域の住まい・エネルギー・生態系へ変えます。", pilotButton: "20棟の実証事業を見る", mobilePilotButton: "20棟の実証を見る", systemButton: "生態系の仕組みを見る", mobileSystemButton: "仕組みを見る",
     signalPilot: "第1次パイロット目標", statOne: "第1次パイロット目標", statTwo: "住まい · エネルギー · 生態 · AI", statThree: "統合運用データ", scroll: "SCROLL TO REGENERATE",
     visionTitle: ["空き家はコストではなく、", "新しい地域資産です。"], visionBody: "Phoenix UOSは、老朽化した空き家を単に改修する事業ではありません。住まい・再生可能エネルギー・生態・データを一つの運用システムとして結びます。", visionLink: "システムのつながりを見る",
@@ -53,7 +53,7 @@ const content = {
   },
   es: {
     code: "ES", languageName: "Español", homeAria: "Inicio de Phoenix UOS", navAria: "Navegación principal", menuOpen: "Cerrar menú", menuClosed: "Abrir menú", languageAria: "Seleccionar idioma",
-    nav: ["Visión", "Sistemas", "Piloto 20 viviendas", "Modelo", "Global"], contactNav: "Contactar proyecto",
+    nav: ["Visión", "Sistemas", "Piloto 20 viviendas", "Modelo", "Global"], portalNav: "Portal", contactNav: "Contactar proyecto",
     heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["Devolver vida a", "las casas vacías"], heroDescription: ["Phoenix UOS es una plataforma integrada que transforma viviendas vacías en un ", "activo regional", " que combina hogares sostenibles, energía distribuida, recuperación ecológica y datos operativos con IA."], heroMobile: "Transformamos viviendas vacías en energía y ecología local.", pilotButton: "Ver piloto de 20 viviendas", mobilePilotButton: "Ver piloto", systemButton: "Ver el sistema ecológico", mobileSystemButton: "Ver sistema",
     signalPilot: "Objetivo del primer piloto", statOne: "Objetivo del primer piloto", statTwo: "Vivienda · Energía · Ecología · IA", statThree: "Datos operativos integrados", scroll: "SCROLL TO REGENERATE",
     visionTitle: ["Una casa vacía no es un coste,", "es un nuevo activo regional."], visionBody: "Phoenix UOS no consiste solo en renovar casas vacías envejecidas. Conecta vivienda, energía renovable, ecología y datos en un único sistema operativo.", visionLink: "Ver las conexiones del sistema",
@@ -117,11 +117,13 @@ export default function Home() {
         </a>
         <nav className="desktop-nav" aria-label={t.navAria}>{navLinks.map((href, index) => <a key={href} href={href}>{t.nav[index]}</a>)}</nav>
         <a className="whitepaper-nav" href="#whitepaper">{w.nav}</a>
+        <a className="portal-nav" href="/portal">{t.portalNav} <span>↗</span></a>
         <div className="language-picker" aria-label={t.languageAria}>{locales.map((item) => <button key={item} type="button" aria-pressed={locale === item} onClick={() => chooseLocale(item)} title={content[item].languageName}>{content[item].code}</button>)}</div>
         <a className="nav-contact" href="#contact">{t.contactNav} <span>↗</span></a>
         <button className="menu-toggle" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? t.menuOpen : t.menuClosed}>{menuOpen ? "×" : "☰"}</button>
         {menuOpen && <nav className="mobile-menu" aria-label={t.navAria}>
           {navLinks.map((href, index) => <a key={href} href={href} onClick={() => setMenuOpen(false)}>{t.nav[index]}<span>↘</span></a>)}
+          <a href="/portal" onClick={() => setMenuOpen(false)}>{t.portalNav}<span>↗</span></a>
           <a href="#whitepaper" onClick={() => setMenuOpen(false)}>{w.nav}<span>↘</span></a>
           <div className="mobile-language-picker" aria-label={t.languageAria}>{locales.map((item) => <button key={item} type="button" aria-pressed={locale === item} onClick={() => chooseLocale(item)}>{content[item].languageName}</button>)}</div>
           <a className="mobile-contact" href="#contact" onClick={() => setMenuOpen(false)}>{t.contactNav} <span>↗</span></a>
