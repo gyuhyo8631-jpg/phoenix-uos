@@ -25,7 +25,7 @@ export default function Home() {
     <main className="site-shell" id="home">
       <header className="site-header">
         <a className="brand" href="#home" aria-label="Phoenix UOS 홈">
-          <img className="brand-mark" src="/phoenix-mark.png" alt="" />
+          <img className="brand-mark" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663873176403/JQEkGcJDqtfYTckw.png" alt="" />
           <span className="brand-lockup"><strong>PHOENIX UOS</strong><small>Vacant House Ecology &amp; Energy</small></span>
         </a>
         <nav className="desktop-nav" aria-label="주요 메뉴">
@@ -75,16 +75,16 @@ export default function Home() {
       </section>
 
       <section className="pilot section-wrap" id="pilot" aria-labelledby="pilot-title">
-        <div className="pilot-image-wrap"><img src="/phoenix-pilot.jpg" alt="태양광 지붕과 빗물 정원을 갖춘 재생 주택"/><span className="image-marker marker-a">FIELD TEST / KOREA</span><span className="image-marker marker-b">+ 20 HOMES</span></div>
+        <div className="pilot-image-wrap"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663873176403/rCAuoqmlyaIbIlgs.jpg" alt="태양광 지붕과 빗물 정원을 갖춘 재생 주택"/><span className="image-marker marker-a">FIELD TEST / KOREA</span><span className="image-marker marker-b">+ 20 HOMES</span></div>
         <div className="pilot-content"><p className="eyebrow">03 / 20 HOMES PILOT</p><h2 id="pilot-title">20채에서 검증하고,<br/><em>도시 단위로 확장합니다.</em></h2><p className="pilot-copy">실제 빈집을 대상으로 에너지 생산량, 생태 회복 효과, 소유주 만족도, 운영 수익 데이터를 확보하는 초기 실증 모델입니다.</p><ol className="pilot-steps">{[["01","빈집 발굴 및 진단"],["02","친환경 리노베이션"],["03","에너지·AI 시스템 설치"],["04","운영 데이터 축적"]].map(([number, text]) => <li key={number}><span>{number}</span><strong>{text}</strong><b>↗</b></li>)}</ol></div>
       </section>
 
-      <section className="model" id="model" aria-labelledby="model-title"><div className="model-art" aria-hidden="true"><img src="/phoenix-data.jpg" alt=""/><div className="model-radar"><i/><i/><i/><b/></div></div><div className="model-content section-wrap"><p className="eyebrow light">04 / BUSINESS MODEL</p><h2 id="model-title">재생 이후에도<br/>지속되는 <em>운영 수익 구조</em></h2><p>개발 수익에만 의존하지 않고 주거 운영, 에너지, 데이터 기반 관리, 지역 협력 사업으로 확장할 수 있는 구조를 지향합니다.</p><div className="revenue-tags"><span>RESIDENCE</span><span>ENERGY</span><span>OPERATIONS</span><span>LOCAL PARTNERSHIP</span></div></div></section>
+      <section className="model" id="model" aria-labelledby="model-title"><div className="model-art" aria-hidden="true"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663873176403/EmQVwsHVwwhmRFba.jpg" alt=""/><div className="model-radar"><i/><i/><i/><b/></div></div><div className="model-content section-wrap"><p className="eyebrow light">04 / BUSINESS MODEL</p><h2 id="model-title">재생 이후에도<br/>지속되는 <em>운영 수익 구조</em></h2><p>개발 수익에만 의존하지 않고 주거 운영, 에너지, 데이터 기반 관리, 지역 협력 사업으로 확장할 수 있는 구조를 지향합니다.</p><div className="revenue-tags"><span>RESIDENCE</span><span>ENERGY</span><span>OPERATIONS</span><span>LOCAL PARTNERSHIP</span></div></div></section>
 
-      <section className="global section-wrap" id="global" aria-labelledby="global-title"><div className="global-heading"><p className="eyebrow">05 / GLOBAL EXPANSION</p><h2 id="global-title">지역마다 다른 문제를,<br/>하나의 운영 언어로</h2></div><div className="global-copy"><p>국내 실증 데이터를 기반으로 각 국가의 주거·에너지 환경에 맞춘 지역형 모델로 확장합니다.</p><div className="territories">{["Korea","Japan","Europe","Southeast Asia","MENA"].map((region,index) => <span key={region}><b>0{index+1}</b>{region}</span>)}</div></div><div className="ecology-photo"><img src="/phoenix-ecology.jpg" alt="재생 주택 주변의 빗물 정원과 토종 식생"/><p>DESIGNED FOR EACH PLACE,<br/>MEASURED AS ONE SYSTEM.</p></div></section>
+      <section className="global section-wrap" id="global" aria-labelledby="global-title"><div className="global-heading"><p className="eyebrow">05 / GLOBAL EXPANSION</p><h2 id="global-title">지역마다 다른 문제를,<br/>하나의 운영 언어로</h2></div><div className="global-copy"><p>국내 실증 데이터를 기반으로 각 국가의 주거·에너지 환경에 맞춘 지역형 모델로 확장합니다.</p><div className="territories">{["Korea","Japan","Europe","Southeast Asia","MENA"].map((region,index) => <span key={region}><b>0{index+1}</b>{region}</span>)}</div></div><div className="ecology-photo"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663873176403/oaMbAekzGpYbGvXd.jpg" alt="재생 주택 주변의 빗물 정원과 토종 식생"/><p>DESIGNED FOR EACH PLACE,<br/>MEASURED AS ONE SYSTEM.</p></div></section>
 
       <section className="contact" id="contact" aria-labelledby="contact-title"><div className="contact-orbit" aria-hidden="true"><i/><i/><i/></div><div className="contact-inner section-wrap"><p className="eyebrow light">06 / COLLABORATE</p><h2 id="contact-title">빈집을 다시<br/><span>지역의 미래로</span></h2><p>지자체, 소유주, 에너지 기업, 투자자, 연구기관과의 실증 및 사업 협력을 준비합니다.</p><a className="button cream" href="mailto:contact@phoenix-uos.com">프로젝트 문의하기 <span>↗</span></a></div></section>
-      <footer className="site-footer"><a className="brand footer-brand" href="#home"><img className="brand-mark" src="/phoenix-mark.png" alt=""/><span className="brand-lockup"><strong>PHOENIX UOS</strong><small>Vacant House Ecology &amp; Energy</small></span></a><p>© 2026 Phoenix UOS. All rights reserved.</p><a className="back-top" href="#home">처음으로 <span>↗</span></a></footer>
+      <footer className="site-footer"><a className="brand footer-brand" href="#home"><img className="brand-mark" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663873176403/JQEkGcJDqtfYTckw.png" alt=""/><span className="brand-lockup"><strong>PHOENIX UOS</strong><small>Vacant House Ecology &amp; Energy</small></span></a><p>© 2026 Phoenix UOS. All rights reserved.</p><a className="back-top" href="#home">처음으로 <span>↗</span></a></footer>
     </main>
   );
 }
