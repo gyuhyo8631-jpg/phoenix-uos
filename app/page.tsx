@@ -8,6 +8,7 @@ const asset = {
   pilot: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663873176403/rCAuoqmlyaIbIlgs.jpg",
   data: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663873176403/EmQVwsHVwwhmRFba.jpg",
   ecology: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663873176403/oaMbAekzGpYbGvXd.jpg",
+  video: "/phoenix-ecosystem-loop.mp4",
 };
 
 const content = {
@@ -72,6 +73,13 @@ const whitepaperContent = {
   es: { nav: "Documento técnico", eyebrow: "06 / PROJECT WHITE PAPER", title: ["Un sistema explicable,", "un ciclo verificable"], intro: "El documento técnico de Phoenix UOS es un borrador de diseño que conecta la regeneración de viviendas vacías, energía distribuida, recuperación ecológica y operación con IA en un único sistema local.", download: "Leer el borrador", chapters: [["01", "Problema y oportunidad", "Redefinimos las viviendas abandonadas no como costes, sino como activos locales de vivienda, energía y ecología."], ["02", "Arquitectura operativa", "Vivienda, energía, ecología y datos de IA se conectan para que cada operación de campo sea más aprendible."], ["03", "Validación en 20 viviendas", "Las primeras veinte viviendas validan indicadores y datos operativos antes de ampliar el modelo a nuevos lugares."], ["04", "Contribución y acceso", "Exploramos una estructura que registra la contribución local verificada y da acceso a servicios de energía y datos operativos."]], utilityEyebrow: "DISEÑO DE UTILIDAD / PRELIMINAR", utilityTitle: "Un token debe registrar la circulación local, no convertirse en un objeto de especulación.", utilityBody: "El futuro diseño del token solo analizará dos usos prácticos: reconocer contribuciones verificadas a la regeneración local y permitir acceso a servicios de la plataforma. No promete emisión, venta, precio, cotización ni rentabilidad.", utilities: ["Registrar contribución local verificada", "Acceder a servicios de energía y datos operativos", "Hacer auditable el historial de participación"], notice: "Solo diseño preliminar. No se emitirá ni venderá ningún token hasta completar las revisiones legales, regulatorias, de seguridad, fiscales y de protección al usuario.", sourceLabel: "Referencias de divulgación y riesgo" },
 } as const;
 
+const videoContent = {
+  ko: { eyebrow: "06 / LIVING ECOSYSTEM", title: ["빈집 하나가", "지역 생태계가 되는 순간"], copy: "빈집의 회복은 리노베이션에서 끝나지 않습니다. 태양광, 빗물 정원, 토종 식생, 에너지 운영 데이터가 연결되면 한 채의 집은 지역의 회복력을 키우는 생태계가 됩니다.", label: "PHX / FIELD LOOP 01", fallback: "미래의 빈집이 주거·에너지·생태·AI 운영이 연결된 지역 생태계로 변화하는 모습을 보여주는 영상입니다." },
+  en: { eyebrow: "06 / LIVING ECOSYSTEM", title: ["The moment one vacant home", "becomes a local ecosystem"], copy: "Renewal does not end with renovation. When solar energy, rain gardens, native planting, and operations data connect, one home becomes an ecosystem that strengthens local resilience.", label: "PHX / FIELD LOOP 01", fallback: "A video showing a vacant home becoming a local ecosystem through housing, energy, ecology, and AI-enabled operations." },
+  ja: { eyebrow: "06 / LIVING ECOSYSTEM", title: ["一軒の空き家が", "地域の生態系になる瞬間"], copy: "再生はリノベーションで終わりません。太陽光、雨水庭園、在来植生、運用データがつながると、一軒の住まいは地域の回復力を育てる生態系になります。", label: "PHX / FIELD LOOP 01", fallback: "空き家が住まい・エネルギー・生態・AI運用によって地域の生態系へ変化する様子を示す映像です。" },
+  es: { eyebrow: "06 / ECOSISTEMA VIVO", title: ["El momento en que una vivienda vacía", "se convierte en un ecosistema local"], copy: "La regeneración no termina con la reforma. Cuando la energía solar, los jardines de lluvia, la vegetación nativa y los datos operativos se conectan, una vivienda se convierte en un ecosistema que fortalece la resiliencia local.", label: "PHX / FIELD LOOP 01", fallback: "Un video que muestra cómo una vivienda vacía se transforma en un ecosistema local mediante vivienda, energía, ecología y operación con IA." },
+} as const;
+
 type Locale = keyof typeof content;
 const locales: Locale[] = ["ko", "en", "ja", "es"];
 const navLinks = ["#vision", "#systems", "#pilot", "#model", "#global"];
@@ -82,6 +90,7 @@ export default function Home() {
   const [locale, setLocale] = useState<Locale>("ko");
   const t = content[locale];
   const w = whitepaperContent[locale];
+  const v = videoContent[locale];
 
   useEffect(() => {
     const saved = window.localStorage.getItem("phoenix-uos-language");
@@ -134,6 +143,8 @@ export default function Home() {
       <section className="model" id="model" aria-labelledby="model-title"><div className="model-art" aria-hidden="true"><img src={asset.data} alt=""/><div className="model-radar"><i/><i/><i/><b/></div></div><div className="model-content section-wrap"><p className="eyebrow light">04 / BUSINESS MODEL</p><h2 id="model-title">{t.modelTitle[0]}<br/>{t.modelTitle[1]}</h2><p>{t.modelBody}</p><div className="revenue-tags"><span>RESIDENCE</span><span>ENERGY</span><span>OPERATIONS</span><span>LOCAL PARTNERSHIP</span></div></div></section>
 
       <section className="global section-wrap" id="global" aria-labelledby="global-title"><div className="global-heading"><p className="eyebrow">05 / GLOBAL EXPANSION</p><h2 id="global-title">{t.globalTitle[0]}<br/>{t.globalTitle[1]}</h2></div><div className="global-copy"><p>{t.globalBody}</p><div className="territories">{t.regions.map((region,index) => <span key={region}><b>0{index + 1}</b>{region}</span>)}</div></div><div className="ecology-photo"><img src={asset.ecology} alt={t.ecologyAlt}/><p>DESIGNED FOR EACH PLACE,<br/>MEASURED AS ONE SYSTEM.</p></div></section>
+
+      <section className="ecosystem-video" aria-labelledby="ecosystem-video-title"><video className="ecosystem-video-media" autoPlay muted loop playsInline preload="metadata" poster={asset.pilot} aria-describedby="ecosystem-video-description"><source src={asset.video} type="video/mp4"/></video><div className="ecosystem-video-scrim" aria-hidden="true"/><div className="ecosystem-video-grid" aria-hidden="true"/><div className="ecosystem-video-copy section-wrap"><p className="eyebrow light">{v.eyebrow}</p><h2 id="ecosystem-video-title">{v.title[0]}<br/><span>{v.title[1]}</span></h2><p id="ecosystem-video-description">{v.copy}</p><div className="ecosystem-video-signal"><i/><span>{v.label}</span><b>●</b></div><span className="sr-only">{v.fallback}</span></div></section>
 
       <section className="whitepaper section-wrap" id="whitepaper" aria-labelledby="whitepaper-title"><div className="whitepaper-heading"><div><p className="eyebrow">{w.eyebrow}</p><h2 id="whitepaper-title">{w.title[0]}<br/><span>{w.title[1]}</span></h2></div><div className="whitepaper-intro"><p>{w.intro}</p><a className="text-link dark" href="/phoenix-uos-whitepaper.md" target="_blank" rel="noreferrer">{w.download} <span>↗</span></a></div></div><div className="whitepaper-grid">{w.chapters.map(([number, title, copy]) => <article key={number} className="whitepaper-chapter"><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>)}</div><div className="utility-panel"><div className="utility-orbit" aria-hidden="true"><i/><i/><b/></div><div className="utility-copy"><p className="eyebrow">{w.utilityEyebrow}</p><h3>{w.utilityTitle}</h3><p>{w.utilityBody}</p><div className="utility-tags">{w.utilities.map((item) => <span key={item}>{item}</span>)}</div></div><aside className="utility-notice"><strong>{w.sourceLabel}</strong><p>{w.notice}</p><div><a href="https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica" target="_blank" rel="noreferrer">ESMA MiCA ↗</a><a href="https://www.fsc.go.kr/eng/pr010101/81217" target="_blank" rel="noreferrer">Korea FSC ↗</a></div></aside></div></section>
 
