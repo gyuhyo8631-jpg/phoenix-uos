@@ -15,7 +15,7 @@ const content = {
   ko: {
     code: "KO", languageName: "한국어", homeAria: "Phoenix UOS 홈", navAria: "주요 메뉴", menuOpen: "메뉴 닫기", menuClosed: "메뉴 열기", languageAria: "언어 선택",
     nav: ["비전", "핵심 시스템", "20 Homes Pilot", "수익모델", "Global"], contactNav: "프로젝트 문의",
-    heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["빈집을 다시", "살아있는 생태계로"], heroDescription: ["Phoenix UOS는 방치된 빈집을 친환경 주거, 분산형 에너지, 생태 회복, AI 운영 데이터가 결합된 ", "지역 자산", "으로 전환하는 통합 플랫폼입니다."], heroMobile: "빈집을 친환경 주거와 지역 에너지·생태계로 전환합니다.", pilotButton: "20채 시범사업 보기", systemButton: "생태계 구조 보기",
+    heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["빈집을 다시", "살아있는 생태계로"], heroDescription: ["Phoenix UOS는 방치된 빈집을 친환경 주거, 분산형 에너지, 생태 회복, AI 운영 데이터가 결합된 ", "지역 자산", "으로 전환하는 통합 플랫폼입니다."], heroMobile: "빈집을 친환경 주거와 지역 에너지·생태계로 전환합니다.", pilotButton: "20채 시범사업 보기", mobilePilotButton: "20채 시범사업", systemButton: "생태계 구조 보기", mobileSystemButton: "생태계 구조",
     signalPilot: "1차 Pilot Target", statOne: "1차 Pilot Target", statTwo: "주거 · 에너지 · 생태 · AI", statThree: "통합 운영 데이터", scroll: "SCROLL TO REGENERATE",
     visionTitle: ["빈집은 비용이 아니라", "새로운 지역 자산입니다."], visionBody: "Phoenix UOS는 노후 빈집을 단순 리모델링하는 사업이 아닙니다. 주거·재생에너지·생태·데이터를 하나의 운영체계로 연결합니다.", visionLink: "시스템의 연결 구조",
     systemsTitle: ["4개의 시스템,", "하나의 플랫폼"], systemsIntro: ["개별 기술을 더하는 것이 아니라, 서로의 효율을 높이는 ", "지역 단위 운영 구조", "를 만듭니다."],
@@ -28,7 +28,7 @@ const content = {
   en: {
     code: "EN", languageName: "English", homeAria: "Phoenix UOS home", navAria: "Primary navigation", menuOpen: "Close menu", menuClosed: "Open menu", languageAria: "Select language",
     nav: ["Vision", "Core systems", "20 Homes Pilot", "Model", "Global"], contactNav: "Project inquiry",
-    heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["Bring empty homes back", "into living ecosystems"], heroDescription: ["Phoenix UOS is an integrated platform that turns neglected homes into ", "local assets", "—combining sustainable living, distributed energy, ecological recovery, and AI operations data."], heroMobile: "Turning neglected homes into local energy and ecological assets.", pilotButton: "View the 20-home pilot", systemButton: "Explore the ecosystem",
+    heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["Bring empty homes back", "into living ecosystems"], heroDescription: ["Phoenix UOS is an integrated platform that turns neglected homes into ", "local assets", "—combining sustainable living, distributed energy, ecological recovery, and AI operations data."], heroMobile: "Turning neglected homes into local energy and ecological assets.", pilotButton: "View the 20-home pilot", mobilePilotButton: "20-home pilot", systemButton: "Explore the ecosystem", mobileSystemButton: "Explore system",
     signalPilot: "First pilot target", statOne: "First pilot target", statTwo: "Housing · Energy · Ecology · AI", statThree: "Integrated operations data", scroll: "SCROLL TO REGENERATE",
     visionTitle: ["An empty home is not a cost.", "It is a new local asset."], visionBody: "Phoenix UOS is more than renovation. It links housing, renewable energy, ecology, and data into one operating system.", visionLink: "See how the systems connect",
     systemsTitle: ["Four systems,", "one platform"], systemsIntro: ["We do not simply stack technologies. We build a ", "place-based operating structure", " in which every system improves the next."],
@@ -41,7 +41,7 @@ const content = {
   ja: {
     code: "JA", languageName: "日本語", homeAria: "Phoenix UOS ホーム", navAria: "メインメニュー", menuOpen: "メニューを閉じる", menuClosed: "メニューを開く", languageAria: "言語を選択",
     nav: ["ビジョン", "コアシステム", "20 Homes Pilot", "収益モデル", "Global"], contactNav: "プロジェクト相談",
-    heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["空き家をもう一度", "息づく生態系へ"], heroDescription: ["Phoenix UOSは、放置された空き家を、環境配慮型の住まい・分散型エネルギー・生態系の回復・AI運用データが結びつく ", "地域資産", "へと転換する統合プラットフォームです。"], heroMobile: "空き家を環境配慮型の住まいと地域のエネルギー・生態系へ変えます。", pilotButton: "20棟の実証事業を見る", systemButton: "生態系の仕組みを見る",
+    heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["空き家をもう一度", "息づく生態系へ"], heroDescription: ["Phoenix UOSは、放置された空き家を、環境配慮型の住まい・分散型エネルギー・生態系の回復・AI運用データが結びつく ", "地域資産", "へと転換する統合プラットフォームです。"], heroMobile: "空き家を、地域の住まい・エネルギー・生態系へ変えます。", pilotButton: "20棟の実証事業を見る", mobilePilotButton: "20棟の実証を見る", systemButton: "生態系の仕組みを見る", mobileSystemButton: "仕組みを見る",
     signalPilot: "第1次パイロット目標", statOne: "第1次パイロット目標", statTwo: "住まい · エネルギー · 生態 · AI", statThree: "統合運用データ", scroll: "SCROLL TO REGENERATE",
     visionTitle: ["空き家はコストではなく、", "新しい地域資産です。"], visionBody: "Phoenix UOSは、老朽化した空き家を単に改修する事業ではありません。住まい・再生可能エネルギー・生態・データを一つの運用システムとして結びます。", visionLink: "システムのつながりを見る",
     systemsTitle: ["4つのシステム、", "1つのプラットフォーム"], systemsIntro: ["個別技術を足し合わせるのではなく、互いの効率を高める ", "地域単位の運用構造", "をつくります。"],
@@ -54,7 +54,7 @@ const content = {
   es: {
     code: "ES", languageName: "Español", homeAria: "Inicio de Phoenix UOS", navAria: "Navegación principal", menuOpen: "Cerrar menú", menuClosed: "Abrir menú", languageAria: "Seleccionar idioma",
     nav: ["Visión", "Sistemas", "Piloto 20 viviendas", "Modelo", "Global"], contactNav: "Contactar proyecto",
-    heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["Devolver vida a", "las casas vacías"], heroDescription: ["Phoenix UOS es una plataforma integrada que transforma viviendas vacías en un ", "activo regional", " que combina hogares sostenibles, energía distribuida, recuperación ecológica y datos operativos con IA."], heroMobile: "Transformamos viviendas vacías en activos locales de energía y ecología.", pilotButton: "Ver piloto de 20 viviendas", systemButton: "Ver el sistema ecológico",
+    heroEyebrow: "REGENERATE EMPTY HOMES", heroTitle: ["Devolver vida a", "las casas vacías"], heroDescription: ["Phoenix UOS es una plataforma integrada que transforma viviendas vacías en un ", "activo regional", " que combina hogares sostenibles, energía distribuida, recuperación ecológica y datos operativos con IA."], heroMobile: "Transformamos viviendas vacías en energía y ecología local.", pilotButton: "Ver piloto de 20 viviendas", mobilePilotButton: "Ver piloto", systemButton: "Ver el sistema ecológico", mobileSystemButton: "Ver sistema",
     signalPilot: "Objetivo del primer piloto", statOne: "Objetivo del primer piloto", statTwo: "Vivienda · Energía · Ecología · IA", statThree: "Datos operativos integrados", scroll: "SCROLL TO REGENERATE",
     visionTitle: ["Una casa vacía no es un coste,", "es un nuevo activo regional."], visionBody: "Phoenix UOS no consiste solo en renovar casas vacías envejecidas. Conecta vivienda, energía renovable, ecología y datos en un único sistema operativo.", visionLink: "Ver las conexiones del sistema",
     systemsTitle: ["Cuatro sistemas,", "una sola plataforma"], systemsIntro: ["No se trata de sumar tecnologías aisladas, sino de crear una ", "estructura operativa territorial", " donde cada sistema mejora a los demás."],
@@ -108,7 +108,7 @@ export default function Home() {
   };
 
   return (
-    <main className="site-shell" id="home">
+    <main className={`site-shell locale-${locale}`} id="home">
       <style>{`.language-picker{display:flex;align-items:center;gap:3px;padding:3px;border:1px solid rgba(255,255,255,.28);background:rgba(6,31,21,.28);border-radius:999px}.language-picker button{min-width:31px;padding:6px 7px;border:0;border-radius:999px;background:transparent;color:rgba(255,255,255,.65);font-family:Manrope,sans-serif;font-size:.57rem;font-weight:800;letter-spacing:.06em;transition:background .16s,color .16s}.language-picker button:hover{color:white}.language-picker button[aria-pressed="true"]{background:var(--verdant);color:var(--ink)}.mobile-language-picker{display:flex;gap:7px;padding:17px 0 4px}.mobile-language-picker button{flex:1;min-height:37px;border:1px solid rgba(183,255,215,.28);background:transparent;color:white;font-family:Manrope,sans-serif;font-size:.67rem;font-weight:800}.mobile-language-picker button[aria-pressed="true"]{border-color:var(--verdant);background:var(--verdant);color:var(--ink)}@media(max-width:900px){.site-header>.language-picker{display:none}}@media(min-width:901px){.mobile-language-picker{display:none}}`}</style>
       <header className="site-header">
         <a className="brand" href="#home" aria-label={t.homeAria}>
@@ -129,7 +129,7 @@ export default function Home() {
       </header>
 
       <section className="hero" aria-labelledby="hero-title"><div className="hero-backdrop" aria-hidden="true"/><div className="hero-grid-lines" aria-hidden="true"/>
-        <div className="hero-copy"><p className="eyebrow light">{t.heroEyebrow}</p><h1 id="hero-title">{t.heroTitle[0]}<span>{t.heroTitle[1]}</span></h1><p className="hero-description hero-description-full">{t.heroDescription[0]}<em>{t.heroDescription[1]}</em>{t.heroDescription[2]}</p><p className="hero-description hero-description-mobile">{t.heroMobile}</p><div className="hero-actions"><a className="button primary" href="#pilot">{t.pilotButton} <span>↘</span></a><a className="text-link light" href="#systems">{t.systemButton} <span>↗</span></a></div></div>
+        <div className="hero-copy"><p className="eyebrow light">{t.heroEyebrow}</p><h1 id="hero-title">{t.heroTitle[0]}<span>{t.heroTitle[1]}</span></h1><p className="hero-description hero-description-full">{t.heroDescription[0]}<em>{t.heroDescription[1]}</em>{t.heroDescription[2]}</p><p className="hero-description hero-description-mobile">{t.heroMobile}</p><div className="hero-actions"><a className="button primary" href="#pilot"><span className="cta-label-desktop">{t.pilotButton}</span><span className="cta-label-mobile">{t.mobilePilotButton}</span> <span>↘</span></a><a className="text-link light" href="#systems"><span className="cta-label-desktop">{t.systemButton}</span><span className="cta-label-mobile">{t.mobileSystemButton}</span> <span>↗</span></a></div></div>
         <aside className="hero-signal" aria-label="Phoenix UOS key metrics"><span className="signal-label">PHX / FIELD UNIT 01</span><div className="signal-ring"><span>20</span><small>HOMES</small></div><p>{t.signalPilot}</p><div className="pulse-line"><i/><i/><i/><i/></div></aside>
         <div className="hero-bottom"><div className="hero-stat"><strong>20 Homes</strong><span>{t.statOne}</span></div><div className="hero-stat"><strong>4 Systems</strong><span>{t.statTwo}</span></div><div className="hero-stat"><strong>1 Platform</strong><span>{t.statThree}</span></div></div><a className="scroll-cue" href="#vision"><span>{t.scroll}</span><b>⌄</b></a>
       </section>
