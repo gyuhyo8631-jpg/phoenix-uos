@@ -1,0 +1,84 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>K-ETA & Visa Guide for Korea | KOREA EASY</title><meta name="description" content="Do you need a visa or K-ETA to enter Korea? Visa-free stay length, K-ETA application, and what to prepare at immigration."><style>body{margin:0;font-family:Inter,Arial,'Noto Sans KR',sans-serif;background:#f4f0e7;color:#17231d}.wrap{width:min(980px,92%);margin:auto}header{padding:18px 0;background:#fff;border-bottom:1px solid #ddd}a{text-decoration:none;color:inherit}.brand{font-weight:950}.brand span{color:#1e6d4d}.hero{margin:28px 0;padding:36px;border-radius:28px;background:linear-gradient(135deg,#10271b,#24573e);color:#fff}.hero h1{font-size:clamp(2.1rem,6.5vw,4.2rem);margin:8px 0}.hero p{line-height:1.7;opacity:.95}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:22px 0}.card{background:#fff;border:1px solid #d8e0d7;border-radius:19px;padding:20px}.card b{display:block;margin-bottom:8px;font-size:1.05rem}.card p{line-height:1.75;margin:0;color:#3a463f}.btn{display:inline-block;padding:10px 14px;border-radius:12px;background:#1e6d4d;color:#fff;font-weight:900;margin-top:10px}.tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#1e6d4d;background:#e4f3ea;border-radius:999px;padding:4px 10px;margin-bottom:10px}.warn{margin:22px 0;padding:18px 20px;border-radius:16px;background:#fff7e0;border:1px solid #f0d78a;line-height:1.8}.langs button{border:1px solid #ddd;background:white;padding:8px 10px;border-radius:999px;cursor:pointer}.note{margin:28px 0 50px;padding:18px 20px;border-radius:16px;background:#fff;color:#68736c;line-height:1.8;font-size:.92rem}@media(max-width:700px){.grid{grid-template-columns:1fr}}</style></head>
+<body>
+<header><div class="wrap" style="display:flex;justify-content:space-between;align-items:center"><a class="brand" href="./">KOREA <span>EASY</span></a><div class="langs"><button onclick="setL('en')">EN</button> <button onclick="setL('ja')">日本語</button> <button onclick="setL('zh')">中文</button></div></div></header>
+<main class="wrap">
+  <section class="hero">
+    <div id="badge"></div>
+    <h1 id="h1"></h1>
+    <p id="lead"></p>
+  </section>
+
+  <div class="warn" id="warnbox"></div>
+
+  <section class="grid" id="cards"></section>
+
+  <p class="note" id="foot"></p>
+</main>
+
+<script>
+const C = {
+en:{
+  badge:'BEFORE YOU FLY',
+  h1:'K-ETA & Visa Guide',
+  lead:'Whether you need a visa, K-ETA, or nothing at all depends entirely on your passport and how long you plan to stay. This page explains the system — always confirm your own case on the official sites linked below before booking.',
+  warn:'⚠️ This is general orientation, not immigration advice. Visa-free agreements, K-ETA requirements and exemption lists change by country and by date. Confirm your exact requirement on the official K-ETA site or your nearest Korean embassy/consulate before you travel.',
+  cards:[
+    ['tag','WHAT IS K-ETA','🛂 What is K-ETA?','K-ETA (Korea Electronic Travel Authorization) is an online pre-screening required for many visa-free visitors before boarding a flight to Korea. It is not a visa — it\'s an entry permission check, similar to the US ESTA or Canada eTA.','https://www.k-eta.go.kr/','Official K-ETA site ↗'],
+    ['tag','DO I NEED IT','🤔 Do I need K-ETA?','If your country has a visa-waiver agreement with Korea, you likely need K-ETA instead of a visa for short tourist/business stays. Some nationalities are temporarily exempt from K-ETA itself. Passport nationality decides this — check the official K-ETA eligibility list, not general travel forums.','https://www.k-eta.go.kr/','Check eligibility ↗'],
+    ['tag','HOW TO APPLY','📝 Applying for K-ETA','Apply online (website or app) at least 72 hours before departure — earlier is safer. You\'ll need your passport, a digital photo, and a valid contact email. Approval is usually issued within 24 hours but can take longer, so don\'t leave it for the airport.',''],
+    ['tag','VISA-FREE STAY','📅 How long can I stay visa-free?','Visa-free / K-ETA entry is usually for short tourist or business stays only (commonly up to 30–90 days depending on your nationality and agreement type). It does not permit work. Check your specific allowed duration on the official K-ETA or embassy page for your country.',''],
+    ['tag','NEED A VISA','🏛️ If you need an actual visa','Longer stays, work, study, or nationalities without a visa-waiver agreement require an actual visa, arranged through a Korean embassy or consulate before travel — this cannot be done on arrival. Processing can take days to weeks, so apply early.','https://www.mofa.go.kr/eng/wpge/m_22754/contents.do','Find your embassy ↗'],
+    ['tag','AT IMMIGRATION','🧳 What to prepare at immigration','Have your passport, K-ETA/visa approval, return or onward ticket, and your first night\'s accommodation address ready. Officers may ask about your trip purpose and length of stay — simple, honest answers are enough.',''],
+  ],
+  foot:'Rules change. Always verify current visa-waiver status, K-ETA requirements and stay limits for your specific passport on k-eta.go.kr or with a Korean embassy before booking flights.'
+},
+ja:{
+  badge:'出発前に確認',
+  h1:'K-ETA・ビザ ガイド',
+  lead:'ビザが必要か、K-ETAで良いか、あるいは何も要らないかは、パスポートと滞在期間によって決まります。このページでは仕組みを説明しますが、予約前に必ず下記の公式サイトでご自身のケースを確認してください。',
+  warn:'⚠️ これは一般的な案内であり、入国審査の助言ではありません。査証免除協定・K-ETA対象国・免除リストは国や時期により変わります。渡航前に必ずK-ETA公式サイトまたは最寄りの韓国大使館・領事館で確認してください。',
+  cards:[
+    ['tag','K-ETAとは','🛂 K-ETAとは？','K-ETA（韓国電子渡航認証）は、査証免除で渡航する多くの旅行者が搭乗前にオンラインで受ける事前審査です。ビザではなく、米国のESTAやカナダのeTAに近い、入国許可の事前確認です。','https://www.k-eta.go.kr/','K-ETA公式サイト ↗'],
+    ['tag','必要か確認','🤔 K-ETAは必要？','韓国と査証免除協定のある国の場合、短期の観光・商用渡航ではビザの代わりにK-ETAが必要になることが多いです。国籍によってはK-ETA自体が一時的に免除されている場合もあります。旅行掲示板ではなく公式の対象国リストで確認してください。','https://www.k-eta.go.kr/','対象国を確認 ↗'],
+    ['tag','申請方法','📝 K-ETAの申請','出発の少なくとも72時間前までにオンライン（サイトまたはアプリ）で申請してください。パスポート、デジタル写真、有効な連絡先メールが必要です。通常24時間以内に承認されますが、遅れる場合もあるため空港での申請は避けましょう。',''],
+    ['tag','滞在期間','📅 査証免除での滞在期間は？','査証免除・K-ETAでの入国は短期の観光・商用目的に限られ、国籍や協定内容により最大30〜90日程度が一般的です。就労はできません。ご自身の許容日数はK-ETA公式または大使館ページで確認してください。',''],
+    ['tag','ビザが必要な場合','🏛️ ビザが必要な場合','長期滞在、就労、就学、または査証免除協定のない国籍の場合は、渡航前に韓国大使館・領事館で正式なビザを取得する必要があります（現地到着後には取得できません）。審査には数日〜数週間かかることがあるため早めに申請してください。','https://www.mofa.go.kr/eng/wpge/m_22754/contents.do','大使館を探す ↗'],
+    ['tag','入国審査で','🧳 入国審査での準備物','パスポート、K-ETA/ビザの承認、復路または次の便のチケット、初日の宿泊先住所を準備してください。渡航目的や滞在期間を聞かれることがありますが、正直に簡潔に答えれば問題ありません。',''],
+  ],
+  foot:'規則は変更されることがあります。航空券を予約する前に、ご自身のパスポートに適用される査証免除の可否・K-ETAの要否・滞在可能日数を必ずk-eta.go.krまたは韓国大使館で確認してください。'
+},
+zh:{
+  badge:'出发前请确认',
+  h1:'K-ETA与签证指南',
+  lead:'你是否需要签证、K-ETA，还是完全不需要，完全取决于你的护照国籍和计划停留时长。本页说明整体制度，但预订机票前，请务必在下方官方网站核实你自己的情况。',
+  warn:'⚠️ 本页仅为一般性说明，不构成移民或签证建议。免签协议、K-ETA适用国家及豁免名单会因国家和时间而变化。出行前请务必在K-ETA官网或最近的韩国使领馆确认你的具体要求。',
+  cards:[
+    ['tag','什么是K-ETA','🛂 什么是K-ETA？','K-ETA（韩国电子旅行许可）是许多免签旅客在登机前需要在线完成的预先审核，并非签证——它更类似于美国的ESTA或加拿大的eTA，用于确认入境许可。','https://www.k-eta.go.kr/','K-ETA官方网站 ↗'],
+    ['tag','是否需要','🤔 我需要K-ETA吗？','如果你的国家与韩国有免签协议，短期旅游/商务停留通常需要K-ETA代替签证。部分国籍目前暂时豁免K-ETA本身。这取决于护照国籍——请查看官方适用名单，而非旅游论坛信息。','https://www.k-eta.go.kr/','查看适用名单 ↗'],
+    ['tag','如何申请','📝 申请K-ETA','请至少在出发前72小时通过官网或App在线申请，越早越保险。需要护照信息、电子照片和有效的联系邮箱。通常24小时内获批，但也可能延迟，请勿留到机场才申请。',''],
+    ['tag','免签停留时长','📅 免签能停留多久？','免签/K-ETA入境通常仅限短期旅游或商务目的，根据国籍和协议不同，一般最长30–90天，且不允许工作。具体天数请在K-ETA官网或使领馆页面确认。',''],
+    ['tag','需要签证时','🏛️ 需要正式签证的情况','长期停留、工作、留学，或所属国籍没有免签协议的旅客，需在出行前通过韩国使领馆办理正式签证——抵达后无法现场办理。审核可能需要数天至数周，请尽早申请。','https://www.mofa.go.kr/eng/wpge/m_22754/contents.do','查找使领馆 ↗'],
+    ['tag','入境审查','🧳 入境时需准备的材料','请准备好护照、K-ETA/签证批准证明、返程或续程机票，以及第一晚的住宿地址。海关人员可能会询问旅行目的和停留时长，如实简洁回答即可。',''],
+  ],
+  foot:'规则可能变化。预订机票前，请务必在k-eta.go.kr或韩国使领馆确认你的护照适用的免签状态、K-ETA要求及允许停留天数。'
+}
+};
+
+function setL(l){
+  localStorage.setItem('koreaEasyLang', l);
+  const x = C[l] || C.en;
+  document.documentElement.lang = l==='zh' ? 'zh-CN' : l;
+  badge.textContent = x.badge;
+  h1.textContent = x.h1;
+  lead.textContent = x.lead;
+  warnbox.textContent = x.warn;
+  cards.innerHTML = x.cards.map(c=>{
+    const [,tagText, title, body, url, linkLabel] = c;
+    const link = url ? `<a class="btn" href="${url}" target="_blank" rel="noopener">${linkLabel}</a>` : '';
+    return `<article class="card"><span class="tag">${tagText}</span><b>${title}</b><p>${body}</p>${link}</article>`;
+  }).join('');
+  foot.textContent = x.foot;
+}
+setL(localStorage.getItem('koreaEasyLang') || 'en');
+</script>
+</body></html>

@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Gyeongju Station bus routes, local food and real photo spots for independent travelers.">
+  <title>GYEONGJU EASY — KOREA EASY</title>
+  <style>
+    :root {
+      --ink: #211814;
+      --wine: #7d2f2a;
+      --wine-dark: #50201d;
+      --wine-soft: #f7eae6;
+      --sand: #fbf6ec;
+      --line: #e2d6c9;
+      --gold: #e7b552;
+      --muted: #665951;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--sand);
+      color: var(--ink);
+      font-family: Inter, Arial, "Noto Sans KR", "Noto Sans JP", "Noto Sans SC", sans-serif;
+    }
+    img { max-width: 100%; }
+    .wrap { width: min(1160px, 92%); margin: auto; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #fbf6ecf2;
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    nav {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand { font-weight: 950; text-decoration: none; color: var(--ink); }
+    .brand span { color: var(--wine); }
+    .cities, .langs, .quick, .actions { display: flex; gap: 7px; flex-wrap: wrap; }
+    .city, .lang, .btn, .quick a {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .city, .lang { background: #fff; border: 1px solid var(--line); color: var(--ink); }
+    .city.on, .lang.on { background: var(--ink); color: #fff; }
+    .hero {
+      margin-top: 24px;
+      padding: 78px 42px 40px;
+      border-radius: 28px;
+      background:
+        linear-gradient(90deg, #27110ee8, #27110e78),
+        url('https://www.gyeongju.go.kr/design/tour2019/img/sub/pick2_img2.jpg') center/cover;
+      color: #fff;
+    }
+    .hero h1 { font-size: clamp(3rem, 8vw, 6.5rem); line-height: .9; margin: 16px 0; }
+    .eyebrow, .meta { font-size: .76rem; font-weight: 950; letter-spacing: .08em; color: var(--gold); }
+    .lead { max-width: 780px; line-height: 1.7; color: #f2e8dd; }
+    .quick { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .quick a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; background: #fff; color: var(--ink); white-space: nowrap; line-height: 1.2; }
+    .quick a[href="toilet-sos.html"] { background: #fff1ee; border: 1px solid #eab6ac; color: #84291f; }
+    .sec { padding: 48px 0; }
+    .sec h2 { font-size: clamp(2rem, 4vw, 3.1rem); margin: 0 0 8px; }
+    .sub, .facts { color: var(--muted); line-height: 1.7; }
+    .section-tools { margin-top: 14px; }
+    .arrival { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 18px; }
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 19px;
+      box-shadow: 0 10px 28px #4a25140c;
+    }
+    .card h3, .card h4 { margin: 8px 0; }
+    .btn { display: inline-block; background: var(--wine); color: #fff; margin-top: 10px; }
+    .btn.secondary { background: #fff; color: var(--wine-dark); border: 1px solid #d7b8ae; }
+    .tmoney-step-link { display: inline-block; margin-top: 12px; padding: 9px 12px; border-radius: 10px; background: #c83f34; color: #fff; text-decoration: none; font-size: .78rem; font-weight: 950; box-shadow: 0 7px 16px #8f211c24; }
+    .photo { padding: 0; overflow: hidden; }
+    .photo > img { width: 100%; height: 220px; object-fit: cover; display: block; background: #eee6dd; }
+    .photo .body { padding: 18px; }
+    .transport-card { border-left: 5px solid var(--wine); }
+    .bus-number {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--wine-soft);
+      color: var(--wine-dark);
+      font-size: .79rem;
+      font-weight: 950;
+      letter-spacing: .03em;
+    }
+    .route-box {
+      margin-top: 14px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: var(--wine-soft);
+      border: 1px solid #ead1c9;
+      color: #63342d;
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+    .route-box strong { display: block; color: var(--wine-dark); margin-bottom: 4px; }
+    .source { display: inline-block; margin-top: 10px; color: #81736b; font-size: .72rem; text-decoration: none; }
+    .source:hover { text-decoration: underline; }
+    footer { padding: 34px 0; border-top: 1px solid var(--line); color: #796d64; }
+    @media (max-width: 800px) {
+      .arrival { grid-template-columns: 1fr 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .langs { width: 100%; justify-content: flex-end; }
+    }
+    @media (max-width: 520px) {
+      .hero { padding: 50px 22px 30px; }
+      .arrival, .grid { grid-template-columns: 1fr; }
+      .photo > img { height: 210px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap">
+      <a class="brand" href="./">KOREA <span>EASY</span></a>
+      <div class="cities">
+        <a class="city" href="SEOUL-EASY.html">SEOUL</a>
+        <a class="city" href="BUSAN-EASY.html">BUSAN</a>
+        <a class="city" href="GANGNEUNG-EASY.html">GANGNEUNG</a>
+        <a class="city" href="JEONJU-EASY.html">JEONJU</a>
+        <a class="city on" href="GYEONGJU-EASY.html">GYEONGJU</a>
+        <a class="city" href="JEJU-EASY.html">JEJU</a>
+      </div>
+      <div class="langs">
+        <button class="lang" data-lang="ko">한국어</button>
+        <button class="lang" data-lang="en">EN</button>
+        <button class="lang" data-lang="ja">日本語</button>
+        <button class="lang" data-lang="zh">中文</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">GYEONGJU EASY · SILLA TRAVEL HUB</div>
+      <h1 id="title"></h1>
+      <p class="lead" id="lead"></p>
+      <div class="quick">
+        <a href="https://www.t-money.co.kr/" target="_blank" rel="noopener">💳 T-money 카드 안내</a><a href="toilet-sos.html" aria-label="가까운 화장실 찾기">🚻 Toilet</a><a href="foreigner-savings.html" style="background:#fff0c7;border-color:#e7c663;color:#6f5000">💸 Foreigner Savings</a>
+        <a href="#arrival" data-t="arrival"></a>
+        <a href="#transport" data-t="transport"></a>
+        <a href="#food" data-t="food"></a>
+        <a href="#photo" data-t="photo"></a>
+      </div>
+    </section>
+
+    <section class="sec" id="arrival">
+      <h2 data-t="arrivalTitle"></h2>
+      <p class="sub" data-t="arrivalDesc"></p>
+      <div class="arrival" id="arrivalGrid"></div>
+    </section>
+
+    <section class="sec" id="transport">
+      <h2 data-t="transportTitle"></h2>
+      <p class="sub" data-t="transportDesc"></p>
+      <div class="section-tools">
+        <a class="btn secondary" href="https://its.gyeongju.go.kr/" target="_blank" rel="noopener" data-t="officialBus"></a>
+      </div>
+      <div class="grid" id="transportGrid"></div>
+    </section>
+
+    <section class="sec" id="food">
+      <h2 data-t="foodTitle"></h2>
+      <p class="sub" data-t="foodDesc"></p>
+      <div class="grid" id="foodGrid"></div>
+    </section>
+
+    <section class="sec" id="photo">
+      <h2 data-t="photoTitle"></h2>
+      <p class="sub" data-t="photoDesc"></p>
+      <div class="grid" id="photoGrid"></div>
+    </section>
+  </main>
+
+  <footer><div class="wrap" data-t="footer"></div></footer>
+
+  <script>
+    const T = {
+      ko: {
+        title: 'Gyeongju,<br>Silla Made Easy.',
+        lead: '경주역(KTX·SRT) 도착부터 명소별 버스 노선, 경주 대표 먹거리와 실제 사진 명소까지 한 화면에서 확인하세요.',
+        arrival: '🚄 경주 도착',
+        transport: '🚌 명소 버스',
+        food: '🥘 경주 먹거리',
+        photo: '📸 사진 명소',
+        arrivalTitle: '경주역 도착 후 첫 30분',
+        arrivalDesc: '현재 KTX·SRT가 서는 경주역에서 교통카드를 준비하고, 목적지에 맞는 시내버스를 선택하세요.',
+        transportTitle: '경주역에서 어디로 갈까요?',
+        transportDesc: '경주역 또는 버스터미널에서 출발하는 추천 노선입니다. 여행 당일 실시간 운행 정보를 다시 확인하세요.',
+        foodTitle: '경주에서 꼭 먹어볼 음식',
+        foodDesc: '음식명이 정확히 일치하는 실제 사진과 바로 검색할 수 있는 지도 링크입니다.',
+        photoTitle: 'Gyeongju Photo Spots',
+        photoDesc: '각 사진 명소마다 경주역 또는 버스터미널 출발 추천 버스 노선과 하차 지점을 표시했습니다.',
+        footer: 'KOREA EASY · 노선, 정류장, 요금과 운행시간은 여행 당일 경주교통정보센터에서 다시 확인하세요.',
+        dir: '지도 열기',
+        best: '추천 시간',
+        route: '추천 버스 노선',
+        officialBus: '경주 실시간 교통 확인',
+        tmoneyGuide: 'T-money 구매·충전 안내 →', photoSource: '사진 출처',
+        routeSource: '노선 근거'
+      },
+      en: {
+        title: 'Gyeongju,<br>Silla Made Easy.',
+        lead: 'From Gyeongju Station (KTX/SRT) to attraction-by-attraction bus routes, local food and real photo spots — all on one easy page.',
+        arrival: '🚄 Arrival',
+        transport: '🚌 Attraction Buses',
+        food: '🥘 Local Food',
+        photo: '📸 Photo Spots',
+        arrivalTitle: 'Your first 30 minutes at Gyeongju Station',
+        arrivalDesc: 'At the current KTX/SRT station, prepare a transport card and choose the city bus for your destination.',
+        transportTitle: 'Where are you going from Gyeongju Station?',
+        transportDesc: 'Recommended routes from Gyeongju Station or the bus terminals. Recheck live service on your travel day.',
+        foodTitle: 'Food to try in Gyeongju',
+        foodDesc: 'Real photos that match each dish, with one-tap map search.',
+        photoTitle: 'Gyeongju Photo Spots',
+        photoDesc: 'Each spot includes a recommended bus route and stop from Gyeongju Station or the terminals.',
+        footer: 'KOREA EASY · Confirm live routes, stops, fares and operating hours on your travel day.',
+        dir: 'Open map',
+        best: 'Best time',
+        route: 'Recommended bus route',
+        officialBus: 'Check live Gyeongju traffic',
+        tmoneyGuide: 'Open purchase & top-up guide →', photoSource: 'Photo',
+        routeSource: 'Route source'
+      },
+      ja: {
+        title: '慶州、<br>新羅の旅を簡単に。',
+        lead: '慶州駅（KTX・SRT）到着から観光地別バス路線、郷土料理、実際の写真スポットまで一画面で確認できます。',
+        arrival: '🚄 慶州到着',
+        transport: '🚌 観光地バス',
+        food: '🥘 慶州グルメ',
+        photo: '📸 写真スポット',
+        arrivalTitle: '慶州駅到着後の最初の30分',
+        arrivalDesc: '現在のKTX・SRT慶州駅で交通カードを準備し、目的地に合う市内バスを選びます。',
+        transportTitle: '慶州駅からどこへ行きますか？',
+        transportDesc: '慶州駅またはバスターミナル発のおすすめ路線です。旅行当日は運行状況を再確認してください。',
+        foodTitle: '慶州で食べたい料理',
+        foodDesc: '料理名と一致する実際の写真とワンタップ地図検索です。',
+        photoTitle: '慶州フォトスポット',
+        photoDesc: '各スポットに慶州駅またはターミナル発のおすすめバス路線と下車地点を表示しています。',
+        footer: 'KOREA EASY · 当日の路線・停留所・料金・運行時間をご確認ください。',
+        dir: '地図を開く',
+        best: 'おすすめ時間',
+        route: 'おすすめバス路線',
+        officialBus: '慶州の運行情報',
+        tmoneyGuide: '購入・チャージガイドを開く →', photoSource: '写真',
+        routeSource: '路線情報'
+      },
+      zh: {
+        title: '庆州，<br>新罗旅行更简单。',
+        lead: '从庆州站（KTX·SRT）抵达，到各景点公交路线、当地美食和实拍景点，一页轻松查看。',
+        arrival: '🚄 抵达庆州',
+        transport: '🚌 景点公交',
+        food: '🥘 庆州美食',
+        photo: '📸 拍照景点',
+        arrivalTitle: '抵达庆州站后的前30分钟',
+        arrivalDesc: '在目前的KTX·SRT庆州站准备交通卡，然后选择前往目的地的市内公交。',
+        transportTitle: '从庆州站去哪里？',
+        transportDesc: '从庆州站或客运站出发的推荐路线。出行当天请再次确认实时运营信息。',
+        foodTitle: '庆州必吃美食',
+        foodDesc: '与菜名准确对应的实拍照片和一键地图搜索。',
+        photoTitle: '庆州拍照景点',
+        photoDesc: '每个景点均附有从庆州站或客运站出发的推荐公交路线和下车点。',
+        footer: 'KOREA EASY · 出行当天请再次确认路线、站点、费用和运营时间。',
+        dir: '打开地图',
+        best: '最佳时间',
+        route: '推荐公交路线',
+        officialBus: '查看庆州实时交通',
+        tmoneyGuide: '打开购买与充值指南 →', photoSource: '照片',
+        routeSource: '路线依据'
+      }
+    };
+
+    const ARRIVAL = {
+      ko: [
+        ['🚄', '경주역', 'KTX·SRT 하차 후 1층 버스 승강장으로 이동'],
+        ['💳', '교통카드', 'T-money 또는 Cashbee 준비'],
+        ['🚌', '시내버스', '50·51번은 도심, 700·710·711번은 보문·불국사 방향'],
+        ['ℹ️', '관광안내', '역 안 관광안내소에서 지도와 최신 노선 확인']
+      ],
+      en: [
+        ['🚄', 'Gyeongju Station', 'After KTX/SRT arrival, follow signs to the ground-floor bus stops'],
+        ['💳', 'Transport card', 'Prepare T-money or Cashbee'],
+        ['🚌', 'City bus', '50/51 for downtown; 700/710/711 for Bomun and Bulguksa'],
+        ['ℹ️', 'Tourist info', 'Get a map and current route advice inside the station']
+      ],
+      ja: [
+        ['🚄', '慶州駅', 'KTX・SRT下車後、1階のバス乗り場へ'],
+        ['💳', '交通カード', 'T-moneyまたはCashbeeを準備'],
+        ['🚌', '市内バス', '50・51番は市内、700・710・711番は普門・仏国寺方面'],
+        ['ℹ️', '観光案内', '駅内の観光案内所で地図と最新路線を確認']
+      ],
+      zh: [
+        ['🚄', '庆州站', '乘KTX·SRT抵达后前往1楼公交站'],
+        ['💳', '交通卡', '准备T-money或Cashbee'],
+        ['🚌', '市内公交', '50/51路去市区；700/710/711路去普门与佛国寺'],
+        ['ℹ️', '旅游咨询', '在站内咨询处领取地图并确认最新路线']
+      ]
+    };
+
+    const TRANSPORT = [
+      {
+        name: 'Downtown / Hwangnidan-gil',
+        ko: '시내 · 황리단길 · 대릉원',
+        bus: '50 · 51',
+        route: {
+          ko: '경주역 → 50·51번 → 고속버스터미널 또는 서라벌사거리 → 황리단길·대릉원 도보',
+          en: 'Gyeongju Station → Bus 50 or 51 → Express Bus Terminal or Seorabeol Intersection → walk to Hwangnidan-gil/Daereungwon',
+          ja: '慶州駅 → 50・51番 → 高速バスターミナルまたは徐羅伐交差点 → 皇理団キル・大陵苑へ徒歩',
+          zh: '庆州站 → 50或51路 → 高速客运站或徐罗伐路口 → 步行前往皇理团路/大陵苑'
+        },
+        source: 'https://gyeongju.go.kr/news/page.do?mnu_uid=1336&parm_bod_uid=324397&step=258'
+      },
+      {
+        name: 'Historic Center Golden Line',
+        ko: '터미널 · 첨성대 · 동궁과 월지',
+        bus: '10 · 11',
+        route: {
+          ko: '고속·시외버스터미널 → 10·11번 → 월성동주민센터·첨성대 또는 동궁과 월지',
+          en: 'Express/Intercity Bus Terminal → Bus 10 or 11 → Wolseong-dong/Cheomseongdae or Donggung and Wolji',
+          ja: '高速・市外バスターミナル → 10・11番 → 月城洞・瞻星台または東宮と月池',
+          zh: '高速/市外客运站 → 10或11路 → 月城洞/瞻星台或东宫与月池'
+        },
+        source: 'https://www.gyeongju.go.kr/tour/eng/page.do?mnu_uid=2770'
+      },
+      {
+        name: 'Bomun Tourist Complex',
+        ko: '보문관광단지',
+        bus: '700 · 710 · 711',
+        route: {
+          ko: '경주역 → 700·710·711번 → 경상북도문화관광공사·보문단지 정류장',
+          en: 'Gyeongju Station → Bus 700, 710 or 711 → Culture & Tourism Corporation / Bomun Complex stop',
+          ja: '慶州駅 → 700・710・711番 → 慶尚北道文化観光公社・普門団地停留所',
+          zh: '庆州站 → 700、710或711路 → 庆尚北道文化观光公社/普门园区站'
+        },
+        source: 'https://gyeongju.go.kr/news/page.do?mnu_uid=1335&parm_bod_uid=253182&step=258'
+      },
+      {
+        name: 'Bulguksa Temple',
+        ko: '불국사',
+        bus: '700 · 710 · 711 / 10',
+        route: {
+          ko: '경주역 → 700·710·711번 → 불국사 정류장 / 터미널 출발은 10번 이용',
+          en: 'Gyeongju Station → Bus 700, 710 or 711 → Bulguksa stop; from the terminals use Bus 10',
+          ja: '慶州駅 → 700・710・711番 → 仏国寺停留所／ターミナルからは10番',
+          zh: '庆州站 → 700、710或711路 → 佛国寺站；从客运站可乘10路'
+        },
+        source: 'https://www.gyeongju.go.kr/tour/eng/page.do?mnu_uid=2770'
+      },
+      {
+        name: 'Seokguram Grotto',
+        ko: '석굴암',
+        bus: '700 · 710 · 711 → 12',
+        route: {
+          ko: '경주역 → 불국사행 700·710·711번 → 불국사 환승 → 12번 → 석굴암',
+          en: 'Gyeongju Station → Bus 700, 710 or 711 to Bulguksa → transfer to Bus 12 → Seokguram',
+          ja: '慶州駅 → 700・710・711番で仏国寺 → 12番に乗換 → 石窟庵',
+          zh: '庆州站 → 700、710或711路到佛国寺 → 换乘12路 → 石窟庵'
+        },
+        source: 'https://english.visitkorea.or.kr/web_book/unesco_m_eng/index.html'
+      },
+      {
+        name: 'Gyeongju City Tour',
+        ko: '경주시티투어',
+        bus: 'CITY TOUR',
+        route: {
+          ko: '터미널 인근 지정 승차지 → 예약한 주간·야간 코스 확인 → 지정 시간 탑승',
+          en: 'Use the designated terminal-area pickup → confirm your reserved day/night course and boarding time',
+          ja: 'ターミナル周辺の指定乗り場 → 予約した昼・夜コースと乗車時刻を確認',
+          zh: '前往客运站附近指定上车点 → 确认已预约的日间/夜间路线及时间'
+        },
+        source: 'https://www.gyeongju.go.kr/tour/page.do?mnu_uid=2273'
+      }
+    ];
+
+    const FOODS = [
+      {
+        name: 'Hwangnam-ppang',
+        ko: '황남빵',
+        image: 'https://hwangnam.com/web/upload/NNEditor/20251001/00_ECB694EC849D20EC82ADECA09C.jpg',
+        sourceLabel: 'Hwangnam Bread · official',
+        sourceUrl: 'https://hwangnam.com/product/9/'
+      },
+      {
+        name: 'Gyeongju Ssambap',
+        ko: '경주 쌈밥',
+        image: 'https://tong.visitkorea.or.kr/cms/resource/18/3034118_image2_1.jpg',
+        sourceLabel: 'VISITKOREA · Ssambap Street',
+        sourceUrl: 'https://japanese.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=189417'
+      },
+      {
+        name: 'Chalbori-ppang',
+        ko: '찰보리빵',
+        image: 'https://media.triple.guide/triple-cms/c_limit%2Cf_auto%2Ch_2048%2Cw_2048/af13e610-1d33-4dae-aead-7cbca1d83900.jpeg',
+        sourceLabel: 'Triple · Danseokga',
+        sourceUrl: 'https://triple.guide/restaurants/50a19686-037c-4f0c-adcc-6eb297d7b3d8'
+      },
+      {
+        name: 'Gyeongju Hanwoo',
+        ko: '경주 한우 숯불구이',
+        image: 'https://d12zq4w4guyljn.cloudfront.net/750_750_20230210015604553_photo_4b2fcd45c328.webp',
+        sourceLabel: 'DiningCode · Cheongsan Sutbul',
+        sourceUrl: 'https://www.diningcode.com/profile.php?rid=gq9ig6wu1bwR'
+      },
+      {
+        name: 'Sundubu Jjigae',
+        ko: '경주 순두부찌개',
+        image: 'https://img.etoday.co.kr/pto_db/2025/06/20250609163559_2183243_1200_798.jpg',
+        sourceLabel: 'Etoday · Gyeongju Sundubu',
+        sourceUrl: 'https://www.etoday.co.kr/news/view/2477258'
+      },
+      {
+        name: 'Muk Haejangguk',
+        ko: '경주 묵해장국',
+        image: 'https://ojsfile.ohmynews.com/STD_IMG_FILE/2023/1101/IE003223133_STD.JPG',
+        sourceLabel: 'OhmyNews · Gyeongju Haejangguk',
+        sourceUrl: 'https://www.ohmynews.com/NWS_Web/View/img_pg.aspx?CNTN_CD=IE003223133'
+      }
+    ];
+
+    const SPOTS = [
+      {
+        name: 'Daereungwon Tomb Complex',
+        ko: '대릉원',
+        image: 'https://www.gyeongju.go.kr/design/tour2019/img/sub/bustago1-8.jpg',
+        best: 'Morning / Spring',
+        bus: '50 · 51 → 10',
+        route: {
+          ko: '경주역 → 50·51번 → 터미널 환승 → 10번 → 월성동주민센터 → 도보 5~7분',
+          en: 'Gyeongju Station → Bus 50/51 → transfer at the terminal → Bus 10 → Wolseong-dong Community Center → walk 5–7 min',
+          ja: '慶州駅 → 50・51番 → ターミナルで10番に乗換 → 月城洞住民センター → 徒歩5〜7分',
+          zh: '庆州站 → 50/51路 → 客运站换乘10路 → 月城洞居民中心 → 步行5–7分钟'
+        }
+      },
+      {
+        name: 'Cheomseongdae',
+        ko: '첨성대',
+        image: 'https://www.gyeongju.go.kr/design/tour2019/img/sub/bustago1-1.jpg',
+        best: 'Sunset / Night',
+        bus: '50 · 51 → 10',
+        route: {
+          ko: '경주역 → 50·51번 → 터미널 환승 → 10번 → 월성동주민센터 → 도보 5~7분',
+          en: 'Gyeongju Station → Bus 50/51 → transfer at the terminal → Bus 10 → Wolseong-dong Community Center → walk 5–7 min',
+          ja: '慶州駅 → 50・51番 → ターミナルで10番に乗換 → 月城洞住民センター → 徒歩5〜7分',
+          zh: '庆州站 → 50/51路 → 客运站换乘10路 → 月城洞居民中心 → 步行5–7分钟'
+        }
+      },
+      {
+        name: 'Donggung Palace & Wolji Pond',
+        ko: '동궁과 월지',
+        image: 'https://www.gyeongju.go.kr/design/tour2019/img/sub/pick2_img2.jpg',
+        best: 'Blue Hour / Night',
+        bus: '50 · 51 → 11',
+        route: {
+          ko: '경주역 → 50·51번 → 터미널 환승 → 11번 → 동궁과 월지 정류장',
+          en: 'Gyeongju Station → Bus 50/51 → transfer at the terminal → Bus 11 → Donggung and Wolji stop',
+          ja: '慶州駅 → 50・51番 → ターミナルで11番に乗換 → 東宮と月池停留所',
+          zh: '庆州站 → 50/51路 → 客运站换乘11路 → 东宫与月池站'
+        }
+      },
+      {
+        name: 'Woljeonggyo Bridge',
+        ko: '월정교',
+        image: 'https://www.gyeongju.go.kr/design/tour2019/img/sub/pick2_img4.jpg',
+        best: 'Blue Hour / Night',
+        bus: '50 · 51 → 10 · 11',
+        route: {
+          ko: '경주역 → 50·51번 → 터미널 환승 → 10·11번 → 월성동주민센터 → 교촌마을 방향 도보',
+          en: 'Gyeongju Station → Bus 50/51 → transfer at the terminal → Bus 10/11 → Wolseong-dong Community Center → walk toward Gyochon Village',
+          ja: '慶州駅 → 50・51番 → ターミナルで10・11番に乗換 → 月城洞住民センター → 校村村方面へ徒歩',
+          zh: '庆州站 → 50/51路 → 客运站换乘10/11路 → 月城洞居民中心 → 向校村韩屋村步行'
+        }
+      },
+      {
+        name: 'Bomun Lake',
+        ko: '보문호',
+        image: 'https://www.gyeongju.go.kr/design/tour2019/img/sub/bustago1-5.jpg',
+        best: 'Morning / Cherry Blossom Season',
+        bus: '700 · 710 · 711',
+        route: {
+          ko: '경주역 → 700·710·711번 → 경상북도문화관광공사·보문단지 → 도보 2~3분',
+          en: 'Gyeongju Station → Bus 700, 710 or 711 → Culture & Tourism Corporation / Bomun Complex → walk 2–3 min',
+          ja: '慶州駅 → 700・710・711番 → 慶尚北道文化観光公社・普門団地 → 徒歩2〜3分',
+          zh: '庆州站 → 700、710或711路 → 庆尚北道文化观光公社/普门园区 → 步行2–3分钟'
+        }
+      },
+      {
+        name: 'Bulguksa Temple',
+        ko: '불국사',
+        image: 'https://www.gyeongju.go.kr/design/tour2019/img/sub/bustago1-7.jpg',
+        best: 'Morning / Autumn',
+        bus: '700 · 710 · 711',
+        route: {
+          ko: '경주역 → 700·710·711번 → 불국사 정류장 → 도보 3~5분',
+          en: 'Gyeongju Station → Bus 700, 710 or 711 → Bulguksa stop → walk 3–5 min',
+          ja: '慶州駅 → 700・710・711番 → 仏国寺停留所 → 徒歩3〜5分',
+          zh: '庆州站 → 700、710或711路 → 佛国寺站 → 步行3–5分钟'
+        }
+      },
+      {
+        name: 'Seokguram Grotto',
+        ko: '석굴암',
+        image: 'https://www.gyeongju.go.kr/design/tour2019/img/sub/unescoCourse7.jpg',
+        best: 'Morning / Clear Day',
+        bus: '700 · 710 · 711 → 12',
+        route: {
+          ko: '경주역 → 700·710·711번 → 불국사 정류장 → 12번 환승 → 석굴암 주차장 → 도보',
+          en: 'Gyeongju Station → Bus 700, 710 or 711 → Bulguksa stop → transfer to Bus 12 → Seokguram parking lot → walk',
+          ja: '慶州駅 → 700・710・711番 → 仏国寺停留所 → 12番に乗換 → 石窟庵駐車場 → 徒歩',
+          zh: '庆州站 → 700、710或711路 → 佛国寺站 → 换乘12路 → 石窟庵停车场 → 步行'
+        }
+      }
+    ];
+
+    const mapUrl = query => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query + ' Gyeongju');
+    let lang = localStorage.getItem('gyeongjuEasyLang') || 'en';
+    if (!T[lang]) lang = 'en';
+
+    function render() {
+      const t = T[lang];
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+      document.getElementById('title').innerHTML = t.title;
+      document.getElementById('lead').textContent = t.lead;
+
+      document.querySelectorAll('[data-t]').forEach(element => {
+        const key = element.dataset.t;
+        if (t[key]) element.textContent = t[key];
+      });
+
+      document.querySelectorAll('.lang').forEach(button => {
+        button.classList.toggle('on', button.dataset.lang === lang);
+      });
+
+      document.getElementById('arrivalGrid').innerHTML = ARRIVAL[lang].map((item, index) => `
+        <article class="card">
+          <div class="meta">0${index + 1}</div>
+          <h4>${item[0]} ${item[1]}</h4>
+          <div class="facts">${item[2]}</div>
+          ${index === 1 ? `<a class="tmoney-step-link" href="tmoney-guide-foreigners.html">${t.tmoneyGuide}</a>` : ''}
+        </article>
+      `).join('');
+
+      document.getElementById('transportGrid').innerHTML = TRANSPORT.map(item => `
+        <article class="card transport-card">
+          <span class="bus-number">${item.bus}</span>
+          <h3>${item.name}</h3>
+          <div class="facts">${item.ko}</div>
+          <div class="route-box"><strong>${t.route}</strong>${item.route[lang]}</div>
+          <div class="actions">
+            <a class="btn" target="_blank" rel="noopener" href="${mapUrl(item.name)}">${t.dir}</a>
+          </div>
+          <a class="source" target="_blank" rel="noopener" href="${item.source}">${t.routeSource}: Gyeongju official</a>
+        </article>
+      `).join('');
+
+      document.getElementById('foodGrid').innerHTML = FOODS.map(item => `
+        <article class="card photo">
+          <img src="${item.image}" alt="${item.name}" loading="lazy">
+          <div class="body">
+            <div class="meta">GYEONGJU FOOD</div>
+            <h3>${item.name}</h3>
+            <div class="facts">${item.ko}</div>
+            <div class="actions">
+              <a class="btn" target="_blank" rel="noopener" href="${mapUrl(item.ko)}">${t.dir}</a>
+            </div>
+            <a class="source" href="${item.sourceUrl}" target="_blank" rel="noopener">${t.photoSource}: ${item.sourceLabel}</a>
+          </div>
+        </article>
+      `).join('');
+
+      document.getElementById('photoGrid').innerHTML = SPOTS.map(item => `
+        <article class="card photo">
+          <img src="${item.image}" alt="${item.name}" loading="lazy">
+          <div class="body">
+            <div class="meta">${t.best}: ${item.best}</div>
+            <h3>${item.name}</h3>
+            <div class="facts">${item.ko}</div>
+            <div class="route-box">
+              <strong><span class="bus-number">${item.bus}</span> ${t.route}</strong>
+              ${item.route[lang]}
+            </div>
+            <div class="actions">
+              <a class="btn" target="_blank" rel="noopener" href="${mapUrl(item.ko)}">${t.dir}</a>
+              <a class="btn secondary" target="_blank" rel="noopener" href="https://its.gyeongju.go.kr/">${t.officialBus}</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    document.querySelectorAll('.lang').forEach(button => {
+      button.addEventListener('click', () => {
+        lang = button.dataset.lang;
+        localStorage.setItem('gyeongjuEasyLang', lang);
+        render();
+      });
+    });
+
+    render();
+  </script>
+  <style>.keUberFab{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,calc(env(safe-area-inset-bottom) + 14px));z-index:9998;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:0 19px;border-radius:999px;background:#111;color:#fff!important;font-weight:900;text-decoration:none;box-shadow:0 12px 30px #0005}.keUberFab:focus-visible{outline:3px solid #f4c84b;outline-offset:3px}@media(max-width:520px){body{padding-bottom:82px}.keUberFab{left:14px;right:14px;min-height:54px}}</style>
+  <div class="keActionDock" role="navigation" aria-label="빠른 이동"><a class="keToiletDock" href="toilet-sos.html" aria-label="가까운 화장실 찾기">🚻 Toilet</a><a class="kePharmacyFab" href="pharmacy-sos.html" aria-label="가까운 약국과 심야 약국 찾기">💊 Pharmacy</a><a class="keCableFab" href="cable-car-guide.html?city=gyeongju" aria-label="케이블카 찾기">🚠 Cable</a><a class="keUberFab" href="https://m.uber.com/looking?pickup=my_location" target="_blank" rel="noopener noreferrer" aria-label="Uber 앱에서 택시 호출하기">🚕 Uber</a></div><style>.keActionDock{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,calc(env(safe-area-inset-bottom) + 10px));z-index:10000;display:grid;grid-template-columns:repeat(4,auto);gap:4px;padding:4px;border:1px solid #d8e2dc;border-radius:999px;background:#fffffff2;box-shadow:0 12px 30px #0003;backdrop-filter:blur(12px)}.keActionDock .keToiletDock,.keActionDock .kePharmacyFab,.keActionDock .keCableFab,.keActionDock .keUberFab{position:static!important;inset:auto!important;display:inline-flex!important;align-items:center;justify-content:center;min-width:82px;min-height:44px!important;margin:0!important;padding:0 12px!important;border-radius:999px!important;box-shadow:none!important;font-size:.78rem!important;font-weight:900;text-decoration:none;white-space:nowrap;pointer-events:auto}.keActionDock .keToiletDock{border:1px solid #eab6ac;background:#fff1ee;color:#84291f!important}.keActionDock .kePharmacyFab{border:1px solid #9fd0b5;background:#e9f7ef;color:#145f40!important}.keActionDock .keCableFab{border:1px solid #9fc7d8;background:#e8f5fa;color:#205d75!important}.keActionDock .keUberFab{border:1px solid #111;background:#111;color:#fff!important}.keActionDock a:focus-visible{outline:3px solid #f4c84b;outline-offset:1px}@media(max-width:520px){body{padding-bottom:72px}.keActionDock{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:4px}.keActionDock .keToiletDock,.keActionDock .kePharmacyFab,.keActionDock .keCableFab,.keActionDock .keUberFab{min-width:0!important;width:100%!important;min-height:44px!important;padding:0 3px!important;font-size:.64rem!important}}</style>
+</body>
+</html>

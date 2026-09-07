@@ -1,0 +1,91 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Korea Trip Budget Calculator | KOREA EASY</title><meta name="description" content="Estimate your daily and total travel budget for Korea based on your travel style, days and group size."><style>body{margin:0;font-family:Inter,Arial,'Noto Sans KR',sans-serif;background:#f4f0e7;color:#17231d}.wrap{width:min(880px,92%);margin:auto}header{padding:18px 0;background:#fff;border-bottom:1px solid #ddd}a{text-decoration:none;color:inherit}.brand{font-weight:950}.brand span{color:#1e6d4d}.hero{margin:28px 0 18px;padding:36px;border-radius:28px;background:linear-gradient(135deg,#10271b,#24573e);color:#fff}.hero h1{font-size:clamp(2rem,6.5vw,3.6rem);margin:8px 0}.hero p{line-height:1.7;opacity:.95}.panel{background:#fff;border:1px solid #d8e0d7;border-radius:22px;padding:26px;margin-bottom:20px}.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}.field label{display:block;font-weight:800;margin-bottom:8px;font-size:.92rem}.field select,.field input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1px solid #d8e0d7;font-size:1rem;background:#fbfaf7}.styles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stylebtn{padding:14px 10px;border-radius:14px;border:2px solid #d8e0d7;background:#fbfaf7;text-align:center;cursor:pointer;font-weight:800;font-size:.88rem}.stylebtn.active{border-color:#1e6d4d;background:#e4f3ea;color:#1e6d4d}.result{margin-top:22px;padding:22px;border-radius:18px;background:#10271b;color:#fff}.result .big{font-size:2.4rem;font-weight:950;margin:6px 0}.breakdown{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.breakdown div{background:rgba(255,255,255,.08);border-radius:12px;padding:12px 14px}.breakdown b{display:block;font-size:.78rem;opacity:.75;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}.note{margin:28px 0 50px;padding:18px 20px;border-radius:16px;background:#fff;color:#68736c;line-height:1.8;font-size:.9rem}@media(max-width:600px){.row,.breakdown{grid-template-columns:1fr}.styles{grid-template-columns:1fr}}</style></head>
+<body>
+<header><div class="wrap" style="display:flex;justify-content:space-between;align-items:center"><a class="brand" href="./">KOREA <span>EASY</span></a></div></header>
+<main class="wrap">
+  <section class="hero">
+    <h1>💰 Trip Budget Calculator</h1>
+    <p>A rough daily-cost estimate to help you plan cash and card spending in Korea — not a guarantee, just a starting point.</p>
+  </section>
+
+  <section class="panel">
+    <div class="styles" id="styleBtns"></div>
+    <div class="row">
+      <div class="field"><label>Number of days</label><input id="days" type="number" min="1" max="60" value="4"></div>
+      <div class="field"><label>Number of travelers</label><input id="people" type="number" min="1" max="20" value="1"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Accommodation per night (₩)</label><input id="hotel" type="number" min="0" step="10000" value="80000"></div>
+      <div class="field"><label>Currency to display</label>
+        <select id="currency">
+          <option value="1">KRW (₩)</option>
+          <option value="0.00074">USD ($)</option>
+          <option value="0.077">JPY (¥, approx.)</option>
+          <option value="0.0053">CNY (¥, approx.)</option>
+        </select>
+      </div>
+    </div>
+    <div class="result" id="result"></div>
+  </section>
+
+  <p class="note" id="foot">Estimates only, based on general averages for food, local transport and casual activities per person per day (accommodation is entered separately since it varies most). Actual costs vary by season, city and personal spending habits. Exchange rates are approximate and change daily — check a live rate before exchanging money.</p>
+</main>
+
+<script>
+const STYLES = [
+  {id:'budget', label:'🎒 Budget', food:25000, transport:8000, activity:10000},
+  {id:'mid', label:'🧳 Mid-range', food:50000, transport:12000, activity:25000},
+  {id:'comfort', label:'✨ Comfort', food:100000, transport:20000, activity:60000}
+];
+let selected = 'mid';
+
+const styleBtns = document.getElementById('styleBtns');
+styleBtns.innerHTML = STYLES.map(s=>`<div class="stylebtn ${s.id===selected?'active':''}" data-id="${s.id}">${s.label}</div>`).join('');
+styleBtns.querySelectorAll('.stylebtn').forEach(b=>b.addEventListener('click',()=>{
+  selected = b.dataset.id;
+  styleBtns.querySelectorAll('.stylebtn').forEach(x=>x.classList.toggle('active', x.dataset.id===selected));
+  calc();
+}));
+
+const days = document.getElementById('days');
+const people = document.getElementById('people');
+const hotel = document.getElementById('hotel');
+const currency = document.getElementById('currency');
+const result = document.getElementById('result');
+
+function fmt(n){ return Math.round(n).toLocaleString(); }
+
+function calc(){
+  const st = STYLES.find(s=>s.id===selected);
+  const d = Math.max(1, parseInt(days.value)||1);
+  const p = Math.max(1, parseInt(people.value)||1);
+  const h = Math.max(0, parseInt(hotel.value)||0);
+  const rate = parseFloat(currency.value);
+  const symbol = currency.options[currency.selectedIndex].text.match(/\(([^)]+)/)[1];
+
+  const foodTotal = st.food * p * d;
+  const transportTotal = st.transport * p * d;
+  const activityTotal = st.activity * p * d;
+  const hotelTotal = h * d; // per room, not per person
+  const grand = foodTotal + transportTotal + activityTotal + hotelTotal;
+  const perPerson = grand / p;
+  const perDay = grand / d;
+
+  const conv = (n)=> symbol==='₩' ? `₩${fmt(n)}` : `${symbol}${fmt(n*rate)}`;
+
+  result.innerHTML = `
+    <div style="font-size:.8rem;opacity:.75;text-transform:uppercase;letter-spacing:.05em">Estimated total (${d} day${d>1?'s':''}, ${p} traveler${p>1?'s':''})</div>
+    <div class="big">${conv(grand)}</div>
+    <div style="opacity:.85">≈ ${conv(perDay)} / day &nbsp;·&nbsp; ${conv(perPerson)} / person</div>
+    <div class="breakdown">
+      <div><b>Food</b>${conv(foodTotal)}</div>
+      <div><b>Local transport</b>${conv(transportTotal)}</div>
+      <div><b>Activities & shopping</b>${conv(activityTotal)}</div>
+      <div><b>Accommodation</b>${conv(hotelTotal)}</div>
+    </div>
+  `;
+}
+
+[days, people, hotel, currency].forEach(el=>el.addEventListener('input', calc));
+calc();
+</script>
+</body></html>

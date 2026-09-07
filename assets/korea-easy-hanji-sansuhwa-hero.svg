@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2100" height="900" viewBox="0 0 2100 900">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#faf7f0"/>
+      <stop offset=".72" stop-color="#f1eee5"/>
+      <stop offset="1" stop-color="#e8ede6"/>
+    </linearGradient>
+    <linearGradient id="mountainA" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#78938c" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#3d655a" stop-opacity=".08"/>
+    </linearGradient>
+    <linearGradient id="mountainB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5e7f88" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#355b61" stop-opacity=".10"/>
+    </linearGradient>
+    <filter id="soften" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="paperFiber" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.009 0.05" numOctaves="3" seed="17"/>
+      <feColorMatrix type="matrix" values="0.3 0 0 0 0.6  0 0.3 0 0 0.65  0 0 0.3 0 0.58  0 0 0 .11 0"/>
+    </filter>
+  </defs>
+  <rect width="2100" height="900" fill="url(#paper)"/>
+  <rect width="2100" height="900" filter="url(#paperFiber)" opacity=".28"/>
+  <circle cx="1745" cy="188" r="60" fill="#a7463d" opacity=".78"/>
+  <circle cx="1745" cy="188" r="82" fill="none" stroke="#a7463d" stroke-width="2" opacity=".12"/>
+  <g filter="url(#soften)">
+    <path d="M780 900V760c130-54 250-71 359-123 111-53 168-181 253-217 93-38 162 104 239 122 86 20 141-90 239-62 85 24 150 126 230 158v262Z" fill="url(#mountainA)"/>
+    <path d="M1035 900V798c109-63 188-156 281-209 87-49 141 14 206-12 94-38 125-158 228-150 88 7 114 122 185 155 45 21 99 10 165 61v257Z" fill="url(#mountainB)"/>
+  </g>
+  <g fill="none" stroke-linecap="round">
+    <path d="M870 764c176-48 279-178 431-244 79-35 132 3 189 1 93-3 142-97 239-78 91 18 132 126 262 168" stroke="#496d68" stroke-width="7" opacity=".20"/>
+    <path d="M1112 797c84-48 134-121 214-164 59-31 116-3 176-31 70-32 93-112 175-111 74 1 115 80 188 111" stroke="#3e6370" stroke-width="5" opacity=".26"/>
+  </g>
+  <g fill="#31584f" opacity=".23">
+    <path d="M1310 765h18v-58h13v58h22v-86h15v86h34v-45h16v45h30v-98h18v98h20v-62h13v62h38v-78h17v78h28v-51h13v51h35v-116h19v116h24v-71h16v71h42v135h-339Z"/>
+  </g>
+  <path d="M730 823c291-37 505-16 747-27 207-9 393-38 623-17" fill="none" stroke="#8b6e43" stroke-width="3" opacity=".18"/>
+  <g opacity=".38">
+    <rect x="1612" y="713" width="138" height="5" rx="2.5" fill="#a7463d"/>
+    <rect x="1757" y="713" width="92" height="5" rx="2.5" fill="#d7a92f"/>
+    <rect x="1856" y="713" width="118" height="5" rx="2.5" fill="#1e6d4d"/>
+    <rect x="1981" y="713" width="64" height="5" rx="2.5" fill="#486e78"/>
+  </g>
+</svg>

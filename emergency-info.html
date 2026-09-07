@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Emergency Info for Travelers | KOREA EASY</title><meta name="description" content="Korea emergency numbers for tourists: police 112, ambulance 119, tourist hotline 1330, lost passport, lost card, hospital and pharmacy help."><style>body{margin:0;font-family:Inter,Arial,'Noto Sans KR',sans-serif;background:#f4f0e7;color:#17231d}.wrap{width:min(980px,92%);margin:auto}header{padding:18px 0;background:#fff;border-bottom:1px solid #ddd}a{text-decoration:none;color:inherit}.brand{font-weight:950}.brand span{color:#1e6d4d}.hero{margin:28px 0;padding:36px;border-radius:28px;background:linear-gradient(135deg,#3a1414,#7a2323);color:#fff}.hero h1{font-size:clamp(2.1rem,6.5vw,4.2rem);margin:8px 0}.hero p{line-height:1.7;opacity:.95}.callrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.callbtn{display:inline-flex;align-items:center;gap:8px;padding:14px 18px;border-radius:14px;background:#fff;color:#7a2323;font-weight:900;font-size:1.05rem}.callbtn small{font-weight:700;opacity:.7;font-size:.72rem}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:22px 0}.card{background:#fff;border:1px solid #d8e0d7;border-radius:19px;padding:20px}.card b{display:block;margin-bottom:8px;font-size:1.05rem}.card p{line-height:1.75;margin:0;color:#3a463f}.btn{display:inline-block;padding:10px 14px;border-radius:12px;background:#1e6d4d;color:#fff;font-weight:900;margin-top:10px}.tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#7a2323;background:#fbe4e0;border-radius:999px;padding:4px 10px;margin-bottom:10px}.langs button{border:1px solid #ddd;background:white;padding:8px 10px;border-radius:999px;cursor:pointer}.note{margin:28px 0 50px;padding:18px 20px;border-radius:16px;background:#fff;color:#68736c;line-height:1.8;font-size:.92rem}@media(max-width:700px){.grid{grid-template-columns:1fr}}</style></head>
+<body>
+<header><div class="wrap" style="display:flex;justify-content:space-between;align-items:center"><a class="brand" href="./">KOREA <span>EASY</span></a><div class="langs"><button onclick="setL('en')">EN</button> <button onclick="setL('ja')">日本語</button> <button onclick="setL('zh')">中文</button> <button onclick="setL('vi')">Tiếng Việt</button> <button onclick="setL('th')">ไทย</button></div></div></header>
+<main class="wrap">
+  <section class="hero">
+    <div id="badge"></div>
+    <h1 id="h1"></h1>
+    <p id="lead"></p>
+    <div class="callrow">
+      <a class="callbtn" href="tel:112">🚨 112 <small id="l112"></small></a>
+      <a class="callbtn" href="tel:119">🚑 119 <small id="l119"></small></a>
+      <a class="callbtn" href="tel:1330">📞 1330 <small id="l1330"></small></a>
+    </div>
+  </section>
+
+  <section class="grid" id="cards"></section>
+
+  <p class="note" id="foot"></p>
+</main>
+
+<script>
+const C = {
+en:{
+  badge:'IF SOMETHING GOES WRONG',
+  h1:'Emergency & Safety',
+  lead:'Save this page before you need it. These are the numbers and steps that matter most for travelers in Korea — police, medical emergencies, lost passport, lost card and where to find help.',
+  l112:'Police', l119:'Fire / Ambulance', l1330:'Tourist Hotline',
+  cards:[
+    ['tag','POLICE','🚨 112 — Police','Free from any phone, including public phones with no coins or SIM. Say your language when the call connects (e.g. "English, please") — many stations can arrange an interpreter within a minute or two. Use for theft, assault, accidents or anyone in immediate danger.'],
+    ['tag','MEDICAL','🚑 119 — Fire, ambulance, medical emergency','Free, nationwide. Call for any medical emergency, injury or fire. Give your location as precisely as you can — a landmark, subway exit number or the name on the building helps if you don\'t know the street address. Interpretation support is available.'],
+    ['tag','TOURIST HELP','📞 1330 — Korea Travel Hotline','Free, 24/7, multilingual (Korean, English, Japanese, Chinese and more). Not just for emergencies — call for directions, translation help, complaints about a business, or general "what do I do now" questions. This is often the fastest way to get help in English.'],
+    ['tag','HOSPITAL','🏥 Finding a hospital or pharmacy','For a night or weekend pharmacy, search "야간약국" or "pharmacy" on Naver Map or Kakao Map — open ones are marked. For a hospital emergency room, search "응급실" (emergency room) or ask 119 to direct you to the nearest one that can treat foreigners.'],
+    ['tag','DOCUMENTS','🛂 Lost or stolen passport','Contact your embassy or consulate in Korea immediately — they issue emergency travel documents. You will usually also need a police report from a local station (dial 112 or visit any station) as proof of loss, which embassies and insurers often require.'],
+    ['tag','MONEY','💳 Lost or stolen card','Call your card issuer\'s international collect-call hotline immediately to freeze it (the number is usually on your banking app or a card statement). Korean banks and most stores can\'t block a foreign-issued card for you — the call has to go through your own bank.'],
+    ['tag','EMBASSY','🏛️ Find your embassy','Korea\'s Ministry of Foreign Affairs keeps an official directory of embassies and consulates. Save your embassy\'s address and phone number before you need it, not after.','https://www.mofa.go.kr/eng/wpge/m_22754/contents.do','Embassy directory ↗'],
+    ['tag','STAY SAFE','ℹ️ A few habits that help','Keep a photo of your passport and visa stamp on your phone. Screenshot your hotel name and address in Korean. Save 112 / 119 / 1330 as contacts before you land, not after something happens.']
+  ],
+  foot:'This page lists official public emergency contacts for general awareness. It is not a substitute for professional medical, legal or consular advice. In a life-threatening situation, always call 119 or 112 first.'
+},
+ja:{
+  badge:'もしもの時に',
+  h1:'緊急・安全情報',
+  lead:'必要になる前に、このページを保存しておいてください。韓国旅行中に大切な番号と対処法 — 警察、救急、パスポート紛失、カード紛失、頼れる窓口をまとめました。',
+  l112:'警察', l119:'消防・救急', l1330:'観光通訳案内',
+  cards:[
+    ['tag','警察','🚨 112 — 警察','公衆電話からもコインやSIMなしで無料で発信できます。つながったら話せる言語を伝えてください（例：「日本語対応をお願いします」）。多くの署で数分以内に通訳を手配できます。盗難・暴行・事故・危険を感じたときに。'],
+    ['tag','医療','🚑 119 — 消防・救急・医療緊急','全国どこからでも無料。ケガや急病、火災の際に。住所が分からない場合は、目印になる建物名や地下鉄の出口番号を伝えると助けになります。通訳サポートあり。'],
+    ['tag','観光サポート','📞 1330 — 韓国旅行ホットライン','無料・24時間・多言語対応（韓国語・英語・日本語・中国語ほか）。緊急時だけでなく、道案内や通訳、店とのトラブル相談など「今どうすればいいか分からない」ときにも使えます。'],
+    ['tag','病院','🏥 病院・薬局の探し方','夜間・休日の薬局は Naver Map や Kakao Map で「야간약국」と検索すると営業中の薬局が表示されます。救急外来は「응급실」で検索するか、119に頼めば近くの対応病院へ案内してもらえます。'],
+    ['tag','書類','🛂 パスポートの紛失・盗難','まず自国の大使館・領事館へ連絡してください。緊急渡航書を発行してもらえます。多くの場合、警察署での紛失届（112または最寄りの警察署）も必要になります。'],
+    ['tag','お金','💳 カードの紛失・盗難','すぐにカード発行会社の国際コレクトコール窓口へ連絡し、利用停止手続きを。番号は銀行アプリや明細に記載されています。韓国の店舗や銀行では外国発行カードの停止はできません。'],
+    ['tag','大使館','🏛️ 大使館・領事館を探す','韓国外交部が公式の大使館・領事館一覧を公開しています。何かあってからではなく、事前に住所と電話番号を控えておきましょう。','https://www.mofa.go.kr/eng/wpge/m_22754/contents.do','大使館一覧 ↗'],
+    ['tag','安全のために','ℹ️ 覚えておきたい習慣','パスポートとビザスタンプの写真をスマホに保存。ホテル名・住所（韓国語）をスクリーンショット。112・119・1330は到着前に連絡先登録を。']
+  ],
+  foot:'このページは公的な緊急連絡先の案内であり、医療・法律・領事の専門的助言に代わるものではありません。命に関わる状況では、まず119または112へ連絡してください。'
+},
+zh:{
+  badge:'万一遇到紧急情况',
+  h1:'紧急与安全信息',
+  lead:'请提前保存本页。以下是在韩国旅行时最重要的号码和应对方法——警察、急救、护照丢失、银行卡丢失以及可以求助的渠道。',
+  l112:'警察', l119:'消防/急救', l1330:'旅游咨询热线',
+  cards:[
+    ['tag','警察','🚨 112 — 警察','任何电话均可免费拨打，包括无卡无币的公用电话。接通后请说明你使用的语言（例如"请说中文"），多数警局可在几分钟内安排翻译。适用于盗窃、袭击、事故或任何危险情况。'],
+    ['tag','医疗','🚑 119 — 消防、急救、医疗紧急情况','全国范围内免费拨打。适用于任何医疗紧急情况、受伤或火灾。尽量准确说明你的位置——附近的地标、地铁出口号或建筑名称都有帮助。提供翻译支持。'],
+    ['tag','旅游帮助','📞 1330 — 韩国旅游热线','免费、24小时、多语言服务（韩语、英语、日语、中文等）。不仅限于紧急情况，问路、翻译帮助、投诉商家或任何"现在该怎么办"的问题都可以拨打。'],
+    ['tag','医院','🏥 查找医院或药店','夜间/周末药店可在Naver地图或Kakao地图搜索"야간약국"，会显示营业中的药店。急诊室可搜索"응급실"，或直接拨打119请求指引到附近可接待外国人的医院。'],
+    ['tag','证件','🛂 护照丢失或被盗','请立即联系你所在国家驻韩使领馆，可办理紧急旅行证件。通常还需要在当地派出所（拨打112或前往任意警局）开具遗失证明，用于使领馆和保险理赔。'],
+    ['tag','财物','💳 银行卡丢失或被盗','立即拨打发卡行的国际对方付费热线挂失（号码通常在你的银行App或账单上）。韩国本地银行和商户无法为境外发行的卡挂失，必须联系你自己的发卡银行。'],
+    ['tag','使领馆','🏛️ 查找你的使领馆','韩国外交部提供官方使领馆名录。建议提前保存好使领馆地址和电话，而不是等到需要时才查找。','https://www.mofa.go.kr/eng/wpge/m_22754/contents.do','使领馆名录 ↗'],
+    ['tag','安全提示','ℹ️ 几个实用习惯','手机中保存护照和签证页照片；截图保存韩文版酒店名称和地址；抵达前就把112、119、1330存入联系人。']
+  ],
+  foot:'本页提供官方公开的紧急联系方式，仅供参考，不能替代专业的医疗、法律或领事建议。如遇危及生命的情况，请优先拨打119或112。'
+},
+vi:{
+  badge:'PHÒNG KHI CÓ SỰ CỐ',
+  h1:'Thông Tin Khẩn Cấp & An Toàn',
+  lead:'Hãy lưu trang này trước khi cần đến. Đây là những số điện thoại và bước xử lý quan trọng nhất dành cho du khách tại Hàn Quốc — cảnh sát, cấp cứu y tế, mất hộ chiếu, mất thẻ và nơi tìm sự trợ giúp.',
+  l112:'Cảnh sát', l119:'Cứu hỏa / Cấp cứu', l1330:'Đường dây du lịch',
+  cards:[
+    ['tag','CẢNH SÁT','🚨 112 — Cảnh sát','Gọi miễn phí từ bất kỳ điện thoại nào, kể cả điện thoại công cộng không cần xu hay SIM. Khi kết nối, hãy nói ngôn ngữ bạn cần (ví dụ: "Tiếng Việt, xin vui lòng") — nhiều đồn cảnh sát có thể sắp xếp phiên dịch trong vài phút. Dùng khi bị trộm cắp, tấn công, tai nạn hoặc gặp nguy hiểm.'],
+    ['tag','Y TẾ','🚑 119 — Cứu hỏa, cấp cứu, y tế khẩn cấp','Miễn phí trên toàn quốc. Gọi khi có cấp cứu y tế, chấn thương hoặc hỏa hoạn. Mô tả vị trí càng chính xác càng tốt — một địa danh, số cửa ra ga tàu điện ngầm hoặc tên tòa nhà sẽ hữu ích nếu bạn không biết địa chỉ đường phố. Có hỗ trợ phiên dịch.'],
+    ['tag','HỖ TRỢ DU LỊCH','📞 1330 — Đường dây nóng du lịch Hàn Quốc','Miễn phí, hoạt động 24/7, đa ngôn ngữ (Hàn, Anh, Nhật, Trung và nhiều ngôn ngữ khác). Không chỉ dùng khi khẩn cấp — gọi để hỏi đường, cần phiên dịch, khiếu nại về một cửa hàng, hoặc bất kỳ câu hỏi "giờ tôi nên làm gì" nào.'],
+    ['tag','BỆNH VIỆN','🏥 Tìm bệnh viện hoặc nhà thuốc','Với nhà thuốc mở đêm hoặc cuối tuần, tìm "야간약국" hoặc "pharmacy" trên Naver Map hoặc Kakao Map — nơi đang mở sẽ được đánh dấu. Với phòng cấp cứu, tìm "응급실" hoặc nhờ 119 hướng dẫn đến bệnh viện gần nhất có thể tiếp nhận người nước ngoài.'],
+    ['tag','GIẤY TỜ','🛂 Mất hoặc bị đánh cắp hộ chiếu','Liên hệ ngay với đại sứ quán hoặc lãnh sự quán của bạn tại Hàn Quốc — họ có thể cấp giấy tờ đi lại khẩn cấp. Bạn thường cũng cần biên bản trình báo mất tại đồn công an địa phương (gọi 112 hoặc đến bất kỳ đồn nào) làm bằng chứng, thường được yêu cầu bởi đại sứ quán và bảo hiểm.'],
+    ['tag','TIỀN BẠC','💳 Mất hoặc bị đánh cắp thẻ','Gọi ngay đường dây quốc tế (collect call) của ngân hàng phát hành thẻ để khóa thẻ (số điện thoại thường có trong ứng dụng ngân hàng hoặc sao kê thẻ). Ngân hàng và cửa hàng Hàn Quốc không thể khóa thẻ do nước ngoài phát hành — cuộc gọi phải thực hiện qua chính ngân hàng của bạn.'],
+    ['tag','ĐẠI SỨ QUÁN','🏛️ Tìm đại sứ quán của bạn','Bộ Ngoại giao Hàn Quốc có danh bạ chính thức các đại sứ quán và lãnh sự quán. Hãy lưu địa chỉ và số điện thoại đại sứ quán của bạn trước khi cần đến, không phải sau đó.','https://www.mofa.go.kr/eng/wpge/m_22754/contents.do','Danh bạ đại sứ quán ↗'],
+    ['tag','AN TOÀN','ℹ️ Vài thói quen hữu ích','Lưu ảnh hộ chiếu và dấu visa trong điện thoại. Chụp màn hình tên và địa chỉ khách sạn bằng tiếng Hàn. Lưu số 112 / 119 / 1330 vào danh bạ trước khi đến, không phải sau khi có sự cố.']
+  ],
+  foot:'Trang này liệt kê các số liên lạc khẩn cấp công khai chính thức để tham khảo chung. Đây không phải lời khuyên y tế, pháp lý hay lãnh sự chuyên môn. Trong tình huống nguy hiểm đến tính mạng, hãy luôn gọi 119 hoặc 112 trước tiên.'
+},
+th:{
+  badge:'เผื่อไว้ในกรณีฉุกเฉิน',
+  h1:'ข้อมูลฉุกเฉินและความปลอดภัย',
+  lead:'บันทึกหน้านี้ไว้ก่อนที่คุณจะต้องใช้ นี่คือหมายเลขและขั้นตอนที่สำคัญที่สุดสำหรับนักท่องเที่ยวในเกาหลี — ตำรวจ เหตุฉุกเฉินทางการแพทย์ หนังสือเดินทางหาย บัตรหาย และจะขอความช่วยเหลือได้จากที่ไหน',
+  l112:'ตำรวจ', l119:'ดับเพลิง / รถพยาบาล', l1330:'สายด่วนท่องเที่ยว',
+  cards:[
+    ['tag','ตำรวจ','🚨 112 — ตำรวจ','โทรฟรีจากโทรศัพท์ทุกชนิด รวมถึงตู้โทรศัพท์สาธารณะที่ไม่ต้องใช้เหรียญหรือซิม เมื่อสายเชื่อมต่อแล้วให้บอกภาษาที่คุณต้องการ (เช่น "ขอภาษาไทยด้วยค่ะ/ครับ") หลายสถานีสามารถจัดล่ามให้ได้ภายในไม่กี่นาที ใช้เมื่อถูกขโมย ถูกทำร้าย อุบัติเหตุ หรืออยู่ในอันตราย'],
+    ['tag','การแพทย์','🚑 119 — ดับเพลิง รถพยาบาล เหตุฉุกเฉินทางการแพทย์','โทรฟรีทั่วประเทศ ใช้เมื่อมีเหตุฉุกเฉินทางการแพทย์ บาดเจ็บ หรือไฟไหม้ บอกตำแหน่งให้ชัดเจนที่สุด เช่น จุดสังเกต หมายเลขทางออกสถานีรถไฟใต้ดิน หรือชื่ออาคาร หากไม่ทราบที่อยู่ มีบริการล่ามช่วยเหลือ'],
+    ['tag','ช่วยเหลือนักท่องเที่ยว','📞 1330 — สายด่วนท่องเที่ยวเกาหลี','โทรฟรี ตลอด 24 ชั่วโมง หลายภาษา (เกาหลี อังกฤษ ญี่ปุ่น จีน และอื่นๆ) ไม่ใช่แค่กรณีฉุกเฉิน — โทรถามเส้นทาง ขอความช่วยเหลือด้านการแปล ร้องเรียนร้านค้า หรือคำถามทั่วไปว่า "ตอนนี้ควรทำอย่างไร"'],
+    ['tag','โรงพยาบาล','🏥 หาโรงพยาบาลหรือร้านขายยา','สำหรับร้านขายยาที่เปิดกลางคืนหรือวันหยุด ค้นหา "야간약국" หรือ "pharmacy" ใน Naver Map หรือ Kakao Map จะแสดงร้านที่เปิดอยู่ สำหรับห้องฉุกเฉิน ค้นหา "응급실" หรือขอให้ 119 แนะนำโรงพยาบาลใกล้เคียงที่รับรักษาชาวต่างชาติ'],
+    ['tag','เอกสาร','🛂 หนังสือเดินทางหายหรือถูกขโมย','ติดต่อสถานทูตหรือสถานกงสุลของคุณในเกาหลีทันที เพื่อขอเอกสารเดินทางฉุกเฉิน โดยทั่วไปคุณจะต้องมีใบแจ้งความจากสถานีตำรวจท้องถิ่นด้วย (โทร 112 หรือไปที่สถานีตำรวจใดก็ได้) เป็นหลักฐาน ซึ่งสถานทูตและบริษัทประกันมักต้องการ'],
+    ['tag','เงิน','💳 บัตรหายหรือถูกขโมย','โทรติดต่อสายด่วนระหว่างประเทศของธนาคารผู้ออกบัตรทันทีเพื่อระงับบัตร (หมายเลขมักอยู่ในแอปธนาคารหรือใบแจ้งยอด) ธนาคารและร้านค้าในเกาหลีไม่สามารถระงับบัตรที่ออกจากต่างประเทศให้คุณได้ ต้องติดต่อผ่านธนาคารของคุณเองเท่านั้น'],
+    ['tag','สถานทูต','🏛️ ค้นหาสถานทูตของคุณ','กระทรวงการต่างประเทศเกาหลีมีทำเนียบสถานทูตและสถานกงสุลอย่างเป็นทางการ บันทึกที่อยู่และหมายเลขโทรศัพท์สถานทูตของคุณไว้ล่วงหน้า ไม่ใช่ตอนที่ต้องใช้จริง','https://www.mofa.go.kr/eng/wpge/m_22754/contents.do','ทำเนียบสถานทูต ↗'],
+    ['tag','ความปลอดภัย','ℹ️ นิสัยเล็กๆ ที่ช่วยได้','เก็บรูปถ่ายหนังสือเดินทางและตราประทับวีซ่าไว้ในโทรศัพท์ แคปหน้าจอชื่อและที่อยู่โรงแรมเป็นภาษาเกาหลี บันทึกเบอร์ 112 / 119 / 1330 ไว้ในรายชื่อผู้ติดต่อก่อนเดินทางถึง ไม่ใช่หลังจากเกิดเหตุ']
+  ],
+  foot:'หน้านี้แสดงข้อมูลติดต่อฉุกเฉินสาธารณะอย่างเป็นทางการเพื่อการรับรู้ทั่วไปเท่านั้น ไม่ใช่คำแนะนำทางการแพทย์ กฎหมาย หรือกงสุลจากผู้เชี่ยวชาญ ในสถานการณ์ที่เป็นอันตรายถึงชีวิต ให้โทร 119 หรือ 112 ก่อนเสมอ'
+}
+};
+
+function setL(l){
+  localStorage.setItem('koreaEasyLang', l);
+  const x = C[l] || C.en;
+  document.documentElement.lang = l==='zh' ? 'zh-CN' : l;
+  badge.textContent = x.badge;
+  h1.textContent = x.h1;
+  lead.textContent = x.lead;
+  l112.textContent = x.l112;
+  l119.textContent = x.l119;
+  l1330.textContent = x.l1330;
+  cards.innerHTML = x.cards.map(c=>{
+    const [,tagText, title, body, url, linkLabel] = c;
+    const link = url ? `<a class="btn" href="${url}" target="_blank" rel="noopener">${linkLabel}</a>` : '';
+    return `<article class="card"><span class="tag">${tagText}</span><b>${title}</b><p>${body}</p>${link}</article>`;
+  }).join('');
+  foot.textContent = x.foot;
+}
+setL(localStorage.getItem('koreaEasyLang') || 'en');
+</script>
+</body></html>

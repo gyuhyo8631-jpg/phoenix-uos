@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="KOREA EASY Toilet SOS: find public restrooms near your current location in Seoul, Busan, Jeonju, Gangneung, Gyeongju and Jeju.">
+<title>Toilet SOS · KOREA EASY</title>
+<style>
+:root{--ink:#12241d;--muted:#617068;--green:#146b4c;--mint:#e7f4ed;--cream:#fffaf0;--red:#c83f34;--line:#d9e5dd;--blue:#1769a3;--yellow:#fff0bf}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#f7fbf8,#fffaf0 55%);color:var(--ink);font-family:Arial,"Noto Sans KR","Noto Sans JP","Noto Sans SC",sans-serif}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+header{position:sticky;top:0;z-index:20;background:#ffffffed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}nav{min-height:66px;display:flex;align-items:center;gap:16px;justify-content:space-between}.brand{font-weight:950;color:var(--ink);text-decoration:none;white-space:nowrap}.brand span{color:var(--green)}.cities,.langs{display:flex;gap:6px;flex-wrap:wrap}.cities a,.lang{border:0;background:transparent;color:var(--muted);font-size:.75rem;font-weight:900;text-decoration:none;padding:8px 9px;border-radius:999px}.cities a:hover,.lang.on{background:var(--mint);color:var(--green)}.lang{cursor:pointer}
+main{padding:24px 0 64px}.hero{padding:clamp(30px,6vw,70px);border-radius:28px;background:radial-gradient(circle at 90% 0,#5fb99466,transparent 38%),linear-gradient(135deg,#0d3f31,#176d51);color:#fff;box-shadow:0 24px 60px #0b3c2926}.eyebrow{font-size:.75rem;letter-spacing:.13em;font-weight:950;color:#aee4cb}.hero h1{font-size:clamp(2.7rem,8vw,6.4rem);line-height:.9;margin:14px 0}.lead{max-width:760px;font-size:clamp(1rem,2vw,1.25rem);line-height:1.65;color:#e9fff4}.heroActions,.mapActions,.cardActions,.phraseActions{display:flex;gap:9px;flex-wrap:wrap}.primary,.secondary,.mapBtn,.smallBtn{border:0;border-radius:13px;padding:12px 16px;font-weight:950;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}.primary{background:#fff;color:#0d5039}.secondary{background:#ffffff1c;color:#fff;border:1px solid #ffffff4d}.primary.red{background:#ffd8d4;color:#7d201a}.sec{padding:50px 0}.sec h2{font-size:clamp(1.8rem,4vw,3rem);margin:0 0 8px}.sub{color:var(--muted);line-height:1.65;max-width:780px;margin:0 0 22px}
+.locationPanel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 16px 40px #18372a0c}.locationTop{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}.status{display:flex;gap:10px;align-items:flex-start}.statusIcon{width:42px;height:42px;border-radius:13px;background:var(--mint);display:grid;place-items:center;font-size:1.3rem}.status b{display:block}.status span{display:block;color:var(--muted);font-size:.85rem;margin-top:4px}.mapActions{margin-top:15px}.mapBtn{background:#edf5f1;color:var(--green);border:1px solid #cce0d5}.mapBtn.blue{background:#edf5ff;color:var(--blue);border-color:#cfe2f2}.mapBtn:focus,.primary:focus,.lang:focus,.cityBtn:focus,.smallBtn:focus{outline:3px solid #f2c84b;outline-offset:2px}
+.guideGrid,.placeGrid,.phraseGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.guide,.place,.phrase{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.guideIcon{font-size:1.8rem}.guide h3,.place h3{margin:10px 0 6px}.guide p,.place p,.phrase p{color:var(--muted);line-height:1.55;margin:0}.cityTabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:18px}.cityBtn{border:1px solid var(--line);background:#fff;color:var(--muted);padding:10px 14px;border-radius:999px;font-weight:950;white-space:nowrap;cursor:pointer}.cityBtn.on{background:var(--ink);color:#fff}.badge{display:inline-flex;border-radius:999px;background:var(--mint);color:var(--green);padding:6px 9px;font-size:.68rem;font-weight:950}.place .ko{font-size:.82rem;color:var(--muted);margin-bottom:9px}.placeMeta{font-size:.78rem;color:#44564c;margin:10px 0}.cardActions{margin-top:13px}.smallBtn{font-size:.74rem;padding:9px 11px;background:#eef5f1;color:var(--green);border:1px solid #d3e4da}.smallBtn.naver{background:#e9f8ec;color:#147a35}.smallBtn.google{background:#edf4ff;color:#165fa0}.notice{margin-top:16px;border-radius:14px;padding:14px 16px;background:var(--yellow);color:#604d11;font-size:.82rem;line-height:1.55}.phraseKo{font-size:1.12rem;font-weight:950;margin-bottom:8px}.phraseLocal{color:var(--muted);min-height:44px;line-height:1.5}.phraseActions{margin-top:12px}.phraseActions button{border:1px solid var(--line);background:#f7faf8;border-radius:10px;padding:8px 10px;font-weight:900;cursor:pointer}.sources{font-size:.76rem;line-height:1.7;color:var(--muted)}.sources a{color:var(--green)}footer{border-top:1px solid var(--line);padding:28px 0 45px;color:var(--muted);font-size:.78rem}
+@media(max-width:820px){nav{align-items:flex-start;padding:12px 0;flex-wrap:wrap}.cities{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}.guideGrid,.placeGrid,.phraseGrid{grid-template-columns:1fr 1fr}.hero{border-radius:22px}.hero h1{line-height:1}}
+@media(max-width:560px){.wrap{width:min(100% - 22px,1120px)}.guideGrid,.placeGrid,.phraseGrid{grid-template-columns:1fr}.hero{padding:32px 22px}.heroActions a,.heroActions button{width:100%}.mapBtn{flex:1;min-width:140px}.locationTop .primary{width:100%}}
+</style>
+</head>
+<body>
+<header>
+<nav class="wrap">
+<a class="brand" href="./">KOREA <span>EASY</span></a>
+<div class="cities">
+<a href="./">SEOUL</a><a href="BUSAN-EASY.html">BUSAN</a><a href="JEONJU-EASY.html">JEONJU</a><a href="GANGNEUNG-EASY.html">GANGNEUNG</a><a href="GYEONGJU-EASY.html">GYEONGJU</a><a href="JEJU-EASY.html">JEJU</a>
+</div>
+<div class="langs"><button class="lang on" data-lang="ko">한국어</button><button class="lang" data-lang="en">EN</button><button class="lang" data-lang="ja">日本語</button><button class="lang" data-lang="zh">中文</button></div>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<div class="eyebrow">KOREA EASY · TOILET SOS</div>
+<h1 data-t="heroTitle">화장실을<br>빠르게 찾으세요.</h1>
+<p class="lead" data-t="heroLead">현재 위치에서 주변 화장실을 찾고, 비밀번호·열쇠가 필요할 때 직원에게 보여줄 문장도 바로 사용할 수 있습니다.</p>
+<div class="heroActions"><button class="primary red" onclick="useLocation()">📍 <span data-t="locate">현재 위치 사용</span></button><a class="secondary" href="#phrases">💬 <span data-t="showPhrase">직원에게 보여줄 문장</span></a></div>
+</section>
+
+<section class="sec" id="nearby">
+<h2 data-t="nearTitle">내 주변 화장실</h2>
+<p class="sub" data-t="nearDesc">위치 권한을 허용하면 현재 위치를 출발점으로 사용합니다. 위치정보는 저장하거나 전송하지 않습니다.</p>
+<div class="locationPanel">
+<div class="locationTop">
+<div class="status"><div class="statusIcon">📍</div><div><b id="statusTitle" data-t="statusReady">위치 확인 준비</b><span id="statusText" data-t="statusReadyDesc">버튼을 누르면 브라우저가 위치 권한을 요청합니다.</span></div></div>
+<button class="primary" onclick="useLocation()">📍 <span data-t="locate">현재 위치 사용</span></button>
+</div>
+<div class="mapActions">
+<a id="googleNearby" class="mapBtn blue" href="https://www.google.com/maps/search/?api=1&query=public+toilet+near+me" target="_blank" rel="noopener">Google · <span data-t="nearbySearch">주변 화장실 검색</span></a>
+<a id="kakaoNearby" class="mapBtn" href="https://map.kakao.com/link/search/%EA%B3%B5%EC%A4%91%ED%99%94%EC%9E%A5%EC%8B%A4" target="_blank" rel="noopener">Kakao · <span data-t="nearbySearch">주변 화장실 검색</span></a>
+<a id="currentMap" class="mapBtn" href="https://map.kakao.com/link/search/%EA%B3%B5%EC%A4%91%ED%99%94%EC%9E%A5%EC%8B%A4" target="_blank" rel="noopener">🗺️ <span data-t="openMap">지도 열기</span></a>
+</div>
+<div class="notice" data-t="mapNotice">지도 검색 결과에서 운영시간과 출입 가능 여부를 다시 확인하세요. 카페·식당 화장실은 고객 전용일 수 있습니다.</div>
+</div>
+</section>
+
+<section class="sec">
+<h2 data-t="accessTitle">들어가는 방법</h2>
+<p class="sub" data-t="accessDesc">한국에서는 건물 공용화장실이 잠겨 있는 경우가 있어 다음 표시를 먼저 확인하면 됩니다.</p>
+<div class="guideGrid">
+<article class="guide"><div class="guideIcon">🧾</div><h3 data-t="receiptTitle">영수증 확인</h3><p data-t="receiptDesc">카페나 식당 영수증 아래쪽에 화장실 비밀번호가 적혀 있을 수 있습니다.</p></article>
+<article class="guide"><div class="guideIcon">🔢</div><h3 data-t="codeTitle">직원에게 비밀번호 문의</h3><p data-t="codeDesc">공용 복도 화장실에 번호키가 있으면 매장 직원에게 물어보세요.</p></article>
+<article class="guide"><div class="guideIcon">🔑</div><h3 data-t="keyTitle">열쇠 빌리기</h3><p data-t="keyDesc">카운터에서 열쇠를 받아 사용한 뒤 반드시 돌려주세요.</p></article>
+<article class="guide"><div class="guideIcon">🚇</div><h3 data-t="gateTitle">개찰구 안팎 확인</h3><p data-t="gateDesc">지하철 화장실은 개찰구 안쪽 또는 바깥쪽에 있으므로 표지판과 출구 번호를 확인하세요.</p></article>
+<article class="guide"><div class="guideIcon">🏬</div><h3 data-t="publicTitle">안전한 선택</h3><p data-t="publicDesc">지하철역, 공항, 관광안내소, 공원, 시장, 백화점과 대형 쇼핑몰을 우선 이용하세요.</p></article>
+<article class="guide"><div class="guideIcon">⚠️</div><h3 data-t="noCodeTitle">비밀번호 공개 금지</h3><p data-t="noCodeDesc">비밀번호는 자주 바뀌므로 홈페이지에는 저장하지 않습니다. 현장에서 직원에게 확인하세요.</p></article>
+</div>
+</section>
+
+<section class="sec" id="city">
+<h2 data-t="cityTitle">지역별 찾기</h2>
+<p class="sub" data-t="cityDesc">관광객이 자주 찾는 공공시설을 선택하면 현재 위치에서 도보 길찾기를 열 수 있습니다.</p>
+<div id="cityTabs" class="cityTabs"></div>
+<div id="placeGrid" class="placeGrid"></div>
+<div class="notice" data-t="placeNotice">표시된 시설은 출발점으로 쓰기 쉬운 주요 공공시설입니다. 실제 화장실의 운영시간·공사·개찰구 위치는 현장에서 달라질 수 있습니다.</div>
+</section>
+
+<section class="sec" id="phrases">
+<h2 data-t="phraseTitle">직원에게 화면을 보여주세요</h2>
+<p class="sub" data-t="phraseDesc">복사 버튼 또는 한국어 듣기 버튼을 사용할 수 있습니다.</p>
+<div id="phraseGrid" class="phraseGrid"></div>
+</section>
+
+<section class="sec">
+<h2 data-t="dataTitle">데이터와 개인정보</h2>
+<p class="sources" data-t="privacyText">현재 위치는 사용자의 기기 안에서 길찾기 주소를 만드는 데만 사용하며 서버나 저장소에 보관하지 않습니다.</p>
+<p class="sources">
+<a href="https://www.data.go.kr/data/15012892/standard.do" target="_blank" rel="noopener">전국공중화장실표준데이터</a> ·
+<a href="https://data.seoul.go.kr/dataList/OA-22586/S/1/datasetView.do" target="_blank" rel="noopener">서울시 공중화장실 위치정보</a> ·
+<a href="https://www.data.go.kr/data/15118705/fileData.do" target="_blank" rel="noopener">서울교통공사 역사 화장실정보</a>
+</p>
+</section>
+</main>
+<footer><div class="wrap" data-t="footer">KOREA EASY Toilet SOS는 여행 편의를 위한 안내입니다. 운영시간과 이용 조건은 현장에서 확인하세요.</div></footer>
+<script>
+const T={
+ko:{heroTitle:'화장실을<br>빠르게 찾으세요.',heroLead:'현재 위치에서 주변 화장실을 찾고, 비밀번호·열쇠가 필요할 때 직원에게 보여줄 문장도 바로 사용할 수 있습니다.',locate:'현재 위치 사용',showPhrase:'직원에게 보여줄 문장',nearTitle:'내 주변 화장실',nearDesc:'위치 권한을 허용하면 현재 위치를 출발점으로 사용합니다. 위치정보는 저장하거나 전송하지 않습니다.',statusReady:'위치 확인 준비',statusReadyDesc:'버튼을 누르면 브라우저가 위치 권한을 요청합니다.',statusFinding:'현재 위치 확인 중',statusFindingDesc:'잠시만 기다려 주세요.',statusFound:'현재 위치 확인 완료',statusFoundDesc:'지도 검색과 도보 길찾기를 사용할 수 있습니다.',statusDenied:'위치를 확인할 수 없습니다',statusDeniedDesc:'위치 권한을 허용하거나 아래 지역별 찾기를 이용하세요.',nearbySearch:'주변 화장실 검색',openMap:'지도 열기',mapNotice:'지도 검색 결과에서 운영시간과 출입 가능 여부를 다시 확인하세요. 카페·식당 화장실은 고객 전용일 수 있습니다.',accessTitle:'들어가는 방법',accessDesc:'한국에서는 건물 공용화장실이 잠겨 있는 경우가 있어 다음 표시를 먼저 확인하면 됩니다.',receiptTitle:'영수증 확인',receiptDesc:'카페나 식당 영수증 아래쪽에 화장실 비밀번호가 적혀 있을 수 있습니다.',codeTitle:'직원에게 비밀번호 문의',codeDesc:'공용 복도 화장실에 번호키가 있으면 매장 직원에게 물어보세요.',keyTitle:'열쇠 빌리기',keyDesc:'카운터에서 열쇠를 받아 사용한 뒤 반드시 돌려주세요.',gateTitle:'개찰구 안팎 확인',gateDesc:'지하철 화장실은 개찰구 안쪽 또는 바깥쪽에 있으므로 표지판과 출구 번호를 확인하세요.',publicTitle:'안전한 선택',publicDesc:'지하철역, 공항, 관광안내소, 공원, 시장, 백화점과 대형 쇼핑몰을 우선 이용하세요.',noCodeTitle:'비밀번호 공개 금지',noCodeDesc:'비밀번호는 자주 바뀌므로 홈페이지에는 저장하지 않습니다. 현장에서 직원에게 확인하세요.',cityTitle:'지역별 찾기',cityDesc:'관광객이 자주 찾는 공공시설을 선택하면 현재 위치에서 도보 길찾기를 열 수 있습니다.',placeNotice:'표시된 시설은 출발점으로 쓰기 쉬운 주요 공공시설입니다. 실제 화장실의 운영시간·공사·개찰구 위치는 현장에서 달라질 수 있습니다.',walk:'도보 길찾기',search:'지도 검색',phraseTitle:'직원에게 화면을 보여주세요',phraseDesc:'복사 버튼 또는 한국어 듣기 버튼을 사용할 수 있습니다.',copy:'복사',listen:'한국어 듣기',copied:'복사됨',dataTitle:'데이터와 개인정보',privacyText:'현재 위치는 사용자의 기기 안에서 길찾기 주소를 만드는 데만 사용하며 서버나 저장소에 보관하지 않습니다.',footer:'KOREA EASY Toilet SOS는 여행 편의를 위한 안내입니다. 운영시간과 이용 조건은 현장에서 확인하세요.',publicBadge:'공공시설',stationBadge:'역·터미널',tourBadge:'관광지'},
+en:{heroTitle:'Find a toilet.<br>Fast.',heroLead:'Find restrooms near your current location and show staff clear phrases when you need a password or key.',locate:'Use my location',showPhrase:'Show staff a phrase',nearTitle:'Toilets near me',nearDesc:'Allow location access to use your position as the route origin. Your location is not stored or sent to us.',statusReady:'Ready to locate you',statusReadyDesc:'Tap the button and your browser will ask for location permission.',statusFinding:'Finding your location',statusFindingDesc:'Please wait a moment.',statusFound:'Location ready',statusFoundDesc:'You can now use nearby search and walking directions.',statusDenied:'Location unavailable',statusDeniedDesc:'Allow location permission or use the city list below.',nearbySearch:'Search nearby toilets',openMap:'Open map',mapNotice:'Confirm opening hours and access in the map result. Cafe and restaurant toilets may be for customers only.',accessTitle:'How to get access',accessDesc:'Shared building restrooms may be locked. Check these common access methods first.',receiptTitle:'Check the receipt',receiptDesc:'The restroom password may be printed near the bottom of your cafe or restaurant receipt.',codeTitle:'Ask staff for the code',codeDesc:'If a shared hallway restroom has a keypad, ask staff at the business you are visiting.',keyTitle:'Borrow the key',keyDesc:'Take the restroom key from the counter and return it after use.',gateTitle:'Inside or outside the gate',gateDesc:'Subway toilets can be inside or outside the fare gates. Check the sign and nearby exit number.',publicTitle:'Reliable choices',publicDesc:'Try subway stations, airports, tourist centers, parks, markets, department stores and large malls first.',noCodeTitle:'Codes are not published',noCodeDesc:'Door codes change frequently, so this guide never stores them. Confirm with staff on site.',cityTitle:'Search by city',cityDesc:'Choose a major public facility and open walking directions from your current location.',placeNotice:'These are major public facilities that are easy to use as destinations. Hours, construction and gate access can change.',walk:'Walking directions',search:'Map search',phraseTitle:'Show this screen to staff',phraseDesc:'Copy a phrase or play the Korean pronunciation.',copy:'Copy',listen:'Play Korean',copied:'Copied',dataTitle:'Data & privacy',privacyText:'Your location is used only on your device to create map links. It is not stored or sent to our server.',footer:'KOREA EASY Toilet SOS is a travel convenience guide. Confirm hours and access conditions on site.',publicBadge:'Public facility',stationBadge:'Station / terminal',tourBadge:'Attraction'},
+ja:{heroTitle:'トイレを<br>すぐに探す。',heroLead:'現在地周辺のトイレを探し、暗証番号や鍵が必要な時はスタッフに見せる文章を利用できます。',locate:'現在地を使用',showPhrase:'スタッフに文章を見せる',nearTitle:'現在地周辺のトイレ',nearDesc:'位置情報を許可すると現在地を出発地点にします。位置情報は保存・送信されません。',statusReady:'位置確認の準備完了',statusReadyDesc:'ボタンを押すとブラウザが位置情報の許可を求めます。',statusFinding:'現在地を確認中',statusFindingDesc:'少々お待ちください。',statusFound:'現在地を確認しました',statusFoundDesc:'周辺検索と徒歩ルートを利用できます。',statusDenied:'現在地を確認できません',statusDeniedDesc:'位置情報を許可するか、下の都市別検索を利用してください。',nearbySearch:'周辺のトイレを検索',openMap:'地図を開く',mapNotice:'地図の検索結果で営業時間と利用条件を再確認してください。カフェ・飲食店は利用客専用の場合があります。',accessTitle:'利用方法',accessDesc:'建物の共用トイレが施錠されている場合があります。次の方法を確認してください。',receiptTitle:'レシートを確認',receiptDesc:'カフェや飲食店のレシート下部に暗証番号が印刷されている場合があります。',codeTitle:'スタッフに番号を聞く',codeDesc:'共用トイレに電子錠があれば利用中の店のスタッフに聞いてください。',keyTitle:'鍵を借りる',keyDesc:'カウンターで鍵を借り、使用後は必ず返却してください。',gateTitle:'改札の内外を確認',gateDesc:'地下鉄のトイレは改札内または改札外にあります。案内表示と出口番号を確認してください。',publicTitle:'利用しやすい場所',publicDesc:'地下鉄駅、空港、観光案内所、公園、市場、百貨店、大型モールを優先してください。',noCodeTitle:'暗証番号は掲載しません',noCodeDesc:'番号は頻繁に変更されるため保存しません。現地スタッフに確認してください。',cityTitle:'都市別に探す',cityDesc:'主要公共施設を選び、現在地から徒歩ルートを開けます。',placeNotice:'主要公共施設を目的地として表示しています。営業時間、工事、改札位置は変更される場合があります。',walk:'徒歩ルート',search:'地図検索',phraseTitle:'この画面をスタッフに見せてください',phraseDesc:'文章のコピーまたは韓国語音声を利用できます。',copy:'コピー',listen:'韓国語を聞く',copied:'コピー済み',dataTitle:'データとプライバシー',privacyText:'現在地は端末内で地図リンクを作る時だけ使用し、サーバーには保存・送信しません。',footer:'KOREA EASY Toilet SOSは旅行者向け案内です。営業時間と利用条件は現地で確認してください。',publicBadge:'公共施設',stationBadge:'駅・ターミナル',tourBadge:'観光地'},
+zh:{heroTitle:'快速找到<br>洗手间。',heroLead:'查找当前位置附近的洗手间，需要密码或钥匙时可直接向工作人员展示实用句子。',locate:'使用当前位置',showPhrase:'向工作人员展示句子',nearTitle:'附近的洗手间',nearDesc:'允许定位后，当前位置将用作路线起点。位置信息不会被保存或发送。',statusReady:'准备获取位置',statusReadyDesc:'点击按钮后，浏览器会请求位置权限。',statusFinding:'正在获取当前位置',statusFindingDesc:'请稍候。',statusFound:'已获取当前位置',statusFoundDesc:'现在可以使用附近搜索和步行路线。',statusDenied:'无法获取位置',statusDeniedDesc:'请允许位置权限，或使用下方的城市列表。',nearbySearch:'搜索附近洗手间',openMap:'打开地图',mapNotice:'请在地图结果中确认营业时间和使用条件。咖啡店和餐厅洗手间可能仅供顾客使用。',accessTitle:'如何进入洗手间',accessDesc:'韩国部分建筑的公共洗手间会上锁，请先确认以下常见方式。',receiptTitle:'查看小票',receiptDesc:'咖啡店或餐厅小票底部可能印有洗手间密码。',codeTitle:'向工作人员询问密码',codeDesc:'如果走廊公共洗手间有密码锁，请向正在消费的商店工作人员询问。',keyTitle:'借用钥匙',keyDesc:'在柜台领取洗手间钥匙，使用后请务必归还。',gateTitle:'确认闸机内外',gateDesc:'地铁洗手间可能位于闸机内或外，请确认标志和附近出口号码。',publicTitle:'可靠选择',publicDesc:'优先选择地铁站、机场、旅游咨询中心、公园、市场、百货商店和大型购物中心。',noCodeTitle:'不公开密码',noCodeDesc:'门锁密码经常变化，因此本指南不会保存密码。请向现场工作人员确认。',cityTitle:'按城市查找',cityDesc:'选择主要公共设施，即可从当前位置打开步行路线。',placeNotice:'列表为便于设置目的地的主要公共设施。营业时间、施工情况和闸机位置可能发生变化。',walk:'步行路线',search:'地图搜索',phraseTitle:'请向工作人员展示此画面',phraseDesc:'可以复制句子或播放韩语发音。',copy:'复制',listen:'播放韩语',copied:'已复制',dataTitle:'数据与隐私',privacyText:'当前位置仅在您的设备上用于创建地图链接，不会保存或发送到服务器。',footer:'KOREA EASY Toilet SOS为旅行便利指南。请在现场确认营业时间和使用条件。',publicBadge:'公共设施',stationBadge:'车站／客运站',tourBadge:'景点'}
+};
+const CITY_NAMES={seoul:{ko:'서울',en:'Seoul',ja:'ソウル',zh:'首尔'},busan:{ko:'부산',en:'Busan',ja:'釜山',zh:'釜山'},jeonju:{ko:'전주',en:'Jeonju',ja:'全州',zh:'全州'},gangneung:{ko:'강릉',en:'Gangneung',ja:'江陵',zh:'江陵'},gyeongju:{ko:'경주',en:'Gyeongju',ja:'慶州',zh:'庆州'},jeju:{ko:'제주',en:'Jeju',ja:'済州',zh:'济州'}};
+const PLACES=[
+{city:'seoul',ko:'서울역',en:'Seoul Station',ja:'ソウル駅',zh:'首尔站',query:'서울역 공중화장실',kind:'station'},
+{city:'seoul',ko:'시청역',en:'City Hall Station',ja:'市庁駅',zh:'市厅站',query:'서울 시청역 공중화장실',kind:'station'},
+{city:'seoul',ko:'경복궁',en:'Gyeongbokgung Palace',ja:'景福宮',zh:'景福宫',query:'경복궁 공중화장실',kind:'tour'},
+{city:'seoul',ko:'코엑스몰',en:'COEX Mall',ja:'COEXモール',zh:'COEX商场',query:'코엑스몰 화장실',kind:'public'},
+{city:'seoul',ko:'홍대입구역',en:'Hongik Univ. Station',ja:'弘大入口駅',zh:'弘大入口站',query:'홍대입구역 공중화장실',kind:'station'},
+{city:'busan',ko:'부산역',en:'Busan Station',ja:'釜山駅',zh:'釜山站',query:'부산역 공중화장실',kind:'station'},
+{city:'busan',ko:'해운대역',en:'Haeundae Station',ja:'海雲台駅',zh:'海云台站',query:'부산 해운대역 공중화장실',kind:'station'},
+{city:'busan',ko:'광안리해수욕장',en:'Gwangalli Beach',ja:'広安里海水浴場',zh:'广安里海水浴场',query:'광안리해수욕장 공중화장실',kind:'tour'},
+{city:'busan',ko:'자갈치시장',en:'Jagalchi Market',ja:'チャガルチ市場',zh:'札嘎其市场',query:'부산 자갈치시장 화장실',kind:'public'},
+{city:'busan',ko:'부산시민공원',en:'Busan Citizens Park',ja:'釜山市民公園',zh:'釜山市民公园',query:'부산시민공원 공중화장실',kind:'public'},
+{city:'jeonju',ko:'전주역',en:'Jeonju Station',ja:'全州駅',zh:'全州站',query:'전주역 공중화장실',kind:'station'},
+{city:'jeonju',ko:'전주한옥마을',en:'Jeonju Hanok Village',ja:'全州韓屋村',zh:'全州韩屋村',query:'전주한옥마을 공중화장실',kind:'tour'},
+{city:'jeonju',ko:'전주고속버스터미널',en:'Jeonju Express Bus Terminal',ja:'全州高速バスターミナル',zh:'全州高速客运站',query:'전주고속버스터미널 화장실',kind:'station'},
+{city:'jeonju',ko:'남부시장',en:'Nambu Market',ja:'南部市場',zh:'南部市场',query:'전주 남부시장 공중화장실',kind:'public'},
+{city:'jeonju',ko:'덕진공원',en:'Deokjin Park',ja:'徳津公園',zh:'德津公园',query:'전주 덕진공원 공중화장실',kind:'public'},
+{city:'gangneung',ko:'강릉역',en:'Gangneung Station',ja:'江陵駅',zh:'江陵站',query:'강릉역 공중화장실',kind:'station'},
+{city:'gangneung',ko:'경포해변',en:'Gyeongpo Beach',ja:'鏡浦海岸',zh:'镜浦海滩',query:'강릉 경포해변 공중화장실',kind:'tour'},
+{city:'gangneung',ko:'안목해변',en:'Anmok Beach',ja:'安木海岸',zh:'安木海滩',query:'강릉 안목해변 공중화장실',kind:'tour'},
+{city:'gangneung',ko:'강릉중앙시장',en:'Gangneung Central Market',ja:'江陵中央市場',zh:'江陵中央市场',query:'강릉중앙시장 화장실',kind:'public'},
+{city:'gangneung',ko:'정동진역',en:'Jeongdongjin Station',ja:'正東津駅',zh:'正东津站',query:'정동진역 공중화장실',kind:'station'},
+{city:'gyeongju',ko:'경주역',en:'Gyeongju Station',ja:'慶州駅',zh:'庆州站',query:'경주역 공중화장실',kind:'station'},
+{city:'gyeongju',ko:'경주고속버스터미널',en:'Gyeongju Express Bus Terminal',ja:'慶州高速バスターミナル',zh:'庆州高速客运站',query:'경주고속버스터미널 화장실',kind:'station'},
+{city:'gyeongju',ko:'대릉원',en:'Daereungwon Tomb Complex',ja:'大陵苑',zh:'大陵苑',query:'경주 대릉원 공중화장실',kind:'tour'},
+{city:'gyeongju',ko:'황리단길',en:'Hwangridan-gil',ja:'皇理団キル',zh:'皇理团路',query:'경주 황리단길 공중화장실',kind:'tour'},
+{city:'gyeongju',ko:'불국사',en:'Bulguksa Temple',ja:'仏国寺',zh:'佛国寺',query:'경주 불국사 공중화장실',kind:'tour'},
+{city:'jeju',ko:'제주국제공항',en:'Jeju International Airport',ja:'済州国際空港',zh:'济州国际机场',query:'제주국제공항 화장실',kind:'station'},
+{city:'jeju',ko:'제주시버스터미널',en:'Jeju Bus Terminal',ja:'済州市バスターミナル',zh:'济州市客运站',query:'제주시버스터미널 화장실',kind:'station'},
+{city:'jeju',ko:'성산일출봉',en:'Seongsan Ilchulbong',ja:'城山日出峰',zh:'城山日出峰',query:'제주 성산일출봉 공중화장실',kind:'tour'},
+{city:'jeju',ko:'함덕해수욕장',en:'Hamdeok Beach',ja:'咸徳海水浴場',zh:'咸德海水浴场',query:'제주 함덕해수욕장 공중화장실',kind:'tour'},
+{city:'jeju',ko:'중문관광단지',en:'Jungmun Tourist Complex',ja:'中文観光団地',zh:'中文旅游区',query:'제주 중문관광단지 공중화장실',kind:'tour'},
+{city:'jeju',ko:'서귀포매일올레시장',en:'Seogwipo Maeil Olle Market',ja:'西帰浦毎日オルレ市場',zh:'西归浦每日偶来市场',query:'서귀포매일올레시장 화장실',kind:'public'}
+];
+const PHRASES=[
+{ko:'화장실이 어디예요?',en:'Where is the restroom?',ja:'トイレはどこですか？',zh:'洗手间在哪里？'},
+{ko:'화장실 비밀번호를 알려주세요.',en:'Could you tell me the restroom password?',ja:'トイレの暗証番号を教えてください。',zh:'请告诉我洗手间密码。'},
+{ko:'화장실 열쇠를 빌릴 수 있을까요?',en:'May I borrow the restroom key?',ja:'トイレの鍵を借りられますか？',zh:'可以借一下洗手间钥匙吗？'},
+{ko:'비밀번호가 영수증에 있나요?',en:'Is the password printed on the receipt?',ja:'暗証番号はレシートにありますか？',zh:'密码写在小票上吗？'},
+{ko:'화장실이 개찰구 안에 있나요, 밖에 있나요?',en:'Is the restroom inside or outside the subway gates?',ja:'トイレは改札の中ですか、外ですか？',zh:'洗手间在闸机里面还是外面？'},
+{ko:'공중화장실을 찾고 있어요.',en:'I am looking for a public restroom.',ja:'公衆トイレを探しています。',zh:'我在找公共洗手间。'}
+];
+let lang=localStorage.getItem('toiletSosLang')||'ko',city='seoul',origin=null;
+function tr(k){return T[lang][k]||T.en[k]||k}
+function setLang(l){lang=l;localStorage.setItem('toiletSosLang',l);document.documentElement.lang=l==='zh'?'zh-CN':l;document.querySelectorAll('.lang').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));document.querySelectorAll('[data-t]').forEach(el=>{const v=tr(el.dataset.t);if(v)el.innerHTML=v});renderCities();renderPlaces();renderPhrases()}
+function renderCities(){document.getElementById('cityTabs').innerHTML=Object.keys(CITY_NAMES).map(k=>'<button class="cityBtn '+(k===city?'on':'')+'" onclick="selectCity(\''+k+'\')">'+CITY_NAMES[k][lang]+'</button>').join('')}
+function selectCity(k){city=k;renderCities();renderPlaces()}
+function badge(kind){return kind==='station'?tr('stationBadge'):kind==='tour'?tr('tourBadge'):tr('publicBadge')}
+function dirUrl(p){let u='https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(p.query)+'&travelmode=walking';if(origin)u+='&origin='+origin.lat+','+origin.lng;return u}
+function renderPlaces(){document.getElementById('placeGrid').innerHTML=PLACES.filter(p=>p.city===city).map(p=>'<article class="place"><span class="badge">'+badge(p.kind)+'</span><h3>'+p[lang]+'</h3><div class="ko">'+p.ko+'</div><p>'+tr('placeNotice').split('.')[0]+'.</p><div class="cardActions"><a class="smallBtn google" target="_blank" rel="noopener" href="'+dirUrl(p)+'">Google · '+tr('walk')+'</a><a class="smallBtn" target="_blank" rel="noopener" href="https://map.kakao.com/link/search/'+encodeURIComponent(p.query)+'">Kakao · '+tr('search')+'</a><a class="smallBtn naver" target="_blank" rel="noopener" href="https://map.naver.com/p/search/'+encodeURIComponent(p.query)+'">Naver · '+tr('search')+'</a></div></article>').join('')}
+function renderPhrases(){document.getElementById('phraseGrid').innerHTML=PHRASES.map((p,i)=>'<article class="phrase"><div class="phraseKo">'+p.ko+'</div><div class="phraseLocal">'+p[lang]+'</div><div class="phraseActions"><button onclick="copyPhrase('+i+',this)">📋 '+tr('copy')+'</button><button onclick="speakPhrase('+i+')">🔊 '+tr('listen')+'</button></div></article>').join('')}
+async function copyPhrase(i,btn){try{await navigator.clipboard.writeText(PHRASES[i].ko);const old=btn.innerHTML;btn.textContent='✓ '+tr('copied');setTimeout(()=>btn.innerHTML=old,1300)}catch(e){window.prompt(tr('copy'),PHRASES[i].ko)}}
+function speakPhrase(i){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(PHRASES[i].ko);u.lang='ko-KR';u.rate=.85;window.speechSynthesis.speak(u)}
+function updateStatus(title,desc){document.getElementById('statusTitle').textContent=title;document.getElementById('statusText').textContent=desc}
+function useLocation(){if(!navigator.geolocation){updateStatus(tr('statusDenied'),tr('statusDeniedDesc'));return}updateStatus(tr('statusFinding'),tr('statusFindingDesc'));navigator.geolocation.getCurrentPosition(pos=>{origin={lat:pos.coords.latitude.toFixed(6),lng:pos.coords.longitude.toFixed(6)};updateStatus(tr('statusFound'),tr('statusFoundDesc')+' · '+origin.lat+', '+origin.lng);document.getElementById('googleNearby').href='https://www.google.com/maps/search/public+toilet/@'+origin.lat+','+origin.lng+',16z';document.getElementById('currentMap').href='https://map.kakao.com/link/map/'+origin.lat+','+origin.lng;renderPlaces()},()=>updateStatus(tr('statusDenied'),tr('statusDeniedDesc')),{enableHighAccuracy:true,timeout:10000,maximumAge:60000})}
+document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+setLang(lang);
+</script>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Jeonju Station bus routes, real local food photos and Jeonju Hanok Village travel information.">
+  <title>JEONJU EASY — KOREA EASY</title>
+  <style>
+    :root {
+      --ink: #251816;
+      --wine: #963f32;
+      --wine-dark: #61261f;
+      --wine-soft: #f8e9e4;
+      --hanji: #fcf7ed;
+      --paper: #fffdfa;
+      --line: #e5d5c7;
+      --gold: #efbf5a;
+      --muted: #6a5a53;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--hanji);
+      color: var(--ink);
+      font-family: Inter, Arial, "Noto Sans KR", "Noto Sans JP", "Noto Sans SC", sans-serif;
+    }
+    img { max-width: 100%; }
+    .wrap { width: min(1160px, 92%); margin: auto; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #fcf7edf2;
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    nav {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand { font-weight: 950; text-decoration: none; color: var(--ink); }
+    .brand span { color: var(--wine); }
+    .cities, .langs, .quick, .actions { display: flex; gap: 7px; flex-wrap: wrap; }
+    .city, .lang, .btn, .quick a {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .city, .lang { background: #fff; border: 1px solid var(--line); color: var(--ink); }
+    .city.on, .lang.on { background: var(--ink); color: #fff; }
+    .hero {
+      margin-top: 24px;
+      padding: 78px 42px 40px;
+      border-radius: 28px;
+      background:
+        linear-gradient(90deg, #2f130fe8, #42170f72),
+        url('https://tour.jeonju.go.kr/upload_data/board_data/BBS_0000003/176353987471558.jpg') center/cover;
+      color: #fff;
+    }
+    .hero h1 { font-size: clamp(3rem, 8vw, 6.5rem); line-height: .9; margin: 16px 0; }
+    .eyebrow, .meta { font-size: .76rem; font-weight: 950; letter-spacing: .08em; color: var(--gold); }
+    .lead { max-width: 800px; line-height: 1.7; color: #f7e9df; }
+    .quick { margin-top: 24px; }
+    .quick a { background: #fff; color: var(--ink); }
+    .sec { padding: 48px 0; }
+    .sec h2 { font-size: clamp(2rem, 4vw, 3.1rem); margin: 0 0 8px; }
+    .sub, .facts { color: var(--muted); line-height: 1.7; }
+    .section-tools { margin-top: 14px; }
+    .arrival { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 18px; }
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 19px;
+      box-shadow: 0 10px 28px #4a25140c;
+    }
+    .card h3, .card h4 { margin: 8px 0; }
+    .btn { display: inline-block; background: var(--wine); color: #fff; margin-top: 10px; }
+    .btn.secondary { background: #fff; color: var(--wine-dark); border: 1px solid #dcbab0; }
+    .tmoney-step-link { display: inline-block; margin-top: 12px; padding: 9px 12px; border-radius: 10px; background: #c83f34; color: #fff; text-decoration: none; font-size: .78rem; font-weight: 950; box-shadow: 0 7px 16px #8f211c24; }
+    .photo { padding: 0; overflow: hidden; }
+    .photo > img { width: 100%; height: 230px; object-fit: cover; display: block; background: #eee3dc; }
+    .photo .body { padding: 18px; }
+    .transport-card { border-left: 5px solid var(--wine); }
+    .bus-number {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--wine-soft);
+      color: var(--wine-dark);
+      font-size: .79rem;
+      font-weight: 950;
+      letter-spacing: .03em;
+    }
+    .route-box {
+      margin-top: 14px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: var(--wine-soft);
+      border: 1px solid #ead1c9;
+      color: #63342d;
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+    .route-box strong { display: block; color: var(--wine-dark); margin-bottom: 4px; }
+    .source { display: inline-block; margin-top: 10px; color: #81736b; font-size: .72rem; text-decoration: none; }
+    .source:hover { text-decoration: underline; }
+    footer { padding: 34px 0; border-top: 1px solid var(--line); color: #796d64; }
+    @media (max-width: 800px) {
+      .arrival { grid-template-columns: 1fr 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .langs { width: 100%; justify-content: flex-end; }
+    }
+    @media (max-width: 520px) {
+      .hero { padding: 50px 22px 30px; }
+      .arrival, .grid { grid-template-columns: 1fr; }
+      .photo > img { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap">
+      <a class="brand" href="./">KOREA <span>EASY</span></a>
+      <div class="cities">
+        <a class="city" href="SEOUL-EASY.html">SEOUL</a>
+        <a class="city" href="BUSAN-EASY.html">BUSAN</a>
+        <a class="city" href="GANGNEUNG-EASY.html">GANGNEUNG</a>
+        <a class="city on" href="JEONJU-EASY.html">JEONJU</a>
+        <a class="city" href="GYEONGJU-EASY.html">GYEONGJU</a>
+        <a class="city" href="JEJU-EASY.html">JEJU</a>
+      </div>
+      <div class="langs">
+        <button class="lang" data-lang="ko">한국어</button>
+        <button class="lang" data-lang="en">EN</button>
+        <button class="lang" data-lang="ja">日本語</button>
+        <button class="lang" data-lang="zh">中文</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">JEONJU EASY · HANOK & FOOD CITY</div>
+      <h1 id="title"></h1>
+      <p class="lead" id="lead"></p>
+      <div class="quick">
+        <a href="https://www.t-money.co.kr/" target="_blank" rel="noopener">💳 T-money 카드 안내</a><a href="toilet-sos.html">🚻 Toilet SOS</a><a href="foreigner-savings.html" style="background:#fff0c7;border-color:#e7c663;color:#6f5000">💸 Foreigner Savings</a>
+        <a href="#arrival" data-t="arrival"></a>
+        <a href="#transport" data-t="transport"></a>
+        <a href="#food" data-t="food"></a>
+        <a href="#photo" data-t="photo"></a>
+      </div>
+    </section>
+
+    <section class="sec" id="arrival">
+      <h2 data-t="arrivalTitle"></h2>
+      <p class="sub" data-t="arrivalDesc"></p>
+      <div class="arrival" id="arrivalGrid"></div>
+    </section>
+
+    <section class="sec" id="transport">
+      <h2 data-t="transportTitle"></h2>
+      <p class="sub" data-t="transportDesc"></p>
+      <div class="section-tools">
+        <a class="btn secondary" href="https://its.jeonju.go.kr/its/bus1.view" target="_blank" rel="noopener" data-t="officialBus"></a>
+      </div>
+      <div class="grid" id="transportGrid"></div>
+    </section>
+
+    <section class="sec" id="food">
+      <h2 data-t="foodTitle"></h2>
+      <p class="sub" data-t="foodDesc"></p>
+      <div class="grid" id="foodGrid"></div>
+    </section>
+
+    <section class="sec" id="photo">
+      <h2 data-t="photoTitle"></h2>
+      <p class="sub" data-t="photoDesc"></p>
+      <div class="grid" id="photoGrid"></div>
+    </section>
+  </main>
+
+  <footer><div class="wrap" data-t="footer"></div></footer>
+
+  <script>
+    const T = {
+      ko: {
+        title: 'Jeonju,<br>Hanok Made Easy.',
+        lead: '전주역 도착부터 전주한옥마을·남부시장 버스 노선, 전주 대표 음식의 실제 사진까지 한 화면에서 확인하세요.',
+        arrival: '🚄 전주 도착', transport: '🚌 명소 버스', food: '🥘 전주 먹거리', photo: '📸 사진 명소',
+        arrivalTitle: '전주역 도착 후 첫 30분',
+        arrivalDesc: '전주역 첫마중길 정류장에서 교통카드를 준비하고 목적지에 맞는 시내버스를 선택하세요.',
+        transportTitle: '전주역·터미널에서 어디로 갈까요?',
+        transportDesc: '공식 한옥마을 안내 기준 추천 노선입니다. 2026년 노선 조정이 있으므로 여행 당일 실시간 정보를 다시 확인하세요.',
+        foodTitle: '전주에서 꼭 먹어볼 음식',
+        foodDesc: '전주시와 PNB 공식 페이지에서 확인한 실제 음식 사진만 사용했습니다.',
+        photoTitle: 'Jeonju Photo Spot',
+        photoDesc: '전주한옥마을·경기전·전동성당의 실제 사진과 전주역 출발 버스, 하차 지점을 함께 표시했습니다.',
+        footer: 'KOREA EASY · 노선, 정류장, 요금과 운행시간은 여행 당일 전주시 교통정보센터에서 다시 확인하세요.',
+        dir: '지도 열기', best: '추천 시간', route: '추천 버스 노선', officialBus: '전주 실시간 버스 확인',
+        tmoneyGuide: 'T-money 구매·충전 안내 →', photoSource: '사진 출처', routeSource: '노선 근거'
+      },
+      en: {
+        title: 'Jeonju,<br>Hanok Made Easy.',
+        lead: 'From Jeonju Station to buses for Hanok Village and Nambu Market, plus real photos of signature Jeonju food — all on one easy page.',
+        arrival: '🚄 Arrival', transport: '🚌 Attraction Buses', food: '🥘 Local Food', photo: '📸 Photo Spot',
+        arrivalTitle: 'Your first 30 minutes at Jeonju Station',
+        arrivalDesc: 'At the Cheotmajung-gil bus stops outside Jeonju Station, prepare a transport card and choose the route for your destination.',
+        transportTitle: 'Where are you going from Jeonju Station or the terminals?',
+        transportDesc: 'Recommended routes based on official Hanok Village guidance. Recheck live service on your travel day because routes may change.',
+        foodTitle: 'Food to try in Jeonju',
+        foodDesc: 'Only real food photos verified on official Jeonju City and PNB pages.',
+        photoTitle: 'Jeonju Photo Spot',
+        photoDesc: 'Real photos of Jeonju Hanok Village, Gyeonggijeon Shrine and Jeondong Cathedral, with station bus routes and stops.',
+        footer: 'KOREA EASY · Confirm routes, stops, fares and operating hours on the Jeonju traffic site on your travel day.',
+        dir: 'Open map', best: 'Best time', route: 'Recommended bus route', officialBus: 'Check live Jeonju buses',
+        tmoneyGuide: 'Open purchase & top-up guide →', photoSource: 'Photo', routeSource: 'Route source'
+      },
+      ja: {
+        title: '全州、<br>韓屋の旅を簡単に。',
+        lead: '全州駅到着から韓屋村・南部市場へのバス路線、全州名物の実写写真まで一画面で確認できます。',
+        arrival: '🚄 全州到着', transport: '🚌 観光地バス', food: '🥘 全州グルメ', photo: '📸 写真スポット',
+        arrivalTitle: '全州駅到着後の最初の30分',
+        arrivalDesc: '全州駅前のチョッマジュンギル停留所で交通カードを準備し、目的地に合う市内バスを選びます。',
+        transportTitle: '全州駅・ターミナルからどこへ行きますか？',
+        transportDesc: '公式韓屋村案内を基にしたおすすめ路線です。旅行当日はリアルタイム運行情報をご確認ください。',
+        foodTitle: '全州で食べたい料理',
+        foodDesc: '全州市とPNB公式ページで確認した実際の料理写真のみを使用しています。',
+        photoTitle: '全州フォトスポット',
+        photoDesc: '全州韓屋村・慶基殿・殿洞聖堂の実写写真と、全州駅発のバス・降車停留所を表示しています。',
+        footer: 'KOREA EASY · 当日の路線・停留所・料金・運行時間をご確認ください。',
+        dir: '地図を開く', best: 'おすすめ時間', route: 'おすすめバス路線', officialBus: '全州の運行情報',
+        tmoneyGuide: '購入・チャージガイドを開く →', photoSource: '写真', routeSource: '路線情報'
+      },
+      zh: {
+        title: '全州，<br>韩屋旅行更简单。',
+        lead: '从全州站抵达，到韩屋村、南部市场公交路线和全州代表美食实拍照片，一页轻松查看。',
+        arrival: '🚄 抵达全州', transport: '🚌 景点公交', food: '🥘 全州美食', photo: '📸 拍照景点',
+        arrivalTitle: '抵达全州站后的前30分钟',
+        arrivalDesc: '在全州站外迎宾路公交站准备交通卡，然后选择前往目的地的市内公交。',
+        transportTitle: '从全州站或客运站去哪里？',
+        transportDesc: '路线依据韩屋村官方指南。公交可能调整，请在出行当天再次确认实时信息。',
+        foodTitle: '全州必吃美食',
+        foodDesc: '只使用经全州市和PNB官方网站确认的真实食物照片。',
+        photoTitle: '全州拍照景点',
+        photoDesc: '提供全州韩屋村、庆基殿和全洞圣堂的实拍照片，并标注从全州站出发的公交和下车站。',
+        footer: 'KOREA EASY · 出行当天请再次确认路线、站点、费用和运营时间。',
+        dir: '打开地图', best: '最佳时间', route: '推荐公交路线', officialBus: '查看全州实时公交',
+        tmoneyGuide: '打开购买与充值指南 →', photoSource: '照片', routeSource: '路线依据'
+      }
+    };
+
+    const ARRIVAL = {
+      ko: [
+        ['🚄', '전주역', 'KTX·일반열차 하차 후 역 정면 첫마중길로 이동'],
+        ['💳', '교통카드', 'T-money 또는 Cashbee 준비'],
+        ['🚌', '첫마중길 정류장', '한옥마을 방면 79·119번을 우선 확인'],
+        ['ℹ️', '관광안내', '역 관광안내소에서 지도와 당일 노선 확인']
+      ],
+      en: [
+        ['🚄', 'Jeonju Station', 'After your train, walk straight out to Cheotmajung-gil'],
+        ['💳', 'Transport card', 'Prepare T-money or Cashbee'],
+        ['🚌', 'Cheotmajung-gil stops', 'Check Bus 79 or 119 first for Hanok Village'],
+        ['ℹ️', 'Tourist info', 'Get a map and current route advice at the station']
+      ],
+      ja: [
+        ['🚄', '全州駅', '列車を降りたら駅正面のチョッマジュンギルへ'],
+        ['💳', '交通カード', 'T-moneyまたはCashbeeを準備'],
+        ['🚌', '駅前停留所', '韓屋村方面はまず79・119番を確認'],
+        ['ℹ️', '観光案内', '駅の観光案内所で地図と当日の路線を確認']
+      ],
+      zh: [
+        ['🚄', '全州站', '下车后从正门前往迎宾路'],
+        ['💳', '交通卡', '准备T-money或Cashbee'],
+        ['🚌', '迎宾路公交站', '去韩屋村优先查看79或119路'],
+        ['ℹ️', '旅游咨询', '在站内咨询处领取地图并确认当天路线']
+      ]
+    };
+
+    const TRANSPORT = [
+      {
+        name: 'Jeonju Hanok Village', ko: '전주한옥마을', bus: '79 · 119',
+        route: {
+          ko: '전주역 첫마중길 → 79·119번 → 전동성당·한옥마을 정류장 하차',
+          en: 'Jeonju Station Cheotmajung-gil → Bus 79 or 119 → get off at Jeondong Cathedral · Hanok Village',
+          ja: '全州駅チョッマジュンギル → 79・119番 → 殿洞聖堂・韓屋村で下車',
+          zh: '全州站迎宾路 → 79或119路 → 全洞圣堂·韩屋村站下车'
+        },
+        source: 'https://hanok.jeonju.go.kr/contents/map'
+      },
+      {
+        name: 'Nambu Market & Youth Mall', ko: '남부시장 · 청년몰', bus: '79 · 119',
+        route: {
+          ko: '전주역 첫마중길 → 79·119번 → 전동성당·한옥마을 하차 → 남부시장까지 도보 약 3~5분',
+          en: 'Jeonju Station → Bus 79 or 119 → Jeondong Cathedral · Hanok Village → walk about 3–5 min to Nambu Market',
+          ja: '全州駅 → 79・119番 → 殿洞聖堂・韓屋村 → 南部市場まで徒歩約3〜5分',
+          zh: '全州站 → 79或119路 → 全洞圣堂·韩屋村 → 步行约3–5分钟到南部市场'
+        },
+        source: 'https://tour.jeonju.go.kr/board/view.jeonju?boardId=BBS_0000003&dataSid=16084&menuCd=DOM_000000101006003000'
+      },
+      {
+        name: 'Hanok Village — more direct options', ko: '한옥마을 직행 대안', bus: '508 · 536 · 542 · 545 · 546',
+        route: {
+          ko: '전주역 승강장 → 전동성당·한옥마을 정류장 하차. 먼저 도착하는 직행 노선을 실시간으로 선택',
+          en: 'Jeonju Station stop → Jeondong Cathedral · Hanok Village. Use the live tracker and board the first suitable direct bus',
+          ja: '全州駅停留所 → 殿洞聖堂・韓屋村。リアルタイムで先に来る直行便を選択',
+          zh: '全州站公交站 → 全洞圣堂·韩屋村。查看实时信息并选择最先到站的直达公交'
+        },
+        source: 'https://hanok.jeonju.go.kr/contents/map'
+      },
+      {
+        name: 'Express / Intercity Terminal → Hanok Village', ko: '고속·시외버스터미널 → 한옥마을', bus: '79 · 999 · 1994',
+        route: {
+          ko: '터미널에서 불교회관 정류장으로 이동 → 79·999·1994번 → 전동성당·한옥마을 하차',
+          en: 'Walk to the Bulgyo Hoegwan stop → Bus 79, 999 or 1994 → Jeondong Cathedral · Hanok Village',
+          ja: 'ターミナルから仏教会館停留所へ → 79・999・1994番 → 殿洞聖堂・韓屋村で下車',
+          zh: '从客运站步行到佛教会馆站 → 79、999或1994路 → 全洞圣堂·韩屋村下车'
+        },
+        source: 'https://hanok.jeonju.go.kr/contents/map'
+      },
+      {
+        name: 'Hanok Village Free Shuttle', ko: '한옥마을 무료 셔틀', bus: 'FREE SHUTTLE',
+        route: {
+          ko: '한옥마을 제4공영주차장 → 자만벽화마을 경유 → 태조로 승강장 → 제4공영주차장',
+          en: 'Hanok Village Public Parking Lot 4 → Jaman Mural Village → Taejo-ro stop → Parking Lot 4',
+          ja: '韓屋村第4公営駐車場 → 滋満壁画村 → 太祖路乗り場 → 第4駐車場',
+          zh: '韩屋村第4公共停车场 → 滋满壁画村 → 太祖路站 → 第4停车场'
+        },
+        source: 'https://tour.jeonju.go.kr/index.jeonju?menuCd=DOM_000000106011000000'
+      },
+      {
+        name: 'Return to Jeonju Station', ko: '한옥마을 → 전주역', bus: '79 · 119',
+        route: {
+          ko: '동부시장 또는 전동성당·한옥마을 정류장에서 전주역 방향 79·119번 확인 → 전주역 하차',
+          en: 'At Dongbu Market or Jeondong Cathedral · Hanok Village, check Bus 79/119 toward Jeonju Station → get off at the station',
+          ja: '東部市場または殿洞聖堂・韓屋村停留所で全州駅方面79・119番を確認 → 全州駅下車',
+          zh: '在东部市场或全洞圣堂·韩屋村站确认开往全州站的79/119路 → 全州站下车'
+        },
+        source: 'https://its.jeonju.go.kr/its/bus1.view'
+      }
+    ];
+
+    const FOODS = [
+      {
+        name: 'Jeonju Bibimbap', ko: '전주비빔밥',
+        image: 'https://tour.jeonju.go.kr/images/visitjj/contents/k-culture/k-food/bibimbap/img_story_bibimbap.jpg',
+        sourceLabel: 'Visit Jeonju · official',
+        sourceUrl: 'https://tour.jeonju.go.kr/index.jeonju?menuCd=DOM_000000104003006000'
+      },
+      {
+        name: 'Kongnamul Gukbap', ko: '전주 콩나물국밥',
+        image: 'https://tour.jeonju.go.kr/images/visitjj/contents/month/2512_mucktour/img_sec1_11.jpg',
+        sourceLabel: 'Visit Jeonju · official food road',
+        sourceUrl: 'https://tour.jeonju.go.kr/board/view.jeonju?boardId=BBS_0000023&dataSid=16226&menuCd=DOM_000000112001000000'
+      },
+      {
+        name: 'Handmade Choco Pie', ko: '전주 수제 초코파이',
+        image: 'https://www.pnb1951.com/web/upload/goodymall/kr/main/mainImg001.jpg',
+        sourceLabel: 'PNB 1951 · official',
+        sourceUrl: 'https://www.pnb1951.com/'
+      },
+      {
+        name: 'Pi-sundae & Sundae Gukbap', ko: '전주 피순대 · 순대국밥',
+        image: 'https://tour.jeonju.go.kr/images/visitjj/contents/month/2512_mucktour/img_sec1_16.jpg',
+        sourceLabel: 'Visit Jeonju · official food road',
+        sourceUrl: 'https://tour.jeonju.go.kr/board/view.jeonju?boardId=BBS_0000023&dataSid=16226&menuCd=DOM_000000112001000000'
+      },
+      {
+        name: 'Jeonju Hanjeongsik', ko: '전주한정식',
+        image: 'https://tour.jeonju.go.kr/images/visitjj/contents/month/2512_mucktour/img_sec1_21.jpg',
+        sourceLabel: 'Visit Jeonju · official food road',
+        sourceUrl: 'https://tour.jeonju.go.kr/board/view.jeonju?boardId=BBS_0000023&dataSid=16226&menuCd=DOM_000000112001000000'
+      }
+    ];
+
+    const SPOTS = [
+      {
+        name: 'Jeonju Hanok Village', ko: '전주한옥마을',
+        image: 'https://tour.jeonju.go.kr/upload_data/board_data/BBS_0000003/176353987471558.jpg',
+        best: 'Morning / Golden Hour', bus: '79 · 119',
+        route: {
+          ko: '전주역 첫마중길 → 79·119번 → 전동성당·한옥마을 하차 → 태조로·은행로 골목 도보',
+          en: 'Jeonju Station Cheotmajung-gil → Bus 79 or 119 → Jeondong Cathedral · Hanok Village → walk Taejo-ro and Eunhaeng-ro',
+          ja: '全州駅チョッマジュンギル → 79・119番 → 殿洞聖堂・韓屋村 → 太祖路・銀杏路を散策',
+          zh: '全州站迎宾路 → 79或119路 → 全洞圣堂·韩屋村 → 步行游览太祖路和银杏路'
+        },
+        sourceUrl: 'https://tour.jeonju.go.kr/board/view.jeonju?boardId=BBS_0000003&dataSid=16109&menuCd=DOM_000000101006003000'
+      },
+      {
+        name: 'Gyeonggijeon Shrine', ko: '경기전',
+        image: 'https://tour.jeonju.go.kr/upload_data/board_data/BBS_0000003/177942516570092.jpg',
+        best: 'Morning / Green Season', bus: '79 · 119',
+        route: {
+          ko: '전주역 첫마중길 → 79·119번 → 전동성당·한옥마을 하차 → 경기전 정문까지 도보 약 2분',
+          en: 'Jeonju Station Cheotmajung-gil → Bus 79 or 119 → Jeondong Cathedral · Hanok Village → walk about 2 min to Gyeonggijeon',
+          ja: '全州駅チョッマジュンギル → 79・119番 → 殿洞聖堂・韓屋村 → 慶基殿正門まで徒歩約2分',
+          zh: '全州站迎宾路 → 79或119路 → 全洞圣堂·韩屋村 → 步行约2分钟到庆基殿正门'
+        },
+        sourceUrl: 'https://tour.jeonju.go.kr/board/view.jeonju?boardId=BBS_0000003&dataSid=10115&menuCd=DOM_000000101006001000'
+      },
+      {
+        name: 'Jeondong Cathedral', ko: '전동성당',
+        image: 'https://tour.jeonju.go.kr/upload_data/board_data/BBS_0000003/176351924731021.jpg',
+        best: 'Morning / Blue Sky', bus: '79 · 119',
+        route: {
+          ko: '전주역 첫마중길 → 79·119번 → 전동성당·한옥마을 하차 → 정류장 앞 성당으로 도보 이동',
+          en: 'Jeonju Station Cheotmajung-gil → Bus 79 or 119 → Jeondong Cathedral · Hanok Village → walk from the stop to the cathedral',
+          ja: '全州駅チョッマジュンギル → 79・119番 → 殿洞聖堂・韓屋村 → 停留所前の聖堂へ徒歩',
+          zh: '全州站迎宾路 → 79或119路 → 全洞圣堂·韩屋村 → 从车站步行至教堂'
+        },
+        sourceUrl: 'https://tour.jeonju.go.kr/board/view.jeonju?boardId=BBS_0000003&dataSid=9752&menuCd=DOM_000000101006001000'
+      },
+      {
+        name: 'Omokdae Pavilion', ko: '오목대',
+        image: 'https://tour.jeonju.go.kr/upload_data/board_data/BBS_0000018/169404407156588.jpg',
+        best: 'Morning / Sunset', bus: '79 · 119',
+        route: {
+          ko: '전주역 첫마중길 → 79·119번 → 전동성당·한옥마을 하차 → 오목대까지 도보 약 10분',
+          en: 'Jeonju Station Cheotmajung-gil → Bus 79 or 119 → Jeondong Cathedral · Hanok Village → walk about 10 min to Omokdae',
+          ja: '全州駅チョッマジュンギル → 79・119番 → 殿洞聖堂・韓屋村 → 梧木台まで徒歩約10分',
+          zh: '全州站迎宾路 → 79或119路 → 全洞圣堂·韩屋村 → 步行约10分钟到梧木台'
+        },
+        sourceUrl: 'https://tour.jeonju.go.kr/board/view.jeonju?boardId=BBS_0000018&dataSid=9917&menuCd=DOM_000000301005001000'
+      },
+      {
+        name: 'Jaman Mural Village', ko: '자만벽화마을',
+        image: 'https://tour.jeonju.go.kr/upload_data/board_data/BBS_0000003/176214832142867.jpg',
+        best: 'Afternoon / Colorful Street', bus: '79 · 119',
+        route: {
+          ko: '전주역 첫마중길 → 79·119번 → 전동성당·한옥마을 하차 → 자만벽화마을까지 도보 약 12~15분',
+          en: 'Jeonju Station Cheotmajung-gil → Bus 79 or 119 → Jeondong Cathedral · Hanok Village → walk about 12–15 min to Jaman Mural Village',
+          ja: '全州駅チョッマジュンギル → 79・119番 → 殿洞聖堂・韓屋村 → 滋満壁画村まで徒歩約12〜15分',
+          zh: '全州站迎宾路 → 79或119路 → 全洞圣堂·韩屋村 → 步行约12–15分钟到滋满壁画村'
+        },
+        sourceUrl: 'https://tour.jeonju.go.kr/board/view.jeonju?boardId=BBS_0000003&contentsSid=1738&dataSid=16022&menuCd=DOM_000000101006003000'
+      }
+    ];
+
+    const mapUrl = query => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query + ' Jeonju');
+    let lang = localStorage.getItem('jeonjuEasyLang') || 'en';
+    if (!T[lang]) lang = 'en';
+
+    function render() {
+      const t = T[lang];
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+      document.getElementById('title').innerHTML = t.title;
+      document.getElementById('lead').textContent = t.lead;
+      document.querySelectorAll('[data-t]').forEach(element => {
+        const key = element.dataset.t;
+        if (t[key]) element.textContent = t[key];
+      });
+      document.querySelectorAll('.lang').forEach(button => button.classList.toggle('on', button.dataset.lang === lang));
+
+      document.getElementById('arrivalGrid').innerHTML = ARRIVAL[lang].map((item, index) => `
+        <article class="card">
+          <div class="meta">0${index + 1}</div>
+          <h4>${item[0]} ${item[1]}</h4>
+          <div class="facts">${item[2]}</div>
+          ${index === 1 ? `<a class="tmoney-step-link" href="tmoney-guide-foreigners.html">${t.tmoneyGuide}</a>` : ''}
+        </article>
+      `).join('');
+
+      document.getElementById('transportGrid').innerHTML = TRANSPORT.map(item => `
+        <article class="card transport-card">
+          <span class="bus-number">${item.bus}</span>
+          <h3>${item.name}</h3>
+          <div class="facts">${item.ko}</div>
+          <div class="route-box"><strong>${t.route}</strong>${item.route[lang]}</div>
+          <div class="actions"><a class="btn" target="_blank" rel="noopener" href="${mapUrl(item.ko)}">${t.dir}</a></div>
+          <a class="source" target="_blank" rel="noopener" href="${item.source}">${t.routeSource}: Jeonju official</a>
+        </article>
+      `).join('');
+
+      document.getElementById('foodGrid').innerHTML = FOODS.map(item => `
+        <article class="card photo">
+          <img src="${item.image}" alt="${item.name}" loading="lazy">
+          <div class="body">
+            <div class="meta">JEONJU FOOD</div>
+            <h3>${item.name}</h3>
+            <div class="facts">${item.ko}</div>
+            <div class="actions"><a class="btn" target="_blank" rel="noopener" href="${mapUrl(item.ko)}">${t.dir}</a></div>
+            <a class="source" href="${item.sourceUrl}" target="_blank" rel="noopener">${t.photoSource}: ${item.sourceLabel}</a>
+          </div>
+        </article>
+      `).join('');
+
+      document.getElementById('photoGrid').innerHTML = SPOTS.map(item => `
+        <article class="card photo">
+          <img src="${item.image}" alt="${item.name}" loading="lazy">
+          <div class="body">
+            <div class="meta">${t.best}: ${item.best}</div>
+            <h3>${item.name}</h3>
+            <div class="facts">${item.ko}</div>
+            <div class="route-box">
+              <strong><span class="bus-number">${item.bus}</span> ${t.route}</strong>
+              ${item.route[lang]}
+            </div>
+            <div class="actions">
+              <a class="btn" target="_blank" rel="noopener" href="${mapUrl(item.ko)}">${t.dir}</a>
+              <a class="btn secondary" target="_blank" rel="noopener" href="https://its.jeonju.go.kr/its/bus1.view">${t.officialBus}</a>
+            </div>
+            <a class="source" href="${item.sourceUrl}" target="_blank" rel="noopener">${t.photoSource}: Visit Jeonju official</a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    document.querySelectorAll('.lang').forEach(button => {
+      button.addEventListener('click', () => {
+        lang = button.dataset.lang;
+        localStorage.setItem('jeonjuEasyLang', lang);
+        render();
+      });
+    });
+    render();
+  </script>
+  <style>.keUberFab{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,calc(env(safe-area-inset-bottom) + 14px));z-index:9998;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:0 19px;border-radius:999px;background:#111;color:#fff!important;font-weight:900;text-decoration:none;box-shadow:0 12px 30px #0005}.keUberFab:focus-visible{outline:3px solid #f4c84b;outline-offset:3px}@media(max-width:520px){body{padding-bottom:82px}.keUberFab{left:14px;right:14px;min-height:54px}}</style>
+  <div class="keActionDock" role="navigation" aria-label="빠른 이동"><a class="keToiletDock" href="toilet-sos.html" aria-label="가까운 화장실 찾기">🚻 Toilet</a><a class="kePharmacyFab" href="pharmacy-sos.html" aria-label="가까운 약국과 심야 약국 찾기">💊 Pharmacy</a><a class="keCableFab" href="cable-car-guide.html?city=jeonju" aria-label="케이블카 찾기">🚠 Cable</a><a class="keUberFab" href="https://m.uber.com/looking?pickup=my_location" target="_blank" rel="noopener noreferrer" aria-label="Uber 앱에서 택시 호출하기">🚕 Uber</a></div><style>.keActionDock{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,calc(env(safe-area-inset-bottom) + 10px));z-index:10000;display:grid;grid-template-columns:repeat(4,auto);gap:4px;padding:4px;border:1px solid #d8e2dc;border-radius:999px;background:#fffffff2;box-shadow:0 12px 30px #0003;backdrop-filter:blur(12px)}.keActionDock .keToiletDock,.keActionDock .kePharmacyFab,.keActionDock .keCableFab,.keActionDock .keUberFab{position:static!important;inset:auto!important;display:inline-flex!important;align-items:center;justify-content:center;min-width:82px;min-height:44px!important;margin:0!important;padding:0 12px!important;border-radius:999px!important;box-shadow:none!important;font-size:.78rem!important;font-weight:900;text-decoration:none;white-space:nowrap;pointer-events:auto}.keActionDock .keToiletDock{border:1px solid #eab6ac;background:#fff1ee;color:#84291f!important}.keActionDock .kePharmacyFab{border:1px solid #9fd0b5;background:#e9f7ef;color:#145f40!important}.keActionDock .keCableFab{border:1px solid #9fc7d8;background:#e8f5fa;color:#205d75!important}.keActionDock .keUberFab{border:1px solid #111;background:#111;color:#fff!important}.keActionDock a:focus-visible{outline:3px solid #f4c84b;outline-offset:1px}@media(max-width:520px){body{padding-bottom:72px}.keActionDock{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:4px}.keActionDock .keToiletDock,.keActionDock .kePharmacyFab,.keActionDock .keCableFab,.keActionDock .keUberFab{min-width:0!important;width:100%!important;min-height:44px!important;padding:0 3px!important;font-size:.64rem!important}}</style>
+</body>
+</html>

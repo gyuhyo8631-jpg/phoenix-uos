@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Jeju Airport bus routes, local food and photo spots for independent travelers.">
+  <title>JEJU EASY — KOREA EASY</title>
+  <style>
+    :root {
+      --ink: #14211a;
+      --green: #16745a;
+      --green-dark: #0d4f3d;
+      --green-soft: #e9f4ef;
+      --sand: #fbf7ed;
+      --line: #d7e0da;
+      --gold: #efc14f;
+      --muted: #53635a;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--sand);
+      color: var(--ink);
+      font-family: Inter, Arial, "Noto Sans KR", "Noto Sans JP", "Noto Sans SC", sans-serif;
+    }
+
+    img { max-width: 100%; }
+    .wrap { width: min(1160px, 92%); margin: auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #fbf7edf2;
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    nav {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand { font-weight: 950; text-decoration: none; color: var(--ink); }
+    .brand span { color: var(--green); }
+    .cities, .langs, .quick, .actions { display: flex; gap: 7px; flex-wrap: wrap; }
+
+    .city, .lang, .btn, .quick a {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .city, .lang { background: #fff; border: 1px solid var(--line); color: var(--ink); }
+    .city.on, .lang.on { background: var(--ink); color: #fff; }
+
+    .hero {
+      margin-top: 24px;
+      padding: 78px 42px 40px;
+      border-radius: 28px;
+      background:
+        linear-gradient(90deg, #092b21e8, #092b2180),
+        url('https://api.cdn.visitjeju.net/photomng/imgpath/201804/30/5e8f5920-c04b-4287-a03c-cd1291ec62ea.webp') center/cover;
+      color: #fff;
+    }
+
+    .hero h1 { font-size: clamp(3rem, 8vw, 6.5rem); line-height: .9; margin: 16px 0; }
+    .eyebrow, .meta { font-size: .76rem; font-weight: 950; letter-spacing: .08em; color: var(--gold); }
+    .lead { max-width: 760px; line-height: 1.7; color: #e4eee9; }
+    .quick { margin-top: 24px; }
+    .quick a { background: #fff; color: var(--ink); }
+
+    .sec { padding: 48px 0; }
+    .sec h2 { font-size: clamp(2rem, 4vw, 3.1rem); margin: 0 0 8px; }
+    .sub, .facts { color: var(--muted); line-height: 1.7; }
+    .section-tools { margin-top: 14px; }
+
+    .arrival { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 18px; }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 19px;
+      box-shadow: 0 10px 28px #1836270c;
+    }
+
+    .card h3, .card h4 { margin: 8px 0; }
+    .btn { display: inline-block; background: var(--green); color: #fff; margin-top: 10px; }
+    .btn.secondary { background: #fff; color: var(--green-dark); border: 1px solid #b9d2c7; }
+    .tmoney-step-link { display: inline-block; margin-top: 12px; padding: 9px 12px; border-radius: 10px; background: #c83f34; color: #fff; text-decoration: none; font-size: .78rem; font-weight: 950; box-shadow: 0 7px 16px #8f211c24; }
+
+    .photo { padding: 0; overflow: hidden; }
+    .photo > img { width: 100%; height: 220px; object-fit: cover; display: block; background: #e9eee9; }
+    .photo .body { padding: 18px; }
+
+    .transport-card { border-left: 5px solid var(--green); }
+    .bus-number {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-size: .79rem;
+      font-weight: 950;
+      letter-spacing: .03em;
+    }
+
+    .route-box {
+      margin-top: 14px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: var(--green-soft);
+      border: 1px solid #c9ded4;
+      color: #234c3d;
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+
+    .route-box strong { display: block; color: var(--green-dark); margin-bottom: 4px; }
+    .source { display: inline-block; margin-top: 10px; color: #748078; font-size: .72rem; text-decoration: none; }
+    .source:hover { text-decoration: underline; }
+    footer { padding: 34px 0; border-top: 1px solid var(--line); color: #68746d; }
+
+    @media (max-width: 800px) {
+      .arrival { grid-template-columns: 1fr 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .langs { width: 100%; justify-content: flex-end; }
+    }
+
+    @media (max-width: 520px) {
+      .hero { padding: 50px 22px 30px; }
+      .arrival, .grid { grid-template-columns: 1fr; }
+      .photo > img { height: 210px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap">
+      <a class="brand" href="./">KOREA <span>EASY</span></a>
+      <div class="cities">
+        <a class="city" href="SEOUL-EASY.html">SEOUL</a>
+        <a class="city" href="BUSAN-EASY.html">BUSAN</a>
+        <a class="city" href="GANGNEUNG-EASY.html">GANGNEUNG</a>
+        <a class="city" href="JEONJU-EASY.html">JEONJU</a>
+        <a class="city" href="GYEONGJU-EASY.html">GYEONGJU</a>
+        <a class="city on" href="JEJU-EASY.html">JEJU</a>
+      </div>
+      <div class="langs">
+        <button class="lang" data-lang="ko">한국어</button>
+        <button class="lang" data-lang="en">EN</button>
+        <button class="lang" data-lang="ja">日本語</button>
+        <button class="lang" data-lang="zh">中文</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">JEJU EASY · ISLAND TRAVEL HUB</div>
+      <h1 id="title"></h1>
+      <p class="lead" id="lead"></p>
+      <div class="quick">
+        <a href="https://www.t-money.co.kr/" target="_blank" rel="noopener">💳 T-money 카드 안내</a><a href="toilet-sos.html">🚻 Toilet SOS</a><a href="foreigner-savings.html" style="background:#fff0c7;border-color:#e7c663;color:#6f5000">💸 Foreigner Savings</a>
+        <a href="#arrival" data-t="arrival"></a>
+        <a href="#transport" data-t="transport"></a>
+        <a href="#food" data-t="food"></a>
+        <a href="#photo" data-t="photo"></a>
+      </div>
+    </section>
+
+    <section class="sec" id="arrival">
+      <h2 data-t="arrivalTitle"></h2>
+      <p class="sub" data-t="arrivalDesc"></p>
+      <div class="arrival" id="arrivalGrid"></div>
+    </section>
+
+    <section class="sec" id="transport">
+      <h2 data-t="transportTitle"></h2>
+      <p class="sub" data-t="transportDesc"></p>
+      <div class="section-tools">
+        <a class="btn secondary" href="https://bus.jeju.go.kr/" target="_blank" rel="noopener" data-t="officialBus"></a>
+      </div>
+      <div class="grid" id="transportGrid"></div>
+    </section>
+
+    <section class="sec" id="food">
+      <h2 data-t="foodTitle"></h2>
+      <p class="sub" data-t="foodDesc"></p>
+      <div class="grid" id="foodGrid"></div>
+    </section>
+
+    <section class="sec" id="photo">
+      <h2 data-t="photoTitle"></h2>
+      <p class="sub" data-t="photoDesc"></p>
+      <div class="grid" id="photoGrid"></div>
+    </section>
+  </main>
+
+  <footer><div class="wrap" data-t="footer"></div></footer>
+
+  <script>
+    const T = {
+      ko: {
+        title: 'Jeju,<br>Island Made Easy.',
+        lead: '제주공항 도착부터 명소별 버스 노선, 택시·렌터카, 제주 대표 먹거리와 사진 명소까지 한 화면에서 확인하세요.',
+        arrival: '✈️ 공항 도착',
+        transport: '🚌 공항 버스',
+        food: '🍜 제주 먹거리',
+        photo: '📸 사진 명소',
+        arrivalTitle: '제주공항 도착 후 첫 30분',
+        arrivalDesc: '짐을 찾은 뒤 교통카드를 준비하고 목적지에 맞는 이동수단을 선택하세요.',
+        transportTitle: '제주공항에서 어디로 갈까요?',
+        transportDesc: '공항에서 바로 탈 수 있는 추천 노선입니다. 배차와 정류장은 여행 당일 실시간으로 다시 확인하세요.',
+        foodTitle: '제주에서 꼭 먹어볼 음식',
+        foodDesc: '제주 대표 음식의 실제 사진과 바로 검색할 수 있는 지도 링크입니다.',
+        photoTitle: 'Jeju Photo Spots',
+        photoDesc: '각 사진 명소마다 제주공항 출발 추천 버스 노선과 하차 정류장을 함께 표시했습니다.',
+        footer: 'KOREA EASY · 실제 운행시간, 정류장과 요금은 여행 당일 제주버스정보시스템에서 다시 확인하세요.',
+        dir: '지도 열기',
+        best: '추천 시간',
+        route: '제주공항 버스 노선',
+        officialBus: '제주버스 실시간 확인',
+        tmoneyGuide: 'T-money 구매·충전 안내 →', photoSource: '사진 출처'
+      },
+      en: {
+        title: 'Jeju,<br>Island Made Easy.',
+        lead: 'From Jeju Airport to attraction-by-attraction bus routes, taxis, rental cars, island food and photo spots — everything you need in one easy page.',
+        arrival: '✈️ Airport Arrival',
+        transport: '🚌 Airport Buses',
+        food: '🍜 Local Food',
+        photo: '📸 Photo Spots',
+        arrivalTitle: 'Your first 30 minutes at Jeju Airport',
+        arrivalDesc: 'Collect your baggage, prepare a transport card, then choose the best way to reach your destination.',
+        transportTitle: 'Where are you going from Jeju Airport?',
+        transportDesc: 'Recommended routes you can board at the airport. Recheck live service and stops on your travel day.',
+        foodTitle: 'Food to try in Jeju',
+        foodDesc: 'Real photos of classic Jeju dishes with one-tap map search.',
+        photoTitle: 'Jeju Photo Spots',
+        photoDesc: 'Each photo spot includes a recommended bus route and stop from Jeju Airport.',
+        footer: 'KOREA EASY · Confirm live routes, stops, fares and operating hours on your travel day.',
+        dir: 'Open map',
+        best: 'Best time',
+        route: 'Bus route from Jeju Airport',
+        officialBus: 'Check live Jeju buses',
+        tmoneyGuide: 'Open purchase & top-up guide →', photoSource: 'Photo'
+      },
+      ja: {
+        title: '済州、<br>島旅を簡単に。',
+        lead: '済州空港到着から観光地別のバス路線、タクシー・レンタカー、郷土料理、写真スポットまで一画面で確認できます。',
+        arrival: '✈️ 空港到着',
+        transport: '🚌 空港バス',
+        food: '🍜 済州グルメ',
+        photo: '📸 写真スポット',
+        arrivalTitle: '済州空港到着後の最初の30分',
+        arrivalDesc: '手荷物を受け取り、交通カードを準備して目的地に合う移動方法を選びます。',
+        transportTitle: '済州空港からどこへ行きますか？',
+        transportDesc: '空港から乗車できるおすすめ路線です。旅行当日は運行状況と停留所を再確認してください。',
+        foodTitle: '済州で食べたい料理',
+        foodDesc: '済州を代表する料理の実際の写真とワンタップ地図検索です。',
+        photoTitle: '済州フォトスポット',
+        photoDesc: '各スポットに済州空港発のおすすめバス路線と下車停留所を表示しています。',
+        footer: 'KOREA EASY · 当日の路線・停留所・料金・運行時間をご確認ください。',
+        dir: '地図を開く',
+        best: 'おすすめ時間',
+        route: '済州空港からのバス路線',
+        officialBus: '済州バス運行情報',
+        tmoneyGuide: '購入・チャージガイドを開く →', photoSource: '写真'
+      },
+      zh: {
+        title: '济州，<br>海岛旅行更简单。',
+        lead: '从济州机场抵达，到各景点公交路线、出租车、租车、当地美食和拍照景点，一页轻松查看。',
+        arrival: '✈️ 机场抵达',
+        transport: '🚌 机场公交',
+        food: '🍜 济州美食',
+        photo: '📸 拍照景点',
+        arrivalTitle: '抵达济州机场后的前30分钟',
+        arrivalDesc: '领取行李，准备交通卡，然后选择适合目的地的交通方式。',
+        transportTitle: '从济州机场去哪里？',
+        transportDesc: '可在机场上车的推荐路线。出行当天请再次确认实时运营和停靠站。',
+        foodTitle: '济州必吃美食',
+        foodDesc: '济州代表美食的实拍照片与一键地图搜索。',
+        photoTitle: '济州拍照景点',
+        photoDesc: '每个景点均附有从济州机场出发的推荐公交路线和下车站。',
+        footer: 'KOREA EASY · 出行当天请再次确认路线、站点、费用和运营时间。',
+        dir: '打开地图',
+        best: '最佳时间',
+        route: '济州机场出发公交路线',
+        officialBus: '查看济州公交实时信息',
+        tmoneyGuide: '打开购买与充值指南 →', photoSource: '照片'
+      }
+    };
+
+    const ARRIVAL = {
+      ko: [
+        ['✈️', '도착 로비', '수하물 수령 후 1층 도착장으로 이동'],
+        ['💳', '교통카드', 'T-money 또는 Cashbee 준비'],
+        ['🚌', '버스', '공항 정류장 번호와 목적지 확인'],
+        ['🚗', '렌터카', '렌터카 셔틀 안내 표지 따라 이동']
+      ],
+      en: [
+        ['✈️', 'Arrivals hall', 'Collect baggage and enter the public area'],
+        ['💳', 'Transport card', 'Prepare T-money or Cashbee'],
+        ['🚌', 'Bus', 'Check the airport stop number and destination'],
+        ['🚗', 'Rental car', 'Follow rental-car shuttle signs']
+      ],
+      ja: [
+        ['✈️', '到着ロビー', '手荷物を受け取り1階到着ロビーへ'],
+        ['💳', '交通カード', 'T-moneyまたはCashbeeを準備'],
+        ['🚌', 'バス', '空港の乗り場番号と行先を確認'],
+        ['🚗', 'レンタカー', '送迎シャトル案内に従う']
+      ],
+      zh: [
+        ['✈️', '到达大厅', '领取行李后前往1楼到达区'],
+        ['💳', '交通卡', '准备T-money或Cashbee'],
+        ['🚌', '公交', '确认机场站点编号与目的地'],
+        ['🚗', '租车', '按照租车接驳车指示前往']
+      ]
+    };
+
+    const TRANSPORT = [
+      {
+        name: 'Jeju City / Dongmun Market',
+        ko: '제주시 · 동문시장',
+        bus: '466',
+        route: {
+          ko: '제주공항 → 466번 → 동문로터리 하차 → 시장까지 도보 약 5분',
+          en: 'Jeju Airport → Bus 466 → Dongmun Rotary → walk about 5 min',
+          ja: '済州空港 → 466番 → 東門ロータリー下車 → 徒歩約5分',
+          zh: '济州机场 → 466路 → 东门环岛站下车 → 步行约5分钟'
+        }
+      },
+      {
+        name: 'Aewol / Hyeopjae',
+        ko: '애월 · 협재',
+        bus: '102',
+        route: {
+          ko: '제주공항 4번 승차장 → 급행 102번 → 애월환승정류장 또는 협재 너븐밭 하차',
+          en: 'Airport Stop 4 → Express 102 → Aewol Transfer Stop or Hyeopjae Neobeunbat',
+          ja: '空港4番乗り場 → 急行102番 → 涯月乗換停留所または協才ノブンバッ',
+          zh: '机场4号站台 → 快线102路 → 涯月换乘站或挟才 Neobeunbat'
+        }
+      },
+      {
+        name: 'Seongsan Ilchulbong',
+        ko: '성산일출봉',
+        bus: '111 · 111-1',
+        route: {
+          ko: '제주공항 → 급행 111·111-1번 → 성산일출봉 입구 하차',
+          en: 'Jeju Airport → Express 111 or 111-1 → Seongsan Ilchulbong Entrance',
+          ja: '済州空港 → 急行111・111-1番 → 城山日出峰入口下車',
+          zh: '济州机场 → 快线111或111-1路 → 城山日出峰入口站下车'
+        }
+      },
+      {
+        name: 'Jungmun / Seogwipo',
+        ko: '중문 · 서귀포',
+        bus: '600 · 601',
+        route: {
+          ko: '제주공항 → 600·601번 → 중문관광단지 / 600번은 서귀포까지 계속 운행',
+          en: 'Jeju Airport → Bus 600 or 601 → Jungmun; Bus 600 continues to Seogwipo',
+          ja: '済州空港 → 600・601番 → 中文観光団地／600番は西帰浦まで運行',
+          zh: '济州机场 → 600或601路 → 中文旅游区；600路继续前往西归浦'
+        }
+      },
+      {
+        name: 'Jeju City Tour',
+        ko: '제주시티투어',
+        bus: 'CITY TOUR',
+        route: {
+          ko: '제주공항 3번 승차장 → 당일 시티투어 운행 코스와 시간을 확인',
+          en: 'Airport Stop 3 → check the City Tour route and schedule for the day',
+          ja: '空港3番乗り場 → 当日のシティツアー路線と時刻を確認',
+          zh: '机场3号站台 → 查看当天城市观光巴士路线和时间'
+        }
+      },
+      {
+        name: 'Rental Car Zone',
+        ko: '렌터카 셔틀',
+        bus: 'SHUTTLE',
+        route: {
+          ko: '도착장 렌터카 셔틀 표지 → 업체별 셔틀 승차구역으로 이동',
+          en: 'Follow rental-car shuttle signs to your company’s shuttle bay',
+          ja: 'レンタカー送迎案内に従い、各社のシャトル乗り場へ移動',
+          zh: '按照租车接驳车指示前往对应公司的接驳区'
+        }
+      }
+    ];
+
+    const FOODS = [
+      {
+        name: 'Jeju Black Pork',
+        ko: '제주 흑돼지',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/202409/25/50f99346-e2e5-401d-adb6-87e25d150316.JPG',
+        sourceLabel: 'VISIT JEJU · Donsadon',
+        sourceUrl: 'https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000020104'
+      },
+      {
+        name: 'Gogi-guksu',
+        ko: '고기국수',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/202409/25/e3fd44ad-534d-4a1d-ba26-7e38751759b7.webp',
+        sourceLabel: 'VISIT JEJU · Jamae Guksu',
+        sourceUrl: 'https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000012575'
+      },
+      {
+        name: 'Abalone Porridge',
+        ko: '전복죽',
+        image: 'https://d12zq4w4guyljn.cloudfront.net/750_750_20260207135415_photo4_d5b972c1b577.webp',
+        sourceLabel: 'DiningCode · 표선 해녀의집 실제 전복죽 사진',
+        sourceUrl: 'https://www.diningcode.com/profile.php?rid=pPdZ70bgvSwh'
+      },
+      {
+        name: 'Galchi Jorim',
+        ko: '갈치조림',
+        image: 'https://d12zq4w4guyljn.cloudfront.net/750_750_20250919040021655_photo_602e674e25ed.webp',
+        sourceLabel: 'DiningCode · 착한집 실제 갈치조림 사진',
+        sourceUrl: 'https://www.diningcode.com/profile.php?rid=dDRqSzK7N1Pm'
+      },
+      {
+        name: 'Hallabong & Tangerines',
+        ko: '한라봉 · 감귤',
+        image: 'https://images.unsplash.com/photo-1743685881670-0f9187496bb6?auto=format&fit=crop&w=1200&q=82',
+        sourceLabel: 'Unsplash · IRa Kang',
+        sourceUrl: 'https://unsplash.com/photos/oranges-hanging-on-a-tree-against-a-blue-sky-bnFlYyd6SlY'
+      },
+      {
+        name: 'Dongmun Market Food',
+        ko: '동문시장 먹거리',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/202112/30/8193ee0a-e5b4-4883-b3c0-ceb384a59b39.webp',
+        sourceLabel: 'VISIT JEJU',
+        sourceUrl: 'https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000012612'
+      }
+    ];
+
+    const SPOTS = [
+      {
+        name: 'Hyeopjae Beach',
+        ko: '협재해수욕장',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/202408/27/77cf6bb2-4d0d-4f46-8cfa-3f527a4d06b3.webp',
+        best: 'Morning / Sunset',
+        bus: '102',
+        route: {
+          ko: '제주공항 4번 승차장 → 급행 102번 → 협재 너븐밭(해수욕장입구) 하차 → 도보 약 7분',
+          en: 'Airport Stop 4 → Express 102 → Hyeopjae Neobeunbat (Beach Entrance) → walk about 7 min',
+          ja: '空港4番乗り場 → 急行102番 → 協才ノブンバッ（海水浴場入口）下車 → 徒歩約7分',
+          zh: '机场4号站台 → 快线102路 → 挟才 Neobeunbat（海水浴场入口）下车 → 步行约7分钟'
+        }
+      },
+      {
+        name: 'Seongsan Ilchulbong',
+        ko: '성산일출봉',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/202409/20/c8bf6191-832c-4605-a948-96f07f6112d2.webp',
+        best: 'Sunrise',
+        bus: '111 · 111-1',
+        route: {
+          ko: '제주공항 → 급행 111·111-1번 → 성산일출봉 입구 하차',
+          en: 'Jeju Airport → Express 111 or 111-1 → Seongsan Ilchulbong Entrance',
+          ja: '済州空港 → 急行111・111-1番 → 城山日出峰入口下車',
+          zh: '济州机场 → 快线111或111-1路 → 城山日出峰入口站下车'
+        }
+      },
+      {
+        name: 'Dongmun Traditional Market',
+        ko: '동문전통시장',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/202410/16/bdf6c336-fde3-4312-92be-7db8f3a37fbc.webp',
+        best: 'Evening',
+        bus: '466',
+        route: {
+          ko: '제주공항 → 466번 → 동문로터리 하차 → 시장까지 도보 약 5분',
+          en: 'Jeju Airport → Bus 466 → Dongmun Rotary → walk about 5 min',
+          ja: '済州空港 → 466番 → 東門ロータリー下車 → 徒歩約5分',
+          zh: '济州机场 → 466路 → 东门环岛站下车 → 步行约5分钟'
+        }
+      },
+      {
+        name: 'Gwangchigi Beach',
+        ko: '광치기해변',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/201804/30/5e8f5920-c04b-4287-a03c-cd1291ec62ea.webp',
+        best: 'Sunrise / Low tide',
+        bus: '111 → 201',
+        route: {
+          ko: '제주공항 → 111번 → 고성환승정류장 → 201번 환승 → 광치기해변 하차',
+          en: 'Jeju Airport → Bus 111 → Goseong Transfer Stop → Bus 201 → Gwangchigi Beach',
+          ja: '済州空港 → 111番 → 古城乗換停留所 → 201番に乗換 → クァンチギ海岸',
+          zh: '济州机场 → 111路 → 古城换乘站 → 换乘201路 → 广峙其海边站'
+        }
+      },
+      {
+        name: 'Dodu Rainbow Coastal Road',
+        ko: '도두동 무지개 해안도로',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/201810/18/402f853e-f146-47ea-ac26-6a01ce0673c3.webp',
+        best: 'Afternoon / Sunset',
+        bus: '453',
+        route: {
+          ko: '제주공항 → 453번 → 도두봉 동쪽·오래물광장 인근 하차 → 도보 약 5~10분',
+          en: 'Jeju Airport → Bus 453 → Dodu Bong East / Oraemul Plaza area → walk about 5–10 min',
+          ja: '済州空港 → 453番 → 道頭峰東側・オレムル広場付近下車 → 徒歩約5〜10分',
+          zh: '济州机场 → 453路 → 道头峰东侧／Oraemul广场附近下车 → 步行约5–10分钟'
+        }
+      },
+      {
+        name: 'Saryeoni Forest Trail',
+        ko: '사려니숲길',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/202408/16/b1e3727d-a730-4bcf-bfe3-5136edff88cc.webp',
+        best: 'Morning',
+        bus: '181 → 232',
+        route: {
+          ko: '제주공항 → 181번 → 제주버스터미널 → 232번 환승 → 사려니숲길 하차',
+          en: 'Jeju Airport → Bus 181 → Jeju Bus Terminal → Bus 232 → Saryeoni Forest Trail',
+          ja: '済州空港 → 181番 → 済州バスターミナル → 232番に乗換 → サリョニ林道',
+          zh: '济州机场 → 181路 → 济州客运站 → 换乘232路 → 思连伊林荫道站'
+        }
+      },
+      {
+        name: 'Hamdeok Beach',
+        ko: '함덕해수욕장',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/202408/20/a397a498-7bc9-4730-963a-cfa29ccffe7d.webp',
+        best: 'Morning / Clear Day',
+        bus: '101',
+        route: {
+          ko: '제주공항 → 급행 101번 → 함덕환승정류장(함덕해수욕장) 하차',
+          en: 'Jeju Airport → Express 101 → Hamdeok Transfer Stop (Hamdeok Beach)',
+          ja: '済州空港 → 急行101番 → 咸徳乗換停留所（咸徳海水浴場）下車',
+          zh: '济州机场 → 快线101路 → 咸德换乘站（咸德海水浴场）下车'
+        }
+      },
+      {
+        name: 'Woljeongri Beach',
+        ko: '월정리해수욕장',
+        image: 'https://api.cdn.visitjeju.net/photomng/imgpath/202407/10/6db0b4c5-d33a-47b0-b083-543f5d3d6e7c.webp',
+        best: 'Morning / Blue Hour',
+        bus: '101 → 201',
+        route: {
+          ko: '제주공항 → 급행 101번 → 김녕환승정류장 → 201번 환승 → 월정리 하차',
+          en: 'Jeju Airport → Express 101 → Gimnyeong Transfer Stop → Bus 201 → Woljeongri',
+          ja: '済州空港 → 急行101番 → 金寧乗換停留所 → 201番に乗換 → 月汀里下車',
+          zh: '济州机场 → 快线101路 → 金宁换乘站 → 换乘201路 → 月汀里站下车'
+        }
+      },
+      {
+        name: 'Geumneung Beach',
+        ko: '금능해수욕장',
+        image: 'https://ak-d.tripcdn.com/images/0101x2224l03hrz7451D5_R_600_400_R5_Q90.jpg?proc=source%2Ftrip',
+        best: 'Morning / Sunset',
+        bus: '102',
+        route: {
+          ko: '제주공항 4번 승차장 → 급행 102번 → 금능해수욕장 하차 → 도보 약 5분',
+          en: 'Airport Stop 4 → Express 102 → Geumneung Beach → walk about 5 min',
+          ja: '空港4番乗り場 → 急行102番 → 金陵海水浴場下車 → 徒歩約5分',
+          zh: '机场4号站台 → 快线102路 → 金陵海水浴场站下车 → 步行约5分钟'
+        }
+      },
+      {
+        name: 'Jungmun Saekdal Beach',
+        ko: '중문색달해수욕장',
+        image: 'https://thisiskoreatours.com/wp-content/uploads/2017/03/Jungmun-Saekdal-Beach.jpg',
+        best: 'Afternoon / Sunset',
+        bus: '600',
+        route: {
+          ko: '제주공항 5번 승차장 → 600번 → 더쇼어호텔 정류장 하차 → 해변까지 도보 약 10분',
+          en: 'Airport Stop 5 → Bus 600 → The Shore Hotel stop → walk about 10 min to the beach',
+          ja: '空港5番乗り場 → 600番 → ザ・ショアホテル停留所 → 海岸まで徒歩約10分',
+          zh: '机场5号站台 → 600路 → The Shore Hotel站下车 → 步行约10分钟到海滩'
+        }
+      }
+    ];
+
+    const mapUrl = query => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query + ' Jeju');
+    let lang = localStorage.getItem('jejuEasyLang') || 'en';
+    if (!T[lang]) lang = 'en';
+
+    function render() {
+      const t = T[lang];
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+      document.getElementById('title').innerHTML = t.title;
+      document.getElementById('lead').textContent = t.lead;
+
+      document.querySelectorAll('[data-t]').forEach(element => {
+        const key = element.dataset.t;
+        if (t[key]) element.textContent = t[key];
+      });
+
+      document.querySelectorAll('.lang').forEach(button => {
+        button.classList.toggle('on', button.dataset.lang === lang);
+      });
+
+      document.getElementById('arrivalGrid').innerHTML = ARRIVAL[lang].map((item, index) => `
+        <article class="card">
+          <div class="meta">0${index + 1}</div>
+          <h4>${item[0]} ${item[1]}</h4>
+          <div class="facts">${item[2]}</div>
+          ${index === 1 ? `<a class="tmoney-step-link" href="tmoney-guide-foreigners.html">${t.tmoneyGuide}</a>` : ''}
+        </article>
+      `).join('');
+
+      document.getElementById('transportGrid').innerHTML = TRANSPORT.map(item => `
+        <article class="card transport-card">
+          <span class="bus-number">${item.bus}</span>
+          <h3>${item.name}</h3>
+          <div class="facts">${item.ko}</div>
+          <div class="route-box"><strong>${t.route}</strong>${item.route[lang]}</div>
+          <a class="btn" target="_blank" rel="noopener" href="${mapUrl(item.name)}">${t.dir}</a>
+        </article>
+      `).join('');
+
+      document.getElementById('foodGrid').innerHTML = FOODS.map(item => `
+        <article class="card photo">
+          <img src="${item.image}" alt="${item.name}" loading="lazy">
+          <div class="body">
+            <div class="meta">JEJU FOOD</div>
+            <h3>${item.name}</h3>
+            <div class="facts">${item.ko}</div>
+            <div class="actions">
+              <a class="btn" target="_blank" rel="noopener" href="${mapUrl(item.ko)}">${t.dir}</a>
+            </div>
+            <a class="source" href="${item.sourceUrl}" target="_blank" rel="noopener">${t.photoSource}: ${item.sourceLabel}</a>
+          </div>
+        </article>
+      `).join('');
+
+      document.getElementById('photoGrid').innerHTML = SPOTS.map(item => `
+        <article class="card photo">
+          <img src="${item.image}" alt="${item.name}" loading="lazy">
+          <div class="body">
+            <div class="meta">${t.best}: ${item.best}</div>
+            <h3>${item.name}</h3>
+            <div class="facts">${item.ko}</div>
+            <div class="route-box">
+              <strong><span class="bus-number">${item.bus}</span> ${t.route}</strong>
+              ${item.route[lang]}
+            </div>
+            <div class="actions">
+              <a class="btn" target="_blank" rel="noopener" href="${mapUrl(item.ko)}">${t.dir}</a>
+              <a class="btn secondary" target="_blank" rel="noopener" href="https://bus.jeju.go.kr/">${t.officialBus}</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    document.querySelectorAll('.lang').forEach(button => {
+      button.addEventListener('click', () => {
+        lang = button.dataset.lang;
+        localStorage.setItem('jejuEasyLang', lang);
+        render();
+      });
+    });
+
+    render();
+  </script>
+  <style>.keUberFab{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,calc(env(safe-area-inset-bottom) + 14px));z-index:9998;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:0 19px;border-radius:999px;background:#111;color:#fff!important;font-weight:900;text-decoration:none;box-shadow:0 12px 30px #0005}.keUberFab:focus-visible{outline:3px solid #f4c84b;outline-offset:3px}@media(max-width:520px){body{padding-bottom:82px}.keUberFab{left:14px;right:14px;min-height:54px}}</style>
+  <div class="keActionDock" role="navigation" aria-label="빠른 이동"><a class="keToiletDock" href="toilet-sos.html" aria-label="가까운 화장실 찾기">🚻 Toilet</a><a class="kePharmacyFab" href="pharmacy-sos.html" aria-label="가까운 약국과 심야 약국 찾기">💊 Pharmacy</a><a class="keCableFab" href="cable-car-guide.html?city=jeju" aria-label="케이블카 찾기">🚠 Cable</a><a class="keUberFab" href="https://m.uber.com/looking?pickup=my_location" target="_blank" rel="noopener noreferrer" aria-label="Uber 앱에서 택시 호출하기">🚕 Uber</a></div><style>.keActionDock{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,calc(env(safe-area-inset-bottom) + 10px));z-index:10000;display:grid;grid-template-columns:repeat(4,auto);gap:4px;padding:4px;border:1px solid #d8e2dc;border-radius:999px;background:#fffffff2;box-shadow:0 12px 30px #0003;backdrop-filter:blur(12px)}.keActionDock .keToiletDock,.keActionDock .kePharmacyFab,.keActionDock .keCableFab,.keActionDock .keUberFab{position:static!important;inset:auto!important;display:inline-flex!important;align-items:center;justify-content:center;min-width:82px;min-height:44px!important;margin:0!important;padding:0 12px!important;border-radius:999px!important;box-shadow:none!important;font-size:.78rem!important;font-weight:900;text-decoration:none;white-space:nowrap;pointer-events:auto}.keActionDock .keToiletDock{border:1px solid #eab6ac;background:#fff1ee;color:#84291f!important}.keActionDock .kePharmacyFab{border:1px solid #9fd0b5;background:#e9f7ef;color:#145f40!important}.keActionDock .keCableFab{border:1px solid #9fc7d8;background:#e8f5fa;color:#205d75!important}.keActionDock .keUberFab{border:1px solid #111;background:#111;color:#fff!important}.keActionDock a:focus-visible{outline:3px solid #f4c84b;outline-offset:1px}@media(max-width:520px){body{padding-bottom:72px}.keActionDock{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:4px}.keActionDock .keToiletDock,.keActionDock .kePharmacyFab,.keActionDock .keCableFab,.keActionDock .keUberFab{min-width:0!important;width:100%!important;min-height:44px!important;padding:0 3px!important;font-size:.64rem!important}}</style>
+</body>
+</html>

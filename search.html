@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Search | KOREA EASY</title><meta name="description" content="Search KOREA EASY for airport transport, T-money, subway, hotels, food, eSIM, K-ETA, emergency info and more."><style>body{margin:0;font-family:Inter,Arial,'Noto Sans KR',sans-serif;background:#f4f0e7;color:#17231d}.wrap{width:min(880px,92%);margin:auto}header{padding:18px 0;background:#fff;border-bottom:1px solid #ddd}a{text-decoration:none;color:inherit}.brand{font-weight:950}.brand span{color:#1e6d4d}.searchhero{margin:30px 0 18px}.searchhero h1{font-size:clamp(1.9rem,6vw,3.2rem);margin:0 0 14px}.searchbox{position:relative}.searchbox input{width:100%;box-sizing:border-box;padding:18px 20px;border-radius:16px;border:2px solid #d8e0d7;font-size:1.1rem;background:#fff;outline:none}.searchbox input:focus{border-color:#1e6d4d}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px}.chip{padding:7px 13px;border-radius:999px;background:#fff;border:1px solid #d8e0d7;font-size:.85rem;font-weight:700;cursor:pointer}.chip:hover{border-color:#1e6d4d;color:#1e6d4d}.results{display:flex;flex-direction:column;gap:10px;margin-bottom:60px}.result{display:block;background:#fff;border:1px solid #d8e0d7;border-radius:16px;padding:16px 18px}.result:hover{border-color:#1e6d4d}.result b{display:block;font-size:1.02rem;margin-bottom:4px}.result span{color:#68736c;font-size:.9rem;line-height:1.6}.empty{padding:40px 0;text-align:center;color:#8a9188}</style></head>
+<body>
+<header><div class="wrap" style="display:flex;justify-content:space-between;align-items:center"><a class="brand" href="./">KOREA <span>EASY</span></a></div></header>
+<main class="wrap">
+  <section class="searchhero">
+    <h1>🔍 Search KOREA EASY</h1>
+    <div class="searchbox"><input id="q" type="text" placeholder="Try: airport, T-money, hotel, eSIM, emergency, Jeju..." autofocus></div>
+    <div class="chips" id="chips"></div>
+  </section>
+  <div class="results" id="results"></div>
+</main>
+
+<script>
+const INDEX = [
+  {t:'Home', d:'Everything after landing: airport, T-money, subway, taxi, food, photo spots, events.', u:'index.html', k:'home main seoul'},
+  {t:'Incheon Airport → Seoul (T1 & T2)', d:'AREX, airport bus and taxi from Incheon Airport Terminal 1 and 2.', u:'incheon-airport-to-seoul.html', k:'incheon airport arex bus taxi t1 t2 arrival'},
+  {t:'Incheon Airport → Gangnam', d:'Fastest routes from Incheon Airport to Gangnam by AREX, subway and taxi.', u:'incheon-airport-to-gangnam.html', k:'incheon gangnam airport route'},
+  {t:'Incheon Airport → Myeongdong', d:'Fastest routes from Incheon Airport to Myeongdong by AREX, subway and taxi.', u:'incheon-airport-to-myeongdong.html', k:'incheon myeongdong airport route'},
+  {t:'Gimpo Airport Guide', d:'Arrival flow, rail, taxi, bus and WOWPASS at Gimpo International Airport.', u:'gimpo-airport-guide.html', k:'gimpo airport domestic'},
+  {t:'T-money Top-up Guide', d:'How to buy and top up a T-money transit card at a subway kiosk or convenience store.', u:'tmoney-guide-foreigners.html', k:'tmoney transit card top up subway kiosk'},
+  {t:'WOWPASS Guide', d:'Prepaid card for foreigners: currency exchange, transit and payments.', u:'wowpass-guide.html', k:'wowpass card exchange prepaid'},
+  {t:'Best eSIM for Korea 2026', d:'Compare eSIM options for data in Korea, plus where to get a physical SIM.', u:'best-esim-korea-2026.html', k:'esim sim data internet wifi phone'},
+  {t:'Emergency & Safety Info', d:'Police 112, ambulance 119, tourist hotline 1330, lost passport, lost card.', u:'emergency-info.html', k:'emergency police ambulance 112 119 1330 lost passport lost card hospital pharmacy safety'},
+  {t:'K-ETA & Visa Guide', d:'Do you need a visa or K-ETA to enter Korea, and how to apply.', u:'keta-visa-guide.html', k:'keta visa entry immigration eta'},
+  {t:'Foreigner Savings', d:'Discounts, coupons and money-saving tips for visitors in Korea.', u:'foreigner-savings.html', k:'discount coupon savings deal money'},
+  {t:'Hotel Guide', d:'How to choose and book accommodation in Korea as a foreigner.', u:'hotel-guide.html', k:'hotel accommodation stay booking'},
+  {t:'Toilet SOS', d:'Find the nearest public restroom fast.', u:'toilet-sos.html', k:'toilet restroom bathroom wc'},
+  {t:'Pharmacy Finder', d:'Find nearby, late-night and 24-hour pharmacies.', u:'pharmacy-sos.html', k:'pharmacy drugstore medicine late night 24 hour open 약국'},
+  {t:'Korea Cable Car Guide', d:'Find cable cars in Seoul, Busan and nearby day-trip routes from Gangneung, Jeonju and Gyeongju.', u:'cable-car-guide.html', k:'cable car ropeway gondola 케이블카 서울 부산 강릉 전주 경주 제주'},
+  {t:'Seoul Explorer', d:'Explore Seoul food, photo spots and neighborhoods.', u:'seoul-explorer.html', k:'seoul food photo spot neighborhood district'},
+  {t:'Busan Easy', d:'Travel hub for Busan: transport, food and sights.', u:'BUSAN-EASY.html', k:'busan'},
+  {t:'Gangneung Easy', d:'Travel hub for Gangneung: transport, food and sights.', u:'GANGNEUNG-EASY.html', k:'gangneung'},
+  {t:'Gyeongju Easy', d:'Travel hub for Gyeongju: transport, food and sights.', u:'GYEONGJU-EASY.html', k:'gyeongju'},
+  {t:'Jeju Easy', d:'Travel hub for Jeju Island: transport, food and sights.', u:'JEJU-EASY.html', k:'jeju island'},
+  {t:'Jeonju Easy', d:'Travel hub for Jeonju: transport, food and sights.', u:'JEONJU-EASY.html', k:'jeonju hanok'},
+  {t:'Trip Budget Calculator', d:'Estimate your daily and total travel budget for Korea.', u:'budget-calculator.html', k:'budget cost calculator money price won'}
+];
+
+const q = document.getElementById('q');
+const results = document.getElementById('results');
+const chips = document.getElementById('chips');
+const chipWords = ['airport','T-money','hotel','eSIM','emergency','K-ETA','Jeju','budget'];
+
+chips.innerHTML = chipWords.map(w=>`<span class="chip" data-w="${w}">${w}</span>`).join('');
+chips.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{q.value=c.dataset.w;render(q.value);}));
+
+function render(query){
+  const s = (query||'').trim().toLowerCase();
+  const items = !s ? INDEX : INDEX.filter(i => (i.t+' '+i.d+' '+i.k).toLowerCase().includes(s));
+  if(!items.length){
+    results.innerHTML = '<div class="empty">No matches. Try a different word, or browse the homepage.</div>';
+    return;
+  }
+  results.innerHTML = items.map(i=>`<a class="result" href="${i.u}"><b>${i.t}</b><span>${i.d}</span></a>`).join('');
+}
+q.addEventListener('input', ()=>render(q.value));
+render('');
+</script>
+</body></html>
