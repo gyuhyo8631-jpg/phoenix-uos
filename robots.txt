@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://korea.phoenix-uos.com/sitemap.xml
+Sitemap: https://www.phoenix-uos.com/sitemap.xml

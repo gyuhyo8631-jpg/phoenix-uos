@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(__filename), "..");
-const siteUrl = "https://korea.phoenix-uos.com";
+const siteUrl = "https://www.phoenix-uos.com";
 const ignoredHtml = [/^googled[a-z0-9]+\.html$/i];
 
 function xmlEscape(value) {
