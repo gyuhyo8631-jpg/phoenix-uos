@@ -1,0 +1,34 @@
+name: One-time complete site source swap
+
+on:
+  push:
+    paths:
+      - ".github/workflows/one-time-site-source-swap.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  swap:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out target repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Replace target with Korea Easy source snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_dir="$RUNNER_TEMP/site-source"
+          git clone --filter=blob:none --no-checkout https://github.com/gyuhyo8631-jpg/korea-easy.git "$source_dir"
+          git -C "$source_dir" fetch --depth=1 origin ea73b626bb5013ca3e0373457ed37a76aa5476a2
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf -- {} +
+          git -C "$source_dir" archive ea73b626bb5013ca3e0373457ed37a76aa5476a2 | tar -x -C .
+          git add -A
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Swap complete site source: Korea Easy"
+          git push origin HEAD:main
