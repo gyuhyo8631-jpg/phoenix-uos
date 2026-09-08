@@ -1,6 +1,6 @@
 // KOREA EASY — basic offline cache
 // Caches key pages so travelers can reopen them without signal (e.g. right after landing).
-const CACHE_NAME = 'korea-easy-v22';
+const CACHE_NAME = 'korea-easy-v23';
 const CORE_ASSETS = [
   '/',
   'index.html',
