@@ -3,7 +3,7 @@
 <head>
   <script>
     (() => {
-      const estateHosts = ['estate-phoenix-uos.vercel.app', 'estate.phoenix-uos.com'];
+      const estateHosts = ['estate-phoenix-uos.vercel.app', 'estate-phoenix-uos.com', 'www.estate-phoenix-uos.com', 'estate.phoenix-uos.com'];
       if (!estateHosts.includes(window.location.hostname)) return;
       fetch('/estate/index.html', { cache: 'no-store' })
         .then((response) => {
