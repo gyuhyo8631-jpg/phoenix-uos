@@ -89,7 +89,13 @@
     border:1px solid rgba(255,255,255,.24);
     background:rgba(255,255,255,.2); backdrop-filter:blur(12px);
   }
-  .city-card{ padding:18px 20px; background:rgba(10,18,34,.7); color:#fff; }
+  .city-card{
+    padding:18px 20px; background:rgba(10,18,34,.7); color:#fff;
+    text-decoration:none; transition:background .2s,transform .2s;
+  }
+  .city-card:hover,.city-card:focus-visible{
+    background:rgba(168,103,46,.92); transform:translateY(-3px); outline:none;
+  }
   .city-card small{
     display:block; color:#D7A566; font-size:11px; letter-spacing:.15em;
     text-transform:uppercase; margin-bottom:3px;
@@ -120,6 +126,35 @@
     .city-card small{ grid-row:1 / span 2; margin:0; }
     .city-card strong{ font-size:16px; }
     .city-card span{ font-size:11px; margin:0; }
+  }
+
+  /* ---------- Connected markets ---------- */
+  .markets-section{ padding:88px 0; background:#0D172A; color:#fff; }
+  .markets-section .section-head{ margin-bottom:32px; }
+  .markets-section .kicker{ color:#D7A566; }
+  .markets-section h2{ color:#fff; }
+  .market-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .market-card{
+    min-height:390px; display:flex; align-items:flex-end; position:relative;
+    overflow:hidden; border:1px solid rgba(255,255,255,.16);
+    background-image:linear-gradient(0deg,rgba(6,12,24,.96) 0%,rgba(6,12,24,.1) 70%),url('/estate/assets/global-cities-hero.png');
+    background-size:300% 100%; transition:transform .25s,border-color .25s;
+    scroll-margin-top:24px;
+  }
+  .market-card:hover{ transform:translateY(-6px); border-color:#D7A566; }
+  .market-seoul{ background-position:left center; }
+  .market-osaka{ background-position:center center; }
+  .market-dubai{ background-position:right center; }
+  .market-copy{ padding:28px 25px; }
+  .market-copy span{ color:#D7A566; font-size:11px; letter-spacing:.15em; }
+  .market-copy h3{ margin-top:6px; font-size:28px; color:#fff; }
+  .market-copy p{ margin-top:8px; color:#D7DCE6; font-size:14px; line-height:1.6; }
+  @media (max-width:760px){
+    .market-grid{ grid-template-columns:1fr; }
+    .market-card{ min-height:310px; background-size:cover; }
+    .market-seoul{ background-position:12% center; }
+    .market-osaka{ background-position:50% center; }
+    .market-dubai{ background-position:88% center; }
   }
 
   /* ---------- Section shell ---------- */
@@ -195,6 +230,7 @@
 <nav>
   <div class="brand">Meridian <span>Properties</span></div>
   <div>
+    <a class="navlink" href="#markets">도시</a>
     <a class="navlink" href="#how">구조</a>
     <a class="navlink" href="#roadmap">로드맵</a>
     <a class="navlink" href="#partners">파트너</a>
@@ -207,17 +243,37 @@
     <div class="hero-grid">
       <div>
         <div class="eyebrow">Seoul · Osaka · Dubai</div>
-        <h1>매입은 하루면 끝난다. 관리는 그때부터 시작이다.</h1>
-        <p class="lede">한국 투자자와 현지의 면허 있는 세무사·중개사·관리회사를 연결해, 국경을 넘는 부동산 투자를 매입부터 신고, 관리까지 한 번에 잇는 파트너십 플랫폼입니다.</p>
+        <h1>서울에서 오사카, 두바이까지 하나로 연결합니다.</h1>
+        <p class="lede">매물 탐색부터 계약, 세무 신고, 임대 관리까지. 서로 다른 세 도시의 부동산 투자를 하나의 흐름으로 연결하는 글로벌 파트너십 플랫폼입니다.</p>
       </div>
       <div class="city-strip" aria-label="Global property markets">
-        <div class="city-card"><small>SEOUL</small><strong>테헤란로</strong><span>Asia Business District</span></div>
-        <div class="city-card"><small>OSAKA</small><strong>도톤보리</strong><span>Urban Culture &amp; Hospitality</span></div>
-        <div class="city-card"><small>DUBAI</small><strong>Downtown</strong><span>Global Luxury Skyline</span></div>
+        <a class="city-card" href="#city-seoul"><small>SEOUL</small><strong>테헤란로</strong><span>Asia Business District</span></a>
+        <a class="city-card" href="#city-osaka"><small>OSAKA</small><strong>도톤보리</strong><span>Urban Culture &amp; Hospitality</span></a>
+        <a class="city-card" href="#city-dubai"><small>DUBAI</small><strong>다운타운</strong><span>Global Luxury Skyline</span></a>
       </div>
     </div>
   </div>
 </header>
+
+<section id="markets" class="markets-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Connected Markets</div>
+      <h2>세 도시, 하나의 투자 여정</h2>
+    </div>
+    <div class="market-grid">
+      <article class="market-card market-seoul" id="city-seoul">
+        <div class="market-copy"><span>01 · SEOUL</span><h3>테헤란로</h3><p>한국의 금융·기술 기업이 모인 핵심 업무지구. 안정적인 기업 수요와 도심 자산의 가치를 연결합니다.</p></div>
+      </article>
+      <article class="market-card market-osaka" id="city-osaka">
+        <div class="market-copy"><span>02 · OSAKA</span><h3>도톤보리</h3><p>상업과 관광 수요가 교차하는 오사카의 중심. 현지 매물 검증부터 임대 운영까지 함께 설계합니다.</p></div>
+      </article>
+      <article class="market-card market-dubai" id="city-dubai">
+        <div class="market-copy"><span>03 · DUBAI</span><h3>다운타운</h3><p>세계 자본이 모이는 럭셔리 부동산 시장. 등록 브로커와 관리 파트너를 통해 투자 이후까지 이어갑니다.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
 
 <section id="story">
   <div class="wrap">
