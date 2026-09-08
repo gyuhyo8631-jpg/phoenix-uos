@@ -1,46 +1,29 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
+      "src": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "estate-phoenix-uos.vercel.app"
         }
       ],
-      "destination": "/estate/index.html"
+      "dest": "/estate/index.html"
     },
     {
-      "source": "/",
+      "src": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "estate.phoenix-uos.com"
         }
       ],
-      "destination": "/estate/index.html"
+      "dest": "/estate/index.html"
     },
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "estate-phoenix-uos.vercel.app"
-        }
-      ],
-      "destination": "/estate/index.html"
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "estate.phoenix-uos.com"
-        }
-      ],
-      "destination": "/estate/index.html"
+      "handle": "filesystem"
     }
   ]
 }
