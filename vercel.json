@@ -1,29 +1,4 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "routes": [
-    {
-      "src": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "estate-phoenix-uos.vercel.app"
-        }
-      ],
-      "dest": "/estate/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "estate.phoenix-uos.com"
-        }
-      ],
-      "dest": "/estate/index.html"
-    },
-    {
-      "handle": "filesystem"
-    }
-  ]
+  "framework": null
 }
