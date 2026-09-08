@@ -1,8 +1,10 @@
 // KOREA EASY — basic offline cache
 // Caches key pages so travelers can reopen them without signal (e.g. right after landing).
-const CACHE_NAME = 'korea-easy-v9';
+const CACHE_NAME = 'korea-easy-v10';
 const CORE_ASSETS = [
+  '/',
   'index.html',
+  'offline.html',
   'SEOUL-EASY.html',
   'incheon-airport-to-seoul.html',
   'gimpo-airport-guide.html',
@@ -17,7 +19,9 @@ const CORE_ASSETS = [
   'search.html',
   'account.html',
   'korea-easy-supabase.js',
-  'assets/korea-easy-logo.png'
+  'assets/korea-easy-logo.png',
+  'assets/korea-easy-app-512.png',
+  'assets/korea-easy-app-maskable-512.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -52,7 +56,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
           return res;
         })
-        .catch(() => caches.match(req).then((res) => res || caches.match('index.html')))
+        .catch(() => caches.match(req).then((res) => res || caches.match('offline.html')))
     );
   } else {
     event.respondWith(

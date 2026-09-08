@@ -1,12 +1,17 @@
 {
   "name": "KOREA EASY — Korea Travel Hub",
   "short_name": "KOREA EASY",
+  "id": "/",
   "description": "Airport, T-money, subway exits, taxi fares, food, photo spots and Korea travel tools in one place.",
-  "start_url": "/index.html",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
   "background_color": "#f4f0e7",
-  "theme_color": "#1e6d4d",
+  "theme_color": "#0f5b3d",
+  "categories": ["travel", "navigation", "utilities"],
+  "lang": "en",
   "icons": [
     {
       "src": "assets/korea-easy-logo.png",
@@ -14,9 +19,15 @@
       "type": "image/png"
     },
     {
-      "src": "assets/korea-easy-logo.png",
+      "src": "assets/korea-easy-app-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "assets/korea-easy-app-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
