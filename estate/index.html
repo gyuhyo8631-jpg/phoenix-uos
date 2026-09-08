@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian — Cross-border property, sourced and kept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16213A;
+    --paper:#F6F3EB;
+    --brass:#A8672E;
+    --brass-light:#C98B4D;
+    --muted:#6E6C63;
+    --line:#DBD4C2;
+    --line-dark:#2B3A57;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'IBM Plex Sans', sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    font-size:16px;
+  }
+  h1,h2,h3,.serif{ font-family:'Newsreader', serif; font-weight:500; letter-spacing:-0.01em; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 32px; }
+  a{ color:inherit; }
+
+  /* ---------- Nav ---------- */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 32px; max-width:1080px; margin:0 auto;
+  }
+  .brand{ font-family:'Newsreader', serif; font-size:20px; font-weight:500; }
+  .brand span{ color:var(--brass); }
+  nav a.navlink{
+    text-decoration:none; color:var(--ink); font-size:14px; margin-left:28px;
+  }
+  .navlink.cta{
+    border:1px solid var(--ink); padding:8px 18px; border-radius:2px;
+  }
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    background:var(--ink); color:var(--paper); padding:64px 0 90px;
+    position:relative; overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center;
+  }
+  .hero h1{
+    font-size:46px; line-height:1.15; color:#F6F3EB; max-width:520px;
+  }
+  .hero p.lede{
+    margin-top:22px; font-size:17px; color:#C7CCDA; max-width:440px;
+  }
+  .hero .eyebrow{
+    font-size:13px; color:var(--brass-light); margin-bottom:18px;
+  }
+  .route-svg{ width:100%; height:auto; }
+  .route-dot{ fill:var(--brass-light); }
+  .route-line{
+    stroke:var(--brass-light); stroke-width:1.4; fill:none;
+    stroke-dasharray:520; stroke-dashoffset:520;
+    animation:draw 2.2s ease-out forwards 0.3s;
+  }
+  @media (prefers-reduced-motion: reduce){ .route-line{ animation:none; stroke-dashoffset:0; } }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  .route-label{ font-size:12px; fill:#C7CCDA; font-family:'IBM Plex Sans', sans-serif; }
+
+  @media (max-width:860px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero h1{ font-size:34px; }
+  }
+
+  /* ---------- Section shell ---------- */
+  section{ padding:88px 0; }
+  section.tint{ background:#EFEAD9; }
+  .section-head{ max-width:640px; margin-bottom:44px; }
+  .section-head .kicker{ font-size:14px; color:var(--brass); margin-bottom:10px; }
+  .section-head h2{ font-size:30px; }
+
+  /* ---------- Problem narrative ---------- */
+  .story{
+    display:grid; grid-template-columns:60px 1fr; gap:24px; max-width:720px;
+  }
+  .story .mark{ font-family:'Newsreader', serif; font-size:64px; color:var(--brass); line-height:1; }
+  .story p{ font-size:19px; color:#31394D; }
+  .story p + p{ margin-top:18px; }
+  .story .attribution{ margin-top:22px; font-size:14px; color:var(--muted); }
+
+  /* ---------- Three pillars ---------- */
+  .pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .pillar{ background:var(--paper); padding:34px 30px; }
+  .pillar .num{ font-family:'Newsreader', serif; font-size:15px; color:var(--brass); margin-bottom:14px; }
+  .pillar h3{ font-size:20px; margin-bottom:12px; }
+  .pillar p{ color:var(--muted); font-size:15px; }
+  @media (max-width:860px){ .pillars{ grid-template-columns:1fr; } }
+
+  /* ---------- Roadmap ---------- */
+  .roadmap{ border-left:1px solid var(--line); padding-left:0; }
+  .stage{
+    display:grid; grid-template-columns:130px 1fr; gap:28px;
+    padding:26px 0; border-bottom:1px solid var(--line);
+  }
+  .stage:first-child{ padding-top:0; }
+  .stage .when{ font-size:14px; color:var(--brass); padding-top:3px; }
+  .stage h3{ font-size:19px; margin-bottom:6px; }
+  .stage p{ color:var(--muted); font-size:15px; max-width:520px; }
+  .stage .tag{
+    display:inline-block; font-size:12px; color:var(--ink); background:#E4DEC9;
+    padding:3px 10px; border-radius:2px; margin-top:10px;
+  }
+  @media (max-width:600px){ .stage{ grid-template-columns:1fr; } .stage .when{ padding-top:0; } }
+
+  /* ---------- Partner criteria ---------- */
+  .criteria-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; }
+  .criteria-grid .col h3{ font-size:18px; margin-bottom:14px; }
+  .criteria-grid ul{ list-style:none; }
+  .criteria-grid li{
+    padding:12px 0; border-bottom:1px solid var(--line); color:#31394D; font-size:15px;
+  }
+  @media (max-width:760px){ .criteria-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- CTA ---------- */
+  .cta-band{
+    background:var(--ink); color:var(--paper); padding:70px 0; text-align:left;
+  }
+  .cta-band h2{ font-size:28px; max-width:520px; color:#F6F3EB; }
+  .cta-band p{ color:#C7CCDA; margin-top:14px; max-width:480px; }
+  .cta-row{ margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-block; padding:12px 24px; border-radius:2px; font-size:15px;
+    text-decoration:none;
+  }
+  .btn-primary{ background:var(--brass); color:#1A1305; }
+  .btn-ghost{ border:1px solid #4A5A7A; color:#F6F3EB; }
+
+  footer{ padding:36px 0; border-top:1px solid var(--line); }
+  footer .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  footer p{ font-size:13px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Meridian <span>Properties</span></div>
+  <div>
+    <a class="navlink" href="#how">구조</a>
+    <a class="navlink" href="#roadmap">로드맵</a>
+    <a class="navlink" href="#partners">파트너</a>
+    <a class="navlink cta" href="#contact">제휴 문의</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Seoul · Osaka · Dubai</div>
+        <h1>매입은 하루면 끝난다. 관리는 그때부터 시작이다.</h1>
+        <p class="lede">한국 투자자와 현지의 면허 있는 세무사·중개사·관리회사를 연결해, 국경을 넘는 부동산 투자를 매입부터 신고, 관리까지 한 번에 잇는 파트너십 플랫폼입니다.</p>
+      </div>
+      <div>
+        <svg class="route-svg" viewBox="0 0 400 220">
+          <path class="route-line" d="M60,190 C130,120 150,90 200,90 C260,90 280,140 340,40" />
+          <circle class="route-dot" cx="60" cy="190" r="4"/>
+          <circle class="route-dot" cx="200" cy="90" r="4"/>
+          <circle class="route-dot" cx="340" cy="40" r="4"/>
+          <text class="route-label" x="40" y="210">서울</text>
+          <text class="route-label" x="180" y="112">오사카</text>
+          <text class="route-label" x="310" y="30">두바이</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="story">
+  <div class="wrap">
+    <div class="story">
+      <div class="mark">“</div>
+      <div>
+        <p>오사카의 원룸 한 채를 사는 데는 사흘이면 충분했다. 정작 어려웠던 건 그다음이었다 — 임대소득 신고, 한국 합산과세, 2년마다 돌아오는 계속보유 신고. 매입은 이벤트지만, 소유는 계속되는 일이다.</p>
+        <p class="attribution">이 문장이 이 플랫폼이 존재하는 이유입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tint" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">구조</div>
+      <h2>세 가지 축으로 나눈 일</h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="num">Sourcing</div>
+        <h3>검증된 매물</h3>
+        <p>현지 면허 중개법인과의 제휴를 통해 매물을 소싱합니다. 자체 취재가 필요한 경우 초기 파일럿 매물은 직접 촬영·검증합니다.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">Compliance</div>
+        <h3>국가별 체크리스트 엔진</h3>
+        <p>외국환거래법상 취득신고, 현지 세무 신고, 2년 주기 계속보유 신고까지 — 신고 의무와 마감일을 자동으로 안내합니다.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">Management</div>
+        <h3>구독형 관리</h3>
+        <p>현지 라이선스 관리회사와의 MOU를 기반으로, 매입 이후의 임대·정산·보고를 월 구독 형태로 이어갑니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">로드맵</div>
+      <h2>오사카에서 시작해 넓혀가는 순서</h2>
+    </div>
+    <div class="roadmap">
+      <div class="stage">
+        <div class="when">1–3개월</div>
+        <div>
+          <h3>오사카 파일럿</h3>
+          <p>현지 네트워크를 통해 세무사·중개사를 연결하고, 실제 거래 1~2건으로 프로세스를 검증합니다.</p>
+          <span class="tag">지금 여기</span>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="when">4–6개월</div>
+        <div>
+          <h3>표준화 및 구독 매출</h3>
+          <p>검증된 체크리스트를 엔진화하고, 후쿠오카·도쿄로 지역을 넓힙니다.</p>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="when">7–12개월</div>
+        <div>
+          <h3>두바이 확장</h3>
+          <p>일본에서 검증된 구조를 그대로 이식하고, 현지 등록 브로커와 제휴합니다.</p>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="when">12–18개월</div>
+        <div>
+          <h3>인바운드 오픈</h3>
+          <p>외국인의 국내 부동산 취득까지 지원 범위를 넓혀 양방향 플랫폼으로 성장합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tint" id="partners">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">파트너</div>
+      <h2>이런 분들과 함께하고 싶습니다</h2>
+    </div>
+    <div class="criteria-grid">
+      <div class="col">
+        <h3>찾고 있는 파트너</h3>
+        <ul>
+          <li>세무 신고·상속 설계가 가능한 자격 세무사·회계사무소</li>
+          <li>宅建業 면허를 보유한 현지 중개법인</li>
+          <li>임대 관리 및 정산이 가능한 부동산 관리회사</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>함께 만드는 방식</h3>
+        <ul>
+          <li>고객 소개 및 소개 수수료 기반 협업</li>
+          <li>SLA에 근거한 관리 품질 검증</li>
+          <li>초기 파일럿부터 함께 프로세스를 다듬는 단계</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band" id="contact">
+  <div class="wrap">
+    <h2>먼저 이야기를 나눠보고 싶습니다.</h2>
+    <p>지금은 오사카 파일럿을 준비하는 단계입니다. 소개나 협업에 관심이 있으시면 편하게 연락 주세요.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:gyuhyo8631@gmail.com">이메일로 연락하기</a>
+      <a class="btn btn-ghost" href="#how">구조 다시 보기</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Meridian Properties — Seoul · Osaka · Dubai</p>
+    <p>본 페이지는 초안이며 실제 상호·연락처는 교체가 필요합니다.</p>
+  </div>
+</footer>
+
+</body>
+</html>
