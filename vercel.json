@@ -3,6 +3,26 @@
   "framework": null,
   "rewrites": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "estate-phoenix-uos.vercel.app"
+        }
+      ],
+      "destination": "/estate/index.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "estate.phoenix-uos.com"
+        }
+      ],
+      "destination": "/estate/index.html"
+    },
+    {
       "source": "/:path*",
       "has": [
         {
