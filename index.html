@@ -110,45 +110,24 @@
       zh:{change:'↻ 选择其他目的地',choose:'请选择其他目的地',custom:'⌨ 输入其他任意地点',select:'选择此路线',selected:'已选择・详细说明见下方',live:'实时路线详情',taxi:'驾车／出租车详情',place:'确认准确地点',openTransit:'打开公共交通路线',openDriving:'打开驾车／出租车路线',openPlace:'打开地点搜索',drivingDesc:d=>`使用前往${d}的实时道路路线。上出租车前请确认准确目的地。`,placeDesc:d=>`选择路线前，请确认${d}的地图定位、韩文地址及入口正确。`,drivingSteps:(a,d)=>[`确认“${d}”的准确定位和韩文地址。`,`打开从${a}出发的驾车／出租车路线，比较当前用时和交通状况。`,`乘出租车时，出发前向司机出示目的地定位和韩文地址，并请司机确认。`,`抵达前保持导航开启，并确认最终定位与${d}一致。`],placeSteps:d=>[`打开“${d}”的地点搜索。`,`对照城市、韩文地址、照片和入口，避免选到同名地点。`,`选择正确的地图定位，并保存或分享给旅客或出租车司机。`,`返回此页面，选择公共交通或驾车／出租车查看路线。`]}
     };
     const HOT_TEXT={
-      en:{show:'🔥 Show popular hotspots',hide:'🔥 Hide popular hotspots',help:'Tap a place to find the route',tabs:{seoul:'Seoul',busan:'Busan',jeju:'Jeju',korea:'More Korea'}},
-      ja:{show:'🔥 人気スポットを見る',hide:'🔥 人気スポットを閉じる',help:'場所を押すとすぐに経路を検索',tabs:{seoul:'ソウル',busan:'釜山',jeju:'済州',korea:'韓国各地'}},
-      zh:{show:'🔥 查看热门景点',hide:'🔥 收起热门景点',help:'点击地点即可查找路线',tabs:{seoul:'首尔',busan:'釜山',jeju:'济州',korea:'韩国各地'}}
+      en:{show:'🔥 Show 100 popular hotspots',hide:'🔥 Hide popular hotspots',help:'Tap a place to find the route',tabs:{seoul:'Seoul · 20',busan:'Busan · 15',jeju:'Jeju · 15',korea:'More Korea · 50'}},
+      ja:{show:'🔥 人気スポット100選',hide:'🔥 人気スポットを閉じる',help:'場所を押すとすぐに経路を検索',tabs:{seoul:'ソウル・20',busan:'釜山・15',jeju:'済州・15',korea:'韓国各地・50'}},
+      zh:{show:'🔥 查看100个热门景点',hide:'🔥 收起热门景点',help:'点击地点即可查找路线',tabs:{seoul:'首尔・20',busan:'釜山・15',jeju:'济州・15',korea:'韩国各地・50'}}
     };
+    const makeSpots=rows=>rows.map(([icon,q,en])=>({icon,q,en}));
     const HOTSPOTS={
-      seoul:[
-        {icon:'🏯',q:'경복궁',en:'Gyeongbokgung Palace',ja:'景福宮',zh:'景福宫'},
-        {icon:'🛍️',q:'명동역',en:'Myeongdong',ja:'明洞',zh:'明洞'},
-        {icon:'🎵',q:'홍대입구역',en:'Hongdae',ja:'弘大',zh:'弘大'},
-        {icon:'🌃',q:'강남역',en:'Gangnam Station',ja:'江南駅',zh:'江南站'},
-        {icon:'🗼',q:'남산서울타워',en:'N Seoul Tower',ja:'Nソウルタワー',zh:'N首尔塔'},
-        {icon:'🎢',q:'롯데월드',en:'Lotte World',ja:'ロッテワールド',zh:'乐天世界'}
-      ],
-      busan:[
-        {icon:'🏖️',q:'해운대해수욕장',en:'Haeundae Beach',ja:'海雲台海水浴場',zh:'海云台海水浴场'},
-        {icon:'🌉',q:'광안리해수욕장',en:'Gwangalli Beach',ja:'広安里海水浴場',zh:'广安里海水浴场'},
-        {icon:'🎨',q:'감천문화마을',en:'Gamcheon Culture Village',ja:'甘川文化村',zh:'甘川文化村'},
-        {icon:'🐟',q:'자갈치시장',en:'Jagalchi Market',ja:'チャガルチ市場',zh:'札嘎其市场'},
-        {icon:'🌊',q:'태종대',en:'Taejongdae',ja:'太宗台',zh:'太宗台'},
-        {icon:'🚡',q:'송도해상케이블카',en:'Songdo Cable Car',ja:'松島海上ケーブルカー',zh:'松岛海上缆车'}
-      ],
-      jeju:[
-        {icon:'🌅',q:'성산일출봉',en:'Seongsan Ilchulbong',ja:'城山日出峰',zh:'城山日出峰'},
-        {icon:'☕',q:'제주 애월한담해안산책로',en:'Aewol Handam Coast',ja:'涯月ハンダム海岸',zh:'涯月汉潭海岸'},
-        {icon:'🌴',q:'중문관광단지',en:'Jungmun Resort',ja:'中文観光団地',zh:'中文旅游区'},
-        {icon:'🧺',q:'제주동문시장',en:'Dongmun Market',ja:'東門市場',zh:'东门市场'},
-        {icon:'🥾',q:'한라산 성판악탐방로',en:'Hallasan Seongpanak',ja:'漢拏山・城板岳',zh:'汉拿山城板岳'},
-        {icon:'🍊',q:'서귀포매일올레시장',en:'Seogwipo Olle Market',ja:'西帰浦毎日オルレ市場',zh:'西归浦每日偶来市场'}
-      ],
-      korea:[
-        {icon:'🏘️',q:'전주한옥마을',en:'Jeonju Hanok Village',ja:'全州韓屋村',zh:'全州韩屋村'},
-        {icon:'🛕',q:'경주 불국사',en:'Bulguksa Temple',ja:'慶州・仏国寺',zh:'庆州佛国寺'},
-        {icon:'⛰️',q:'설악산 소공원',en:'Seoraksan National Park',ja:'雪岳山国立公園',zh:'雪岳山国立公园'},
-        {icon:'🌊',q:'강릉 경포해변',en:'Gyeongpo Beach',ja:'江陵・鏡浦海岸',zh:'江陵镜浦海滩'},
-        {icon:'🌺',q:'여수 오동도',en:'Yeosu Odongdo',ja:'麗水・梧桐島',zh:'丽水梧桐岛'},
-        {icon:'🏡',q:'안동하회마을',en:'Andong Hahoe Village',ja:'安東河回村',zh:'安东河回村'},
-        {icon:'🏰',q:'수원화성',en:'Suwon Hwaseong',ja:'水原華城',zh:'水原华城'},
-        {icon:'🌲',q:'남이섬',en:'Nami Island',ja:'南怡島',zh:'南怡岛'}
-      ]
+      seoul:makeSpots([
+        ['🏯','경복궁','Gyeongbokgung Palace'],['🏯','창덕궁','Changdeokgung Palace'],['🏘️','북촌한옥마을','Bukchon Hanok Village'],['🏛️','광화문광장','Gwanghwamun Square'],['🌊','청계천','Cheonggyecheon Stream'],['🛍️','명동역','Myeongdong'],['🎵','홍대 레드로드','Hongdae Red Road'],['☕','성수동 카페거리','Seongsu Café Street'],['🌳','서울숲','Seoul Forest'],['🗼','남산서울타워','N Seoul Tower'],['🎢','롯데월드','Lotte World'],['🌃','서울스카이','Seoul Sky'],['🌉','반포한강공원','Banpo Hangang Park'],['🌿','여의도한강공원','Yeouido Hangang Park'],['🎨','동대문디자인플라자','Dongdaemun Design Plaza'],['🏘️','익선동한옥거리','Ikseon-dong Hanok Street'],['🏛️','국립중앙박물관','National Museum of Korea'],['📚','코엑스 별마당도서관','Starfield Library COEX'],['🌃','강남역','Gangnam Station'],['🌍','이태원역','Itaewon']
+      ]),
+      busan:makeSpots([
+        ['🏖️','해운대해수욕장','Haeundae Beach'],['🌉','광안리해수욕장','Gwangalli Beach'],['🎨','감천문화마을','Gamcheon Culture Village'],['🐟','자갈치시장','Jagalchi Market'],['🌊','태종대','Taejongdae'],['🚡','송도해상케이블카','Songdo Marine Cable Car'],['🎨','흰여울문화마을','Huinnyeoul Culture Village'],['🛕','해동용궁사','Haedong Yonggungsa Temple'],['🌃','부산엑스더스카이','BUSAN X the SKY'],['🌿','동백섬','Dongbaekseom Island'],['🌉','오륙도스카이워크','Oryukdo Skywalk'],['🛍️','국제시장','Gukje Market'],['🎬','BIFF광장','BIFF Square'],['🏖️','송정해수욕장','Songjeong Beach'],['🌉','청사포다릿돌전망대','Cheongsapo Daritdol Observatory']
+      ]),
+      jeju:makeSpots([
+        ['🌅','성산일출봉','Seongsan Ilchulbong'],['🥾','한라산국립공원','Hallasan National Park'],['🏝️','우도','Udo Island'],['🏖️','협재해수욕장','Hyeopjae Beach'],['🏖️','함덕해수욕장','Hamdeok Beach'],['🌊','섭지코지','Seopjikoji'],['🪨','용머리해안','Yongmeori Coast'],['💧','천지연폭포','Cheonjiyeon Falls'],['💧','정방폭포','Jeongbang Falls'],['🌺','카멜리아힐','Camellia Hill'],['🍵','오설록티뮤지엄','Osulloc Tea Museum'],['🧺','제주동문시장','Jeju Dongmun Market'],['🍊','서귀포매일올레시장','Seogwipo Olle Market'],['☕','애월한담해안산책로','Aewol Handam Coastal Trail'],['🌴','중문관광단지','Jungmun Tourist Complex']
+      ]),
+      korea:makeSpots([
+        ['🏘️','전주한옥마을','Jeonju Hanok Village'],['🛕','경주 불국사','Bulguksa Temple'],['🏺','경주 대릉원','Daereungwon Tomb Complex'],['🌙','경주 동궁과 월지','Donggung Palace and Wolji Pond'],['☕','경주 황리단길','Hwangnidan Street'],['⛰️','설악산국립공원','Seoraksan National Park'],['🐟','속초관광수산시장','Sokcho Tourist Fish Market'],['🏖️','강릉 경포해변','Gyeongpo Beach'],['☕','강릉 안목해변 카페거리','Anmok Beach Coffee Street'],['🌅','정동진','Jeongdongjin'],['🌲','남이섬','Nami Island'],['🌺','아침고요수목원','Garden of Morning Calm'],['🏰','수원화성','Suwon Hwaseong Fortress'],['🎢','용인 에버랜드','Everland'],['🏘️','용인 한국민속촌','Korean Folk Village'],['🕊️','파주 임진각','Imjingak Peace Park'],['🏮','인천 차이나타운','Incheon Chinatown'],['🌃','송도센트럴파크','Songdo Central Park'],['🚀','대전엑스포과학공원','Daejeon Expo Science Park'],['🌿','국립세종수목원','Sejong National Arboretum'],['🏰','공주 공산성','Gongsanseong Fortress'],['🌺','부여 궁남지','Gungnamji Pond'],['🏖️','보령 대천해수욕장','Daecheon Beach'],['🪨','단양 도담삼봉','Dodamsambong Peaks'],['🌳','청주 청남대','Cheongnamdae'],['🏡','안동하회마을','Andong Hahoe Village'],['🌉','포항 스페이스워크','Pohang Space Walk'],['🛍️','대구 서문시장','Daegu Seomun Market'],['🌊','울산 대왕암공원','Daewangam Park'],['🎋','울산 태화강국가정원','Taehwagang National Garden'],['🏯','진주성','Jinjuseong Fortress'],['🎨','통영 동피랑벽화마을','Dongpirang Mural Village'],['🌺','여수 오동도','Yeosu Odongdo'],['🌾','순천만국가정원','Suncheonman National Garden'],['🎨','광주 국립아시아문화전당','Asia Culture Center'],['⛰️','무등산국립공원','Mudeungsan National Park'],['🎋','담양 죽녹원','Damyang Juknokwon'],['🚡','목포해상케이블카','Mokpo Marine Cable Car'],['🍵','보성 녹차밭','Boseong Green Tea Fields'],['🏯','남원 광한루원','Gwanghalluwon Garden'],['🪨','부안 채석강','Chaeseokgang Cliffs'],['🏛️','군산근대역사박물관','Gunsan Modern History Museum'],['🏯','전주 경기전','Gyeonggijeon Shrine'],['🌅','해남 땅끝마을','Ttangkkeut Village'],['🛕','합천 해인사','Haeinsa Temple'],['🌸','창원 진해 여좌천','Jinhae Yeojwacheon Stream'],['🌬️','거제 바람의언덕','Windy Hill Geoje'],['🚡','통영케이블카','Tongyeong Cable Car'],['🐑','평창 대관령양떼목장','Daegwallyeong Sheep Ranch'],['🌉','철원 한탄강 주상절리길','Hantangang Columnar Joint Trail']
+      ])
     };
     const AIRPORT_ORIGIN={incheon:'Incheon International Airport, South Korea',gimpo:'Gimpo International Airport, South Korea',gimhae:'Gimhae International Airport, South Korea',jeju:'Jeju International Airport, South Korea'};
     let lang=localStorage.getItem('koreaEasyLang')||'en',airport='incheon',hotspotCategory='seoul',hotspotsOpen=false,deferredInstallPrompt=null,selectedRoute=0,lastConfirmedDestination='';const destination=document.getElementById('destinationInput'),suggestions=document.getElementById('destinationSuggestions'),results=document.getElementById('results'),destinationError=document.getElementById('destinationError'),hotspotToggle=document.getElementById('hotspotToggle'),hotspotPanel=document.getElementById('hotspotPanel'),installApp=document.getElementById('installApp'),installHelp=document.getElementById('installHelp');let currentMessage='';
@@ -157,10 +136,11 @@
     function ticketStep(mode){const g=GUIDE[lang];if(mode==='Taxi')return g.ticketTaxi;if(mode==='Bus 600')return g.ticketBus;if(mode==='AREX Express')return g.ticketExpress;return g.ticketRail}
     function boardingStep(mode){const g=GUIDE[lang],a=name(airport);if(mode==='Taxi')return g.boardTaxi(a);if(mode==='Bus 600')return g.boardBus(a);if(mode==='Light Rail')return g.boardLightRail(a);return g.boardRail(a)}
     function makeSteps(plan,place){const g=GUIDE[lang],steps=[ticketStep(plan.legs[0][0])];plan.legs.forEach((leg,i)=>{const [line,from,to,dir]=leg;if(i>0&&line!=='Walk')steps.push(g.transfer(name(from),line));steps.push(line==='Walk'?g.walk(name(from),name(to)):g.ride(line,name(from),name(to),name(dir)))});steps.push(g.exit(name(plan.legs.at(-1)[2]),place));return steps}
-    function destinationOptions(){const popular=Object.values(HOTSPOTS).flatMap(group=>group.flatMap(h=>[h[lang],h.q]));return [...new Set([...DATA[airport].dest[lang],...Object.values(DATA).flatMap(x=>x.dest[lang]),...popular])]}
+    const spotName=h=>h[lang]||h.en||h.q;
+    function destinationOptions(){return [...new Set(Object.values(HOTSPOTS).flat().map(spotName))]}
     function renderDestinationPicker(filter=''){const key=filter.trim().toLocaleLowerCase(),items=destinationOptions().filter(d=>!key||d.toLocaleLowerCase().includes(key));document.getElementById('destinationPickerPanel').innerHTML=items.map(d=>`<button class="destinationPickerChoice" data-picker-destination="${esc(d)}" type="button">${esc(d)}</button>`).join('')}
     function fillDestinations(){const options=destinationOptions();suggestions.innerHTML=options.map(d=>`<option value="${esc(d)}"></option>`).join('');renderDestinationPicker();destination.placeholder=ANY[lang].placeholder}
-    function renderHotspots(){const text=HOT_TEXT[lang];hotspotToggle.setAttribute('aria-expanded',String(hotspotsOpen));hotspotPanel.hidden=!hotspotsOpen;document.getElementById('hotspotToggleLabel').textContent=hotspotsOpen?text.hide:text.show;document.getElementById('hotspotHelp').textContent=text.help;document.getElementById('hotspotTabs').innerHTML=Object.keys(HOTSPOTS).map(key=>`<button class="hotspotTab${key===hotspotCategory?' on':''}" data-category="${key}">${text.tabs[key]}</button>`).join('');document.getElementById('hotspotGrid').innerHTML=HOTSPOTS[hotspotCategory].map((h,i)=>`<button class="hotspot" data-hotspot="${i}">${h.icon} ${esc(h[lang])}</button>`).join('');document.querySelectorAll('.hotspotTab').forEach(b=>b.addEventListener('click',()=>{hotspotCategory=b.dataset.category;renderHotspots()}));document.querySelectorAll('.hotspot').forEach(b=>b.addEventListener('click',()=>{const h=HOTSPOTS[hotspotCategory][Number(b.dataset.hotspot)];destination.value=`${h[lang]} (${h.q})`;renderRoutes()}))}
+    function renderHotspots(){const text=HOT_TEXT[lang];hotspotToggle.setAttribute('aria-expanded',String(hotspotsOpen));hotspotPanel.hidden=!hotspotsOpen;document.getElementById('hotspotToggleLabel').textContent=hotspotsOpen?text.hide:text.show;document.getElementById('hotspotHelp').textContent=text.help;document.getElementById('hotspotTabs').innerHTML=Object.keys(HOTSPOTS).map(key=>`<button class="hotspotTab${key===hotspotCategory?' on':''}" data-category="${key}">${text.tabs[key]}</button>`).join('');document.getElementById('hotspotGrid').innerHTML=HOTSPOTS[hotspotCategory].map((h,i)=>`<button class="hotspot" data-hotspot="${i}">${h.icon} ${esc(spotName(h))}</button>`).join('');document.querySelectorAll('.hotspotTab').forEach(b=>b.addEventListener('click',()=>{hotspotCategory=b.dataset.category;renderHotspots()}));document.querySelectorAll('.hotspot').forEach(b=>b.addEventListener('click',()=>{const h=HOTSPOTS[hotspotCategory][Number(b.dataset.hotspot)];destination.value=`${spotName(h)} (${h.q})`;renderRoutes()}))}
     function mapsUrl(mode,d){const base='https://www.google.com/maps/dir/?api=1',params=new URLSearchParams({origin:AIRPORT_ORIGIN[airport],destination:`${d}, South Korea`,travelmode:mode});return `${base}&${params}`}
     function searchUrl(d){return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${d}, South Korea`)}`}
     function bindActions(){document.getElementById('copyDirections').addEventListener('click',copyDirections);document.getElementById('shareDirections').addEventListener('click',shareDirections)}
