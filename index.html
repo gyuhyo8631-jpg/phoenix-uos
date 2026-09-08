@@ -170,7 +170,14 @@
       jeju:['城山日出峰','漢拏山国立公園','牛島','挟才海水浴場','咸徳海水浴場','涉地可支','龍頭海岸','天地淵瀑布','正房瀑布','カメリアヒル','オソルロク・ティーミュージアム','済州東門市場','西帰浦毎日オルレ市場','涯月ハンダム海岸散策路','中文観光団地'],
       korea:['全州韓屋村','慶州・仏国寺','慶州・大陵苑','慶州・東宮と月池','慶州・皇理団通り','雪岳山国立公園','束草観光水産市場','江陵・鏡浦海辺','江陵・安木海辺カフェ通り','正東津','南怡島','アチムゴヨ樹木園','水原華城','龍仁エバーランド','龍仁韓国民俗村','坡州・臨津閣','仁川チャイナタウン','松島セントラルパーク','大田エキスポ科学公園','国立世宗樹木園','公州・公山城','扶余・宮南池','保寧・大川海水浴場','丹陽・島潭三峰','清州・青南台','安東河回村','浦項スペースウォーク','大邱・西門市場','蔚山・大王岩公園','蔚山・太和江国家庭園','晋州城','統営・東ピラン壁画村','麗水・梧桐島','順天湾国家庭園','光州・国立アジア文化殿堂','無等山国立公園','潭陽・竹緑苑','木浦海上ケーブルカー','宝城緑茶畑','南原・広寒楼苑','扶安・採石江','群山近代歴史博物館','全州・慶基殿','海南・地の果て村','陜川・海印寺','昌原・鎮海余佐川','巨済・風の丘','統営ケーブルカー','平昌・大関嶺羊牧場','鉄原・漢灘江柱状節理道']
     };
+    const HOTSPOT_ZH={
+      seoul:['景福宫','昌德宫','北村韩屋村','光化门广场','清溪川','明洞站','弘大红路','圣水洞咖啡街','首尔林','N首尔塔','乐天世界','首尔天空','盘浦汉江公园','汝矣岛汉江公园','东大门设计广场','益善洞韩屋街','韩国国立中央博物馆','星空图书馆','江南站','梨泰院站'],
+      busan:['海云台海水浴场','广安里海水浴场','甘川文化村','札嘎其市场','太宗台','松岛海上缆车','白浅文化村','海东龙宫寺','釜山天空展望台','冬柏岛','五六岛天空步道','国际市场','釜山国际电影节广场','松亭海水浴场','青沙浦踏石观景台'],
+      jeju:['城山日出峰','汉拿山国立公园','牛岛','挟才海水浴场','咸德海水浴场','涉地可支','龙头海岸','天地渊瀑布','正房瀑布','山茶花之丘','雪绿茶博物馆','济州东门市场','西归浦每日偶来市场','涯月汉潭海岸散步路','中文旅游区'],
+      korea:['全州韩屋村','庆州佛国寺','庆州大陵苑','庆州东宫与月池','庆州皇理团路','雪岳山国立公园','束草观光水产市场','江陵镜浦海边','江陵安木海边咖啡街','正东津','南怡岛','晨静树木园','水原华城','龙仁爱宝乐园','龙仁韩国民俗村','坡州临津阁','仁川唐人街','松岛中央公园','大田世博科学公园','国立世宗树木园','公州公山城','扶余宫南池','保宁大川海水浴场','丹阳岛潭三峰','清州青南台','安东河回村','浦项太空漫步','大邱西门市场','蔚山大王岩公园','蔚山太和江国家庭园','晋州城','统营东崖壁画村','丽水梧桐岛','顺天湾国家庭园','光州国立亚洲文化殿堂','无等山国立公园','潭阳竹绿苑','木浦海上缆车','宝城绿茶园','南原广寒楼苑','扶安彩石江','群山近代历史博物馆','全州庆基殿','海南土地尽头村','陕川海印寺','昌原镇海余佐川','巨济风之丘','统营缆车','平昌大关岭羊群牧场','铁原汉滩江柱状节理路']
+    };
     Object.entries(HOTSPOT_JA).forEach(([category,names])=>HOTSPOTS[category].forEach((spot,index)=>spot.ja=names[index]));
+    Object.entries(HOTSPOT_ZH).forEach(([category,names])=>HOTSPOTS[category].forEach((spot,index)=>spot.zh=names[index]));
     const AIRPORT_ORIGIN={incheon:'Incheon International Airport, South Korea',gimpo:'Gimpo International Airport, South Korea',gimhae:'Gimhae International Airport, South Korea',jeju:'Jeju International Airport, South Korea'};
     let lang=localStorage.getItem('koreaEasyLang')||'en',airport='incheon',hotspotCategory='seoul',hotspotsOpen=false,subwayGuideOpen=false,deferredInstallPrompt=null,selectedRoute=0,lastConfirmedDestination='';const destination=document.getElementById('destinationInput'),suggestions=document.getElementById('destinationSuggestions'),results=document.getElementById('results'),destinationError=document.getElementById('destinationError'),hotspotToggle=document.getElementById('hotspotToggle'),hotspotPanel=document.getElementById('hotspotPanel'),installApp=document.getElementById('installApp'),installHelp=document.getElementById('installHelp');let currentMessage='';
     const name=key=>NAMES[key]?.[lang]||key;
