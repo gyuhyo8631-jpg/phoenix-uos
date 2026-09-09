@@ -133,6 +133,7 @@
     .listing-detail-shell{max-height:90vh;overflow:auto}.listing-detail-head{position:sticky;top:0;z-index:3;display:flex;justify-content:space-between;gap:20px;padding:23px 28px;background:#071324;color:#fff}.listing-detail-head small{display:block;color:var(--gold);margin-bottom:5px}.listing-detail-head h2{font-size:clamp(25px,4vw,38px)}
     .listing-detail-close{width:44px;height:44px;flex:0 0 auto;border:1px solid rgba(255,255,255,.32);background:transparent;color:#fff;font-size:25px;cursor:pointer}.listing-detail-close:hover,.listing-detail-close:focus-visible{background:#fff;color:var(--ink);outline:none}
     .listing-detail-body{padding:28px}.listing-detail-summary{display:grid;grid-template-columns:1.15fr .85fr;gap:26px}.listing-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.listing-gallery img{display:block;width:100%;height:210px;object-fit:cover;background:#e5e1d8}.listing-gallery img:first-child{grid-column:1/-1;height:390px}.listing-detail-price{display:block;color:#925c29;font-size:30px;margin:8px 0 18px}.listing-highlights{padding-left:20px;color:#48546a;line-height:1.8}.listing-specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:22px;border-top:1px solid var(--line)}.listing-specs div{padding:12px 0;border-bottom:1px solid var(--line)}.listing-specs dt{font-size:12px;color:var(--muted)}.listing-specs dd{font-weight:600;margin-top:3px}.listing-detail-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:23px}.listing-source-note{margin-top:16px;color:var(--muted);font-size:12px;line-height:1.7}
+    .listing-gallery{display:block;position:relative;min-width:0}.listing-slide-stage{position:relative;background:#e5e1d8;overflow:hidden}.listing-slide-image{display:block;width:100%;height:430px!important;object-fit:contain!important;background:#e5e1d8;transition:opacity .25s ease}.listing-slide-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(7,19,36,.72);color:#fff;font-size:24px;cursor:pointer;z-index:2}.listing-slide-nav:hover,.listing-slide-nav:focus-visible{background:#fff;color:var(--ink);outline:none}.listing-slide-prev{left:14px}.listing-slide-next{right:14px}.listing-slide-count{position:absolute;right:14px;bottom:13px;padding:5px 10px;border-radius:999px;background:rgba(7,19,36,.78);color:#fff;font-size:12px}.listing-thumbs{display:flex;gap:7px;overflow-x:auto;padding:9px 1px 3px}.listing-thumb{flex:0 0 76px;height:58px;border:2px solid transparent;padding:0;background:#e5e1d8;cursor:pointer}.listing-thumb.active{border-color:var(--gold2)}.listing-thumb img{width:100%;height:100%!important;object-fit:cover!important}.listing-card-count{display:block;margin-top:7px;color:var(--gold2);font-size:12px;font-weight:600}
 
     .bla{scroll-margin-top:76px;background:#081528;color:#fff;position:relative;overflow:hidden}
     .bla:before{content:"";position:absolute;width:520px;height:520px;border:1px solid rgba(215,165,102,.14);border-radius:50%;right:-210px;top:-230px;box-shadow:0 0 0 70px rgba(215,165,102,.025),0 0 0 140px rgba(215,165,102,.02);pointer-events:none}
@@ -163,7 +164,7 @@
     .whitepaper-warning{margin-top:24px;padding:18px;border-left:3px solid var(--gold2);background:#eee8dc;color:#596274;font-size:13px;line-height:1.75}
     @media(max-width:900px){.building-grid{grid-template-columns:1fr}.building-photo img{height:340px}.bla-layout{grid-template-columns:1fr}.bla-identity{min-height:370px}.bla-flow{grid-template-columns:1fr 1fr}.bla-flow div:nth-child(2){border-right:0}.bla-flow div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.16)}.bla-flow div:nth-child(2):after{display:none}.whitepaper-roadmap ol{grid-template-columns:1fr 1fr;gap:20px}.whitepaper-specs{grid-template-columns:1fr 1fr}.whitepaper-specs div:nth-child(2){border-right:0}.whitepaper-specs div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
     @media(max-width:680px){.bla-features,.bla-flow{grid-template-columns:1fr}.bla-identity{padding:26px}.bla-flow div,.bla-flow div:nth-child(2){border-right:0;border-bottom:1px solid rgba(255,255,255,.16)}.bla-flow div:last-child{border-bottom:0}.bla-flow div:not(:last-child):after{content:"↓";right:21px;top:auto;bottom:-14px;transform:none}.bla-flow div:nth-child(2):after{display:block}.whitepaper-head{padding:22px 20px}.whitepaper-body{padding:25px 20px 30px}.whitepaper-grid,.whitepaper-roadmap ol{grid-template-columns:1fr}.whitepaper-specs{grid-template-columns:1fr}.whitepaper-specs div,.whitepaper-specs div:nth-child(2){border-right:0;border-bottom:1px solid var(--line)}.whitepaper-specs div:last-child{border-bottom:0}.whitepaper-roadmap li{padding:0 0 0 15px}.listing-detail-body{padding:20px}.listing-detail-summary{grid-template-columns:1fr}.listing-gallery img,.listing-gallery img:first-child{height:230px}.listing-detail-head{padding:20px}.listing-specs{grid-template-columns:1fr}}
-    @media(max-width:680px){.bla-feature{min-height:0}}
+    @media(max-width:680px){.bla-feature{min-height:0}.listing-slide-image{height:260px!important}.listing-slide-nav{width:40px;height:40px}.listing-thumb{flex-basis:64px;height:50px}}
   </style>
 </head>
 <body>
@@ -363,6 +364,16 @@
       daechi:{url:"https://www.gbd-building.co.kr/event_sale_properties/15",images:["https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558716577-z9rk3ap1h-20250807_163136.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558717168-6j8ngclr0-20250807_163114.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558717754-564o248vz-20250807_163123.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558718430-ru2tq85fc-20250807_163148.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558719004-ckiked9ir-20250807_163243.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558719622-3w8yb76bf-20250807_163224.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558720185-yxa7r41bs-20250807_163213.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558720938-o7yvfz566-20250807_163204.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558721509-asmq3bz75-20250807_163154.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558722128-yqws2upn9-20250807_163143.webp","https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771558722630-rm0qx400s-20250807_163129.webp"],specs:["S001-0091","5F / B1","252 m²","651 m²","5","1","2023-07-11"],copy:{ko:{title:"대치동 역세권 신축 빌딩",location:"서울 강남구 대치동",price:"매매 110억원",highlights:["선릉역 도보 5분","2023년 신축 · 우수한 건물 상태","자가 사용과 임대 모두 가능"]},en:{title:"New building near Seolleung Station",location:"Daechi-dong, Gangnam, Seoul",price:"KRW 11 billion",highlights:["5-minute walk from Seolleung Station","Completed in 2023 · excellent condition","Suitable for owner use or leasing"]},ja:{title:"大峙洞・駅近の新築ビル",location:"ソウル・江南区 大峙洞",price:"売出価格 110億ウォン",highlights:["宣陵駅 徒歩5分","2023年築・建物状態良好","自社利用・賃貸の両方に対応"]},zh:{title:"大峙洞地铁站附近新建写字楼",location:"韩国首尔江南区大峙洞",price:"售价 110亿韩元",highlights:["距宣陵站步行5分钟","2023年新建 · 楼况良好","可自用或出租"]}}},
       cheongdam:{url:"https://www.gbd-building.co.kr/event_sale_properties/12",images:["https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/1771494114412-yg0cnu1k0-20250722_105531.webp"],specs:["S001-0078","6F / B2","537 m²","2,365 m²","37","1","2002-11-19"],copy:{ko:{title:"청담동 컨디션 우수한 급매 빌딩",location:"서울 강남구 청담동",price:"매매 335억원",highlights:["압구정로데오역 도보 7분","건폐율·용적률 이점","일부 층 직접 사용 가능"]},en:{title:"Cheongdam-dong prime-condition building",location:"Cheongdam-dong, Gangnam, Seoul",price:"KRW 33.5 billion",highlights:["7-minute walk from Apgujeong Rodeo Station","Favorable building and floor-area ratios","Some floors available for owner use"]},ja:{title:"清潭洞・状態良好の売却ビル",location:"ソウル・江南区 清潭洞",price:"売出価格 335億ウォン",highlights:["狎鴎亭ロデオ駅 徒歩7分","建ぺい率・容積率に優位性","一部階を自己使用可能"]},zh:{title:"清潭洞优质急售写字楼",location:"韩国首尔江南区清潭洞",price:"售价 335亿韩元",highlights:["距狎鸥亭罗德奥站步行7分钟","建筑覆盖率与容积率具有优势","部分楼层可自用"]}}}
     };
+    const listingImageBase='https://bdb-dev-bucket.s3.ap-northeast-2.amazonaws.com/event-sale/thumbnails/large/';
+    Object.assign(listingData,{
+      nonhyeonPrime:{url:'https://www.gbd-building.co.kr/event_sale_properties/37',images:['1771662501348-ya62wzaxt-20250704_143104.webp'].map(x=>listingImageBase+x),specs:['S001-0063','8F / B3','702 m²','2,998 m²','30','2','2019-07-15'],copy:{ko:{title:'논현동 초역세권 대로변 빌딩',location:'서울 강남구 논현동',price:'매매 500억원',highlights:['언주역 도보 3분 · 논현로 대로변','근린생활시설과 업무시설 혼합','병의원·오피스·사옥 수요 지역']},en:{title:'Nonhyeon main-road investment building',location:'Nonhyeon-dong, Gangnam, Seoul',price:'KRW 50 billion',highlights:['3-minute walk from Eonju Station','Mixed retail and office use','Strong medical, office and headquarters demand']},ja:{title:'論峴洞・大通り沿い投資ビル',location:'ソウル・江南区 論峴洞',price:'売出価格 500億ウォン',highlights:['彦州駅 徒歩3分・論峴路沿い','近隣生活施設と業務施設の複合','医院・オフィス・本社需要が高い地域']},zh:{title:'论岘洞主干道投资写字楼',location:'韩国首尔江南区论岘洞',price:'售价 500亿韩元',highlights:['距彦州站步行3分钟 · 临论岘路','商业与办公混合用途','医疗、办公及企业总部需求旺盛']}}},
+      yeoksamNew:{url:'https://www.gbd-building.co.kr/event_sale_properties/55',images:['1775436799621-s592vnurx-20260326_174758.webp','1775436800109-2ybiqfta0-20260326_174732.webp','1775436800657-l6l0wu4y6-20260326_174814.webp','1775436801121-5r9esfvwq-20260326_174825.webp','1775436801608-ihr5o7jot-20260326_174909.webp','1775436802121-zirgny0qn-20260326_174920.webp'].map(x=>listingImageBase+x),specs:['S001-0360','5F / B1','183 m²','554 m²','4','1','2026-01-12'],copy:{ko:{title:'역삼동 신축 사옥',location:'서울 강남구 역삼동',price:'매매 85억원',highlights:['2026년 신축 건물','사옥 용도에 적합','100억원 이하 매물']},en:{title:'New Yeoksam corporate building',location:'Yeoksam-dong, Gangnam, Seoul',price:'KRW 8.5 billion',highlights:['Newly completed in 2026','Suitable for a company headquarters','Priced below KRW 10 billion']},ja:{title:'駅三洞の新築社屋',location:'ソウル・江南区 駅三洞',price:'売出価格 85億ウォン',highlights:['2026年新築','社屋利用に適合','100億ウォン以下の物件']},zh:{title:'驿三洞新建企业总部',location:'韩国首尔江南区驿三洞',price:'售价 85亿韩元',highlights:['2026年新建','适合企业总部使用','售价低于100亿韩元']}}},
+      nonhyeonOffice:{url:'https://www.gbd-building.co.kr/event_sale_properties/9',images:['1771493599492-dofho8dzt-20251209_143133.webp','1771493600162-i6o6nfrcj-20251209_143044.webp','1771493600847-qn2fda9yk-20251209_142826.webp','1771493601608-sqdg5srdi-20251209_142932.webp','1771493602183-knd1rsovt-20251209_142905.webp','1771493603010-dnajsbi1r-20251209_142910.webp','1771493603568-3zuhnhl08-20251209_142549.webp','1771493604190-s5hbkq9zk-20251209_142608.webp','1771493604755-weet7rvso-20251209_142406.webp','1771493605487-93pfpd7xk-20251209_142426.webp'].map(x=>listingImageBase+x),specs:['S001-0191','8F / B3','590 m²','2,423 m²','23','1','2021-10-01'],copy:{ko:{title:'논현동 사옥형 빌딩',location:'서울 강남구 논현동',price:'매매 340억원',highlights:['학동역 핵심 입지','지하 3층 구조','통사옥 사용 가능']},en:{title:'Nonhyeon headquarters-style building',location:'Nonhyeon-dong, Gangnam, Seoul',price:'KRW 34 billion',highlights:['Prime Hakdong Station location','Three basement levels','Suitable for full-building corporate use']},ja:{title:'論峴洞の社屋型ビル',location:'ソウル・江南区 論峴洞',price:'売出価格 340億ウォン',highlights:['鶴洞駅の中心立地','地下3階構造','一棟社屋として利用可能']},zh:{title:'论岘洞企业总部型写字楼',location:'韩国首尔江南区论岘洞',price:'售价 340亿韩元',highlights:['鹤洞站核心地段','地下3层结构','可整栋作为企业总部使用']}}},
+      yeoksamCommercial:{url:'https://www.gbd-building.co.kr/event_sale_properties/35',images:['1771662058744-gjz524bxr-20250722_184710.webp'].map(x=>listingImageBase+x),specs:['S001-0081','11F / B1','379 m²','2,000 m²','10','1','2014-10-07'],copy:{ko:{title:'역삼동 일반상업지역 빌딩',location:'서울 강남구 역삼동',price:'매매 300억원',highlights:['테헤란로 이면 업무 핵심축','용적률 495.42%','대형 오피스 임차 수요 지역']},en:{title:'Yeoksam commercial-zone building',location:'Yeoksam-dong, Gangnam, Seoul',price:'KRW 30 billion',highlights:['Core business corridor near Teheran-ro','495.42% floor-area ratio','Strong large-office tenant demand']},ja:{title:'駅三洞・一般商業地域ビル',location:'ソウル・江南区 駅三洞',price:'売出価格 300億ウォン',highlights:['テヘラン路裏手の業務中心軸','容積率495.42%','大型オフィスの賃貸需要が高い地域']},zh:{title:'驿三洞一般商业区写字楼',location:'韩国首尔江南区驿三洞',price:'售价 300亿韩元',highlights:['德黑兰路附近核心商务区','容积率495.42%','大型办公租赁需求旺盛']}}},
+      gangnamTower:{url:'https://www.gbd-building.co.kr/event_sale_properties/31',images:['1771660877928-qscbx0jfk-20250908_193129.webp','1771660878466-nmenakxob-batch_20260116_133841.webp','1771660878987-4dyvigejn-batch_20260116_135051.webp','1771660879496-7vbrgie2c-batch_20260116_135218.webp','1771660879956-cpccq49jb-batch_20260116_135246.webp','1771660880434-r7r3wu35l-batch_20260116_135254.webp','1771660880903-hq9zrncjj-batch_20260116_135342.webp','1771660881330-785gdptd2-batch_20260116_135415.webp','1771660881798-bbuv77cls-batch_20260116_135445.webp','1771660882308-dho0cypyu-batch_20260116_135504.webp'].map(x=>listingImageBase+x),specs:['S001-0127','16F / B2','428 m²','3,988 m²','8','2','2025-12-01'],copy:{ko:{title:'강남역 초역세권 대형 빌딩',location:'서울 강남구 역삼동',price:'매매 600억원',highlights:['강남역 도보 2분','연면적 약 1,206평','무기둥 구조로 높은 공간 활용도']},en:{title:'Large building beside Gangnam Station',location:'Yeoksam-dong, Gangnam, Seoul',price:'KRW 60 billion',highlights:['2-minute walk from Gangnam Station','Approx. 1,206 pyeong total floor area','Column-free design for efficient space use']},ja:{title:'江南駅至近の大型ビル',location:'ソウル・江南区 駅三洞',price:'売出価格 600億ウォン',highlights:['江南駅 徒歩2分','延床面積約1,206坪','無柱構造で高い空間効率']},zh:{title:'江南站超近大型写字楼',location:'韩国首尔江南区驿三洞',price:'售价 600亿韩元',highlights:['距江南站步行2分钟','总建筑面积约1,206坪','无柱结构，空间利用率高']}}},
+      sinsaDosan:{url:'https://www.gbd-building.co.kr/event_sale_properties/60',images:['1783397030583-20260707_130219.webp','1783397031414-20260707_123320.webp','1783397032046-20260707_130239.webp','1783397032817-20260707_130303.webp','1783397033491-20260707_130253.webp'].map(x=>listingImageBase+x),specs:['S001-0431','5F / B1','328 m²','975 m²','7','1','2026-04-03'],copy:{ko:{title:'신사동 도산공원 신축 빌딩',location:'서울 강남구 신사동',price:'매매 220억원',highlights:['압구정로데오·도산공원 블록','2026년 신축','사옥 또는 임대수익용 가능']},en:{title:'New Sinsa building near Dosan Park',location:'Sinsa-dong, Gangnam, Seoul',price:'KRW 22 billion',highlights:['Apgujeong Rodeo and Dosan Park area','Newly completed in 2026','Suitable for corporate or rental use']},ja:{title:'新沙洞・島山公園の新築ビル',location:'ソウル・江南区 新沙洞',price:'売出価格 220億ウォン',highlights:['狎鴎亭ロデオ・島山公園エリア','2026年新築','社屋または賃貸収益用に利用可能']},zh:{title:'新沙洞岛山公园新建写字楼',location:'韩国首尔江南区新沙洞',price:'售价 220亿韩元',highlights:['狎鸥亭罗德奥·岛山公园区域','2026年新建','适合企业自用或出租收益']}}}
+    });
+    const extraListingIds=['nonhyeonPrime','yeoksamNew','nonhyeonOffice','yeoksamCommercial','gangnamTower','sinsaDosan'];
     let currentLanguage='ko';
     let currentListingId=null;
     function setLanguage(lang){
@@ -375,6 +386,7 @@
       applyExternalTranslation(lang);
       document.querySelectorAll('.lang-btn').forEach(btn=>{const active=btn.dataset.language===lang;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active))});
       document.title=lang==='ko'?'Meridian Properties — 글로벌 부동산 투자·관리':lang==='ja'?'Meridian Properties — グローバル不動産投資・管理':lang==='zh'?'Meridian Properties — 全球房地产投资与管理':'Meridian Properties — Global Real Estate Investment & Management';
+      renderExtraCards();
       if(currentListingId&&document.getElementById('listing-detail').open)renderListingDetail(currentListingId);
       try{localStorage.setItem('meridian-language',lang)}catch(e){}
     }
@@ -397,29 +409,80 @@
       });
     }
     const listingDialog=document.getElementById('listing-detail');
+    let currentSlideIndex=0;
+    let listingSlideTimer=null;
+    function renderExtraCards(){
+      document.querySelectorAll('[data-generated-listing]').forEach(card=>card.remove());
+      const grid=document.querySelector('.building-grid');
+      const copy=translations[currentLanguage]||translations.ko;
+      const badge={ko:'BLA 연계 검토 대상',en:'BLA pilot candidate',ja:'BLA連携検討対象',zh:'BLA试点候选资产'}[currentLanguage];
+      const photoLabel={ko:'장 사진 · 자동 슬라이드',en:'photos · auto slideshow',ja:'枚・自動スライド',zh:'张照片 · 自动轮播'}[currentLanguage];
+      extraListingIds.forEach(id=>{
+        const item=listingData[id],local=item.copy[currentLanguage]||item.copy.ko;
+        const card=document.createElement('article');card.className='building-card';card.dataset.generatedListing='true';
+        card.innerHTML='<a class="building-photo" href="'+item.url+'" target="_blank" rel="noopener noreferrer" data-listing-id="'+id+'"><img src="'+item.images[0]+'" alt="'+local.title+'" width="640" height="480" loading="lazy"></a><div class="building-info"><p>'+local.location+'</p><h3>'+local.title+'</h3><span class="token-candidate">'+badge+'</span><strong class="building-price">'+local.price+'</strong><p>'+local.highlights[0]+'</p><span class="listing-card-count">'+item.images.length+' '+photoLabel+'</span><dl><div><dt>'+copy.buildingArea+'</dt><dd>'+item.specs[2]+' / '+item.specs[3]+'</dd></div><div><dt>'+copy.buildingNumber+'</dt><dd>'+item.specs[0]+'</dd></div></dl><a class="btn btn-primary" href="'+item.url+'" target="_blank" rel="noopener noreferrer" data-listing-id="'+id+'">'+copy.buildingDetails+'</a></div>';
+        grid.append(card);
+      });
+      bindListingTriggers(grid);
+    }
+    function stopListingSlider(){if(listingSlideTimer){clearInterval(listingSlideTimer);listingSlideTimer=null;}}
+    function startListingSlider(){
+      stopListingSlider();
+      const item=listingData[currentListingId];
+      if(!item||item.images.length<2||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+      listingSlideTimer=setInterval(()=>showListingSlide(currentSlideIndex+1,false),3200);
+    }
+    function showListingSlide(index,restart=true){
+      const item=listingData[currentListingId];if(!item)return;
+      currentSlideIndex=(index+item.images.length)%item.images.length;
+      const copy=item.copy[currentLanguage]||item.copy.ko;
+      const image=document.querySelector('.listing-slide-image');if(image){image.src=item.images[currentSlideIndex];image.alt=copy.title+' '+(currentSlideIndex+1);}
+      const count=document.querySelector('.listing-slide-count');if(count)count.textContent=(currentSlideIndex+1)+' / '+item.images.length;
+      document.querySelectorAll('.listing-thumb').forEach((thumb,i)=>thumb.classList.toggle('active',i===currentSlideIndex));
+      if(restart)startListingSlider();
+    }
+    function renderListingGallery(item,copy){
+      stopListingSlider();currentSlideIndex=0;
+      const gallery=document.getElementById('listing-gallery');gallery.replaceChildren();
+      const stage=document.createElement('div');stage.className='listing-slide-stage';
+      const image=document.createElement('img');image.className='listing-slide-image';image.src=item.images[0];image.alt=copy.title+' 1';
+      stage.append(image);
+      if(item.images.length>1){
+        const prev=document.createElement('button');prev.type='button';prev.className='listing-slide-nav listing-slide-prev';prev.textContent='‹';prev.setAttribute('aria-label','Previous photo');prev.addEventListener('click',()=>showListingSlide(currentSlideIndex-1));
+        const next=document.createElement('button');next.type='button';next.className='listing-slide-nav listing-slide-next';next.textContent='›';next.setAttribute('aria-label','Next photo');next.addEventListener('click',()=>showListingSlide(currentSlideIndex+1));
+        const count=document.createElement('span');count.className='listing-slide-count';count.textContent='1 / '+item.images.length;stage.append(prev,next,count);
+      }
+      gallery.append(stage);
+      if(item.images.length>1){const thumbs=document.createElement('div');thumbs.className='listing-thumbs';item.images.forEach((src,index)=>{const button=document.createElement('button');button.type='button';button.className='listing-thumb'+(index===0?' active':'');button.setAttribute('aria-label','Photo '+(index+1));const thumb=document.createElement('img');thumb.src=src;thumb.alt='';thumb.loading='lazy';button.append(thumb);button.addEventListener('click',()=>showListingSlide(index));thumbs.append(button);});gallery.append(thumbs);}
+      gallery.onmouseenter=stopListingSlider;
+      gallery.onmouseleave=startListingSlider;
+      startListingSlider();
+    }
     function renderListingDetail(id){
-      const item=listingData[id];
-      if(!item)return;
+      const item=listingData[id];if(!item)return;
       currentListingId=id;
-      const lang=currentLanguage;
-      const copy=item.copy[lang]||item.copy.ko;
-      const labels=listingLabels[lang]||listingLabels.ko;
+      const lang=currentLanguage,copy=item.copy[lang]||item.copy.ko,labels=listingLabels[lang]||listingLabels.ko;
       document.getElementById('listing-detail-location').textContent=copy.location;
       document.getElementById('listing-detail-title').textContent=copy.title;
       document.getElementById('listing-detail-price').textContent=copy.price;
       document.getElementById('listing-highlights').replaceChildren(...copy.highlights.map(value=>{const li=document.createElement('li');li.textContent=value;return li;}));
       document.getElementById('listing-specs').replaceChildren(...item.specs.map((value,index)=>{const row=document.createElement('div');const dt=document.createElement('dt');const dd=document.createElement('dd');dt.textContent=labels.specs[index];dd.textContent=value;row.append(dt,dd);return row;}));
-      document.getElementById('listing-gallery').replaceChildren(...item.images.map((src,index)=>{const img=document.createElement('img');img.src=src;img.alt=copy.title+' '+(index+1);img.loading=index===0?'eager':'lazy';return img;}));
+      renderListingGallery(item,copy);
       const original=document.getElementById('listing-original');original.href=item.url;original.textContent=labels.original;
       document.getElementById('listing-source-note').textContent=labels.source;
     }
-    document.querySelectorAll('.building-card a[href*="gbd-building.co.kr/event_sale_properties/"]').forEach(link=>{
-      const id=link.href.endsWith('/11')?'nonhyeon':link.href.endsWith('/15')?'daechi':link.href.endsWith('/12')?'cheongdam':null;
-      if(!id)return;
-      link.addEventListener('click',event=>{event.preventDefault();renderListingDetail(id);listingDialog.showModal();});
-    });
+    function bindListingTriggers(root=document){
+      root.querySelectorAll('.building-card a[href*="gbd-building.co.kr/event_sale_properties/"]').forEach(link=>{
+        if(link.dataset.detailBound)return;
+        const id=link.dataset.listingId||(link.href.endsWith('/11')?'nonhyeon':link.href.endsWith('/15')?'daechi':link.href.endsWith('/12')?'cheongdam':null);
+        if(!id)return;link.dataset.detailBound='true';
+        link.addEventListener('click',event=>{event.preventDefault();renderListingDetail(id);listingDialog.showModal();});
+      });
+    }
+    bindListingTriggers();
     listingDialog.querySelector('.listing-detail-close').addEventListener('click',()=>listingDialog.close());
     listingDialog.addEventListener('click',event=>{if(event.target===listingDialog)listingDialog.close()});
+    listingDialog.addEventListener('close',stopListingSlider);
     const whitepaper=document.getElementById('bla-whitepaper');
     document.getElementById('open-bla-whitepaper').addEventListener('click',()=>whitepaper.showModal());
     whitepaper.querySelector('.whitepaper-close').addEventListener('click',()=>whitepaper.close());
