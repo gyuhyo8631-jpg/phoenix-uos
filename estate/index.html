@@ -92,6 +92,7 @@
     .income-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.income-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);padding:23px;min-height:355px}.income-card-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.income-country{color:var(--gold2);font-size:11px;font-weight:700;letter-spacing:.13em}.income-kind{padding:4px 7px;background:#eee8dc;color:#73502c;font-size:10px;font-weight:700;text-align:right}
     .income-card h3{font-size:22px;margin:10px 0 5px}.income-location{color:var(--muted);font-size:13px;min-height:42px}.income-price{display:block;font-size:22px;color:#925c29;margin:16px 0 2px}.income-krw{color:var(--muted);font-size:12px}.income-metrics{display:grid;grid-template-columns:1fr 1fr;margin:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.income-metrics div{padding:12px 8px 12px 0}.income-metrics div+div{padding-left:13px;border-left:1px solid var(--line)}.income-metrics small{display:block;color:var(--muted);font-size:11px}.income-metrics strong{display:block;margin-top:3px;font-size:16px}
     .income-basis{color:#5f697b;font-size:12px;line-height:1.65;margin-bottom:18px}.income-card .btn{margin-top:auto;width:100%;min-height:43px;padding:8px 12px;text-align:center}.matcher-empty{grid-column:1/-1;padding:38px;border:1px dashed #bcb3a3;background:rgba(255,255,255,.55);text-align:center;color:var(--muted)}.matcher-notice{margin-top:22px;padding:16px 18px;border-left:3px solid var(--gold2);background:#fff;color:#657083;font-size:12px;line-height:1.75}
+    .matcher-summary[hidden],.income-grid[hidden],.matcher-notice[hidden]{display:none}
     .platform{background:#fff}
     .platform-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:75px;align-items:center}
     .platform h2{font-size:clamp(34px,4vw,51px);margin:13px 0 22px;letter-spacing:-.03em}
@@ -252,9 +253,9 @@
             <div class="matcher-countries"><span id="country-label">국가 선택</span><div class="country-filter" role="group" aria-label="Country"><button class="active" type="button" data-country="all">전체</button><button type="button" data-country="kr">한국</button><button type="button" data-country="jp">일본</button><button type="button" data-country="ae">두바이</button></div></div>
             <button class="btn btn-primary matcher-search" id="match-properties" type="button">매물 찾기</button>
           </div>
-          <div class="matcher-summary"><strong id="matcher-result">예산 이내 매물</strong><small id="fx-status">외화 매물은 참고 환율로 원화 환산</small></div>
-          <div class="income-grid" id="income-results" aria-live="polite"></div>
-          <p class="matcher-notice" id="matcher-notice">매매가는 공개 호가이며 실시간 거래 가능 여부는 원본 중개사 확인이 필요합니다. 임대수익은 세금·취득비·관리비·수선비·공실·환율 변동 전의 단순 총수익입니다. 한국 매물은 공개 임대료가 없어 연 3.5% 가정 시나리오이며, 두바이는 유사 면적의 최근 임대 거래를 사용합니다.</p>
+          <div class="matcher-summary" hidden><strong id="matcher-result">예산 이내 매물</strong><small id="fx-status">외화 매물은 참고 환율로 원화 환산</small></div>
+          <div class="income-grid" id="income-results" aria-live="polite" hidden></div>
+          <p class="matcher-notice" id="matcher-notice" hidden>매매가는 공개 호가이며 실시간 거래 가능 여부는 원본 중개사 확인이 필요합니다. 임대수익은 세금·취득비·관리비·수선비·공실·환율 변동 전의 단순 총수익입니다. 한국 매물은 공개 임대료가 없어 연 3.5% 가정 시나리오이며, 두바이는 유사 면적의 최근 임대 거래를 사용합니다.</p>
         </div>
       </div>
     </section>
@@ -454,15 +455,19 @@
       {country:'ae',currency:'AED',price:8000000,annual:200000,yield:2.5,kind:'comparable',url:'https://www.propertyfinder.ae/en/plp/buy/apartment-for-sale-dubai-palm-jumeirah-the-crescent-kempinski-palm-residence-139218251.html',name:{ko:'켐핀스키 팜 레지던스',en:'Kempinski Palm Residence',ja:'ケンピンスキー・パーム・レジデンス',zh:'凯宾斯基棕榈公寓'},location:{ko:'팜 주메이라 · 3베드 · 2,566ft²',en:'Palm Jumeirah · 3 bed · 2,566 ft²',ja:'パーム・ジュメイラ・3BR・2,566ft²',zh:'朱美拉棕榈岛 · 三居室 · 2,566ft²'}}
     ];
     let selectedInvestmentCountry='all';
+    let hasSearchedInvestment=false;
     let investmentFx={JPY:.1,AED:.00272};
     function investmentPriceKrw(item){return item.currency==='KRW'?item.price:item.price/(investmentFx[item.currency]||1)}
     function investmentAnnual(item){return item.annual||item.price*item.yield/100}
     function formatInvestmentMoney(value,currency){const rounded=Math.round(value);if(currency==='KRW')return '₩'+rounded.toLocaleString('ko-KR');return currency+' '+rounded.toLocaleString('en-US')}
     function compactKrw(value){const eok=value/100000000;if(currentLanguage==='en'){const billion=value/1000000000;return 'KRW '+(billion>=1?billion.toFixed(billion<10?2:1)+' billion':Math.round(value/1000000)+' million')}return (eok>=100?Math.round(eok):eok.toFixed(eok<10?1:0))+(currentLanguage==='ja'?'億ウォン':currentLanguage==='zh'?'亿韩元':'억 원')}
+    function hideInvestmentResults(){hasSearchedInvestment=false;document.querySelector('.matcher-summary').hidden=true;document.getElementById('income-results').hidden=true;document.getElementById('matcher-notice').hidden=true}
     function renderInvestmentMatches(){
       const c=investmentCopy[currentLanguage]||investmentCopy.ko;
       document.getElementById('nav-investment-matcher').textContent=c.nav;document.getElementById('matcher-title').textContent=c.title;document.getElementById('matcher-intro').textContent=c.intro;document.getElementById('budget-label').textContent=c.budget;document.getElementById('budget-unit').textContent=c.unit;document.getElementById('country-label').textContent=c.country;document.getElementById('match-properties').textContent=c.search;document.getElementById('fx-status').textContent=c.fx;document.getElementById('matcher-notice').textContent=c.notice;
       document.querySelectorAll('.country-filter button').forEach((button,index)=>button.textContent=c.countries[index]);
+      if(!hasSearchedInvestment){hideInvestmentResults();return}
+      document.querySelector('.matcher-summary').hidden=false;document.getElementById('income-results').hidden=false;document.getElementById('matcher-notice').hidden=false;
       const budget=Math.max(0,Number(document.getElementById('investment-budget').value)||0)*100000000;
       const matches=investmentListings.filter(item=>(selectedInvestmentCountry==='all'||item.country===selectedInvestmentCountry)&&investmentPriceKrw(item)<=budget).sort((a,b)=>investmentPriceKrw(a)-investmentPriceKrw(b));
       document.getElementById('matcher-result').textContent=c.result(matches.length);const root=document.getElementById('income-results');root.replaceChildren();
@@ -470,8 +475,8 @@
       const countryNames={ko:{kr:'한국',jp:'일본',ae:'두바이'},en:{kr:'KOREA',jp:'JAPAN',ae:'DUBAI'},ja:{kr:'韓国',jp:'日本',ae:'ドバイ'},zh:{kr:'韩国',jp:'日本',ae:'迪拜'}}[currentLanguage]||{kr:'한국',jp:'일본',ae:'두바이'};
       matches.forEach(item=>{const annual=investmentAnnual(item),monthly=annual/12,priceKrw=investmentPriceKrw(item),monthlyKrw=item.currency==='KRW'?monthly:monthly/(investmentFx[item.currency]||1),card=document.createElement('article');card.className='income-card';card.innerHTML='<div class="income-card-top"><span class="income-country">'+countryNames[item.country]+'</span><span class="income-kind">'+c[item.kind]+'</span></div><h3>'+item.name[currentLanguage]+'</h3><p class="income-location">'+item.location[currentLanguage]+'</p><small>'+c.price+'</small><strong class="income-price">'+formatInvestmentMoney(item.price,item.currency)+'</strong><span class="income-krw">'+c.approx+compactKrw(priceKrw)+'</span><div class="income-metrics"><div><small>'+c.monthly+'</small><strong>'+formatInvestmentMoney(monthly,item.currency)+'</strong><small>'+c.approx+compactKrw(monthlyKrw)+'</small></div><div><small>'+c.yield+'</small><strong>'+item.yield.toFixed(2)+'%</strong></div></div><p class="income-basis">'+c[item.kind]+' · '+(item.kind==='scenario'?item.yield.toFixed(2)+'%':formatInvestmentMoney(annual,item.currency))+'</p><a class="btn btn-primary" href="'+item.url+'" target="_blank" rel="noopener noreferrer">'+c.original+'</a>';root.append(card)});
     }
-    document.querySelectorAll('.country-filter button').forEach(button=>button.addEventListener('click',()=>{selectedInvestmentCountry=button.dataset.country;document.querySelectorAll('.country-filter button').forEach(item=>item.classList.toggle('active',item===button));renderInvestmentMatches()}));
-    document.getElementById('match-properties').addEventListener('click',renderInvestmentMatches);document.getElementById('investment-budget').addEventListener('keydown',event=>{if(event.key==='Enter')renderInvestmentMatches()});
+    document.querySelectorAll('.country-filter button').forEach(button=>button.addEventListener('click',()=>{selectedInvestmentCountry=button.dataset.country;document.querySelectorAll('.country-filter button').forEach(item=>item.classList.toggle('active',item===button));hideInvestmentResults()}));
+    document.getElementById('match-properties').addEventListener('click',()=>{hasSearchedInvestment=true;renderInvestmentMatches()});document.getElementById('investment-budget').addEventListener('input',hideInvestmentResults);document.getElementById('investment-budget').addEventListener('keydown',event=>{if(event.key==='Enter'){hasSearchedInvestment=true;renderInvestmentMatches()}});
     async function refreshInvestmentFx(){try{const response=await fetch('https://open.er-api.com/v6/latest/KRW');if(!response.ok)throw new Error('fx');const data=await response.json();if(data.rates&&data.rates.JPY&&data.rates.AED){investmentFx={JPY:data.rates.JPY,AED:data.rates.AED};renderInvestmentMatches()}}catch(error){}}
     let currentLanguage='ko';
     let currentListingId=null;
