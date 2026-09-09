@@ -40,9 +40,9 @@
     .lang-btn.active{background:var(--ink);color:#fff}
     .nav-cta{background:var(--ink);color:#fff;text-decoration:none;padding:10px 16px;font-size:13px;border-radius:2px}
 
-    .hero{min-height:760px;color:#fff;position:relative;display:flex;align-items:flex-end;isolation:isolate;background-color:#0a1729;background-image:linear-gradient(90deg,rgba(5,13,26,.94) 0%,rgba(5,13,26,.72) 43%,rgba(5,13,26,.18) 78%),linear-gradient(0deg,rgba(5,13,26,.94) 0%,rgba(5,13,26,0) 52%),url('/estate/assets/global-cities-hero.jpg');background-size:cover;background-position:center;background-repeat:no-repeat}
+    .hero{min-height:650px;color:#fff;position:relative;display:flex;align-items:flex-end;isolation:isolate;background-color:#0a1729;background-image:linear-gradient(90deg,rgba(5,13,26,.94) 0%,rgba(5,13,26,.72) 43%,rgba(5,13,26,.18) 78%),linear-gradient(0deg,rgba(5,13,26,.94) 0%,rgba(5,13,26,0) 52%),url('/estate/assets/global-cities-hero.jpg');background-size:cover;background-position:center;background-repeat:no-repeat}
     .hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(115deg,transparent 52%,rgba(215,165,102,.08))}
-    .hero-inner{padding:112px 0 34px;width:100%}
+    .hero-inner{padding:112px 0 80px;width:100%}
     .hero-copy{max-width:730px}
     .hero h1{font-size:clamp(45px,6vw,76px);letter-spacing:-.035em;margin:18px 0 22px;text-wrap:balance;text-shadow:0 4px 30px rgba(0,0,0,.35)}
     .hero-lede{max-width:625px;color:#e2e7ef;font-size:18px;line-height:1.75;text-shadow:0 2px 16px rgba(0,0,0,.45)}
@@ -111,8 +111,8 @@
     footer{background:#050d19;color:#9aa6b7;padding:28px 0;font-size:12px}
     footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
 
-    @media(max-width:900px){.nav-center{display:none}.hero{min-height:700px;background-position:55% center}.hero-inner{padding-top:90px}.city-tabs{margin-top:65px}.section-head,.platform-grid,.contact-inner{grid-template-columns:1fr}.section-head p{justify-self:start}.platform-grid{gap:45px}.steps{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step:nth-child(-n+2){border-bottom:1px solid #cfc6b6}}
-    @media(max-width:680px){.wrap{width:min(100% - 32px,1160px)}nav{height:67px}.brand{font-size:18px}.nav-cta{display:none}.language{gap:0}.lang-btn{padding:5px 7px}.hero{min-height:790px;background-position:53% center}.hero-inner{padding:72px 0 18px}.hero h1{font-size:40px}.hero-lede{font-size:16px}.city-tabs{grid-template-columns:1fr;margin-top:50px}.city-tab{padding:14px 16px;display:grid;grid-template-columns:72px 1fr;align-items:center}.city-tab small{grid-row:1/3}.city-tab strong{font-size:17px}.city-tab span{font-size:11px}.city-tab:after{right:14px}section{padding:72px 0}.section-head{gap:17px}.market-grid{grid-template-columns:1fr}.market-card{min-height:350px;background-size:cover}.market-seoul{background-position:12% center}.market-osaka{background-position:50% center}.market-dubai{background-position:88% center}.steps{grid-template-columns:1fr}.step,.step:nth-child(2){border-right:0;border-bottom:1px solid #cfc6b6}.step:last-child{border-bottom:0}.trust-grid{grid-template-columns:1fr}.trust-card{min-height:230px;padding:29px}.contact-panel{border-left:0;border-top:1px solid rgba(255,255,255,.22);padding:24px 0 0}}
+    @media(max-width:900px){.nav-center{display:none}.hero{min-height:620px;background-position:55% center}.hero-inner{padding:90px 0 70px}.section-head,.platform-grid,.contact-inner{grid-template-columns:1fr}.section-head p{justify-self:start}.platform-grid{gap:45px}.steps{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step:nth-child(-n+2){border-bottom:1px solid #cfc6b6}}
+    @media(max-width:680px){.wrap{width:min(100% - 32px,1160px)}nav{height:67px}.brand{font-size:18px}.nav-cta{display:none}.language{gap:0}.lang-btn{padding:5px 7px}.hero{min-height:620px;background-position:53% center}.hero-inner{padding:72px 0 58px}.hero h1{font-size:40px}.hero-lede{font-size:16px}section{padding:72px 0}.section-head{gap:17px}.market-grid{grid-template-columns:1fr}.market-card{min-height:350px;background-size:cover}.market-seoul{background-position:12% center}.market-osaka{background-position:50% center}.market-dubai{background-position:88% center}.steps{grid-template-columns:1fr}.step,.step:nth-child(2){border-right:0;border-bottom:1px solid #cfc6b6}.step:last-child{border-bottom:0}.trust-grid{grid-template-columns:1fr}.trust-card{min-height:230px;padding:29px}.contact-panel{border-left:0;border-top:1px solid rgba(255,255,255,.22);padding:24px 0 0}}
     .gangnam-listings{scroll-margin-top:76px;background:#f4f0e7}
     .building-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
     .building-card{background:#fff;border:1px solid var(--line);overflow:hidden}
@@ -208,11 +208,6 @@
             <a class="btn btn-ghost" href="#bla" data-ko="BLA 연계 구조" data-en="Explore BLA" data-ja="BLA連携を見る">BLA 연계 구조</a>
             <a class="btn btn-ghost" href="#contact" data-i18n="consult">투자 상담하기</a>
           </div>
-        </div>
-        <div class="city-tabs" aria-label="Global property markets">
-          <a class="city-tab" href="#city-seoul"><small>SEOUL</small><strong data-i18n="seoulName">테헤란로</strong><span data-i18n="seoulTag">아시아 비즈니스 허브</span></a>
-          <a class="city-tab" href="#city-osaka"><small>OSAKA</small><strong data-i18n="osakaName">도톤보리</strong><span data-i18n="osakaTag">관광과 상업의 중심</span></a>
-          <a class="city-tab" href="#city-dubai"><small>DUBAI</small><strong data-i18n="dubaiName">다운타운</strong><span data-i18n="dubaiTag">글로벌 럭셔리 시장</span></a>
         </div>
       </div>
     </div>
