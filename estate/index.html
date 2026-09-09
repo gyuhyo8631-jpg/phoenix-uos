@@ -140,7 +140,7 @@
     .building-info .btn{width:100%;text-align:center;padding:10px;line-height:1.5}
     .building-note{margin-top:24px;color:var(--muted);font-size:13px;line-height:1.8}
     .building-photo:focus-visible{outline:3px solid var(--gold2);outline-offset:-3px}
-    .token-candidate{display:inline-flex;align-items:center;gap:7px;margin:12px 0 2px;padding:6px 10px;border:1px solid #d8c39f;background:#fbf6eb;color:#7b5329;font-size:12px;font-weight:600;letter-spacing:.02em}
+    .token-candidate{display:none}
     .token-candidate:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold2)}
     .listing-detail-dialog{width:min(980px,calc(100% - 28px));max-height:90vh;margin:auto;border:0;padding:0;background:#f7f3ea;color:var(--ink);box-shadow:0 28px 90px rgba(0,0,0,.45);overflow:hidden}
     .listing-detail-dialog::backdrop{background:rgba(3,9,18,.78);backdrop-filter:blur(5px)}
@@ -194,7 +194,6 @@
         <a href="#markets" data-i18n="navMarkets">도시</a>
         <a href="#investment-matcher" id="nav-investment-matcher">수익 매물</a>
         <a href="#contracts" data-ko="계약 양식" data-en="Contract form" data-ja="契約書式">계약 양식</a>
-        <a href="#bla" data-ko="BLA 토큰" data-en="BLA Token" data-ja="BLAトークン">BLA 토큰</a>
         <a href="#platform" data-i18n="navServices">서비스</a>
         <a href="#process" data-i18n="navProcess">진행 절차</a>
         <a href="#partners" data-i18n="navPartners">파트너</a>
@@ -220,7 +219,6 @@
           <p class="hero-lede" data-i18n="heroLede">매물 탐색부터 계약, 세무 신고, 임대 관리까지. 서로 다른 세 도시의 부동산 투자를 하나의 흐름으로 연결하는 글로벌 파트너십 플랫폼입니다.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#markets" data-i18n="explore">도시 살펴보기</a>
-            <a class="btn btn-ghost" href="#bla" data-ko="BLA 연계 구조" data-en="Explore BLA" data-ja="BLA連携を見る">BLA 연계 구조</a>
             <a class="btn btn-ghost" href="#contact" data-i18n="consult">투자 상담하기</a>
           </div>
         </div>
@@ -285,7 +283,7 @@
       </div>
     </section>
 
-    <section class="bla" id="bla">
+    <section class="bla" id="bla" hidden>
       <div class="wrap">
         <div class="section-head">
           <div><p class="kicker">Fortuna Bila · BLA</p><h2 data-ko="부동산 소유와 운영의 기록을 BLA로 연결합니다." data-en="Connect property ownership and operations with BLA." data-ja="不動産の保有と運用記録をBLAでつなぎます。">부동산 소유와 운영의 기록을 BLA로 연결합니다.</h2></div>
@@ -337,7 +335,7 @@
       </div>
     </section>
 
-    <dialog class="whitepaper-dialog" id="bla-whitepaper" aria-labelledby="whitepaper-title">
+    <dialog class="whitepaper-dialog" id="bla-whitepaper" aria-labelledby="whitepaper-title" hidden>
       <div class="whitepaper-shell">
         <header class="whitepaper-head">
           <div><small>SUMMARY PAPER · 2026</small><h2 id="whitepaper-title" data-ko="Fortuna Bila · BLA 요약 백서" data-en="Fortuna Bila · BLA Summary Paper" data-ja="Fortuna Bila・BLA概要ホワイトペーパー">Fortuna Bila · BLA 요약 백서</h2></div>
@@ -540,7 +538,7 @@
       extraListingIds.forEach(id=>{
         const item=listingData[id],local=item.copy[currentLanguage]||item.copy.ko;
         const card=document.createElement('article');card.className='building-card';card.dataset.generatedListing='true';
-        card.innerHTML='<a class="building-photo" href="'+item.url+'" target="_blank" rel="noopener noreferrer" data-listing-id="'+id+'"><img src="'+item.images[0]+'" alt="'+local.title+'" width="640" height="480" loading="lazy"></a><div class="building-info"><p>'+local.location+'</p><h3>'+local.title+'</h3><span class="token-candidate">'+badge+'</span><strong class="building-price">'+local.price+'</strong><p>'+local.highlights[0]+'</p><span class="listing-card-count">'+item.images.length+' '+photoLabel+'</span><dl><div><dt>'+copy.buildingArea+'</dt><dd>'+item.specs[2]+' / '+item.specs[3]+'</dd></div><div><dt>'+copy.buildingNumber+'</dt><dd>'+item.specs[0]+'</dd></div></dl><a class="btn btn-primary" href="'+item.url+'" target="_blank" rel="noopener noreferrer" data-listing-id="'+id+'">'+copy.buildingDetails+'</a></div>';
+        card.innerHTML='<a class="building-photo" href="'+item.url+'" target="_blank" rel="noopener noreferrer" data-listing-id="'+id+'"><img src="'+item.images[0]+'" alt="'+local.title+'" width="640" height="480" loading="lazy"></a><div class="building-info"><p>'+local.location+'</p><h3>'+local.title+'</h3><strong class="building-price">'+local.price+'</strong><p>'+local.highlights[0]+'</p><span class="listing-card-count">'+item.images.length+' '+photoLabel+'</span><dl><div><dt>'+copy.buildingArea+'</dt><dd>'+item.specs[2]+' / '+item.specs[3]+'</dd></div><div><dt>'+copy.buildingNumber+'</dt><dd>'+item.specs[0]+'</dd></div></dl><a class="btn btn-primary" href="'+item.url+'" target="_blank" rel="noopener noreferrer" data-listing-id="'+id+'">'+copy.buildingDetails+'</a></div>';
         grid.append(card);
       });
       bindListingTriggers(grid);
@@ -653,7 +651,7 @@
         setMajorMarketState('live');
       }catch(error){setMajorMarketState('error')}
     }
-    refreshTokenMarket();refreshMajorMarkets();refreshInvestmentFx();setInterval(refreshTokenMarket,30000);setInterval(refreshMajorMarkets,60000);setInterval(refreshInvestmentFx,3600000);
+    refreshInvestmentFx();setInterval(refreshInvestmentFx,3600000);
     let saved='ko';try{saved=localStorage.getItem('meridian-language')||'ko'}catch(e){}setLanguage(saved);
   </script>
 </body>
