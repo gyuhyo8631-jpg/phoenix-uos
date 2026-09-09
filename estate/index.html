@@ -216,7 +216,7 @@
           <article class="market-card market-osaka" id="city-osaka"><div class="market-copy"><span class="number">02 · OSAKA</span><h3 data-i18n="osakaName">도톤보리</h3><p data-i18n="osakaDesc">상업과 관광 수요가 교차하는 오사카의 중심. 매물 검증부터 임대 운영까지 현지 파트너와 설계합니다.</p><div class="market-meta"><span data-i18n="hospitality">관광 숙박</span><span data-i18n="retail">상업시설</span><span data-i18n="rental">임대 운영</span></div><div class="listing-actions"><a class="btn btn-primary listing-button" href="https://realestate.co.jp/en/forsale?prefecture=JP-27" target="_blank" rel="noopener noreferrer"><span data-i18n="osakaListings">오사카 실제 매물 보기</span><span aria-hidden="true">↗</span></a><small class="listing-source">Real Estate Japan · <span data-i18n="externalListings">외부 매물 사이트 · 새 창</span></small></div></div></article>
           <article class="market-card market-dubai" id="city-dubai"><div class="market-copy"><span class="number">03 · DUBAI</span><h3 data-i18n="dubaiName">다운타운</h3><p data-i18n="dubaiDesc">세계 자본이 모이는 럭셔리 부동산 시장. 등록 브로커와 관리 파트너를 통해 투자 이후까지 이어갑니다.</p><div class="market-meta"><span data-i18n="luxury">럭셔리 자산</span><span data-i18n="globalCapital">글로벌 자본</span><span data-i18n="broker">등록 브로커</span></div><div class="listing-actions"><a class="btn btn-primary listing-button" href="https://www.propertyfinder.ae/en/buy/dubai/properties-for-sale.html" target="_blank" rel="noopener noreferrer"><span data-i18n="dubaiListings">두바이 실제 매물 보기</span><span aria-hidden="true">↗</span></a><small class="listing-source">Property Finder · <span data-i18n="externalListings">외부 매물 사이트 · 새 창</span></small></div></div></article>
         </div>
-        <p class="translation-note" data-ko="언어를 KR·EN·JP로 선택한 뒤 외부 매물 버튼을 누르면 해당 언어의 자동 번역 페이지로 연결됩니다. 외부 사이트의 지도·로그인 등 일부 기능은 원문으로 표시될 수 있습니다." data-en="Choose KR, EN or JP before opening a listing. The external page will open in that language through automatic translation. Maps, sign-in and some interactive features may remain in the original language." data-ja="KR・EN・JPを選択してから外部物件ボタンを押すと、選択した言語の自動翻訳ページが開きます。地図、ログインなど一部の機能は原文のまま表示される場合があります。">언어를 KR·EN·JP로 선택한 뒤 외부 매물 버튼을 누르면 해당 언어의 자동 번역 페이지로 연결됩니다. 외부 사이트의 지도·로그인 등 일부 기능은 원문으로 표시될 수 있습니다.</p>
+        <p class="translation-note" data-ko="외부 매물 버튼은 공식 원문 사이트로 바로 연결됩니다. 페이지가 열린 뒤 브라우저의 번역 기능을 사용하면 한국어·영어·일본어로 볼 수 있습니다." data-en="External listing buttons open the official source website directly. After it opens, use your browser's translation feature to view the page in Korean, English or Japanese." data-ja="外部物件ボタンから公式の掲載元サイトへ直接移動します。ページを開いた後、ブラウザの翻訳機能で韓国語・英語・日本語に翻訳できます。">외부 매물 버튼은 공식 원문 사이트로 바로 연결됩니다. 페이지가 열린 뒤 브라우저의 번역 기능을 사용하면 한국어·영어·일본어로 볼 수 있습니다.</p>
       </div>
     </section>
 
@@ -349,10 +349,8 @@
     function applyExternalTranslation(lang){
       document.querySelectorAll('a[data-original-href]').forEach(link=>{
         const original=link.dataset.originalHref;
-        const source=link.dataset.sourceLanguage;
-        const translated=lang!==source;
-        link.href=translated?'https://translate.google.com/translate?sl='+source+'&tl='+lang+'&u='+encodeURIComponent(original):original;
-        link.title=translated?(lang==='ja'?'Google翻訳で開きます。翻訳できない機能は原文をご利用ください。':lang==='en'?'Opens with Google Translate. Use the original page if a feature cannot be translated.':'Google 번역으로 엽니다. 번역되지 않는 기능은 원문 페이지를 이용해 주세요.'):(lang==='ja'?'原文サイトを開く':lang==='en'?'Open the original website':'원문 사이트 열기');
+        link.href=original;
+        link.title=lang==='ja'?'公式の掲載元サイトを新しいタブで開く':lang==='en'?'Open the official listing website in a new tab':'공식 매물 사이트를 새 창으로 열기';
       });
     }
     const whitepaper=document.getElementById('bla-whitepaper');
