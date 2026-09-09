@@ -1,402 +1,231 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meridian Properties — 해외 부동산 투자·관리</title>
-<meta name="description" content="한국 투자자와 해외 현지의 세무사, 중개사, 관리회사를 연결하는 국경 간 부동산 파트너십 플랫폼입니다.">
-<link rel="canonical" href="https://estate-phoenix-uos.com/">
-<meta property="og:title" content="Meridian Properties">
-<meta property="og:description" content="해외 부동산 매입부터 신고와 관리까지 연결합니다.">
-<meta property="og:url" content="https://estate-phoenix-uos.com/">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#16213A;
-    --paper:#F6F3EB;
-    --brass:#A8672E;
-    --brass-light:#C98B4D;
-    --muted:#6E6C63;
-    --line:#DBD4C2;
-    --line-dark:#2B3A57;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'IBM Plex Sans', sans-serif;
-    background:var(--paper);
-    color:var(--ink);
-    line-height:1.6;
-    font-size:16px;
-  }
-  h1,h2,h3,.serif{ font-family:'Newsreader', serif; font-weight:500; letter-spacing:-0.01em; }
-  .wrap{ max-width:1080px; margin:0 auto; padding:0 32px; }
-  a{ color:inherit; }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Meridian Properties — Seoul · Osaka · Dubai</title>
+  <meta name="description" content="서울, 오사카, 두바이를 연결하는 글로벌 부동산 투자·관리 플랫폼">
+  <link rel="canonical" href="https://estate.phoenix-uos.com/">
+  <meta property="og:title" content="Meridian Properties">
+  <meta property="og:description" content="Seoul · Osaka · Dubai, one connected property journey.">
+  <meta property="og:url" content="https://estate.phoenix-uos.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://estate.phoenix-uos.com/estate/assets/global-cities-hero.jpg">
+  <link rel="preload" as="image" href="/estate/assets/global-cities-hero.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#071324;--navy2:#0d1d33;--cream:#f4f0e7;--white:#fff;--gold:#d7a566;--gold2:#a96d31;--ink:#142039;--muted:#687184;--line:#dcd5c7}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans','Noto Sans KR','Noto Sans JP',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65}
+    body.menu-open{overflow:hidden}
+    h1,h2,h3,.serif{font-family:'Playfair Display','Noto Sans KR','Noto Sans JP',serif;line-height:1.16}
+    a{color:inherit}
+    button{font:inherit}
+    .wrap{width:min(1160px,calc(100% - 48px));margin:auto}
+    .eyebrow,.kicker{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
 
-  /* ---------- Nav ---------- */
-  nav{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:26px 32px; max-width:1080px; margin:0 auto;
-  }
-  .brand{ font-family:'Newsreader', serif; font-size:20px; font-weight:500; }
-  .brand span{ color:var(--brass); }
-  nav a.navlink{
-    text-decoration:none; color:var(--ink); font-size:14px; margin-left:28px;
-  }
-  .navlink.cta{
-    border:1px solid var(--ink); padding:8px 18px; border-radius:2px;
-  }
+    .topbar{position:sticky;top:0;z-index:30;background:rgba(244,240,231,.94);backdrop-filter:blur(15px);border-bottom:1px solid rgba(20,32,57,.1)}
+    nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{text-decoration:none;font-family:'Playfair Display',serif;font-size:21px;font-weight:600;white-space:nowrap}
+    .brand b{color:var(--gold2);font-weight:600}
+    .nav-center{display:flex;align-items:center;gap:27px}
+    .nav-center a{text-decoration:none;font-size:13px;font-weight:500}
+    .nav-center a:hover{color:var(--gold2)}
+    .nav-actions{display:flex;align-items:center;gap:14px}
+    .language{display:flex;padding:3px;border:1px solid var(--line);border-radius:999px;background:#fff}
+    .lang-btn{border:0;background:transparent;color:#6b7280;font-size:12px;font-weight:600;padding:6px 9px;border-radius:999px;cursor:pointer}
+    .lang-btn.active{background:var(--ink);color:#fff}
+    .nav-cta{background:var(--ink);color:#fff;text-decoration:none;padding:10px 16px;font-size:13px;border-radius:2px}
 
-  /* ---------- Hero ---------- */
-  header.hero{
-    background:
-      linear-gradient(90deg,rgba(7,14,29,.94) 0%,rgba(7,14,29,.78) 38%,rgba(7,14,29,.26) 74%,rgba(7,14,29,.18) 100%),
-      linear-gradient(0deg,rgba(7,14,29,.9) 0%,transparent 45%),
-      url('/estate/assets/global-cities-hero.png') center center/cover no-repeat;
-    color:var(--paper); padding:96px 0 38px; min-height:700px;
-    position:relative; overflow:hidden; display:flex; align-items:flex-end;
-  }
-  .hero-grid{
-    display:flex; flex-direction:column; justify-content:space-between;
-    gap:110px; min-height:560px;
-  }
-  .hero h1{
-    font-size:56px; line-height:1.08; color:#F6F3EB; max-width:640px;
-    text-shadow:0 4px 24px rgba(0,0,0,.32);
-  }
-  .hero p.lede{
-    margin-top:22px; font-size:18px; color:#E0E4EC; max-width:580px;
-    text-shadow:0 2px 14px rgba(0,0,0,.45);
-  }
-  .hero .eyebrow{
-    font-size:13px; color:#E7B676; margin-bottom:18px;
-    letter-spacing:.16em; text-transform:uppercase;
-  }
-  .route-svg{ width:100%; height:auto; }
-  .route-dot{ fill:var(--brass-light); }
-  .route-line{
-    stroke:var(--brass-light); stroke-width:1.4; fill:none;
-    stroke-dasharray:520; stroke-dashoffset:520;
-    animation:draw 2.2s ease-out forwards 0.3s;
-  }
-  @media (prefers-reduced-motion: reduce){ .route-line{ animation:none; stroke-dashoffset:0; } }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
-  .route-label{ font-size:12px; fill:#C7CCDA; font-family:'IBM Plex Sans', sans-serif; }
-  .city-strip{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
-    border:1px solid rgba(255,255,255,.24);
-    background:rgba(255,255,255,.2); backdrop-filter:blur(12px);
-  }
-  .city-card{
-    padding:18px 20px; background:rgba(10,18,34,.7); color:#fff;
-    text-decoration:none; transition:background .2s,transform .2s;
-  }
-  .city-card:hover,.city-card:focus-visible{
-    background:rgba(168,103,46,.92); transform:translateY(-3px); outline:none;
-  }
-  .city-card small{
-    display:block; color:#D7A566; font-size:11px; letter-spacing:.15em;
-    text-transform:uppercase; margin-bottom:3px;
-  }
-  .city-card strong{
-    display:block; font-family:'Newsreader',serif; font-size:21px; font-weight:500;
-  }
-  .city-card span{ display:block; color:#C7CCDA; font-size:12px; margin-top:2px; }
+    .hero{min-height:760px;color:#fff;position:relative;display:flex;align-items:flex-end;isolation:isolate;background-color:#0a1729;background-image:linear-gradient(90deg,rgba(5,13,26,.94) 0%,rgba(5,13,26,.72) 43%,rgba(5,13,26,.18) 78%),linear-gradient(0deg,rgba(5,13,26,.94) 0%,rgba(5,13,26,0) 52%),url('/estate/assets/global-cities-hero.jpg');background-size:cover;background-position:center;background-repeat:no-repeat}
+    .hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(115deg,transparent 52%,rgba(215,165,102,.08))}
+    .hero-inner{padding:112px 0 34px;width:100%}
+    .hero-copy{max-width:730px}
+    .hero h1{font-size:clamp(45px,6vw,76px);letter-spacing:-.035em;margin:18px 0 22px;text-wrap:balance;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+    .hero-lede{max-width:625px;color:#e2e7ef;font-size:18px;line-height:1.75;text-shadow:0 2px 16px rgba(0,0,0,.45)}
+    .hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 23px;border:1px solid transparent;text-decoration:none;font-size:14px;font-weight:600;transition:.2s}
+    .btn-primary{background:var(--gold);color:#111827}.btn-primary:hover{background:#e6b878;transform:translateY(-2px)}
+    .btn-ghost{border-color:rgba(255,255,255,.48);color:#fff;background:rgba(6,14,28,.28)}.btn-ghost:hover{background:#fff;color:var(--ink)}
+    .city-tabs{display:grid;grid-template-columns:repeat(3,1fr);margin-top:88px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.16);gap:1px}
+    .city-tab{text-decoration:none;padding:20px 23px;background:rgba(7,19,36,.76);transition:.2s;position:relative}
+    .city-tab:after{content:'→';position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--gold)}
+    .city-tab:hover,.city-tab:focus-visible{background:rgba(169,109,49,.93);outline:none;transform:translateY(-3px)}
+    .city-tab small{display:block;color:#e5b779;font-size:10px;letter-spacing:.17em;font-weight:600}
+    .city-tab strong{display:block;font-family:'Playfair Display','Noto Sans KR','Noto Sans JP',serif;font-size:21px;margin-top:3px;padding-right:24px}
+    .city-tab span{display:block;color:#cbd3df;font-size:12px;margin-top:2px;padding-right:24px}
 
+    section{padding:100px 0}
+    .section-head{display:grid;grid-template-columns:.75fr 1.25fr;gap:36px;align-items:end;margin-bottom:42px}
+    .section-head h2{font-size:clamp(33px,4vw,49px);letter-spacing:-.03em;max-width:700px}
+    .section-head p{color:var(--muted);max-width:510px;justify-self:end}
+    .markets{background:var(--navy);color:#fff}
+    .markets .section-head p{color:#b7c1d0}.markets .section-head h2{color:#fff}
+    .market-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .market-card{min-height:480px;position:relative;overflow:hidden;display:flex;align-items:flex-end;border:1px solid rgba(255,255,255,.15);scroll-margin-top:100px;background-color:#10223a;background-image:linear-gradient(0deg,rgba(5,13,26,.98) 2%,rgba(5,13,26,.12) 72%),url('/estate/assets/global-cities-hero.jpg');background-size:300% 100%;transition:.25s}
+    .market-card:hover{transform:translateY(-7px);border-color:var(--gold)}
+    .market-seoul{background-position:left center}.market-osaka{background-position:center center}.market-dubai{background-position:right center}
+    .market-copy{padding:31px 27px;width:100%}
+    .market-copy .number{color:var(--gold);font-size:11px;letter-spacing:.16em}
+    .market-copy h3{font-size:31px;margin:7px 0 10px}
+    .market-copy p{color:#d3dae5;font-size:14px}
+    .market-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .market-meta span{border:1px solid rgba(255,255,255,.24);padding:4px 9px;font-size:10px;color:#e1e6ee}
 
-  @media (max-width:860px){
-    header.hero{ min-height:660px; padding:62px 0 24px; background-position:46% center; }
-    .hero-grid{ min-height:570px; gap:64px; }
-    .hero h1{ font-size:39px; max-width:500px; }
-    .hero p.lede{ font-size:16px; max-width:500px; }
-    .city-card{ padding:13px 11px; }
-    .city-card strong{ font-size:17px; }
-  }
-  @media (max-width:560px){
-    nav{ padding:18px 16px; }
-    nav a.navlink:not(.cta){ display:none; }
-    .wrap{ padding:0 18px; }
-    header.hero{ min-height:690px; background-position:49% center; }
-    .hero-grid{ min-height:600px; }
-    .hero h1{ font-size:36px; }
-    .city-strip{ grid-template-columns:1fr; }
-    .city-card{ display:grid; grid-template-columns:74px 1fr; column-gap:8px; align-items:center; }
-    .city-card small{ grid-row:1 / span 2; margin:0; }
-    .city-card strong{ font-size:16px; }
-    .city-card span{ font-size:11px; margin:0; }
-  }
+    .platform{background:#fff}
+    .platform-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:75px;align-items:center}
+    .platform h2{font-size:clamp(34px,4vw,51px);margin:13px 0 22px;letter-spacing:-.03em}
+    .platform-intro>p{color:var(--muted);font-size:17px}
+    .service-list{border-top:1px solid var(--line)}
+    .service{display:grid;grid-template-columns:54px 1fr;gap:18px;padding:24px 0;border-bottom:1px solid var(--line)}
+    .service-num{font-family:'Playfair Display',serif;color:var(--gold2);font-size:18px}
+    .service h3{font-size:20px;margin-bottom:5px}.service p{font-size:14px;color:var(--muted)}
 
-  /* ---------- Connected markets ---------- */
-  .markets-section{ padding:88px 0; background:#0D172A; color:#fff; }
-  .markets-section .section-head{ margin-bottom:32px; }
-  .markets-section .kicker{ color:#D7A566; }
-  .markets-section h2{ color:#fff; }
-  .market-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-  .market-card{
-    min-height:390px; display:flex; align-items:flex-end; position:relative;
-    overflow:hidden; border:1px solid rgba(255,255,255,.16);
-    background-image:linear-gradient(0deg,rgba(6,12,24,.96) 0%,rgba(6,12,24,.1) 70%),url('/estate/assets/global-cities-hero.png');
-    background-size:300% 100%; transition:transform .25s,border-color .25s;
-    scroll-margin-top:24px;
-  }
-  .market-card:hover{ transform:translateY(-6px); border-color:#D7A566; }
-  .market-seoul{ background-position:left center; }
-  .market-osaka{ background-position:center center; }
-  .market-dubai{ background-position:right center; }
-  .market-copy{ padding:28px 25px; }
-  .market-copy span{ color:#D7A566; font-size:11px; letter-spacing:.15em; }
-  .market-copy h3{ margin-top:6px; font-size:28px; color:#fff; }
-  .market-copy p{ margin-top:8px; color:#D7DCE6; font-size:14px; line-height:1.6; }
-  @media (max-width:760px){
-    .market-grid{ grid-template-columns:1fr; }
-    .market-card{ min-height:310px; background-size:cover; }
-    .market-seoul{ background-position:12% center; }
-    .market-osaka{ background-position:50% center; }
-    .market-dubai{ background-position:88% center; }
-  }
+    .process{background:#eee8dc}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #cfc6b6;border-bottom:1px solid #cfc6b6}
+    .step{padding:29px 25px;min-height:210px;border-right:1px solid #cfc6b6}.step:last-child{border-right:0}
+    .step b{font-family:'Playfair Display',serif;font-size:40px;color:rgba(169,109,49,.35);font-weight:500}
+    .step h3{font-size:19px;margin:8px 0}.step p{font-size:13px;color:var(--muted)}
 
-  /* ---------- Section shell ---------- */
-  section{ padding:88px 0; }
-  section.tint{ background:#EFEAD9; }
-  .section-head{ max-width:640px; margin-bottom:44px; }
-  .section-head .kicker{ font-size:14px; color:var(--brass); margin-bottom:10px; }
-  .section-head h2{ font-size:30px; }
+    .trust{background:#fff}
+    .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .trust-card{background:var(--navy);color:#fff;padding:38px;min-height:260px;display:flex;flex-direction:column;justify-content:space-between}
+    .trust-card.alt{background:var(--cream);color:var(--ink);border:1px solid var(--line)}
+    .trust-card h3{font-size:28px;max-width:400px}.trust-card p{font-size:14px;color:#bbc5d2;margin-top:16px}.trust-card.alt p{color:var(--muted)}
+    .trust-card .icon{width:42px;height:42px;border:1px solid currentColor;display:grid;place-items:center;color:var(--gold);font-size:19px}
 
-  /* ---------- Problem narrative ---------- */
-  .story{
-    display:grid; grid-template-columns:60px 1fr; gap:24px; max-width:720px;
-  }
-  .story .mark{ font-family:'Newsreader', serif; font-size:64px; color:var(--brass); line-height:1; }
-  .story p{ font-size:19px; color:#31394D; }
-  .story p + p{ margin-top:18px; }
-  .story .attribution{ margin-top:22px; font-size:14px; color:var(--muted); }
+    .contact{background:var(--navy);color:#fff;padding:86px 0}
+    .contact-inner{display:grid;grid-template-columns:1.35fr .65fr;gap:50px;align-items:end}
+    .contact h2{font-size:clamp(35px,5vw,59px);max-width:760px;letter-spacing:-.03em;margin-top:14px}
+    .contact p{color:#bdc6d3;margin:18px 0 25px;max-width:600px}
+    .contact-panel{border-left:1px solid rgba(255,255,255,.22);padding-left:35px}
+    .contact-panel small{display:block;color:var(--gold);letter-spacing:.15em;margin-bottom:8px}.contact-panel a{font-size:17px;text-decoration:none}
+    footer{background:#050d19;color:#9aa6b7;padding:28px 0;font-size:12px}
+    footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
 
-  /* ---------- Three pillars ---------- */
-  .pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
-  .pillar{ background:var(--paper); padding:34px 30px; }
-  .pillar .num{ font-family:'Newsreader', serif; font-size:15px; color:var(--brass); margin-bottom:14px; }
-  .pillar h3{ font-size:20px; margin-bottom:12px; }
-  .pillar p{ color:var(--muted); font-size:15px; }
-  @media (max-width:860px){ .pillars{ grid-template-columns:1fr; } }
-
-  /* ---------- Roadmap ---------- */
-  .roadmap{ border-left:1px solid var(--line); padding-left:0; }
-  .stage{
-    display:grid; grid-template-columns:130px 1fr; gap:28px;
-    padding:26px 0; border-bottom:1px solid var(--line);
-  }
-  .stage:first-child{ padding-top:0; }
-  .stage .when{ font-size:14px; color:var(--brass); padding-top:3px; }
-  .stage h3{ font-size:19px; margin-bottom:6px; }
-  .stage p{ color:var(--muted); font-size:15px; max-width:520px; }
-  .stage .tag{
-    display:inline-block; font-size:12px; color:var(--ink); background:#E4DEC9;
-    padding:3px 10px; border-radius:2px; margin-top:10px;
-  }
-  @media (max-width:600px){ .stage{ grid-template-columns:1fr; } .stage .when{ padding-top:0; } }
-
-  /* ---------- Partner criteria ---------- */
-  .criteria-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; }
-  .criteria-grid .col h3{ font-size:18px; margin-bottom:14px; }
-  .criteria-grid ul{ list-style:none; }
-  .criteria-grid li{
-    padding:12px 0; border-bottom:1px solid var(--line); color:#31394D; font-size:15px;
-  }
-  @media (max-width:760px){ .criteria-grid{ grid-template-columns:1fr; } }
-
-  /* ---------- CTA ---------- */
-  .cta-band{
-    background:var(--ink); color:var(--paper); padding:70px 0; text-align:left;
-  }
-  .cta-band h2{ font-size:28px; max-width:520px; color:#F6F3EB; }
-  .cta-band p{ color:#C7CCDA; margin-top:14px; max-width:480px; }
-  .cta-row{ margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; }
-  .btn{
-    display:inline-block; padding:12px 24px; border-radius:2px; font-size:15px;
-    text-decoration:none;
-  }
-  .btn-primary{ background:var(--brass); color:#1A1305; }
-  .btn-ghost{ border:1px solid #4A5A7A; color:#F6F3EB; }
-
-  footer{ padding:36px 0; border-top:1px solid var(--line); }
-  footer .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
-  footer p{ font-size:13px; color:var(--muted); }
-</style>
+    @media(max-width:900px){.nav-center{display:none}.hero{min-height:700px;background-position:55% center}.hero-inner{padding-top:90px}.city-tabs{margin-top:65px}.section-head,.platform-grid,.contact-inner{grid-template-columns:1fr}.section-head p{justify-self:start}.platform-grid{gap:45px}.steps{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step:nth-child(-n+2){border-bottom:1px solid #cfc6b6}}
+    @media(max-width:680px){.wrap{width:min(100% - 32px,1160px)}nav{height:67px}.brand{font-size:18px}.nav-cta{display:none}.language{gap:0}.lang-btn{padding:5px 7px}.hero{min-height:790px;background-position:53% center}.hero-inner{padding:72px 0 18px}.hero h1{font-size:40px}.hero-lede{font-size:16px}.city-tabs{grid-template-columns:1fr;margin-top:50px}.city-tab{padding:14px 16px;display:grid;grid-template-columns:72px 1fr;align-items:center}.city-tab small{grid-row:1/3}.city-tab strong{font-size:17px}.city-tab span{font-size:11px}.city-tab:after{right:14px}section{padding:72px 0}.section-head{gap:17px}.market-grid{grid-template-columns:1fr}.market-card{min-height:350px;background-size:cover}.market-seoul{background-position:12% center}.market-osaka{background-position:50% center}.market-dubai{background-position:88% center}.steps{grid-template-columns:1fr}.step,.step:nth-child(2){border-right:0;border-bottom:1px solid #cfc6b6}.step:last-child{border-bottom:0}.trust-grid{grid-template-columns:1fr}.trust-card{min-height:230px;padding:29px}.contact-panel{border-left:0;border-top:1px solid rgba(255,255,255,.22);padding:24px 0 0}}
+  </style>
 </head>
 <body>
-
-<nav>
-  <div class="brand">Meridian <span>Properties</span></div>
-  <div>
-    <a class="navlink" href="#markets">도시</a>
-    <a class="navlink" href="#how">구조</a>
-    <a class="navlink" href="#roadmap">로드맵</a>
-    <a class="navlink" href="#partners">파트너</a>
-    <a class="navlink cta" href="#contact">제휴 문의</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <div class="eyebrow">Seoul · Osaka · Dubai</div>
-        <h1>서울에서 오사카, 두바이까지 하나로 연결합니다.</h1>
-        <p class="lede">매물 탐색부터 계약, 세무 신고, 임대 관리까지. 서로 다른 세 도시의 부동산 투자를 하나의 흐름으로 연결하는 글로벌 파트너십 플랫폼입니다.</p>
+  <div class="topbar">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="#top">Meridian <b>Properties</b></a>
+      <div class="nav-center">
+        <a href="#markets" data-i18n="navMarkets">도시</a>
+        <a href="#platform" data-i18n="navServices">서비스</a>
+        <a href="#process" data-i18n="navProcess">진행 절차</a>
+        <a href="#partners" data-i18n="navPartners">파트너</a>
       </div>
-      <div class="city-strip" aria-label="Global property markets">
-        <a class="city-card" href="#city-seoul"><small>SEOUL</small><strong>테헤란로</strong><span>Asia Business District</span></a>
-        <a class="city-card" href="#city-osaka"><small>OSAKA</small><strong>도톤보리</strong><span>Urban Culture &amp; Hospitality</span></a>
-        <a class="city-card" href="#city-dubai"><small>DUBAI</small><strong>다운타운</strong><span>Global Luxury Skyline</span></a>
-      </div>
-    </div>
-  </div>
-</header>
-
-<section id="markets" class="markets-section">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Connected Markets</div>
-      <h2>세 도시, 하나의 투자 여정</h2>
-    </div>
-    <div class="market-grid">
-      <article class="market-card market-seoul" id="city-seoul">
-        <div class="market-copy"><span>01 · SEOUL</span><h3>테헤란로</h3><p>한국의 금융·기술 기업이 모인 핵심 업무지구. 안정적인 기업 수요와 도심 자산의 가치를 연결합니다.</p></div>
-      </article>
-      <article class="market-card market-osaka" id="city-osaka">
-        <div class="market-copy"><span>02 · OSAKA</span><h3>도톤보리</h3><p>상업과 관광 수요가 교차하는 오사카의 중심. 현지 매물 검증부터 임대 운영까지 함께 설계합니다.</p></div>
-      </article>
-      <article class="market-card market-dubai" id="city-dubai">
-        <div class="market-copy"><span>03 · DUBAI</span><h3>다운타운</h3><p>세계 자본이 모이는 럭셔리 부동산 시장. 등록 브로커와 관리 파트너를 통해 투자 이후까지 이어갑니다.</p></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section id="story">
-  <div class="wrap">
-    <div class="story">
-      <div class="mark">“</div>
-      <div>
-        <p>오사카의 원룸 한 채를 사는 데는 사흘이면 충분했다. 정작 어려웠던 건 그다음이었다 — 임대소득 신고, 한국 합산과세, 2년마다 돌아오는 계속보유 신고. 매입은 이벤트지만, 소유는 계속되는 일이다.</p>
-        <p class="attribution">이 문장이 이 플랫폼이 존재하는 이유입니다.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="tint" id="how">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">구조</div>
-      <h2>세 가지 축으로 나눈 일</h2>
-    </div>
-    <div class="pillars">
-      <div class="pillar">
-        <div class="num">Sourcing</div>
-        <h3>검증된 매물</h3>
-        <p>현지 면허 중개법인과의 제휴를 통해 매물을 소싱합니다. 자체 취재가 필요한 경우 초기 파일럿 매물은 직접 촬영·검증합니다.</p>
-      </div>
-      <div class="pillar">
-        <div class="num">Compliance</div>
-        <h3>국가별 체크리스트 엔진</h3>
-        <p>외국환거래법상 취득신고, 현지 세무 신고, 2년 주기 계속보유 신고까지 — 신고 의무와 마감일을 자동으로 안내합니다.</p>
-      </div>
-      <div class="pillar">
-        <div class="num">Management</div>
-        <h3>구독형 관리</h3>
-        <p>현지 라이선스 관리회사와의 MOU를 기반으로, 매입 이후의 임대·정산·보고를 월 구독 형태로 이어갑니다.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="roadmap">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">로드맵</div>
-      <h2>오사카에서 시작해 넓혀가는 순서</h2>
-    </div>
-    <div class="roadmap">
-      <div class="stage">
-        <div class="when">1–3개월</div>
-        <div>
-          <h3>오사카 파일럿</h3>
-          <p>현지 네트워크를 통해 세무사·중개사를 연결하고, 실제 거래 1~2건으로 프로세스를 검증합니다.</p>
-          <span class="tag">지금 여기</span>
+      <div class="nav-actions">
+        <div class="language" role="group" aria-label="Language">
+          <button class="lang-btn active" type="button" data-language="ko">KR</button>
+          <button class="lang-btn" type="button" data-language="en">EN</button>
+          <button class="lang-btn" type="button" data-language="ja">JP</button>
         </div>
+        <a class="nav-cta" href="#contact" data-i18n="navContact">상담 문의</a>
       </div>
-      <div class="stage">
-        <div class="when">4–6개월</div>
-        <div>
-          <h3>표준화 및 구독 매출</h3>
-          <p>검증된 체크리스트를 엔진화하고, 후쿠오카·도쿄로 지역을 넓힙니다.</p>
+    </nav>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div class="wrap">
+        <div class="hero-copy">
+          <p class="eyebrow">Seoul · Osaka · Dubai</p>
+          <h1 data-i18n="heroTitle">서울에서 오사카, 두바이까지 하나로 연결합니다.</h1>
+          <p class="hero-lede" data-i18n="heroLede">매물 탐색부터 계약, 세무 신고, 임대 관리까지. 서로 다른 세 도시의 부동산 투자를 하나의 흐름으로 연결하는 글로벌 파트너십 플랫폼입니다.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#markets" data-i18n="explore">도시 살펴보기</a>
+            <a class="btn btn-ghost" href="#contact" data-i18n="consult">투자 상담하기</a>
+          </div>
         </div>
-      </div>
-      <div class="stage">
-        <div class="when">7–12개월</div>
-        <div>
-          <h3>두바이 확장</h3>
-          <p>일본에서 검증된 구조를 그대로 이식하고, 현지 등록 브로커와 제휴합니다.</p>
-        </div>
-      </div>
-      <div class="stage">
-        <div class="when">12–18개월</div>
-        <div>
-          <h3>인바운드 오픈</h3>
-          <p>외국인의 국내 부동산 취득까지 지원 범위를 넓혀 양방향 플랫폼으로 성장합니다.</p>
+        <div class="city-tabs" aria-label="Global property markets">
+          <a class="city-tab" href="#city-seoul"><small>SEOUL</small><strong data-i18n="seoulName">테헤란로</strong><span data-i18n="seoulTag">아시아 비즈니스 허브</span></a>
+          <a class="city-tab" href="#city-osaka"><small>OSAKA</small><strong data-i18n="osakaName">도톤보리</strong><span data-i18n="osakaTag">관광과 상업의 중심</span></a>
+          <a class="city-tab" href="#city-dubai"><small>DUBAI</small><strong data-i18n="dubaiName">다운타운</strong><span data-i18n="dubaiTag">글로벌 럭셔리 시장</span></a>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<section class="tint" id="partners">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">파트너</div>
-      <h2>이런 분들과 함께하고 싶습니다</h2>
-    </div>
-    <div class="criteria-grid">
-      <div class="col">
-        <h3>찾고 있는 파트너</h3>
-        <ul>
-          <li>세무 신고·상속 설계가 가능한 자격 세무사·회계사무소</li>
-          <li>宅建業 면허를 보유한 현지 중개법인</li>
-          <li>임대 관리 및 정산이 가능한 부동산 관리회사</li>
-        </ul>
+  <main>
+    <section class="markets" id="markets">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="kicker">Connected Markets</p><h2 data-i18n="marketsTitle">세 도시, 하나의 투자 여정</h2></div>
+          <p data-i18n="marketsIntro">각 도시의 현지 전문가 네트워크를 하나로 연결해 정보의 차이와 국경의 복잡함을 줄입니다.</p>
+        </div>
+        <div class="market-grid">
+          <article class="market-card market-seoul" id="city-seoul"><div class="market-copy"><span class="number">01 · SEOUL</span><h3 data-i18n="seoulName">테헤란로</h3><p data-i18n="seoulDesc">금융과 기술 기업이 모인 서울의 핵심 업무지구. 안정적인 기업 수요와 도심 자산의 가치를 연결합니다.</p><div class="market-meta"><span data-i18n="office">업무시설</span><span data-i18n="residence">도심 주거</span><span data-i18n="corporate">기업 수요</span></div></div></article>
+          <article class="market-card market-osaka" id="city-osaka"><div class="market-copy"><span class="number">02 · OSAKA</span><h3 data-i18n="osakaName">도톤보리</h3><p data-i18n="osakaDesc">상업과 관광 수요가 교차하는 오사카의 중심. 매물 검증부터 임대 운영까지 현지 파트너와 설계합니다.</p><div class="market-meta"><span data-i18n="hospitality">관광 숙박</span><span data-i18n="retail">상업시설</span><span data-i18n="rental">임대 운영</span></div></div></article>
+          <article class="market-card market-dubai" id="city-dubai"><div class="market-copy"><span class="number">03 · DUBAI</span><h3 data-i18n="dubaiName">다운타운</h3><p data-i18n="dubaiDesc">세계 자본이 모이는 럭셔리 부동산 시장. 등록 브로커와 관리 파트너를 통해 투자 이후까지 이어갑니다.</p><div class="market-meta"><span data-i18n="luxury">럭셔리 자산</span><span data-i18n="globalCapital">글로벌 자본</span><span data-i18n="broker">등록 브로커</span></div></div></article>
+        </div>
       </div>
-      <div class="col">
-        <h3>함께 만드는 방식</h3>
-        <ul>
-          <li>고객 소개 및 소개 수수료 기반 협업</li>
-          <li>SLA에 근거한 관리 품질 검증</li>
-          <li>초기 파일럿부터 함께 프로세스를 다듬는 단계</li>
-        </ul>
+    </section>
+
+    <section class="platform" id="platform">
+      <div class="wrap platform-grid">
+        <div class="platform-intro"><p class="kicker">One Platform</p><h2 data-i18n="platformTitle">매입보다 더 긴 소유의 시간을 관리합니다.</h2><p data-i18n="platformDesc">해외 부동산은 계약이 끝이 아닙니다. 국가별 신고, 임대 운영, 수익 정산과 매각까지 필요한 전문가를 한 흐름 안에서 연결합니다.</p></div>
+        <div class="service-list">
+          <div class="service"><div class="service-num">01</div><div><h3 data-i18n="service1Title">시장·매물 분석</h3><p data-i18n="service1Desc">투자 목적과 예산에 맞는 지역 및 매물을 현지 기준으로 비교합니다.</p></div></div>
+          <div class="service"><div class="service-num">02</div><div><h3 data-i18n="service2Title">계약·세무 연결</h3><p data-i18n="service2Desc">면허 중개사, 세무사와 함께 취득 단계의 문서와 신고 절차를 점검합니다.</p></div></div>
+          <div class="service"><div class="service-num">03</div><div><h3 data-i18n="service3Title">임대·자산 관리</h3><p data-i18n="service3Desc">입주자, 정산, 유지보수와 정기 보고를 현지 관리 파트너와 이어갑니다.</p></div></div>
+        </div>
       </div>
+    </section>
+
+    <section class="process" id="process">
+      <div class="wrap">
+        <div class="section-head"><div><p class="kicker">How it works</p><h2 data-i18n="processTitle">복잡한 해외 투자를 네 단계로</h2></div><p data-i18n="processIntro">한 명의 고객, 하나의 기록, 세 도시의 검증된 현지 네트워크로 진행합니다.</p></div>
+        <div class="steps">
+          <div class="step"><b>01</b><h3 data-i18n="step1Title">목표 상담</h3><p data-i18n="step1Desc">예산, 수익 목표, 보유 기간과 선호 도시를 확인합니다.</p></div>
+          <div class="step"><b>02</b><h3 data-i18n="step2Title">현지 검증</h3><p data-i18n="step2Desc">권리, 가격, 임대 수요와 관리 조건을 확인합니다.</p></div>
+          <div class="step"><b>03</b><h3 data-i18n="step3Title">계약·신고</h3><p data-i18n="step3Desc">현지 계약과 국내외 신고 일정을 함께 관리합니다.</p></div>
+          <div class="step"><b>04</b><h3 data-i18n="step4Title">운영·보고</h3><p data-i18n="step4Desc">임대 운영과 수익 정산을 정기적으로 공유합니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust" id="partners">
+      <div class="wrap">
+        <div class="section-head"><div><p class="kicker">Local expertise</p><h2 data-i18n="trustTitle">현지 전문성과 투명한 관리</h2></div><p data-i18n="trustIntro">국가별 면허와 업무 범위를 확인한 파트너를 중심으로 협업 구조를 만듭니다.</p></div>
+        <div class="trust-grid">
+          <article class="trust-card"><div class="icon">✓</div><div><h3 data-i18n="trust1Title">검증된 전문가 네트워크</h3><p data-i18n="trust1Desc">중개, 세무, 법무, 자산관리의 역할을 분리하고 각 단계의 책임 범위를 명확히 합니다.</p></div></article>
+          <article class="trust-card alt"><div class="icon">◎</div><div><h3 data-i18n="trust2Title">투자 이후까지 이어지는 기록</h3><p data-i18n="trust2Desc">계약 문서부터 신고 일정, 임대 수익과 관리 내역까지 한 흐름으로 축적합니다.</p></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="contact" id="contact">
+    <div class="wrap contact-inner">
+      <div><p class="kicker">Start a conversation</p><h2 data-i18n="contactTitle">당신의 다음 도시를 함께 검토하겠습니다.</h2><p data-i18n="contactDesc">서울, 오사카, 두바이의 투자 또는 현지 파트너십에 대해 편하게 문의해 주세요.</p><a class="btn btn-primary" href="mailto:gyuhyo8631@gmail.com" data-i18n="emailUs">이메일로 문의하기</a></div>
+      <div class="contact-panel"><small>CONTACT</small><a href="mailto:gyuhyo8631@gmail.com">gyuhyo8631@gmail.com</a></div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="cta-band" id="contact">
-  <div class="wrap">
-    <h2>먼저 이야기를 나눠보고 싶습니다.</h2>
-    <p>지금은 오사카 파일럿을 준비하는 단계입니다. 소개나 협업에 관심이 있으시면 편하게 연락 주세요.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="mailto:gyuhyo8631@gmail.com">이메일로 연락하기</a>
-      <a class="btn btn-ghost" href="#how">구조 다시 보기</a>
-    </div>
-  </div>
-</div>
+  <footer><div class="wrap"><span>© 2026 Meridian Properties</span><span data-i18n="footerNote">Seoul · Osaka · Dubai 글로벌 부동산 파트너십</span></div></footer>
 
-<footer>
-  <div class="wrap">
-    <p>Meridian Properties — Seoul · Osaka · Dubai</p>
-    <p>본 페이지는 초안이며 실제 상호·연락처는 교체가 필요합니다.</p>
-  </div>
-</footer>
-
+  <script>
+    const translations={
+      ko:{navMarkets:'도시',navServices:'서비스',navProcess:'진행 절차',navPartners:'파트너',navContact:'상담 문의',heroTitle:'서울에서 오사카, 두바이까지 하나로 연결합니다.',heroLede:'매물 탐색부터 계약, 세무 신고, 임대 관리까지. 서로 다른 세 도시의 부동산 투자를 하나의 흐름으로 연결하는 글로벌 파트너십 플랫폼입니다.',explore:'도시 살펴보기',consult:'투자 상담하기',seoulName:'테헤란로',seoulTag:'아시아 비즈니스 허브',osakaName:'도톤보리',osakaTag:'관광과 상업의 중심',dubaiName:'다운타운',dubaiTag:'글로벌 럭셔리 시장',marketsTitle:'세 도시, 하나의 투자 여정',marketsIntro:'각 도시의 현지 전문가 네트워크를 하나로 연결해 정보의 차이와 국경의 복잡함을 줄입니다.',seoulDesc:'금융과 기술 기업이 모인 서울의 핵심 업무지구. 안정적인 기업 수요와 도심 자산의 가치를 연결합니다.',osakaDesc:'상업과 관광 수요가 교차하는 오사카의 중심. 매물 검증부터 임대 운영까지 현지 파트너와 설계합니다.',dubaiDesc:'세계 자본이 모이는 럭셔리 부동산 시장. 등록 브로커와 관리 파트너를 통해 투자 이후까지 이어갑니다.',office:'업무시설',residence:'도심 주거',corporate:'기업 수요',hospitality:'관광 숙박',retail:'상업시설',rental:'임대 운영',luxury:'럭셔리 자산',globalCapital:'글로벌 자본',broker:'등록 브로커',platformTitle:'매입보다 더 긴 소유의 시간을 관리합니다.',platformDesc:'해외 부동산은 계약이 끝이 아닙니다. 국가별 신고, 임대 운영, 수익 정산과 매각까지 필요한 전문가를 한 흐름 안에서 연결합니다.',service1Title:'시장·매물 분석',service1Desc:'투자 목적과 예산에 맞는 지역 및 매물을 현지 기준으로 비교합니다.',service2Title:'계약·세무 연결',service2Desc:'면허 중개사, 세무사와 함께 취득 단계의 문서와 신고 절차를 점검합니다.',service3Title:'임대·자산 관리',service3Desc:'입주자, 정산, 유지보수와 정기 보고를 현지 관리 파트너와 이어갑니다.',processTitle:'복잡한 해외 투자를 네 단계로',processIntro:'한 명의 고객, 하나의 기록, 세 도시의 검증된 현지 네트워크로 진행합니다.',step1Title:'목표 상담',step1Desc:'예산, 수익 목표, 보유 기간과 선호 도시를 확인합니다.',step2Title:'현지 검증',step2Desc:'권리, 가격, 임대 수요와 관리 조건을 확인합니다.',step3Title:'계약·신고',step3Desc:'현지 계약과 국내외 신고 일정을 함께 관리합니다.',step4Title:'운영·보고',step4Desc:'임대 운영과 수익 정산을 정기적으로 공유합니다.',trustTitle:'현지 전문성과 투명한 관리',trustIntro:'국가별 면허와 업무 범위를 확인한 파트너를 중심으로 협업 구조를 만듭니다.',trust1Title:'검증된 전문가 네트워크',trust1Desc:'중개, 세무, 법무, 자산관리의 역할을 분리하고 각 단계의 책임 범위를 명확히 합니다.',trust2Title:'투자 이후까지 이어지는 기록',trust2Desc:'계약 문서부터 신고 일정, 임대 수익과 관리 내역까지 한 흐름으로 축적합니다.',contactTitle:'당신의 다음 도시를 함께 검토하겠습니다.',contactDesc:'서울, 오사카, 두바이의 투자 또는 현지 파트너십에 대해 편하게 문의해 주세요.',emailUs:'이메일로 문의하기',footerNote:'Seoul · Osaka · Dubai 글로벌 부동산 파트너십'},
+      en:{navMarkets:'Markets',navServices:'Services',navProcess:'Process',navPartners:'Partners',navContact:'Contact',heroTitle:'Connecting Seoul, Osaka and Dubai in one journey.',heroLede:'From property discovery and contracts to tax compliance and rental management, we connect cross-border real estate investment through one trusted partnership platform.',explore:'Explore markets',consult:'Request a consultation',seoulName:'Teheran-ro',seoulTag:'Asia business hub',osakaName:'Dotonbori',osakaTag:'Culture and commerce',dubaiName:'Downtown',dubaiTag:'Global luxury market',marketsTitle:'Three cities. One investment journey.',marketsIntro:'A connected network of local specialists reduces information gaps and the complexity of investing across borders.',seoulDesc:'Seoul’s core business district for finance and technology, connecting stable corporate demand with prime urban assets.',osakaDesc:'Where Osaka’s tourism and commerce converge. We coordinate local verification and ongoing rental operations.',dubaiDesc:'A luxury market attracting global capital, supported by registered brokers and local management partners.',office:'Office',residence:'Urban living',corporate:'Corporate demand',hospitality:'Hospitality',retail:'Retail',rental:'Rental management',luxury:'Luxury assets',globalCapital:'Global capital',broker:'Licensed broker',platformTitle:'We manage the ownership journey beyond the purchase.',platformDesc:'A cross-border property journey continues after closing. We connect the specialists needed for compliance, leasing, reporting and eventual sale.',service1Title:'Market & property analysis',service1Desc:'Compare locations and properties using local benchmarks aligned with your goals and budget.',service2Title:'Contract & tax coordination',service2Desc:'Review acquisition documents and filings with licensed brokers and tax professionals.',service3Title:'Rental & asset management',service3Desc:'Coordinate tenants, settlement, maintenance and regular reports with local operators.',processTitle:'Cross-border investment in four clear steps',processIntro:'One client, one record and a trusted local network spanning three global cities.',step1Title:'Goal consultation',step1Desc:'Define budget, return goals, holding period and preferred market.',step2Title:'Local verification',step2Desc:'Review title, price, rental demand and management conditions.',step3Title:'Contract & filings',step3Desc:'Coordinate local closing and domestic or overseas reporting schedules.',step4Title:'Operation & reporting',step4Desc:'Share rental performance and settlement updates on a regular basis.',trustTitle:'Local expertise. Transparent management.',trustIntro:'We build partnerships around verified licenses, defined roles and clear accountability.',trust1Title:'A verified professional network',trust1Desc:'Brokerage, tax, legal and management responsibilities are separated and clearly documented.',trust2Title:'A record that continues after investment',trust2Desc:'Contracts, filing schedules, rental income and management history stay connected in one flow.',contactTitle:'Let’s review your next city together.',contactDesc:'Talk to us about investment opportunities or local partnerships in Seoul, Osaka and Dubai.',emailUs:'Contact by email',footerNote:'Seoul · Osaka · Dubai global property partnership'},
+      ja:{navMarkets:'都市',navServices:'サービス',navProcess:'ご利用の流れ',navPartners:'パートナー',navContact:'お問い合わせ',heroTitle:'ソウル・大阪・ドバイを、一つの流れでつなぎます。',heroLede:'物件探しから契約、税務申告、賃貸管理まで。3都市の不動産投資を一つの流れでつなぐグローバル・パートナーシップ・プラットフォームです。',explore:'都市を見る',consult:'投資相談をする',seoulName:'テヘラン路',seoulTag:'アジアのビジネス拠点',osakaName:'道頓堀',osakaTag:'観光と商業の中心',dubaiName:'ダウンタウン',dubaiTag:'世界の高級不動産市場',marketsTitle:'3都市、1つの投資プロセス',marketsIntro:'各都市の現地専門家ネットワークをつなぎ、情報格差と国境を越える複雑さを軽減します。',seoulDesc:'金融・テクノロジー企業が集まるソウルの中核業務地区。安定した法人需要と都心資産の価値をつなぎます。',osakaDesc:'商業と観光需要が交差する大阪の中心。物件確認から賃貸運用まで現地パートナーと設計します。',dubaiDesc:'世界の資本が集まる高級不動産市場。登録ブローカーと管理会社が投資後まで支援します。',office:'オフィス',residence:'都心住宅',corporate:'法人需要',hospitality:'観光・宿泊',retail:'商業施設',rental:'賃貸運用',luxury:'高級資産',globalCapital:'世界資本',broker:'登録ブローカー',platformTitle:'購入後の、より長い保有期間を管理します。',platformDesc:'海外不動産は契約で終わりません。国別の申告、賃貸運用、収益精算、売却まで必要な専門家を一つの流れでつなぎます。',service1Title:'市場・物件分析',service1Desc:'投資目的と予算に合う地域・物件を現地基準で比較します。',service2Title:'契約・税務連携',service2Desc:'有資格仲介会社や税理士と取得書類・申告手続きを確認します。',service3Title:'賃貸・資産管理',service3Desc:'入居者対応、精算、維持管理、定期報告を現地管理会社と連携します。',processTitle:'複雑な海外投資を4つの段階へ',processIntro:'一人のお客様、一つの記録、3都市の信頼できる現地ネットワークで進めます。',step1Title:'目的の確認',step1Desc:'予算、収益目標、保有期間、希望都市を確認します。',step2Title:'現地確認',step2Desc:'権利関係、価格、賃貸需要、管理条件を確認します。',step3Title:'契約・申告',step3Desc:'現地契約と国内外の申告日程を一緒に管理します。',step4Title:'運用・報告',step4Desc:'賃貸運用と収益精算を定期的に共有します。',trustTitle:'現地の専門性と透明な管理',trustIntro:'国別の免許と業務範囲を確認したパートナーを中心に協業体制を構築します。',trust1Title:'確認された専門家ネットワーク',trust1Desc:'仲介、税務、法務、資産管理の役割を分け、各段階の責任範囲を明確にします。',trust2Title:'投資後まで続く記録',trust2Desc:'契約書類、申告日程、賃貸収益、管理履歴を一つの流れで蓄積します。',contactTitle:'次の都市を一緒に検討します。',contactDesc:'ソウル・大阪・ドバイへの投資、または現地パートナーシップについてお気軽にお問い合わせください。',emailUs:'メールで問い合わせ',footerNote:'ソウル · 大阪 · ドバイ グローバル不動産パートナーシップ'}
+    };
+    function setLanguage(lang){
+      const copy=translations[lang]||translations.ko;
+      document.documentElement.lang=lang;
+      document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(copy[key])el.textContent=copy[key]});
+      document.querySelectorAll('.lang-btn').forEach(btn=>{const active=btn.dataset.language===lang;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active))});
+      document.title=lang==='ko'?'Meridian Properties — 글로벌 부동산 투자·관리':lang==='ja'?'Meridian Properties — グローバル不動産投資・管理':'Meridian Properties — Global Real Estate Investment & Management';
+      try{localStorage.setItem('meridian-language',lang)}catch(e){}
+    }
+    document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>setLanguage(btn.dataset.language)));
+    let saved='ko';try{saved=localStorage.getItem('meridian-language')||'ko'}catch(e){}setLanguage(saved);
+  </script>
 </body>
 </html>
