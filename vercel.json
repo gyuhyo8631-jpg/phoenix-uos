@@ -1,26 +1,41 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
-      "has": [{ "type": "host", "value": "estate.phoenix-uos.com" }],
-      "destination": "/estate/index.html"
+      "src": "^/$",
+      "has": [{ "type": "host", "value": "estate\\.phoenix-uos\\.com" }],
+      "dest": "/estate/index.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
     },
     {
-      "source": "/",
-      "has": [{ "type": "host", "value": "estate-phoenix-uos.vercel.app" }],
-      "destination": "/estate/index.html"
+      "src": "^/$",
+      "has": [{ "type": "host", "value": "estate-phoenix-uos\\.vercel\\.app" }],
+      "dest": "/estate/index.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
     },
     {
-      "source": "/",
-      "has": [{ "type": "host", "value": "estate-phoenix-uos.com" }],
-      "destination": "/estate/index.html"
+      "src": "^/$",
+      "has": [{ "type": "host", "value": "estate-phoenix-uos\\.com" }],
+      "dest": "/estate/index.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
     },
     {
-      "source": "/",
-      "has": [{ "type": "host", "value": "www.estate-phoenix-uos.com" }],
-      "destination": "/estate/index.html"
+      "src": "^/$",
+      "has": [{ "type": "host", "value": "www\\.estate-phoenix-uos\\.com" }],
+      "dest": "/estate/index.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "handle": "filesystem"
     }
   ]
 }
