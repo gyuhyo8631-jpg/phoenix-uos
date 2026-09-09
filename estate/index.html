@@ -79,6 +79,7 @@
     .listing-button{width:100%;gap:10px;padding:12px 14px;line-height:1.5;text-align:center}
     .listing-button:focus-visible{outline:3px solid #fff;outline-offset:4px}
     .listing-source{display:block;margin-top:9px;color:#d3dae5;font-size:11px;line-height:1.5}
+    .translation-note{margin-top:22px;padding:13px 16px;border:1px solid rgba(255,255,255,.16);color:#c5cfdb;font-size:13px;line-height:1.65;background:rgba(255,255,255,.045)}
     .platform{background:#fff}
     .platform-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:75px;align-items:center}
     .platform h2{font-size:clamp(34px,4vw,51px);margin:13px 0 22px;letter-spacing:-.03em}
@@ -215,6 +216,7 @@
           <article class="market-card market-osaka" id="city-osaka"><div class="market-copy"><span class="number">02 · OSAKA</span><h3 data-i18n="osakaName">도톤보리</h3><p data-i18n="osakaDesc">상업과 관광 수요가 교차하는 오사카의 중심. 매물 검증부터 임대 운영까지 현지 파트너와 설계합니다.</p><div class="market-meta"><span data-i18n="hospitality">관광 숙박</span><span data-i18n="retail">상업시설</span><span data-i18n="rental">임대 운영</span></div><div class="listing-actions"><a class="btn btn-primary listing-button" href="https://realestate.co.jp/en/forsale?prefecture=JP-27" target="_blank" rel="noopener noreferrer"><span data-i18n="osakaListings">오사카 실제 매물 보기</span><span aria-hidden="true">↗</span></a><small class="listing-source">Real Estate Japan · <span data-i18n="externalListings">외부 매물 사이트 · 새 창</span></small></div></div></article>
           <article class="market-card market-dubai" id="city-dubai"><div class="market-copy"><span class="number">03 · DUBAI</span><h3 data-i18n="dubaiName">다운타운</h3><p data-i18n="dubaiDesc">세계 자본이 모이는 럭셔리 부동산 시장. 등록 브로커와 관리 파트너를 통해 투자 이후까지 이어갑니다.</p><div class="market-meta"><span data-i18n="luxury">럭셔리 자산</span><span data-i18n="globalCapital">글로벌 자본</span><span data-i18n="broker">등록 브로커</span></div><div class="listing-actions"><a class="btn btn-primary listing-button" href="https://www.propertyfinder.ae/en/buy/dubai/properties-for-sale.html" target="_blank" rel="noopener noreferrer"><span data-i18n="dubaiListings">두바이 실제 매물 보기</span><span aria-hidden="true">↗</span></a><small class="listing-source">Property Finder · <span data-i18n="externalListings">외부 매물 사이트 · 새 창</span></small></div></div></article>
         </div>
+        <p class="translation-note" data-ko="언어를 KR·EN·JP로 선택한 뒤 외부 매물 버튼을 누르면 해당 언어의 자동 번역 페이지로 연결됩니다. 외부 사이트의 지도·로그인 등 일부 기능은 원문으로 표시될 수 있습니다." data-en="Choose KR, EN or JP before opening a listing. The external page will open in that language through automatic translation. Maps, sign-in and some interactive features may remain in the original language." data-ja="KR・EN・JPを選択してから外部物件ボタンを押すと、選択した言語の自動翻訳ページが開きます。地図、ログインなど一部の機能は原文のまま表示される場合があります。">언어를 KR·EN·JP로 선택한 뒤 외부 매물 버튼을 누르면 해당 언어의 자동 번역 페이지로 연결됩니다. 외부 사이트의 지도·로그인 등 일부 기능은 원문으로 표시될 수 있습니다.</p>
       </div>
     </section>
 
@@ -328,12 +330,31 @@
       document.documentElement.lang=lang;
       document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(copy[key])el.textContent=copy[key]});
       document.querySelectorAll('[data-ko][data-en][data-ja]').forEach(el=>{el.textContent=el.dataset[lang]||el.dataset.ko});
+      applyExternalTranslation(lang);
       document.querySelectorAll('.lang-btn').forEach(btn=>{const active=btn.dataset.language===lang;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active))});
       document.title=lang==='ko'?'Meridian Properties — 글로벌 부동산 투자·관리':lang==='ja'?'Meridian Properties — グローバル不動産投資・管理':'Meridian Properties — Global Real Estate Investment & Management';
       try{localStorage.setItem('meridian-language',lang)}catch(e){}
     }
     document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>setLanguage(btn.dataset.language)));
     document.querySelectorAll('.building-photo img').forEach(img=>img.addEventListener('error',()=>{img.hidden=true;img.style.display='none';img.nextElementSibling.hidden=false;}));
+    const externalLanguageRules=[
+      {match:'gbd-building.co.kr',source:'ko'},
+      {match:'realestate.co.jp',source:'en'},
+      {match:'propertyfinder.ae',source:'en'}
+    ];
+    document.querySelectorAll('a[href^="http"]').forEach(link=>{
+      const rule=externalLanguageRules.find(item=>link.href.includes(item.match));
+      if(rule){link.dataset.originalHref=link.href;link.dataset.sourceLanguage=rule.source;}
+    });
+    function applyExternalTranslation(lang){
+      document.querySelectorAll('a[data-original-href]').forEach(link=>{
+        const original=link.dataset.originalHref;
+        const source=link.dataset.sourceLanguage;
+        const translated=lang!==source;
+        link.href=translated?'https://translate.google.com/translate?sl='+source+'&tl='+lang+'&u='+encodeURIComponent(original):original;
+        link.title=translated?(lang==='ja'?'Google翻訳で開きます。翻訳できない機能は原文をご利用ください。':lang==='en'?'Opens with Google Translate. Use the original page if a feature cannot be translated.':'Google 번역으로 엽니다. 번역되지 않는 기능은 원문 페이지를 이용해 주세요.'):(lang==='ja'?'原文サイトを開く':lang==='en'?'Open the original website':'원문 사이트 열기');
+      });
+    }
     const whitepaper=document.getElementById('bla-whitepaper');
     document.getElementById('open-bla-whitepaper').addEventListener('click',()=>whitepaper.showModal());
     whitepaper.querySelector('.whitepaper-close').addEventListener('click',()=>whitepaper.close());
