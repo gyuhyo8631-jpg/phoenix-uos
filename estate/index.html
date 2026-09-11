@@ -185,6 +185,8 @@
     @media(max-width:680px){.matcher-panel{padding:20px 16px}.matcher-controls,.income-grid,.contract-checklist ul{grid-template-columns:1fr}.matcher-summary{align-items:flex-start;flex-direction:column}.matcher-summary small{text-align:left}.country-filter button{flex:1}.contract-option .contract-copy{padding:27px 22px}.bla-feature{min-height:0}.token-market{padding:20px 16px}.token-market-head,.token-contract{align-items:flex-start;flex-direction:column}.token-stats{grid-template-columns:1fr}.token-stat,.token-stat:nth-child(2){border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}.token-stat:last-child{border-bottom:0}.token-contract code{text-align:left}.token-market-actions .btn{width:100%}.listing-slide-image{height:260px!important}.listing-slide-nav{width:40px;height:40px}.listing-thumb{flex-basis:64px;height:50px}}
     @media(max-width:900px){.coin-quotes{grid-template-columns:1fr 1fr}}
     @media(max-width:680px){.market-comparison-head{align-items:flex-start;flex-direction:column}.coin-quotes{grid-template-columns:1fr}}
+  
+    .live-fx{background:#fff;border-bottom:1px solid var(--line)}.live-fx-inner{width:min(1160px,calc(100% - 48px));margin:auto;display:grid;grid-template-columns:1.05fr 1fr 1fr}.live-fx-head{padding:20px 26px 20px 0;display:flex;flex-direction:column;justify-content:center}.live-fx-head strong{font-family:'Playfair Display','Noto Sans KR','Noto Sans JP',serif;font-size:21px}.live-fx-head span,.live-fx-card small{color:var(--muted);font-size:11px}.live-fx-card{padding:18px 26px;border-left:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px}.live-fx-name{display:flex;align-items:center;gap:11px}.live-fx-name i{font-style:normal;font-size:25px}.live-fx-name b{display:block;font-size:14px}.live-fx-value{text-align:right}.live-fx-value strong{display:block;color:#925c29;font-size:22px;white-space:nowrap}@media(max-width:760px){.live-fx-inner{width:min(100% - 32px,1160px);grid-template-columns:1fr}.live-fx-head{padding:17px 0 11px}.live-fx-card{border-left:0;border-top:1px solid var(--line);padding:15px 0}.live-fx-value strong{font-size:20px}}
   </style>
 </head>
 <body>
@@ -225,6 +227,8 @@
       </div>
     </div>
   </header>
+
+  <aside class="live-fx" aria-label="실시간 환율"><div class="live-fx-inner"><div class="live-fx-head"><strong id="live-fx-title">실시간 환율</strong><span id="live-fx-time">환율 정보를 불러오는 중입니다</span></div><div class="live-fx-card"><div class="live-fx-name"><i aria-hidden="true">🇦🇪</i><div><small id="live-fx-aed-name">두바이 디르함</small><b>1 AED</b></div></div><div class="live-fx-value"><strong id="live-fx-aed">—</strong><small>KRW</small></div></div><div class="live-fx-card"><div class="live-fx-name"><i aria-hidden="true">🇯🇵</i><div><small id="live-fx-jpy-name">일본 엔화</small><b>100 JPY</b></div></div><div class="live-fx-value"><strong id="live-fx-jpy">—</strong><small>KRW</small></div></div></div></aside>
 
   <main>
     <section class="markets" id="markets">
@@ -672,6 +676,10 @@
     }
     refreshInvestmentFx();setInterval(refreshInvestmentFx,3600000);
     let saved='ko';try{saved=localStorage.getItem('meridian-language')||'ko'}catch(e){}setLanguage(saved);
+  </script>
+
+  <script>
+  (()=>{const copy={ko:['실시간 환율','두바이 디르함','일본 엔화','기준 시각','환율 정보를 불러오는 중입니다','환율 연결을 다시 시도하고 있습니다'],en:['Live exchange rates','UAE dirham','Japanese yen','Updated','Loading exchange rates','Retrying exchange-rate connection'],ja:['リアルタイム為替','UAEディルハム','日本円','更新時刻','為替情報を読み込み中','為替レートに再接続しています'],zh:['实时汇率','阿联酋迪拉姆','日元','更新时间','正在加载汇率','正在重新连接汇率数据']};let lang='ko',updated=null;const el=id=>document.getElementById(id),render=()=>{const c=copy[lang]||copy.ko;el('live-fx-title').textContent=c[0];el('live-fx-aed-name').textContent=c[1];el('live-fx-jpy-name').textContent=c[2];el('live-fx-time').textContent=updated?c[3]+' · '+new Intl.DateTimeFormat(lang==='ja'?'ja-JP':lang==='zh'?'zh-CN':lang==='en'?'en-US':'ko-KR',{dateStyle:'medium',timeStyle:'short'}).format(updated):c[4]},load=async()=>{try{const r=await fetch('https://open.er-api.com/v6/latest/KRW',{cache:'no-store'}),d=await r.json();if(!r.ok||!d.rates?.AED||!d.rates?.JPY)throw 0;el('live-fx-aed').textContent='₩'+(1/d.rates.AED).toLocaleString('ko-KR',{minimumFractionDigits:2,maximumFractionDigits:2});el('live-fx-jpy').textContent='₩'+(100/d.rates.JPY).toLocaleString('ko-KR',{minimumFractionDigits:2,maximumFractionDigits:2});updated=new Date;render()}catch(e){el('live-fx-time').textContent=(copy[lang]||copy.ko)[5]}};document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.language||'ko';render()}));try{lang=localStorage.getItem('meridian-language')||'ko'}catch(e){}render();load();setInterval(load,3600000)})();
   </script>
 </body>
 </html>
