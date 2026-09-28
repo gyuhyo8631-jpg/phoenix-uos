@@ -332,7 +332,7 @@
 (() => {
   const I18N = {
     en:{
-      eyebrow:'CONTINUE YOUR KOREA TRIP',title:'After you arrive, keep everything in one place.',intro:'Your airport-to-destination guide now continues into stays, food, experiences, nearby essentials, K-Beauty and traveler deals.',
+      eyebrow:'CONTINUE YOUR KOREA TRIP',title:'Handle the rest of your trip in one place.',intro:'Your airport-to-destination guide now continues into stays, food, experiences, nearby essentials, K-Beauty and traveler deals.',
       stay:'Stay',stayDesc:'Hotels and accommodation around your destination.',stayCta:'Explore stays →',
       eat:'Eat',eatDesc:'Restaurants, cafés and local food near your destination.',eatCta:'Find food →',
       experience:'Experience',experienceDesc:'Culture, tours, attractions and photo spots.',experienceCta:'Explore Korea →',
@@ -346,7 +346,7 @@
       live:'LIVE',noDeals:'No live promotion was detected. Check the official site.',source:'Official source'
     },
     ko:{
-      eyebrow:'한국 여행을 계속하세요',title:'도착 이후의 여행도 한곳에서 해결하세요.',intro:'공항에서 목적지까지의 길안내에 숙박, 맛집, 체험, 주변 편의시설, K-뷰티와 실시간 혜택을 이어 붙였습니다.',
+      eyebrow:'한국 여행을 계속하세요',title:'이후 여행도 한 번에 해결하세요.',intro:'공항에서 목적지까지의 길안내에 숙박, 맛집, 체험, 주변 편의시설, K-뷰티와 실시간 혜택을 이어 붙였습니다.',
       stay:'숙박',stayDesc:'목적지 주변 호텔과 숙소를 확인합니다.',stayCta:'숙소 보기 →',
       eat:'맛집',eatDesc:'주변 맛집, 카페와 로컬 음식을 찾습니다.',eatCta:'맛집 찾기 →',
       experience:'체험',experienceDesc:'문화, 투어, 관광지와 포토스팟을 확인합니다.',experienceCta:'한국 둘러보기 →',
@@ -360,7 +360,7 @@
       live:'실시간',noDeals:'현재 자동 감지된 프로모션이 없습니다. 공식 페이지에서 확인해주세요.',source:'공식 출처'
     },
     ja:{
-      eyebrow:'韓国旅行をこのまま続ける',title:'到着後の旅行も、ひとつの場所で。',intro:'空港から目的地までの案内に、宿泊・グルメ・体験・周辺情報・Kビューティー・最新特典をつなげました。',
+      eyebrow:'韓国旅行をこのまま続ける',title:'到着後の旅行も一度に解決。',intro:'空港から目的地までの案内に、宿泊・グルメ・体験・周辺情報・Kビューティー・最新特典をつなげました。',
       stay:'宿泊',stayDesc:'目的地周辺のホテルや宿泊施設を確認できます。',stayCta:'宿泊を見る →',
       eat:'グルメ',eatDesc:'周辺のレストラン、カフェ、ローカルフードを探します。',eatCta:'グルメを探す →',
       experience:'体験',experienceDesc:'文化体験、ツアー、観光地、フォトスポットを確認します。',experienceCta:'韓国を楽しむ →',
@@ -374,7 +374,7 @@
       live:'LIVE',noDeals:'現在、自動検出されたプロモーションはありません。公式サイトをご確認ください。',source:'公式情報'
     },
     zh:{
-      eyebrow:'继续你的韩国旅行',title:'抵达韩国后，也能在一个地方继续完成旅程。',intro:'在机场到目的地路线之外，继续提供住宿、美食、体验、周边便利、K-Beauty和最新优惠。',
+      eyebrow:'继续你的韩国旅行',title:'抵达后，一站式解决后续旅程。',intro:'在机场到目的地路线之外，继续提供住宿、美食、体验、周边便利、K-Beauty和最新优惠。',
       stay:'住宿',stayDesc:'查看目的地附近的酒店和住宿。',stayCta:'查看住宿 →',
       eat:'美食',eatDesc:'查找附近餐厅、咖啡厅和当地美食。',eatCta:'查找美食 →',
       experience:'体验',experienceDesc:'查看文化体验、旅游、景点和拍照地点。',experienceCta:'探索韩国 →',
@@ -463,6 +463,17 @@
   if(footer&&!footer.querySelector('.launchLinks')){const links=document.createElement('div');links.className='launchLinks';links.innerHTML='<a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms</a>';footer.appendChild(links)}
 
   applyPlatformLanguage();
+  document.querySelectorAll('.lang[data-lang]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const requested=btn.dataset.lang;
+      setTimeout(()=>{
+        platformLang=['ko','ja','zh','en'].includes(requested)?requested:getLang();
+        document.querySelectorAll('[data-pkey]').forEach(el=>{const k=el.dataset.pkey;if(tr(k))el.textContent=tr(k)});
+        document.querySelectorAll('[data-platform-toast-key]').forEach(el=>el.onclick=()=>showPlatformToast(tr(el.dataset.platformToastKey)));
+        if(window.__oyDeals) renderDeals(window.__oyDeals);
+      },0);
+    });
+  });
   new MutationObserver(()=>{const next=getLang();if(next!==platformLang)applyPlatformLanguage()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   loadDeals();
 })();
