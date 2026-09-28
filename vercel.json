@@ -4,6 +4,14 @@
   "routes": [
     {
       "src": "^/$",
+      "has": [{ "type": "host", "value": "jesus\\.phoenix-uos\\.com" }],
+      "dest": "/jesus/index.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "src": "^/$",
       "has": [{ "type": "host", "value": "estate\\.phoenix-uos\\.com" }],
       "dest": "/estate/index.html",
       "headers": {
