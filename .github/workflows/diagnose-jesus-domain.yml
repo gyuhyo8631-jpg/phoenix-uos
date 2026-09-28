@@ -1,0 +1,35 @@
+name: Diagnose Jesus Domain
+
+on:
+  push:
+    paths:
+      - ".github/workflows/diagnose-jesus-domain.yml"
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DNS and TLS diagnostics
+        shell: bash
+        run: |
+          set -x
+          echo "=== NS phoenix-uos.com ==="
+          dig NS phoenix-uos.com +noall +answer || true
+          echo "=== A apex ==="
+          dig A phoenix-uos.com +noall +answer || true
+          echo "=== CNAME/A existing subdomains ==="
+          for h in estate.phoenix-uos.com korea.phoenix-uos.com jesus.phoenix-uos.com; do
+            echo "--- $h"
+            dig CNAME "$h" +noall +answer || true
+            dig A "$h" +noall +answer || true
+          done
+          echo "=== CAA ==="
+          dig CAA phoenix-uos.com +noall +answer || true
+          echo "=== HTTPS / TLS ==="
+          for u in https://estate.phoenix-uos.com https://korea.phoenix-uos.com https://jesus.phoenix-uos.com; do
+            echo "--- $u"
+            curl -sSIL --max-time 15 "$u" | sed -n '1,12p' || true
+          done
+          echo "=== TLS cert jesus ==="
+          echo | openssl s_client -connect jesus.phoenix-uos.com:443 -servername jesus.phoenix-uos.com 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName || true
