@@ -436,6 +436,7 @@
     platformLang=getLang();
     document.querySelectorAll('[data-pkey]').forEach(el=>{const k=el.dataset.pkey;if(tr(k))el.textContent=tr(k)});
     document.querySelectorAll('[data-platform-toast-key]').forEach(el=>el.onclick=()=>showPlatformToast(tr(el.dataset.platformToastKey)));
+    enforceCoreLabels();
     if(window.__oyDeals) renderDeals(window.__oyDeals);
   };
 
@@ -449,6 +450,18 @@
   };
   const escapeHtml=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
+  const CORE_LABELS = {
+    en:{esim:'eSIM & Wi-Fi',tmoney:'T-money',toilet:'Toilet',pharmacy:'Pharmacy',hotel:'Hotel',emergency:'Emergency',afterTitle:'Everything you need after landing',afterDesc:'The most useful tools, ready when you need them.'},
+    ja:{esim:'eSIM・Wi-Fi',tmoney:'T-money',toilet:'トイレ',pharmacy:'薬局',hotel:'ホテル',emergency:'緊急情報',afterTitle:'到着後に必要な情報をひとつに',afterDesc:'到着後によく使う機能をすぐ開けます。'},
+    zh:{esim:'eSIM与Wi-Fi',tmoney:'T-money',toilet:'洗手间',pharmacy:'药店',hotel:'酒店',emergency:'紧急信息',afterTitle:'落地后所需信息一站掌握',afterDesc:'抵达后常用功能可立即打开。'}
+  };
+  const enforceCoreLabels = () => {
+    const l=getLang();
+    const map=CORE_LABELS[l]||CORE_LABELS.en;
+    Object.entries(map).forEach(([key,value])=>{
+      document.querySelectorAll('[data-t="'+key+'"]').forEach(el=>el.textContent=value);
+    });
+  };
   const loadDeals = async () => {
     try{
       const r=await fetch('/api/oliveyoung-deals',{cache:'no-store'});
@@ -470,6 +483,7 @@
         platformLang=['ko','ja','zh','en'].includes(requested)?requested:getLang();
         document.querySelectorAll('[data-pkey]').forEach(el=>{const k=el.dataset.pkey;if(tr(k))el.textContent=tr(k)});
         document.querySelectorAll('[data-platform-toast-key]').forEach(el=>el.onclick=()=>showPlatformToast(tr(el.dataset.platformToastKey)));
+        enforceCoreLabels();
         if(window.__oyDeals) renderDeals(window.__oyDeals);
       },0);
     });
