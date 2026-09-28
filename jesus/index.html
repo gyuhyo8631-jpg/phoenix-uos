@@ -581,8 +581,10 @@
     data.savedAt=new Date().toISOString();
     records[todayKey]=data;
     setRecords(records);
-    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 오늘 기록이 저장되었습니다.';
-    loadToday();renderStats();renderCalendar();renderRecords();
+    fields.forEach(function(f){$(f).value=''});
+    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 오늘 기록이 저장되었습니다. 입력한 내용은 화면에서 비워졌습니다.';
+    $('completionPill').textContent=profileName()+' 기록 완료';
+    renderStats();renderCalendar();renderRecords();
   }
 
   function resetToday(){
