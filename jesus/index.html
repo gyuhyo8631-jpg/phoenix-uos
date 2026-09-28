@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#f5efe6" />
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet" />
+  <meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet" />
   <title>하루말씀 | 성경 묵상 일기</title>
   <style>
     :root{
@@ -21,6 +23,19 @@
     }
     *{box-sizing:border-box}
     body{margin:0;background:linear-gradient(180deg,#f6f0e8 0%,#fbf8f3 40%,#f4eee6 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;min-height:100vh}
+    body.locked .app{filter:blur(8px);pointer-events:none;user-select:none}
+    .privacy-lock{position:fixed;inset:0;background:rgba(39,33,27,.58);backdrop-filter:blur(7px);z-index:9999;display:grid;place-items:center;padding:20px}
+    .privacy-lock.hidden{display:none}
+    .lock-card{width:min(430px,100%);background:#fffdf8;border:1px solid var(--line);border-radius:24px;box-shadow:0 28px 80px rgba(32,27,22,.24);padding:26px}
+    .lock-icon{font-size:38px;margin-bottom:10px}
+    .lock-card h2{margin:0 0 8px;font-size:24px}
+    .lock-card p{margin:0 0 18px;color:var(--muted);line-height:1.6}
+    .pin-input{width:100%;border:1px solid var(--line);background:white;border-radius:14px;padding:14px;font-size:20px;letter-spacing:.18em;text-align:center;outline:none}
+    .pin-input:focus{border-color:#b29a81;box-shadow:0 0 0 3px rgba(178,154,129,.12)}
+    .lock-actions{display:flex;gap:10px;margin-top:14px}
+    .lock-actions button{flex:1}
+    .lock-error{min-height:20px;margin-top:10px;color:#9b4d44;font-size:13px}
+    .privacy-note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}
     button,input,textarea,select{font:inherit}
     .app{max-width:1180px;margin:0 auto;padding:28px 18px 80px}
     header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
@@ -114,7 +129,20 @@
     }
   </style>
 </head>
-<body>
+<body class="locked">
+  <div class="privacy-lock" id="privacyLock">
+    <div class="lock-card">
+      <div class="lock-icon" id="lockIcon">🔒</div>
+      <h2 id="lockTitle">개인 기록 잠금</h2>
+      <p id="lockText">PIN을 입력해 개인 기록을 확인하세요.</p>
+      <input class="pin-input" id="pinInput" type="password" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="4~8자리 PIN" />
+      <div class="lock-actions">
+        <button class="primary" id="unlockBtn" onclick="submitPin()">확인</button>
+      </div>
+      <div class="lock-error" id="lockError"></div>
+      <div class="privacy-note">PIN은 이 기기에만 저장됩니다. 레몬과 포튜나의 기록은 서로 분리되며 검색엔진에는 노출되지 않도록 설정했습니다.</div>
+    </div>
+  </div>
   <div class="app">
     <header>
       <div class="brand">
@@ -126,7 +154,8 @@
           <button class="profile-btn" id="profile-lemon" onclick="switchProfile('lemon')">🍋 레몬</button>
           <button class="profile-btn" id="profile-fortuna" onclick="switchProfile('fortuna')">🍀 포튜나</button>
         </div>
-        <button class="ghost" onclick="exportData()">기록 내보내기</button>
+        <button class="ghost" onclick="lockNow()">🔒 잠그기</button>
+        <button class="ghost" onclick="exportData()">내 기록 백업</button>
         <button class="ghost" onclick="resetToday()">오늘 비우기</button>
       </div>
     </header>
@@ -256,8 +285,8 @@
     </div>
 
     <footer>
-      하루말씀 · 기록자는 🍋 레몬과 🍀 포튜나 두 명으로 제한됩니다.<br>
-      두 사람의 기록은 서로 분리되어 이 브라우저에 저장되며, 오늘의 말씀은 365일 서로 다른 장·절에서 자동 선택됩니다.
+      하루말씀 · 🍋 레몬과 🍀 포튜나의 개인 묵상 공간입니다.<br>
+      각 기록은 프로필별 PIN으로 잠기며 서로 분리되어 이 브라우저에 저장됩니다. 검색엔진 노출도 차단했습니다.
     </footer>
   </div>
 
@@ -270,6 +299,8 @@
   };
   let activeProfile=localStorage.getItem(PROFILE_KEY);
   if(!PROFILES[activeProfile]) activeProfile='lemon';
+  let pendingProfile=activeProfile;
+  let unlockedProfile=null;
 
   const FALLBACK_VERSES=[
     {ref:'시편 23:1',text:'여호와는 나의 목자시니 내가 부족함이 없으리로다'},
@@ -392,6 +423,69 @@
 
   function profileName(){return PROFILES[activeProfile].name}
   function profileIcon(){return PROFILES[activeProfile].icon}
+  function pinKey(profile){return 'harumalssum_pin_hash_v1_'+profile}
+
+  async function hashPin(pin){
+    const data=new TextEncoder().encode(pin);
+    const digest=await crypto.subtle.digest('SHA-256',data);
+    return Array.from(new Uint8Array(digest)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+  }
+
+  function showLock(profile){
+    pendingProfile=profile||activeProfile;
+    const p=PROFILES[pendingProfile];
+    const hasPin=!!localStorage.getItem(pinKey(pendingProfile));
+    $('lockIcon').textContent=p.icon+' 🔒';
+    $('lockTitle').textContent=p.name+' 개인 기록';
+    $('lockText').textContent=hasPin
+      ? p.name+'님의 PIN을 입력해야 기록을 볼 수 있습니다.'
+      : p.name+'님만 사용할 4~8자리 PIN을 처음 한 번 설정해 주세요.';
+    $('unlockBtn').textContent=hasPin?'잠금 해제':'PIN 설정';
+    $('pinInput').value='';
+    $('lockError').textContent='';
+    $('privacyLock').classList.remove('hidden');
+    document.body.classList.add('locked');
+    setTimeout(function(){$('pinInput').focus()},50);
+  }
+
+  async function submitPin(){
+    const pin=$('pinInput').value.trim();
+    if(!/^\d{4,8}$/.test(pin)){
+      $('lockError').textContent='PIN은 숫자 4~8자리로 입력해 주세요.';
+      return;
+    }
+    const key=pinKey(pendingProfile);
+    const saved=localStorage.getItem(key);
+    const hashed=await hashPin(pin);
+
+    if(!saved){
+      localStorage.setItem(key,hashed);
+    }else if(saved!==hashed){
+      $('lockError').textContent='PIN이 맞지 않습니다.';
+      $('pinInput').select();
+      return;
+    }
+
+    activeProfile=pendingProfile;
+    unlockedProfile=activeProfile;
+    localStorage.setItem(PROFILE_KEY,activeProfile);
+    $('privacyLock').classList.add('hidden');
+    document.body.classList.remove('locked');
+    updateProfileUI();
+    loadToday();
+    renderDailyVerse();
+    renderStats();
+    renderCalendar();
+    renderRecords();
+    $('searchResults').innerHTML='';
+    $('searchInput').value='';
+    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 개인 기록 공간입니다.';
+  }
+
+  function lockNow(){
+    unlockedProfile=null;
+    showLock(activeProfile);
+  }
 
   function updateProfileUI(){
     Object.keys(PROFILES).forEach(function(id){
@@ -406,18 +500,10 @@
   }
 
   function switchProfile(profile){
-    if(!PROFILES[profile] || profile===activeProfile) return;
-    activeProfile=profile;
-    localStorage.setItem(PROFILE_KEY,profile);
-    updateProfileUI();
-    loadToday();
-    renderDailyVerse();
-    renderStats();
-    renderCalendar();
-    renderRecords();
-    $('searchResults').innerHTML='';
-    $('searchInput').value='';
-    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 기록 공간입니다.';
+    if(!PROFILES[profile]) return;
+    if(profile===activeProfile && unlockedProfile===activeProfile) return;
+    unlockedProfile=null;
+    showLock(profile);
   }
 
   function formatKoreanDate(d){
@@ -435,6 +521,10 @@
     renderStats();
     renderCalendar();
     renderRecords();
+    $('pinInput').addEventListener('keydown',function(e){
+      if(e.key==='Enter') submitPin();
+    });
+    showLock(activeProfile);
   }
 
   function loadToday(){
