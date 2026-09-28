@@ -85,7 +85,7 @@
       <div class="nextStep"><div class="step"><span class="stepNo">3</span><h2 data-t="stepDestination">Where are you going?</h2></div><div class="destinationRow"><input id="destinationInput" autocomplete="off" aria-label="Destination" data-placeholder="destinationPlaceholder" placeholder="Type any hotel, address or place in Korea"><datalist id="destinationSuggestions"></datalist><button class="showButton" id="showRoutes" data-t="show">Find my route</button></div><div class="destinationPickerPanel" id="destinationPickerPanel" hidden></div><p class="destinationError" id="destinationError" role="alert"></p><div class="hotspots"><button class="hotspotToggle" id="hotspotToggle" aria-expanded="false" aria-controls="hotspotPanel"><span id="hotspotToggleLabel">🔥 Show popular hotspots</span><span class="chevron" aria-hidden="true">⌄</span></button><div class="hotspotPanel" id="hotspotPanel" hidden><div class="hotspotHead"><span id="hotspotHelp">Tap a place to find the route</span></div><div class="hotspotTabs" id="hotspotTabs"></div><div class="hotspotGrid" id="hotspotGrid"></div></div></div><div class="restaurantFeature"><button class="restaurantToggle" id="restaurantToggle" type="button" aria-expanded="false" aria-controls="restaurantPanel"><span id="restaurantToggleLabel">🍽 Show 100 popular Korean restaurants</span><span class="chevron" aria-hidden="true">⌄</span></button><div class="restaurantPanel" id="restaurantPanel" hidden><p id="restaurantHelp"></p><div class="restaurantTabs" id="restaurantTabs"></div><div class="restaurantGrid" id="restaurantGrid"></div><p class="restaurantNote" id="restaurantNote"></p></div></div></div>
       <div class="results" id="results" hidden><div class="step"><span class="stepNo">4</span><h2 class="resultTitle" id="resultTitle">Route options</h2></div><div class="destinationSwitcher"><label id="resultDestinationLabel" for="resultDestinationInput">Choose another destination</label><div class="destinationSwitcherRow"><input class="resultDestinationInput" id="resultDestinationInput" list="destinationSuggestions" autocomplete="off"><button class="resultDestinationGo" id="resultDestinationGo" type="button">Show detailed route</button></div><div class="repeatChoices" id="repeatChoices"></div></div><div class="compare" id="compare"></div><div class="detail" id="detail" aria-live="polite"></div><p class="hint" data-t="hint">Times, fares and operating conditions can change. Confirm the airport display and navigation app before travel.</p></div>
     </section>
-    <section class="after"><h2 data-t="afterTitle">Everything you need after landing</h2><p data-t="afterDesc">The most useful tools, ready when you need them.</p><div class="tools"><a class="tool" href="best-esim-korea-2026.html"><b>📶</b><span data-t="esim">eSIM & Wi-Fi</span></a><a class="tool" href="tmoney-guide-foreigners.html"><b>💳</b><span data-t="tmoney">T-money</span></a><a class="tool" href="toilet-sos.html"><b>🚻</b><span data-t="toilet">Toilet</span></a><a class="tool" href="pharmacy-sos.html"><b>💊</b><span data-t="pharmacy">Pharmacy</span></a><a class="tool" href="hotel-guide.html"><b>🏨</b><span data-t="hotel">Hotel</span></a><a class="tool" href="emergency-info.html"><b>🆘</b><span data-t="emergency">Emergency</span></a></div></section>
+    <section class="after"><h2 data-t="afterTitle">Everything you need after landing</h2><p data-t="afterDesc">The most useful tools, ready when you need them.</p><div class="tools"><a class="tool" href="best-esim-korea-2026.html"><b>📶</b><span data-t="esim">eSIM & Wi-Fi</span></a><a class="tool" href="tmoney-guide-foreigners.html"><b>💳</b><span data-t="tmoney">T-money</span></a><a class="tool" href="toilet-sos.html"><b>🚻</b><span data-t="toilet" translate="no">Toilet</span></a><a class="tool" href="pharmacy-sos.html"><b>💊</b><span data-t="pharmacy">Pharmacy</span></a><a class="tool" href="hotel-guide.html"><b>🏨</b><span data-t="hotel">Hotel</span></a><a class="tool" href="emergency-info.html"><b>🆘</b><span data-t="emergency">Emergency</span></a></div></section>
   </main><!-- PLATFORM EXPANSION START -->
 <section class="platformExpansion wrap" id="explore-more">
   <div class="eyebrow" data-pkey="eyebrow">CONTINUE YOUR KOREA TRIP</div>
@@ -94,11 +94,11 @@
 
   <div class="platformGrid">
     <a class="platformCard" href="hotel-guide.html"><b>🏨</b><strong data-pkey="stay">Stay</strong><span data-pkey="stayDesc">Hotels and accommodation around your destination.</span><span class="platformCta" data-pkey="stayCta">Explore stays →</span></a>
-    <button class="platformCard" type="button" data-platform-toast-key="eatToast"><b>🍜</b><strong data-pkey="eat">Eat</strong><span data-pkey="eatDesc">Restaurants, cafés and local food near your destination.</span><span class="platformCta" data-pkey="eatCta">Find food →</span></button>
+    <a class="platformCard" id="exploreRestaurants" href="#restaurantPanel"><b>🍜</b><strong data-pkey="eat">Eat</strong><span data-pkey="eatDesc">Restaurants, cafés and local food near your destination.</span><span class="platformCta" data-pkey="eatCta">Find food →</span></a>
     <a class="platformCard" href="seoul-explorer.html"><b>🎫</b><strong data-pkey="experience">Experience</strong><span data-pkey="experienceDesc">Culture, tours, attractions and photo spots.</span><span class="platformCta" data-pkey="experienceCta">Explore Korea →</span></a>
-    <a class="platformCard" href="toilet-sos.html"><b>📍</b><strong data-pkey="nearby">Nearby</strong><span data-pkey="nearbyDesc">Toilets and essential help when you need it quickly.</span><span class="platformCta" data-pkey="nearbyCta">Find nearby →</span></a>
+    <a class="platformCard" href="toilet-sos.html"><b>🚻</b><strong data-pkey="nearby" translate="no">Restrooms · 화장실</strong><span data-pkey="nearbyDesc">Toilets and essential help when you need it quickly.</span><span class="platformCta" data-pkey="nearbyCta">Find nearby →</span></a>
     <a class="platformCard" href="#oliveyoung-live-deals"><b>💄</b><strong data-pkey="beauty">K-Beauty</strong><span data-pkey="beautyDesc">Current beauty promotions and shopping benefits.</span><span class="platformCta" data-pkey="beautyCta">See live deals →</span></a>
-    <a class="platformCard" href="#oliveyoung-live-deals"><b>🎟️</b><strong data-pkey="deals">Deals</strong><span data-pkey="dealsDesc">Official promotions refreshed from partner sources.</span><span class="platformCta" data-pkey="dealsCta">View deals →</span></a>
+    <a class="platformCard" href="#oliveyoung-live-deals"><b>🎟️</b><strong data-pkey="deals" translate="no">Deals</strong><span data-pkey="dealsDesc">Official promotions refreshed from partner sources.</span><span class="platformCta" data-pkey="dealsCta">View deals →</span></a>
   </div>
 
   <div class="beautyCoupon" id="oliveyoung-live-deals">
@@ -129,7 +129,7 @@
 <footer class="wrap">KOREA EASY · Independent Korea travel guide</footer>
   <script>
     const TEXT={
-      en:{chat:'Chat',headline:'From the airport,<br>without confusion.',lead:'Choose your arrival airport and destination. Get instructions detailed enough to copy and send.',stepAirport:'Where did you land?',stepDestination:'Where are you going?',incheon:'✈️ Incheon',gimpo:'✈️ Gimpo',gimhae:'✈️ Gimhae',jeju:'✈️ Jeju',show:'Show detailed route',exactLabel:'Hotel or exact place (optional)',exactPlaceholder:'Example: hotel name or street address',hint:'Times, fares, platforms and operating conditions can change. Check the airport display and Naver Map or KakaoMap before travel.',afterTitle:'Everything you need after landing',afterDesc:'The most useful tools, ready when you need them.',esim:'eSIM & Wi-Fi',tmoney:'T-money',toilet:'Toilet',pharmacy:'Pharmacy',hotel:'Hotel',emergency:'Emergency',fast:'Fast choice',budget:'Budget choice',easy:'Easy choice',guide:'Open airport guide ›',options:d=>`Easy routes to ${d}`,recommended:'RECOMMENDED STEP-BY-STEP ROUTE',time:'Typical time',fare:'Typical fare',transfer:'Transfers',boarding:'Where to board',arrival:'At the destination',shareTitle:'Message to send',copy:'Copy directions',share:'Share directions',map:'Open map',copied:'Directions copied.',shareFallback:'Sharing is not supported here. The directions were copied instead.',none:'0',times:n=>`${n}`,approx:'Approx.'},
+      en:{chat:'Chat',headline:'From the airport,<br>without confusion.',lead:'Choose your arrival airport and destination. Get instructions detailed enough to copy and send.',stepAirport:'Where did you land?',stepDestination:'Where are you going?',incheon:'✈️ Incheon',gimpo:'✈️ Gimpo',gimhae:'✈️ Gimhae',jeju:'✈️ Jeju',show:'Show detailed route',exactLabel:'Hotel or exact place (optional)',exactPlaceholder:'Example: hotel name or street address',hint:'Times, fares, platforms and operating conditions can change. Check the airport display and Naver Map or KakaoMap before travel.',afterTitle:'Everything you need after landing',afterDesc:'The most useful tools, ready when you need them.',esim:'eSIM & Wi-Fi',tmoney:'T-money',toilet:'Restrooms · 화장실',pharmacy:'Pharmacy',hotel:'Hotel',emergency:'Emergency',fast:'Fast choice',budget:'Budget choice',easy:'Easy choice',guide:'Open airport guide ›',options:d=>`Easy routes to ${d}`,recommended:'RECOMMENDED STEP-BY-STEP ROUTE',time:'Typical time',fare:'Typical fare',transfer:'Transfers',boarding:'Where to board',arrival:'At the destination',shareTitle:'Message to send',copy:'Copy directions',share:'Share directions',map:'Open map',copied:'Directions copied.',shareFallback:'Sharing is not supported here. The directions were copied instead.',none:'0',times:n=>`${n}`,approx:'Approx.'},
       ja:{chat:'チャット',headline:'空港から、<br>迷わず移動。',lead:'到着空港と目的地を選ぶと、そのまま送れる詳しい道順を表示します。',stepAirport:'どの空港に到着しましたか？',stepDestination:'どこへ行きますか？',incheon:'✈️ 仁川空港',gimpo:'✈️ 金浦空港',gimhae:'✈️ 金海空港',jeju:'✈️ 済州空港',show:'詳しいルートを見る',exactLabel:'ホテル名・詳しい目的地（任意）',exactPlaceholder:'例：ホテル名または住所',hint:'所要時間、料金、乗り場、運行状況は変わる場合があります。空港の案内表示とNAVER MapまたはKakaoMapで最新情報をご確認ください。',afterTitle:'到着後に必要な情報をひとつに',afterDesc:'到着後によく使う機能をすぐ開けます。',esim:'eSIM・Wi-Fi',tmoney:'T-money',toilet:'トイレ',pharmacy:'薬局',hotel:'ホテル',emergency:'緊急情報',fast:'速い方法',budget:'安い方法',easy:'楽な方法',guide:'空港の詳しい案内 ›',options:d=>`${d}への分かりやすい移動方法`,recommended:'おすすめの詳しいルート',time:'目安時間',fare:'目安料金',transfer:'乗換',boarding:'乗り場',arrival:'到着後',shareTitle:'相手に送るメッセージ',copy:'道順をコピー',share:'道順を共有',map:'地図を開く',copied:'道順をコピーしました。',shareFallback:'共有機能を使えないため、道順をコピーしました。',none:'0回',times:n=>`${n}回`,approx:'約'},
       zh:{chat:'聊天',headline:'从机场出发，<br>不再迷路。',lead:'选择抵达机场和目的地，即可查看可直接发送给他人的详细路线。',stepAirport:'您抵达哪个机场？',stepDestination:'您要去哪里？',incheon:'✈️ 仁川机场',gimpo:'✈️ 金浦机场',gimhae:'✈️ 金海机场',jeju:'✈️ 济州机场',show:'查看详细路线',exactLabel:'酒店或具体地点（可选）',exactPlaceholder:'例如：酒店名称或街道地址',hint:'时间、票价、站台与运行情况可能变化。出发前请查看机场显示屏及NAVER Map或KakaoMap。',afterTitle:'落地后所需信息一站掌握',afterDesc:'抵达后常用功能可立即打开。',esim:'eSIM与Wi-Fi',tmoney:'T-money',toilet:'洗手间',pharmacy:'药店',hotel:'酒店',emergency:'紧急信息',fast:'快速选择',budget:'省钱选择',easy:'轻松选择',guide:'查看机场详细指南 ›',options:d=>`前往${d}的简单交通方式`,recommended:'推荐的详细路线',time:'通常时间',fare:'通常票价',transfer:'换乘',boarding:'乘车地点',arrival:'到达后',shareTitle:'发送给对方的信息',copy:'复制路线',share:'分享路线',map:'打开地图',copied:'路线已复制。',shareFallback:'此处无法直接分享，路线已复制。',none:'0次',times:n=>`${n}次`,approx:'约'}
     };
@@ -282,7 +282,7 @@
     Object.entries(HOTSPOT_JA).forEach(([category,names])=>HOTSPOTS[category].forEach((spot,index)=>spot.ja=names[index]));
     Object.entries(HOTSPOT_ZH).forEach(([category,names])=>HOTSPOTS[category].forEach((spot,index)=>spot.zh=names[index]));
     const AIRPORT_ORIGIN={incheon:'Incheon International Airport, South Korea',gimpo:'Gimpo International Airport, South Korea',gimhae:'Gimhae International Airport, South Korea',jeju:'Jeju International Airport, South Korea'};
-    let lang=localStorage.getItem('koreaEasyLang')||'en',airport='incheon',hotspotCategory='seoul',hotspotsOpen=false,restaurantCategory='seoul',restaurantsOpen=false,subwayGuideOpen=false,deferredInstallPrompt=null,selectedRoute=0,lastConfirmedDestination='';const destination=document.getElementById('destinationInput'),suggestions=document.getElementById('destinationSuggestions'),results=document.getElementById('results'),destinationError=document.getElementById('destinationError'),hotspotToggle=document.getElementById('hotspotToggle'),hotspotPanel=document.getElementById('hotspotPanel'),restaurantToggle=document.getElementById('restaurantToggle'),restaurantPanel=document.getElementById('restaurantPanel'),installApp=document.getElementById('installApp'),installHelp=document.getElementById('installHelp');let currentMessage='';
+    let lang=['en','ja','zh'].includes(localStorage.getItem('koreaEasyLang'))?localStorage.getItem('koreaEasyLang'):'en',airport='incheon',hotspotCategory='seoul',hotspotsOpen=false,restaurantCategory='seoul',restaurantsOpen=false,subwayGuideOpen=false,deferredInstallPrompt=null,selectedRoute=0,lastConfirmedDestination='';const destination=document.getElementById('destinationInput'),suggestions=document.getElementById('destinationSuggestions'),results=document.getElementById('results'),destinationError=document.getElementById('destinationError'),hotspotToggle=document.getElementById('hotspotToggle'),hotspotPanel=document.getElementById('hotspotPanel'),restaurantToggle=document.getElementById('restaurantToggle'),restaurantPanel=document.getElementById('restaurantPanel'),installApp=document.getElementById('installApp'),installHelp=document.getElementById('installHelp');let currentMessage='';
     const name=key=>NAMES[key]?.[lang]||key;
     const esc=s=>String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
     function ticketStep(mode){const g=GUIDE[lang];if(mode==='Taxi')return g.ticketTaxi;if(mode==='Bus 600')return g.ticketBus;if(mode==='AREX Express')return g.ticketExpress;return g.ticketRail}
@@ -325,20 +325,20 @@
 <nav class="appBottomNav" aria-label="App navigation">
   <a href="./"><b>🏠</b>Home</a>
   <a href="#explore-more"><b>🗺️</b>Explore</a>
-  <a href="#kbeauty-coupon"><b>🎟️</b>Deals</a>
+  <a href="#oliveyoung-live-deals"><b>🎟️</b><span data-pkey="deals" translate="no">Promotions · 프로모션</span></a>
   <button type="button" data-platform-toast="My Trip foundation is ready."><b>🧳</b>My Trip</button>
 </nav>
 <script id="platform-expansion-js">
 (() => {
   const I18N = {
     en:{
-      eyebrow:'CONTINUE YOUR KOREA TRIP',title:'Handle the rest of your trip in one place.',intro:'Your airport-to-destination guide now continues into stays, food, experiences, nearby essentials, K-Beauty and traveler deals.',
+      eyebrow:'CONTINUE YOUR KOREA TRIP',title:'Hotels, food and travel essentials in one place.',intro:'Your airport-to-destination guide now continues into stays, food, experiences, nearby essentials, K-Beauty and traveler deals.',
       stay:'Stay',stayDesc:'Hotels and accommodation around your destination.',stayCta:'Explore stays →',
       eat:'Eat',eatDesc:'Restaurants, cafés and local food near your destination.',eatCta:'Find food →',
       experience:'Experience',experienceDesc:'Culture, tours, attractions and photo spots.',experienceCta:'Explore Korea →',
-      nearby:'Nearby',nearbyDesc:'Toilets and essential help when you need it quickly.',nearbyCta:'Find nearby →',
+      nearby:'Restrooms · 화장실',nearbyDesc:'Toilets and essential help when you need it quickly.',nearbyCta:'Find restrooms →',
       beauty:'K-Beauty',beautyDesc:'Current beauty promotions and shopping benefits.',beautyCta:'See live deals →',
-      deals:'Deals',dealsDesc:'Official promotions refreshed from partner sources.',dealsCta:'View deals →',
+      deals:'Promotions · 프로모션',dealsDesc:'Official promotions refreshed from partner sources.',dealsCta:'View promotions →',
       oyTitle:'Current Olive Young benefits',checking:'CHECKING',oyIntro:"Latest sale, coupon and gift information is refreshed from Olive Young's official Global site. No coupon code entry is required here.",loading:'Loading current official promotions…',
       openOfficial:'Open Olive Young Official ↗',nearStores:'Nearby stores ↗',lastChecked:'Last checked',officialOnly:'Only promotions detected from the official Olive Young source are shown.',
       myTrip:'🧳 My Trip',myTripDesc:'Keep routes, future bookings and saved deals together.',openTrip:'Open My Trip',
@@ -346,13 +346,13 @@
       live:'LIVE',noDeals:'No live promotion was detected. Check the official site.',source:'Official source'
     },
     ko:{
-      eyebrow:'한국 여행을 계속하세요',title:'이후 여행도 한 번에 해결하세요.',intro:'공항에서 목적지까지의 길안내에 숙박, 맛집, 체험, 주변 편의시설, K-뷰티와 실시간 혜택을 이어 붙였습니다.',
+      eyebrow:'한국 여행을 계속하세요',title:'호텔·맛집부터 여행 편의정보까지 한곳에서 확인하세요.',intro:'공항에서 목적지까지의 길안내에 숙박, 맛집, 체험, 주변 편의시설, K-뷰티와 실시간 혜택을 이어 붙였습니다.',
       stay:'숙박',stayDesc:'목적지 주변 호텔과 숙소를 확인합니다.',stayCta:'숙소 보기 →',
       eat:'맛집',eatDesc:'주변 맛집, 카페와 로컬 음식을 찾습니다.',eatCta:'맛집 찾기 →',
       experience:'체험',experienceDesc:'문화, 투어, 관광지와 포토스팟을 확인합니다.',experienceCta:'한국 둘러보기 →',
-      nearby:'주변',nearbyDesc:'화장실과 여행 중 필요한 편의정보를 빠르게 찾습니다.',nearbyCta:'주변 찾기 →',
+      nearby:'화장실',nearbyDesc:'화장실과 여행 중 필요한 편의정보를 빠르게 찾습니다.',nearbyCta:'화장실 찾기 →',
       beauty:'K-뷰티',beautyDesc:'현재 진행 중인 뷰티 행사와 쇼핑 혜택을 확인합니다.',beautyCta:'실시간 혜택 →',
-      deals:'혜택',dealsDesc:'공식 출처에서 확인된 프로모션을 자동 갱신합니다.',dealsCta:'혜택 보기 →',
+      deals:'프로모션',dealsDesc:'공식 출처에서 확인된 프로모션을 자동 갱신합니다.',dealsCta:'프로모션 보기 →',
       oyTitle:'현재 올리브영 혜택',checking:'확인 중',oyIntro:'올리브영 글로벌 공식 사이트의 세일·쿠폰·증정 정보를 자동으로 확인해 표시합니다. 여기에서 쿠폰 코드를 직접 입력할 필요가 없습니다.',loading:'현재 공식 프로모션을 불러오는 중…',
       openOfficial:'올리브영 공식 페이지 ↗',nearStores:'주변 매장 ↗',lastChecked:'마지막 확인',officialOnly:'올리브영 공식 출처에서 감지된 프로모션만 표시합니다.',
       myTrip:'🧳 내 여행',myTripDesc:'이동경로, 예약과 저장한 혜택을 한곳에 모읍니다.',openTrip:'내 여행 열기',
@@ -364,9 +364,9 @@
       stay:'宿泊',stayDesc:'目的地周辺のホテルや宿泊施設を確認できます。',stayCta:'宿泊を見る →',
       eat:'グルメ',eatDesc:'周辺のレストラン、カフェ、ローカルフードを探します。',eatCta:'グルメを探す →',
       experience:'体験',experienceDesc:'文化体験、ツアー、観光地、フォトスポットを確認します。',experienceCta:'韓国を楽しむ →',
-      nearby:'周辺',nearbyDesc:'トイレなど旅行中に必要な周辺情報を素早く探します。',nearbyCta:'周辺を探す →',
+      nearby:'トイレ',nearbyDesc:'トイレなど旅行中に必要な周辺情報を素早く探します。',nearbyCta:'トイレを探す →',
       beauty:'Kビューティー',beautyDesc:'現在開催中のビューティーセールやショッピング特典。',beautyCta:'最新特典を見る →',
-      deals:'特典',dealsDesc:'公式ソースから確認できたプロモーションを自動更新します。',dealsCta:'特典を見る →',
+      deals:'プロモーション',dealsDesc:'公式ソースから確認できたプロモーションを自動更新します。',dealsCta:'プロモーションを見る →',
       oyTitle:'現在のOLIVE YOUNG特典',checking:'確認中',oyIntro:'OLIVE YOUNG Global公式サイトのセール・クーポン・ギフト情報を自動確認して表示します。ここでクーポンコードを入力する必要はありません。',loading:'現在の公式プロモーションを読み込み中…',
       openOfficial:'OLIVE YOUNG公式 ↗',nearStores:'近くの店舗 ↗',lastChecked:'最終確認',officialOnly:'OLIVE YOUNG公式ソースで確認できたプロモーションのみ表示します。',
       myTrip:'🧳 マイトリップ',myTripDesc:'ルート、予約、保存した特典をひとつにまとめます。',openTrip:'マイトリップを開く',
@@ -378,9 +378,9 @@
       stay:'住宿',stayDesc:'查看目的地附近的酒店和住宿。',stayCta:'查看住宿 →',
       eat:'美食',eatDesc:'查找附近餐厅、咖啡厅和当地美食。',eatCta:'查找美食 →',
       experience:'体验',experienceDesc:'查看文化体验、旅游、景点和拍照地点。',experienceCta:'探索韩国 →',
-      nearby:'附近',nearbyDesc:'快速查找卫生间和旅行中需要的周边信息。',nearbyCta:'查找附近 →',
+      nearby:'洗手间',nearbyDesc:'快速查找卫生间和旅行中需要的周边信息。',nearbyCta:'查找洗手间 →',
       beauty:'K-Beauty',beautyDesc:'查看当前美容促销和购物优惠。',beautyCta:'查看实时优惠 →',
-      deals:'优惠',dealsDesc:'从官方来源自动更新已确认的促销活动。',dealsCta:'查看优惠 →',
+      deals:'促销活动',dealsDesc:'从官方来源自动更新已确认的促销活动。',dealsCta:'查看促销 →',
       oyTitle:'当前OLIVE YOUNG优惠',checking:'检查中',oyIntro:'自动检查并显示OLIVE YOUNG Global官方网站上的促销、优惠券和赠品信息。无需在这里输入优惠券代码。',loading:'正在加载当前官方促销…',
       openOfficial:'打开OLIVE YOUNG官网 ↗',nearStores:'附近门店 ↗',lastChecked:'最后检查',officialOnly:'仅显示从OLIVE YOUNG官方来源检测到的促销。',
       myTrip:'🧳 我的行程',myTripDesc:'把路线、预订和已保存优惠集中到一起。',openTrip:'打开我的行程',
@@ -451,7 +451,8 @@
   const escapeHtml=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
   const CORE_LABELS = {
-    en:{esim:'eSIM & Wi-Fi',tmoney:'T-money',toilet:'Toilet',pharmacy:'Pharmacy',hotel:'Hotel',emergency:'Emergency',afterTitle:'Everything you need after landing',afterDesc:'The most useful tools, ready when you need them.'},
+    ko:{esim:'eSIM 및 Wi-Fi',tmoney:'티머니',toilet:'화장실',pharmacy:'약국',hotel:'호텔',emergency:'긴급정보',afterTitle:'도착 후 필요한 여행 정보',afterDesc:'여행 중 필요한 정보를 바로 확인하세요.'},
+    en:{esim:'eSIM & Wi-Fi',tmoney:'T-money',toilet:'Restrooms · 화장실',pharmacy:'Pharmacy',hotel:'Hotel',emergency:'Emergency',afterTitle:'Everything you need after landing',afterDesc:'The most useful tools, ready when you need them.'},
     ja:{esim:'eSIM・Wi-Fi',tmoney:'T-money',toilet:'トイレ',pharmacy:'薬局',hotel:'ホテル',emergency:'緊急情報',afterTitle:'到着後に必要な情報をひとつに',afterDesc:'到着後によく使う機能をすぐ開けます。'},
     zh:{esim:'eSIM与Wi-Fi',tmoney:'T-money',toilet:'洗手间',pharmacy:'药店',hotel:'酒店',emergency:'紧急信息',afterTitle:'落地后所需信息一站掌握',afterDesc:'抵达后常用功能可立即打开。'}
   };
@@ -475,6 +476,12 @@
   const footer=document.querySelector('footer');
   if(footer&&!footer.querySelector('.launchLinks')){const links=document.createElement('div');links.className='launchLinks';links.innerHTML='<a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms</a>';footer.appendChild(links)}
 
+  document.getElementById('exploreRestaurants').addEventListener('click', () => {
+    if (restaurantToggle.getAttribute('aria-expanded') !== 'true') restaurantToggle.click();
+    restaurantPanel.setAttribute('tabindex', '-1');
+    restaurantPanel.focus({preventScroll:true});
+    restaurantPanel.scrollIntoView({behavior:'smooth',block:'start'});
+  });
   applyPlatformLanguage();
   document.querySelectorAll('.lang[data-lang]').forEach(btn=>{
     btn.addEventListener('click',()=>{
