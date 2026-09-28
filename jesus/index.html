@@ -133,11 +133,15 @@
   <div class="privacy-lock" id="privacyLock">
     <div class="lock-card">
       <div class="lock-icon" id="lockIcon">🔒</div>
-      <h2 id="lockTitle">개인 기록 잠금</h2>
-      <p id="lockText">PIN을 입력해 개인 기록을 확인하세요.</p>
-      <input class="pin-input" id="pinInput" type="password" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="4~8자리 PIN" />
+      <h2 id="lockTitle">내 기록 선택</h2>
+      <p id="lockText">본인 이름을 선택하세요. 처음 이용할 때 본인이 직접 PIN을 설정합니다.</p>
+      <div class="profile-switch" id="lockProfileSwitch" style="margin-bottom:14px;justify-content:center">
+        <button class="profile-btn" id="lock-profile-lemon" onclick="chooseProfileForUnlock('lemon')">🍋 레몬</button>
+        <button class="profile-btn" id="lock-profile-fortuna" onclick="chooseProfileForUnlock('fortuna')">🍀 포튜나</button>
+      </div>
+      <input class="pin-input" id="pinInput" type="password" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="이름을 먼저 선택하세요" disabled />
       <div class="lock-actions">
-        <button class="primary" id="unlockBtn" onclick="submitPin()">확인</button>
+        <button class="primary" id="unlockBtn" onclick="submitPin()" disabled>이름을 선택하세요</button>
       </div>
       <div class="lock-error" id="lockError"></div>
       <div class="privacy-note">PIN은 이 기기에만 저장됩니다. 레몬과 포튜나의 기록은 서로 분리되며 검색엔진에는 노출되지 않도록 설정했습니다.</div>
@@ -299,7 +303,7 @@
   };
   let activeProfile=localStorage.getItem(PROFILE_KEY);
   if(!PROFILES[activeProfile]) activeProfile='lemon';
-  let pendingProfile=activeProfile;
+  let pendingProfile=null;
   let unlockedProfile=null;
 
   const FALLBACK_VERSES=[
@@ -432,23 +436,53 @@
   }
 
   function showLock(profile){
-    pendingProfile=profile||activeProfile;
-    const p=PROFILES[pendingProfile];
-    const hasPin=!!localStorage.getItem(pinKey(pendingProfile));
+    pendingProfile=null;
+    $('lockIcon').textContent='🔒';
+    $('lockTitle').textContent='내 기록 선택';
+    $('lockText').textContent='본인 이름을 선택하세요. 처음 이용할 때 본인이 직접 PIN을 설정합니다.';
+    $('pinInput').value='';
+    $('pinInput').disabled=true;
+    $('pinInput').placeholder='이름을 먼저 선택하세요';
+    $('unlockBtn').disabled=true;
+    $('unlockBtn').textContent='이름을 선택하세요';
+    $('lockError').textContent='';
+    ['lemon','fortuna'].forEach(function(id){
+      const b=$('lock-profile-'+id);
+      if(b) b.classList.remove('active');
+    });
+    $('privacyLock').classList.remove('hidden');
+    document.body.classList.add('locked');
+    if(profile && PROFILES[profile]) chooseProfileForUnlock(profile);
+  }
+
+  function chooseProfileForUnlock(profile){
+    if(!PROFILES[profile]) return;
+    pendingProfile=profile;
+    const p=PROFILES[profile];
+    const hasPin=!!localStorage.getItem(pinKey(profile));
+    ['lemon','fortuna'].forEach(function(id){
+      const b=$('lock-profile-'+id);
+      if(b) b.classList.toggle('active',id===profile);
+    });
     $('lockIcon').textContent=p.icon+' 🔒';
     $('lockTitle').textContent=p.name+' 개인 기록';
     $('lockText').textContent=hasPin
-      ? p.name+'님의 PIN을 입력해야 기록을 볼 수 있습니다.'
-      : p.name+'님만 사용할 4~8자리 PIN을 처음 한 번 설정해 주세요.';
-    $('unlockBtn').textContent=hasPin?'잠금 해제':'PIN 설정';
+      ? p.name+'님이 직접 설정한 PIN을 입력해 주세요.'
+      : p.name+'님이 사용할 4~8자리 PIN을 직접 설정해 주세요.';
+    $('pinInput').disabled=false;
+    $('pinInput').placeholder=hasPin?'PIN 입력':'새 PIN 4~8자리';
     $('pinInput').value='';
+    $('unlockBtn').disabled=false;
+    $('unlockBtn').textContent=hasPin?'잠금 해제':'내 PIN 설정';
     $('lockError').textContent='';
-    $('privacyLock').classList.remove('hidden');
-    document.body.classList.add('locked');
     setTimeout(function(){$('pinInput').focus()},50);
   }
 
   async function submitPin(){
+    if(!pendingProfile){
+      $('lockError').textContent='먼저 본인 이름을 선택해 주세요.';
+      return;
+    }
     const pin=$('pinInput').value.trim();
     if(!/^\d{4,8}$/.test(pin)){
       $('lockError').textContent='PIN은 숫자 4~8자리로 입력해 주세요.';
@@ -484,7 +518,7 @@
 
   function lockNow(){
     unlockedProfile=null;
-    showLock(activeProfile);
+    showLock();
   }
 
   function updateProfileUI(){
@@ -524,7 +558,7 @@
     $('pinInput').addEventListener('keydown',function(e){
       if(e.key==='Enter') submitPin();
     });
-    showLock(activeProfile);
+    showLock();
   }
 
   function loadToday(){
