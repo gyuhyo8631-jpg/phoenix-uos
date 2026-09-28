@@ -27,7 +27,10 @@
     .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.03em}
     .logo{width:44px;height:44px;border-radius:14px;background:var(--ink);color:white;display:grid;place-items:center;font-size:21px;box-shadow:var(--shadow)}
     .brand small{display:block;font-weight:500;color:var(--muted);margin-top:2px}
-    .header-actions{display:flex;gap:10px}
+    .header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .profile-switch{display:flex;gap:6px;padding:5px;background:rgba(255,255,255,.62);border:1px solid var(--line);border-radius:16px}
+    .profile-btn{border:none;background:transparent;color:var(--muted);padding:8px 11px;border-radius:11px;cursor:pointer;font-weight:800;transition:.2s ease}
+    .profile-btn.active{background:var(--ink);color:white;box-shadow:0 5px 14px rgba(47,42,36,.14)}
     .ghost,.primary,.tab-btn,.small-btn{border:none;cursor:pointer;border-radius:14px;transition:.2s ease}
     .ghost{background:rgba(255,255,255,.6);border:1px solid var(--line);padding:10px 14px;color:var(--ink)}
     .ghost:hover{background:white}
@@ -119,6 +122,10 @@
         <div>하루말씀<small>말씀을 읽는 하루에서, 말씀을 살아가는 하루로.</small></div>
       </div>
       <div class="header-actions">
+        <div class="profile-switch" aria-label="기록 작성자 선택">
+          <button class="profile-btn" id="profile-lemon" onclick="switchProfile('lemon')">🍋 레몬</button>
+          <button class="profile-btn" id="profile-fortuna" onclick="switchProfile('fortuna')">🍀 포튜나</button>
+        </div>
         <button class="ghost" onclick="exportData()">기록 내보내기</button>
         <button class="ghost" onclick="resetToday()">오늘 비우기</button>
       </div>
@@ -133,6 +140,7 @@
           <span class="pill" id="todayLabel"></span>
           <span class="pill" id="todayReading">오늘의 본문 · 요한복음 15장</span>
           <span class="pill" id="completionPill">오늘 기록 전</span>
+          <span class="pill" id="activeProfilePill">작성자 · 🍋 레몬</span>
         </div>
       </div>
       <div class="card hero-side">
@@ -159,7 +167,7 @@
       <main class="content">
         <section class="card section tab-panel" id="today">
           <div class="section-head">
-            <h2>오늘의 말씀과 묵상</h2>
+            <h2 id="todaySectionTitle">레몬의 오늘 말씀과 묵상</h2>
             <span>완벽하게 쓰기보다 솔직하게 남겨보세요.</span>
           </div>
 
@@ -205,7 +213,7 @@
 
         <section class="card section tab-panel hidden" id="calendar">
           <div class="section-head">
-            <h2>말씀 달력</h2>
+            <h2 id="calendarSectionTitle">레몬의 말씀 달력</h2>
             <span id="monthTitle"></span>
           </div>
           <div class="calendar" id="calendarGrid"></div>
@@ -213,7 +221,7 @@
 
         <section class="card section tab-panel hidden" id="records">
           <div class="section-head">
-            <h2>지난 기록</h2>
+            <h2 id="recordsSectionTitle">레몬의 지난 기록</h2>
             <span>시간이 지난 뒤 다시 읽어보면 믿음의 흐름이 보입니다.</span>
           </div>
           <div class="record-list" id="recordList"></div>
@@ -221,7 +229,7 @@
 
         <section class="card section tab-panel hidden" id="search">
           <div class="section-head">
-            <h2>기록 검색</h2>
+            <h2 id="searchSectionTitle">레몬의 기록 검색</h2>
             <span>말씀, 감정, 기도제목을 찾아보세요.</span>
           </div>
           <div class="search-row">
@@ -248,82 +256,182 @@
     </div>
 
     <footer>
-      하루말씀 Prototype · 모든 기록은 현재 브라우저의 로컬 저장소에만 저장됩니다.<br>
-      오늘의 말씀은 성경전서 개역한글판을 사용합니다. 추후 로그인, 암호화, 백업 기능을 추가할 수 있습니다.
+      하루말씀 · 기록자는 🍋 레몬과 🍀 포튜나 두 명으로 제한됩니다.<br>
+      두 사람의 기록은 서로 분리되어 이 브라우저에 저장되며, 오늘의 말씀은 365일 서로 다른 장·절에서 자동 선택됩니다.
     </footer>
   </div>
 
 <script>
-  const STORAGE_KEY='harumalssum_records_v1';
+  const PROFILE_KEY='harumalssum_active_profile_v1';
+  const LEGACY_STORAGE_KEY='harumalssum_records_v1';
+  const PROFILES={
+    lemon:{name:'레몬',icon:'🍋'},
+    fortuna:{name:'포튜나',icon:'🍀'}
+  };
+  let activeProfile=localStorage.getItem(PROFILE_KEY);
+  if(!PROFILES[activeProfile]) activeProfile='lemon';
 
-  const DAILY_VERSES=[
+  const FALLBACK_VERSES=[
     {ref:'시편 23:1',text:'여호와는 나의 목자시니 내가 부족함이 없으리로다'},
     {ref:'잠언 3:5',text:'너는 마음을 다하여 여호와를 의뢰하고 네 명철을 의지하지 말라'},
     {ref:'빌립보서 4:13',text:'내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라'},
     {ref:'시편 119:105',text:'주의 말씀은 내 발에 등이요 내 길에 빛이니이다'},
-    {ref:'잠언 16:3',text:'너의 행사를 여호와께 맡기라 그리하면 너의 경영하는 것이 이루리라'},
-    {ref:'시편 46:1',text:'하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라'},
-    {ref:'마태복음 6:33',text:'너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라'},
-    {ref:'시편 37:5',text:'너의 길을 여호와께 맡기라 저를 의지하면 저가 이루시고'},
-    {ref:'로마서 12:12',text:'소망 중에 즐거워하며 환난 중에 참으며 기도에 항상 힘쓰며'},
-    {ref:'베드로전서 5:7',text:'너희 염려를 다 주께 맡겨 버리라 이는 저가 너희를 권고하심이니라'},
-    {ref:'히브리서 11:1',text:'믿음은 바라는 것들의 실상이요 보지 못하는 것들의 증거니'},
-    {ref:'시편 34:8',text:'너희는 여호와의 선하심을 맛보아 알지어다 그에게 피하는 자는 복이 있도다'},
-    {ref:'시편 121:2',text:'나의 도움이 천지를 지으신 여호와에게서로다'},
-    {ref:'시편 118:24',text:'이 날은 여호와의 정하신 것이라 이 날에 우리가 즐거워하고 기뻐하리로다'},
     {ref:'마태복음 11:28',text:'수고하고 무거운 짐진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라'},
-    {ref:'요한복음 8:32',text:'진리를 알지니 진리가 너희를 자유케 하리라'},
-    {ref:'요한일서 4:19',text:'우리가 사랑함은 그가 먼저 우리를 사랑하셨음이라'},
-    {ref:'데살로니가전서 5:16',text:'항상 기뻐하라'},
-    {ref:'데살로니가전서 5:17',text:'쉬지 말고 기도하라'},
-    {ref:'데살로니가전서 5:18',text:'범사에 감사하라 이는 그리스도 예수 안에서 너희를 향하신 하나님의 뜻이니라'},
-    {ref:'이사야 41:10',text:'두려워 말라 내가 너와 함께 함이니라 놀라지 말라 나는 네 하나님이 됨이니라 내가 너를 굳세게 하리라 참으로 너를 도와 주리라 참으로 나의 의로운 오른손으로 너를 붙들리라'},
-    {ref:'여호수아 1:9',text:'내가 네게 명한 것이 아니냐 마음을 강하게 하고 담대히 하라 두려워 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라'},
-    {ref:'로마서 8:28',text:'우리가 알거니와 하나님을 사랑하는 자 곧 그 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라'},
-    {ref:'야고보서 1:5',text:'너희 중에 누구든지 지혜가 부족하거든 모든 사람에게 후히 주시고 꾸짖지 아니하시는 하나님께 구하라 그리하면 주시리라'},
-    {ref:'시편 27:1',text:'여호와는 나의 빛이요 나의 구원이시니 내가 누구를 두려워하리요 여호와는 내 생명의 능력이시니 내가 누구를 무서워하리요'},
-    {ref:'이사야 40:31',text:'오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리의 날개 치며 올라감 같을 것이요 달음박질하여도 곤비치 아니하겠고 걸어가도 피곤치 아니하리로다'},
-    {ref:'요한복음 14:27',text:'평안을 너희에게 끼치노니 곧 나의 평안을 너희에게 주노라 내가 너희에게 주는 것은 세상이 주는 것 같지 아니하니라 너희는 마음에 근심도 말고 두려워하지도 말라'},
-    {ref:'시편 55:22',text:'네 짐을 여호와께 맡겨 버리라 너를 붙드시고 의인의 요동함을 영영히 허락지 아니하시리로다'},
-    {ref:'예레미야 29:11',text:'나 여호와가 말하노라 너희를 향한 나의 생각은 내가 아나니 재앙이 아니라 곧 평안이요 너희 장래에 소망을 주려 하는 생각이라'},
-    {ref:'고린도후서 5:17',text:'그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새것이 되었도다'},
-    {ref:'골로새서 3:23',text:'무슨 일을 하든지 마음을 다하여 주께 하듯하고 사람에게 하듯하지 말라'}
+    {ref:'요한복음 14:27',text:'평안을 너희에게 끼치노니 곧 나의 평안을 너희에게 주노라'}
   ];
 
-  function getDailyVerse(d=new Date()){
-    const localMidnight=new Date(d.getFullYear(),d.getMonth(),d.getDate());
-    const dayIndex=Math.floor(localMidnight.getTime()/86400000);
-    return DAILY_VERSES[((dayIndex%DAILY_VERSES.length)+DAILY_VERSES.length)%DAILY_VERSES.length];
-  }
+  const BOOK_PLAN=[
+    ['Psalms','시편',150],['Proverbs','잠언',31],['Matthew','마태복음',28],['John','요한복음',21],
+    ['Romans','로마서',16],['1Corinthians','고린도전서',16],['2Corinthians','고린도후서',13],
+    ['Galatians','갈라디아서',6],['Ephesians','에베소서',6],['Philippians','빌립보서',4],
+    ['Colossians','골로새서',4],['1Thessalonians','데살로니가전서',5],['2Thessalonians','데살로니가후서',3],
+    ['1Timothy','디모데전서',6],['2Timothy','디모데후서',4],['Titus','디도서',3],['Philemon','빌레몬서',1],
+    ['Hebrews','히브리서',13],['James','야고보서',5],['1Peter','베드로전서',5],['2Peter','베드로후서',3],
+    ['1John','요한일서',5],['2John','요한이서',1],['3John','요한삼서',1],['Jude','유다서',1],
+    ['Revelation','요한계시록',22]
+  ];
 
-  function renderDailyVerse(){
-    const verse=getDailyVerse();
-    $('dailyVerseRef').textContent='오늘의 말씀 · '+verse.ref;
-    $('dailyVerseText').textContent='“'+verse.text+'”';
-    $('todayReading').textContent='오늘의 말씀 · '+verse.ref;
-  }
-  const $=id=>document.getElementById(id);
-  const dateKey=(d=new Date())=>{
+  const DAILY_PLAN=[];
+  BOOK_PLAN.forEach(function(item){
+    for(let chapter=1;chapter<=item[2] && DAILY_PLAN.length<365;chapter++){
+      DAILY_PLAN.push({file:item[0],name:item[1],chapter:chapter});
+    }
+  });
+
+  const $=function(id){return document.getElementById(id)};
+  const dateKey=function(d){
+    d=d||new Date();
     const y=d.getFullYear();
     const m=String(d.getMonth()+1).padStart(2,'0');
     const day=String(d.getDate()).padStart(2,'0');
-    return `${y}-${m}-${day}`;
+    return y+'-'+m+'-'+day;
   };
   const todayKey=dateKey();
 
-  const fields=['reading','keyverse','reflection','prayer','g1','g2','g3','action'];
-  function getRecords(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}
-  function setRecords(v){localStorage.setItem(STORAGE_KEY,JSON.stringify(v))}
+  function fixedDayOfYear(d){
+    d=d||new Date();
+    const start=new Date(d.getFullYear(),0,0);
+    let n=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-start)/86400000);
+    const leap=new Date(d.getFullYear(),1,29).getMonth()===1;
+    if(leap && d.getMonth()>1) n-=1;
+    if(leap && d.getMonth()===1 && d.getDate()===29) n=59;
+    return Math.max(1,Math.min(365,n));
+  }
 
-  function formatKoreanDate(d=new Date()){
+  function getDailyPlanItem(d){
+    const day=fixedDayOfYear(d||new Date());
+    const item=DAILY_PLAN[day-1];
+    return {file:item.file,name:item.name,chapter:item.chapter,day:day};
+  }
+
+  function plannedRef(d){
+    const p=getDailyPlanItem(d||new Date());
+    return p.name+' '+p.chapter+'장';
+  }
+
+  async function getDailyVerse(d){
+    const p=getDailyPlanItem(d||new Date());
+    const cacheKey='harumalssum_daily_verse_'+dateKey(d||new Date());
+    try{
+      const cached=JSON.parse(localStorage.getItem(cacheKey)||'null');
+      if(cached && cached.ref && cached.text) return cached;
+    }catch(e){}
+
+    try{
+      const url='https://raw.githubusercontent.com/bluesaurel/Korean-Bible-1961-KRV/main/data/'+p.file+'.json';
+      const res=await fetch(url,{cache:'force-cache'});
+      if(!res.ok) throw new Error('Bible data unavailable');
+      const book=await res.json();
+      const chapter=book.chapters.find(function(x){return Number(x.chapter)===Number(p.chapter)});
+      if(!chapter || !chapter.verses || !chapter.verses.length) throw new Error('Chapter unavailable');
+      const verseIndex=((p.day*7)+(p.chapter*3)+p.file.length)%chapter.verses.length;
+      const verse=chapter.verses[verseIndex];
+      const result={ref:p.name+' '+p.chapter+':'+verse.verse,text:verse.text};
+      localStorage.setItem(cacheKey,JSON.stringify(result));
+      return result;
+    }catch(e){
+      const fallback=FALLBACK_VERSES[(p.day-1)%FALLBACK_VERSES.length];
+      return {ref:plannedRef(d||new Date()),text:fallback.text};
+    }
+  }
+
+  async function renderDailyVerse(){
+    $('dailyVerseRef').textContent='오늘의 말씀 · '+plannedRef();
+    $('dailyVerseText').textContent='말씀을 불러오는 중입니다…';
+    const verse=await getDailyVerse();
+    $('dailyVerseRef').textContent='오늘의 말씀 · '+verse.ref;
+    $('dailyVerseText').textContent='“'+verse.text+'”';
+    $('todayReading').textContent='오늘의 말씀 · '+verse.ref;
+    const r=getRecords()[todayKey]||{};
+    if(!r.reading) $('reading').value=verse.ref;
+  }
+
+  const fields=['reading','keyverse','reflection','prayer','g1','g2','g3','action'];
+
+  function storageKey(profile){
+    return 'harumalssum_records_v2_'+(profile||activeProfile);
+  }
+
+  function migrateLegacyOnce(){
+    if(localStorage.getItem('harumalssum_legacy_migrated_v1')) return;
+    const legacy=localStorage.getItem(LEGACY_STORAGE_KEY);
+    if(legacy && !localStorage.getItem(storageKey('lemon'))){
+      localStorage.setItem(storageKey('lemon'),legacy);
+    }
+    localStorage.setItem('harumalssum_legacy_migrated_v1','1');
+  }
+
+  function getRecords(){
+    try{return JSON.parse(localStorage.getItem(storageKey())||'{}')}
+    catch(e){return {}}
+  }
+
+  function setRecords(v){
+    localStorage.setItem(storageKey(),JSON.stringify(v));
+  }
+
+  function profileName(){return PROFILES[activeProfile].name}
+  function profileIcon(){return PROFILES[activeProfile].icon}
+
+  function updateProfileUI(){
+    Object.keys(PROFILES).forEach(function(id){
+      const btn=$('profile-'+id);
+      if(btn) btn.classList.toggle('active',id===activeProfile);
+    });
+    $('activeProfilePill').textContent='작성자 · '+profileIcon()+' '+profileName();
+    $('todaySectionTitle').textContent=profileName()+'의 오늘 말씀과 묵상';
+    $('calendarSectionTitle').textContent=profileName()+'의 말씀 달력';
+    $('recordsSectionTitle').textContent=profileName()+'의 지난 기록';
+    $('searchSectionTitle').textContent=profileName()+'의 기록 검색';
+  }
+
+  function switchProfile(profile){
+    if(!PROFILES[profile] || profile===activeProfile) return;
+    activeProfile=profile;
+    localStorage.setItem(PROFILE_KEY,profile);
+    updateProfileUI();
+    loadToday();
+    renderDailyVerse();
+    renderStats();
+    renderCalendar();
+    renderRecords();
+    $('searchResults').innerHTML='';
+    $('searchInput').value='';
+    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 기록 공간입니다.';
+  }
+
+  function formatKoreanDate(d){
+    d=d||new Date();
     const days=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
-    return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 ${days[d.getDay()]}`;
+    return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일 '+days[d.getDay()];
   }
 
   function init(){
+    migrateLegacyOnce();
     $('todayLabel').textContent=formatKoreanDate();
-    renderDailyVerse();
+    updateProfileUI();
     loadToday();
+    renderDailyVerse();
     renderStats();
     renderCalendar();
     renderRecords();
@@ -331,17 +439,17 @@
 
   function loadToday(){
     const r=getRecords()[todayKey]||{};
-    fields.forEach(f=>$(f).value=r[f]||'');
-    if(!r.reading) $('reading').value=getDailyVerse().ref;
-    $('todayReading').textContent='오늘의 말씀 · '+getDailyVerse().ref;
-    $('completionPill').textContent=r.savedAt?'오늘 기록 완료':'오늘 기록 전';
+    fields.forEach(function(f){$(f).value=r[f]||''});
+    if(!r.reading) $('reading').value=plannedRef();
+    $('todayReading').textContent='오늘의 말씀 · '+plannedRef();
+    $('completionPill').textContent=r.savedAt?profileName()+' 기록 완료':profileName()+' 기록 전';
   }
 
   function saveToday(){
     const records=getRecords();
-    const data={};
-    fields.forEach(f=>data[f]=$(f).value.trim());
-    const meaningful = data.reading||data.keyverse||data.reflection||data.prayer||data.g1||data.g2||data.g3||data.action;
+    const data={profile:activeProfile,profileName:profileName()};
+    fields.forEach(function(f){data[f]=$(f).value.trim()});
+    const meaningful=data.reading||data.keyverse||data.reflection||data.prayer||data.g1||data.g2||data.g3||data.action;
     if(!meaningful){
       $('saveStatus').textContent='먼저 한 가지라도 기록해 주세요.';
       return;
@@ -349,89 +457,147 @@
     data.savedAt=new Date().toISOString();
     records[todayKey]=data;
     setRecords(records);
-    $('saveStatus').textContent='오늘의 기록이 저장되었습니다.';
-    loadToday(); renderStats(); renderCalendar(); renderRecords();
+    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 오늘 기록이 저장되었습니다.';
+    loadToday();renderStats();renderCalendar();renderRecords();
   }
 
   function resetToday(){
-    if(!confirm('오늘 작성 중인 내용을 화면에서 비울까요? 저장된 기록도 삭제됩니다.')) return;
-    const records=getRecords(); delete records[todayKey]; setRecords(records);
-    fields.forEach(f=>$(f).value='');
-    $('saveStatus').textContent='오늘 기록을 비웠습니다.';
-    loadToday(); renderStats(); renderCalendar(); renderRecords();
+    if(!confirm(profileName()+'님의 오늘 기록을 삭제할까요?')) return;
+    const records=getRecords();
+    delete records[todayKey];
+    setRecords(records);
+    fields.forEach(function(f){$(f).value=''});
+    $('reading').value=plannedRef();
+    $('saveStatus').textContent=profileName()+'님의 오늘 기록을 비웠습니다.';
+    loadToday();renderStats();renderCalendar();renderRecords();
   }
 
   function renderStats(){
     const records=getRecords();
-    let streak=0; let d=new Date();
-    while(records[dateKey(d)]){streak++; d.setDate(d.getDate()-1)}
+    let streak=0;
+    let d=new Date();
+    while(records[dateKey(d)]){
+      streak++;
+      d.setDate(d.getDate()-1);
+    }
     $('streakCount').textContent=streak;
 
-    const now=new Date(); const start=new Date(now); start.setDate(now.getDate()-now.getDay()); start.setHours(0,0,0,0);
+    const now=new Date();
+    const start=new Date(now);
+    start.setDate(now.getDate()-now.getDay());
+    start.setHours(0,0,0,0);
     let count=0;
-    for(let i=0;i<7;i++){const x=new Date(start);x.setDate(start.getDate()+i); if(records[dateKey(x)]) count++;}
-    $('weekSummary').textContent=count?`이번 주 ${count}일 말씀을 기록했습니다.`:'이번 주 기록을 시작해보세요.';
+    for(let i=0;i<7;i++){
+      const x=new Date(start);
+      x.setDate(start.getDate()+i);
+      if(records[dateKey(x)]) count++;
+    }
+    $('weekSummary').textContent=count?profileIcon()+' '+profileName()+'님은 이번 주 '+count+'일 말씀을 기록했습니다.':profileName()+'님의 이번 주 기록을 시작해보세요.';
   }
 
   function renderCalendar(){
-    const records=getRecords(); const now=new Date();
-    const y=now.getFullYear(), m=now.getMonth();
-    $('monthTitle').textContent=`${y}년 ${m+1}월`;
-    const grid=$('calendarGrid'); grid.innerHTML='';
-    ['일','월','화','수','목','금','토'].forEach(x=>{const el=document.createElement('div');el.className='dow';el.textContent=x;grid.appendChild(el)});
-    const first=new Date(y,m,1).getDay(); const days=new Date(y,m+1,0).getDate();
-    for(let i=0;i<first;i++){const el=document.createElement('div');el.className='day muted';grid.appendChild(el)}
+    const records=getRecords();
+    const now=new Date();
+    const y=now.getFullYear(),m=now.getMonth();
+    $('monthTitle').textContent=y+'년 '+(m+1)+'월';
+    const grid=$('calendarGrid');
+    grid.innerHTML='';
+    ['일','월','화','수','목','금','토'].forEach(function(x){
+      const el=document.createElement('div');
+      el.className='dow';
+      el.textContent=x;
+      grid.appendChild(el);
+    });
+    const first=new Date(y,m,1).getDay();
+    const days=new Date(y,m+1,0).getDate();
+    for(let i=0;i<first;i++){
+      const el=document.createElement('div');
+      el.className='day muted';
+      grid.appendChild(el);
+    }
     for(let day=1;day<=days;day++){
-      const d=new Date(y,m,day); const key=dateKey(d); const el=document.createElement('div');
-      el.className='day'+(records[key]?' has':'')+(key===todayKey?' today':''); el.textContent=day;
-      if(records[key]) el.onclick=()=>openRecord(key);
+      const d=new Date(y,m,day);
+      const key=dateKey(d);
+      const el=document.createElement('div');
+      el.className='day'+(records[key]?' has':'')+(key===todayKey?' today':'');
+      el.textContent=day;
+      if(records[key]) el.onclick=function(){openRecord(key)};
       grid.appendChild(el);
     }
   }
 
-  function renderRecords(listObj=null,target='recordList'){
-    const records=listObj||getRecords(); const box=$(target); box.innerHTML='';
+  function renderRecords(listObj,target){
+    const records=listObj||getRecords();
+    const box=$(target||'recordList');
+    box.innerHTML='';
     const keys=Object.keys(records).sort().reverse();
-    if(!keys.length){box.innerHTML='<div class="empty">아직 저장된 기록이 없습니다.</div>';return;}
-    keys.forEach(key=>{
-      const r=records[key]; const el=document.createElement('article'); el.className='record';
+    if(!keys.length){
+      box.innerHTML='<div class="empty">'+profileIcon()+' '+profileName()+'님의 저장된 기록이 아직 없습니다.</div>';
+      return;
+    }
+    keys.forEach(function(key){
+      const r=records[key];
+      const el=document.createElement('article');
+      el.className='record';
       const preview=(r.reflection||r.prayer||r.keyverse||'').slice(0,160);
-      el.innerHTML=`<div class="record-top"><div class="record-date">${key}</div><div class="record-ref">${escapeHtml(r.reading||'본문 미입력')}</div></div>${preview?`<p>${escapeHtml(preview)}${preview.length>=160?'…':''}</p>`:''}`;
-      el.onclick=()=>openRecord(key); box.appendChild(el);
+      el.innerHTML='<div class="record-top"><div class="record-date">'+key+'</div><div class="record-ref">'+escapeHtml(r.reading||'본문 미입력')+'</div></div>'+(preview?'<p>'+escapeHtml(preview)+(preview.length>=160?'…':'')+'</p>':'');
+      el.onclick=function(){openRecord(key)};
+      box.appendChild(el);
     });
   }
 
   function openRecord(key){
-    const r=getRecords()[key]; if(!r) return;
-    alert(`${key}\n${r.reading||''}\n\n[마음에 남은 말씀]\n${r.keyverse||'-'}\n\n[묵상]\n${r.reflection||'-'}\n\n[기도]\n${r.prayer||'-'}\n\n[감사]\n${[r.g1,r.g2,r.g3].filter(Boolean).join(' / ')||'-'}\n\n[실천]\n${r.action||'-'}`);
+    const r=getRecords()[key];
+    if(!r) return;
+    alert(profileIcon()+' '+profileName()+' · '+key+'\n'+(r.reading||'')+'\n\n[마음에 남은 말씀]\n'+(r.keyverse||'-')+'\n\n[묵상]\n'+(r.reflection||'-')+'\n\n[기도]\n'+(r.prayer||'-')+'\n\n[감사]\n'+([r.g1,r.g2,r.g3].filter(Boolean).join(' / ')||'-')+'\n\n[실천]\n'+(r.action||'-'));
   }
 
   function searchRecords(){
     const q=$('searchInput').value.trim().toLowerCase();
     const all=getRecords();
-    if(!q){renderRecords(all,'searchResults');return;}
+    if(!q){
+      renderRecords(all,'searchResults');
+      return;
+    }
     const filtered={};
-    Object.entries(all).forEach(([k,v])=>{if(JSON.stringify(v).toLowerCase().includes(q)) filtered[k]=v;});
+    Object.entries(all).forEach(function(entry){
+      if(JSON.stringify(entry[1]).toLowerCase().includes(q)) filtered[entry[0]]=entry[1];
+    });
     renderRecords(filtered,'searchResults');
   }
 
   function exportData(){
-    const data=JSON.stringify(getRecords(),null,2);
+    const data=JSON.stringify({
+      profile:activeProfile,
+      profileName:profileName(),
+      exportedAt:new Date().toISOString(),
+      records:getRecords()
+    },null,2);
     const blob=new Blob([data],{type:'application/json'});
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`harumalssum-${todayKey}.json`;a.click();URL.revokeObjectURL(a.href);
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='harumalssum-'+activeProfile+'-'+todayKey+'.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
   }
 
-  function escapeHtml(str=''){
-    return str.replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  function escapeHtml(str){
+    str=str||'';
+    return str.replace(/[&<>'"]/g,function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch];
+    });
   }
 
-  document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.add('hidden'));
-    btn.classList.add('active'); $(btn.dataset.tab).classList.remove('hidden');
-    if(btn.dataset.tab==='records') renderRecords();
-    if(btn.dataset.tab==='calendar') renderCalendar();
-  }));
+  document.querySelectorAll('.tab-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+      document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.add('hidden')});
+      btn.classList.add('active');
+      $(btn.dataset.tab).classList.remove('hidden');
+      if(btn.dataset.tab==='records') renderRecords();
+      if(btn.dataset.tab==='calendar') renderCalendar();
+    });
+  });
 
   init();
 </script>
