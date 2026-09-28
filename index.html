@@ -65,6 +65,13 @@
 .launchLinks{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px}.launchLinks a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:720px){.platformGrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){body{padding-bottom:74px}.platformExpansion{padding:18px 12px}.platformGrid{grid-template-columns:repeat(2,1fr);gap:7px}.platformCard{min-height:112px;padding:13px}.platformCard strong{font-size:.92rem}.platformCard span{font-size:.76rem}.couponHead{display:block}.couponStatus{display:inline-block;margin-top:8px}.couponCodeRow{align-items:flex-start;flex-direction:column}.myTripBar{align-items:flex-start;flex-direction:column}.myTripButton{width:100%}.appBottomNav{position:fixed;left:0;right:0;bottom:0;z-index:70;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 6px calc(8px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fffefaf5;backdrop-filter:blur(12px)}.appBottomNav a,.appBottomNav button{display:flex;min-height:46px;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:transparent;color:var(--muted);font:inherit;font-size:.68rem;font-weight:900}.appBottomNav b{color:var(--ink);font-size:1.15rem}}
+
+.liveDeals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.liveDeal{padding:13px;border:1px solid var(--line);border-radius:13px;background:#fff}
+.liveDeal strong{display:block;font-size:.92rem;line-height:1.4}.liveDeal small{display:block;margin-top:6px;color:var(--muted);font-size:.72rem;line-height:1.45}
+.liveDeal a{display:inline-flex;margin-top:9px;color:var(--green);font-size:.78rem;font-weight:950}
+.liveDealSkeleton{grid-column:1/-1;padding:14px;border-radius:12px;background:#fff;color:var(--muted);font-size:.84rem}
+@media(max-width:480px){.liveDeals{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -81,35 +88,41 @@
     <section class="after"><h2 data-t="afterTitle">Everything you need after landing</h2><p data-t="afterDesc">The most useful tools, ready when you need them.</p><div class="tools"><a class="tool" href="best-esim-korea-2026.html"><b>📶</b><span data-t="esim">eSIM & Wi-Fi</span></a><a class="tool" href="tmoney-guide-foreigners.html"><b>💳</b><span data-t="tmoney">T-money</span></a><a class="tool" href="toilet-sos.html"><b>🚻</b><span data-t="toilet">Toilet</span></a><a class="tool" href="pharmacy-sos.html"><b>💊</b><span data-t="pharmacy">Pharmacy</span></a><a class="tool" href="hotel-guide.html"><b>🏨</b><span data-t="hotel">Hotel</span></a><a class="tool" href="emergency-info.html"><b>🆘</b><span data-t="emergency">Emergency</span></a></div></section>
   </main><!-- PLATFORM EXPANSION START -->
 <section class="platformExpansion wrap" id="explore-more">
-  <div class="eyebrow">CONTINUE YOUR KOREA TRIP</div>
-  <h2>After you arrive, keep everything in one place.</h2>
-  <p>Your airport-to-destination guide now continues into stays, food, experiences, nearby essentials, K-Beauty and traveler coupons.</p>
+  <div class="eyebrow" data-pkey="eyebrow">CONTINUE YOUR KOREA TRIP</div>
+  <h2 data-pkey="title">After you arrive, keep everything in one place.</h2>
+  <p data-pkey="intro">Your airport-to-destination guide now continues into stays, food, experiences, nearby essentials, K-Beauty and traveler deals.</p>
+
   <div class="platformGrid">
-    <a class="platformCard" href="hotel-guide.html"><b>🏨</b><strong>Stay</strong><span>Hotels and accommodation around your destination.</span><span class="platformCta">Explore stays →</span></a>
-    <button class="platformCard" type="button" data-platform-toast="Restaurant discovery is being connected to destination results."><b>🍜</b><strong>Eat</strong><span>Restaurants, cafés and local food near your destination.</span><span class="platformCta">Find food →</span></button>
-    <a class="platformCard" href="seoul-explorer.html"><b>🎫</b><strong>Experience</strong><span>Culture, tours, attractions and photo spots.</span><span class="platformCta">Explore Korea →</span></a>
-    <a class="platformCard" href="toilet-sos.html"><b>📍</b><strong>Nearby</strong><span>Toilets and essential help when you need it quickly.</span><span class="platformCta">Find nearby →</span></a>
-    <button class="platformCard" type="button" data-platform-toast="K-Beauty offers will appear here as official partner promotions are added."><b>💄</b><strong>K-Beauty</strong><span>Skincare, cosmetics and traveler shopping offers.</span><span class="platformCta">Beauty deals →</span></button>
-    <button class="platformCard" type="button" data-platform-toast="Saved traveler coupons will be collected in My Trip."><b>🎟️</b><strong>Coupons</strong><span>Save eligible promotions and use them during your trip.</span><span class="platformCta">View coupons →</span></button>
+    <a class="platformCard" href="hotel-guide.html"><b>🏨</b><strong data-pkey="stay">Stay</strong><span data-pkey="stayDesc">Hotels and accommodation around your destination.</span><span class="platformCta" data-pkey="stayCta">Explore stays →</span></a>
+    <button class="platformCard" type="button" data-platform-toast-key="eatToast"><b>🍜</b><strong data-pkey="eat">Eat</strong><span data-pkey="eatDesc">Restaurants, cafés and local food near your destination.</span><span class="platformCta" data-pkey="eatCta">Find food →</span></button>
+    <a class="platformCard" href="seoul-explorer.html"><b>🎫</b><strong data-pkey="experience">Experience</strong><span data-pkey="experienceDesc">Culture, tours, attractions and photo spots.</span><span class="platformCta" data-pkey="experienceCta">Explore Korea →</span></a>
+    <a class="platformCard" href="toilet-sos.html"><b>📍</b><strong data-pkey="nearby">Nearby</strong><span data-pkey="nearbyDesc">Toilets and essential help when you need it quickly.</span><span class="platformCta" data-pkey="nearbyCta">Find nearby →</span></a>
+    <a class="platformCard" href="#oliveyoung-live-deals"><b>💄</b><strong data-pkey="beauty">K-Beauty</strong><span data-pkey="beautyDesc">Current beauty promotions and shopping benefits.</span><span class="platformCta" data-pkey="beautyCta">See live deals →</span></a>
+    <a class="platformCard" href="#oliveyoung-live-deals"><b>🎟️</b><strong data-pkey="deals">Deals</strong><span data-pkey="dealsDesc">Official promotions refreshed from partner sources.</span><span class="platformCta" data-pkey="dealsCta">View deals →</span></a>
   </div>
 
-  <div class="beautyCoupon" id="kbeauty-coupon">
+  <div class="beautyCoupon" id="oliveyoung-live-deals">
     <div class="couponHead">
-      <div><div class="couponBrand">OLIVE YOUNG · K-BEAUTY</div><h3>Traveler coupon connection</h3></div>
-      <span class="couponStatus">PARTNER READY</span>
+      <div>
+        <div class="couponBrand">OLIVE YOUNG · OFFICIAL LIVE DEALS</div>
+        <h3 data-pkey="oyTitle">Current Olive Young benefits</h3>
+      </div>
+      <span class="couponStatus" id="oyLiveStatus" data-pkey="checking">CHECKING</span>
     </div>
-    <p class="couponText">This area is ready to connect an official Olive Young or authorized partner coupon, promotion link, or store campaign once approved.</p>
-    <div class="couponCodeRow"><span class="couponCode">Official coupon not connected yet</span><button class="couponAction" type="button" data-platform-toast="Official coupon code will be enabled after partnership approval.">Coupon info</button></div>
+    <p class="couponText" data-pkey="oyIntro">Latest sale, coupon and gift information is refreshed from Olive Young's official Global site. No coupon code entry is required here.</p>
+    <div class="liveDeals" id="oyLiveDeals" aria-live="polite">
+      <div class="liveDealSkeleton" data-pkey="loading">Loading current official promotions…</div>
+    </div>
     <div class="couponActions">
-      <button class="couponAction primary" type="button" data-platform-toast="Coupon saved area is ready for launch.">Save to My Trip</button>
-      <a class="couponAction" href="https://www.google.com/maps/search/?api=1&query=Olive+Young+South+Korea" target="_blank" rel="noopener">Nearby stores ↗</a>
+      <a class="couponAction primary" href="https://global.oliveyoung.com/" target="_blank" rel="noopener" data-pkey="openOfficial">Open Olive Young Official ↗</a>
+      <a class="couponAction" href="https://www.google.com/maps/search/?api=1&query=Olive+Young+South+Korea" target="_blank" rel="noopener" data-pkey="nearStores">Nearby stores ↗</a>
     </div>
-    <div class="couponNotice">No unofficial discount or coupon code is represented as valid. Activate only with an official or authorized promotion.</div>
+    <div class="couponNotice"><span data-pkey="lastChecked">Last checked</span>: <span id="oyCheckedAt">—</span> · <span data-pkey="officialOnly">Only promotions detected from the official Olive Young source are shown.</span></div>
   </div>
 
   <div class="myTripBar">
-    <div><strong>🧳 My Trip</strong><span>Keep routes, future bookings and saved coupons together.</span></div>
-    <button class="myTripButton" type="button" data-platform-toast="My Trip foundation is ready. Account sync can be connected next.">Open My Trip</button>
+    <div><strong data-pkey="myTrip">🧳 My Trip</strong><span data-pkey="myTripDesc">Keep routes, future bookings and saved deals together.</span></div>
+    <button class="myTripButton" type="button" data-platform-toast-key="tripToast" data-pkey="openTrip">Open My Trip</button>
   </div>
 </section>
 <!-- PLATFORM EXPANSION END -->
@@ -317,29 +330,141 @@
 </nav>
 <script id="platform-expansion-js">
 (() => {
-  const showPlatformToast = (message) => {
-    let toast = document.getElementById('platformToast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'platformToast';
-      toast.className = 'platformToast';
-      toast.setAttribute('role','status');
-      toast.hidden = true;
-      document.body.appendChild(toast);
+  const I18N = {
+    en:{
+      eyebrow:'CONTINUE YOUR KOREA TRIP',title:'After you arrive, keep everything in one place.',intro:'Your airport-to-destination guide now continues into stays, food, experiences, nearby essentials, K-Beauty and traveler deals.',
+      stay:'Stay',stayDesc:'Hotels and accommodation around your destination.',stayCta:'Explore stays →',
+      eat:'Eat',eatDesc:'Restaurants, cafés and local food near your destination.',eatCta:'Find food →',
+      experience:'Experience',experienceDesc:'Culture, tours, attractions and photo spots.',experienceCta:'Explore Korea →',
+      nearby:'Nearby',nearbyDesc:'Toilets and essential help when you need it quickly.',nearbyCta:'Find nearby →',
+      beauty:'K-Beauty',beautyDesc:'Current beauty promotions and shopping benefits.',beautyCta:'See live deals →',
+      deals:'Deals',dealsDesc:'Official promotions refreshed from partner sources.',dealsCta:'View deals →',
+      oyTitle:'Current Olive Young benefits',checking:'CHECKING',oyIntro:"Latest sale, coupon and gift information is refreshed from Olive Young's official Global site. No coupon code entry is required here.",loading:'Loading current official promotions…',
+      openOfficial:'Open Olive Young Official ↗',nearStores:'Nearby stores ↗',lastChecked:'Last checked',officialOnly:'Only promotions detected from the official Olive Young source are shown.',
+      myTrip:'🧳 My Trip',myTripDesc:'Keep routes, future bookings and saved deals together.',openTrip:'Open My Trip',
+      eatToast:'Restaurant discovery is being connected to destination results.',tripToast:'My Trip foundation is ready. Account sync can be connected next.',
+      live:'LIVE',noDeals:'No live promotion was detected. Check the official site.',source:'Official source'
+    },
+    ko:{
+      eyebrow:'한국 여행을 계속하세요',title:'도착 이후의 여행도 한곳에서 해결하세요.',intro:'공항에서 목적지까지의 길안내에 숙박, 맛집, 체험, 주변 편의시설, K-뷰티와 실시간 혜택을 이어 붙였습니다.',
+      stay:'숙박',stayDesc:'목적지 주변 호텔과 숙소를 확인합니다.',stayCta:'숙소 보기 →',
+      eat:'맛집',eatDesc:'주변 맛집, 카페와 로컬 음식을 찾습니다.',eatCta:'맛집 찾기 →',
+      experience:'체험',experienceDesc:'문화, 투어, 관광지와 포토스팟을 확인합니다.',experienceCta:'한국 둘러보기 →',
+      nearby:'주변',nearbyDesc:'화장실과 여행 중 필요한 편의정보를 빠르게 찾습니다.',nearbyCta:'주변 찾기 →',
+      beauty:'K-뷰티',beautyDesc:'현재 진행 중인 뷰티 행사와 쇼핑 혜택을 확인합니다.',beautyCta:'실시간 혜택 →',
+      deals:'혜택',dealsDesc:'공식 출처에서 확인된 프로모션을 자동 갱신합니다.',dealsCta:'혜택 보기 →',
+      oyTitle:'현재 올리브영 혜택',checking:'확인 중',oyIntro:'올리브영 글로벌 공식 사이트의 세일·쿠폰·증정 정보를 자동으로 확인해 표시합니다. 여기에서 쿠폰 코드를 직접 입력할 필요가 없습니다.',loading:'현재 공식 프로모션을 불러오는 중…',
+      openOfficial:'올리브영 공식 페이지 ↗',nearStores:'주변 매장 ↗',lastChecked:'마지막 확인',officialOnly:'올리브영 공식 출처에서 감지된 프로모션만 표시합니다.',
+      myTrip:'🧳 내 여행',myTripDesc:'이동경로, 예약과 저장한 혜택을 한곳에 모읍니다.',openTrip:'내 여행 열기',
+      eatToast:'목적지별 맛집 검색 기능을 연결 중입니다.',tripToast:'My Trip 기본 구조가 준비되었습니다. 다음 단계에서 계정 동기화를 연결할 수 있습니다.',
+      live:'실시간',noDeals:'현재 자동 감지된 프로모션이 없습니다. 공식 페이지에서 확인해주세요.',source:'공식 출처'
+    },
+    ja:{
+      eyebrow:'韓国旅行をこのまま続ける',title:'到着後の旅行も、ひとつの場所で。',intro:'空港から目的地までの案内に、宿泊・グルメ・体験・周辺情報・Kビューティー・最新特典をつなげました。',
+      stay:'宿泊',stayDesc:'目的地周辺のホテルや宿泊施設を確認できます。',stayCta:'宿泊を見る →',
+      eat:'グルメ',eatDesc:'周辺のレストラン、カフェ、ローカルフードを探します。',eatCta:'グルメを探す →',
+      experience:'体験',experienceDesc:'文化体験、ツアー、観光地、フォトスポットを確認します。',experienceCta:'韓国を楽しむ →',
+      nearby:'周辺',nearbyDesc:'トイレなど旅行中に必要な周辺情報を素早く探します。',nearbyCta:'周辺を探す →',
+      beauty:'Kビューティー',beautyDesc:'現在開催中のビューティーセールやショッピング特典。',beautyCta:'最新特典を見る →',
+      deals:'特典',dealsDesc:'公式ソースから確認できたプロモーションを自動更新します。',dealsCta:'特典を見る →',
+      oyTitle:'現在のOLIVE YOUNG特典',checking:'確認中',oyIntro:'OLIVE YOUNG Global公式サイトのセール・クーポン・ギフト情報を自動確認して表示します。ここでクーポンコードを入力する必要はありません。',loading:'現在の公式プロモーションを読み込み中…',
+      openOfficial:'OLIVE YOUNG公式 ↗',nearStores:'近くの店舗 ↗',lastChecked:'最終確認',officialOnly:'OLIVE YOUNG公式ソースで確認できたプロモーションのみ表示します。',
+      myTrip:'🧳 マイトリップ',myTripDesc:'ルート、予約、保存した特典をひとつにまとめます。',openTrip:'マイトリップを開く',
+      eatToast:'目的地別グルメ検索を接続中です。',tripToast:'My Tripの基本機能は準備済みです。次にアカウント同期を接続できます。',
+      live:'LIVE',noDeals:'現在、自動検出されたプロモーションはありません。公式サイトをご確認ください。',source:'公式情報'
+    },
+    zh:{
+      eyebrow:'继续你的韩国旅行',title:'抵达韩国后，也能在一个地方继续完成旅程。',intro:'在机场到目的地路线之外，继续提供住宿、美食、体验、周边便利、K-Beauty和最新优惠。',
+      stay:'住宿',stayDesc:'查看目的地附近的酒店和住宿。',stayCta:'查看住宿 →',
+      eat:'美食',eatDesc:'查找附近餐厅、咖啡厅和当地美食。',eatCta:'查找美食 →',
+      experience:'体验',experienceDesc:'查看文化体验、旅游、景点和拍照地点。',experienceCta:'探索韩国 →',
+      nearby:'附近',nearbyDesc:'快速查找卫生间和旅行中需要的周边信息。',nearbyCta:'查找附近 →',
+      beauty:'K-Beauty',beautyDesc:'查看当前美容促销和购物优惠。',beautyCta:'查看实时优惠 →',
+      deals:'优惠',dealsDesc:'从官方来源自动更新已确认的促销活动。',dealsCta:'查看优惠 →',
+      oyTitle:'当前OLIVE YOUNG优惠',checking:'检查中',oyIntro:'自动检查并显示OLIVE YOUNG Global官方网站上的促销、优惠券和赠品信息。无需在这里输入优惠券代码。',loading:'正在加载当前官方促销…',
+      openOfficial:'打开OLIVE YOUNG官网 ↗',nearStores:'附近门店 ↗',lastChecked:'最后检查',officialOnly:'仅显示从OLIVE YOUNG官方来源检测到的促销。',
+      myTrip:'🧳 我的行程',myTripDesc:'把路线、预订和已保存优惠集中到一起。',openTrip:'打开我的行程',
+      eatToast:'正在连接按目的地搜索美食的功能。',tripToast:'My Trip基础功能已准备好，下一步可连接账户同步。',
+      live:'实时',noDeals:'当前未自动检测到促销，请查看官方网站。',source:'官方来源'
     }
-    toast.textContent = message;
-    toast.hidden = false;
-    clearTimeout(window.__platformToastTimer);
-    window.__platformToastTimer = setTimeout(() => toast.hidden = true, 1800);
   };
-  document.querySelectorAll('[data-platform-toast]').forEach(el => el.addEventListener('click', () => showPlatformToast(el.dataset.platformToast)));
-  const footer = document.querySelector('footer');
-  if (footer && !footer.querySelector('.launchLinks')) {
-    const links = document.createElement('div');
-    links.className = 'launchLinks';
-    links.innerHTML = '<a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms</a>';
-    footer.appendChild(links);
-  }
+
+  let platformLang = 'en';
+  const getLang = () => {
+    const l=(document.documentElement.lang||'en').toLowerCase();
+    if(l.startsWith('ko')) return 'ko';
+    if(l.startsWith('ja')) return 'ja';
+    if(l.startsWith('zh')) return 'zh';
+    return 'en';
+  };
+  const tr = k => (I18N[platformLang]||I18N.en)[k] || I18N.en[k] || k;
+
+  const showPlatformToast = (message) => {
+    let toast=document.getElementById('platformToast');
+    if(!toast){toast=document.createElement('div');toast.id='platformToast';toast.className='platformToast';toast.setAttribute('role','status');toast.hidden=true;document.body.appendChild(toast)}
+    toast.textContent=message;toast.hidden=false;clearTimeout(window.__platformToastTimer);window.__platformToastTimer=setTimeout(()=>toast.hidden=true,1800);
+  };
+
+  const translateDeal = text => {
+    const money=text.match(/(?:US\$|\$|£|€)\s*\d+(?:\.\d+)?/i)?.[0];
+    const pct=text.match(/\d+%/g)||[];
+    if(platformLang==='ko'){
+      if(/Turn on Notification/i.test(text)) return '앱 알림 설정 시 '+(money||'할인')+' 혜택';
+      if(/Download the App/i.test(text)) return '앱 다운로드 시 '+(money||'특별')+' 혜택';
+      if(/First Purchase/i.test(text)) return '첫 구매 회원 전용 쿠폰 '+(pct.join(' + ')||'혜택');
+      if(/Up to/i.test(text)) return '최대 '+(pct[0]||'특별')+' 할인 및 추가 혜택';
+      if(/Free Gift|Gifts/i.test(text)) return '추가 쿠폰 및 무료 증정 혜택';
+    }
+    if(platformLang==='ja'){
+      if(/Turn on Notification/i.test(text)) return 'アプリ通知ONで '+(money||'割引')+' 特典';
+      if(/Download the App/i.test(text)) return 'アプリダウンロードで '+(money||'特別')+' 特典';
+      if(/First Purchase/i.test(text)) return '初回購入限定クーポン '+(pct.join(' + ')||'特典');
+      if(/Up to/i.test(text)) return '最大 '+(pct[0]||'特別')+' OFF＋追加特典';
+      if(/Free Gift|Gifts/i.test(text)) return '追加クーポン・無料ギフト';
+    }
+    if(platformLang==='zh'){
+      if(/Turn on Notification/i.test(text)) return '开启App通知可享 '+(money||'折扣')+' 优惠';
+      if(/Download the App/i.test(text)) return '下载App可享 '+(money||'特别')+' 优惠';
+      if(/First Purchase/i.test(text)) return '首次购买专享优惠券 '+(pct.join(' + ')||'优惠');
+      if(/Up to/i.test(text)) return '最高 '+(pct[0]||'特别')+' 折扣及额外优惠';
+      if(/Free Gift|Gifts/i.test(text)) return '额外优惠券及免费赠品';
+    }
+    return text;
+  };
+
+  const applyPlatformLanguage = () => {
+    platformLang=getLang();
+    document.querySelectorAll('[data-pkey]').forEach(el=>{const k=el.dataset.pkey;if(tr(k))el.textContent=tr(k)});
+    document.querySelectorAll('[data-platform-toast-key]').forEach(el=>el.onclick=()=>showPlatformToast(tr(el.dataset.platformToastKey)));
+    if(window.__oyDeals) renderDeals(window.__oyDeals);
+  };
+
+  const renderDeals = payload => {
+    const box=document.getElementById('oyLiveDeals'),status=document.getElementById('oyLiveStatus'),checked=document.getElementById('oyCheckedAt');
+    if(!box)return;
+    status.textContent=payload.ok?tr('live'):tr('checking');
+    if(payload.checkedAt){try{checked.textContent=new Intl.DateTimeFormat(platformLang==='zh'?'zh-CN':platformLang==='ja'?'ja-JP':platformLang==='ko'?'ko-KR':'en-US',{dateStyle:'medium',timeStyle:'short'}).format(new Date(payload.checkedAt))}catch(e){checked.textContent=payload.checkedAt}}
+    if(!payload.deals||!payload.deals.length){box.innerHTML='<div class="liveDealSkeleton">'+tr('noDeals')+'</div>';return}
+    box.innerHTML=payload.deals.map(d=>'<div class="liveDeal"><strong>'+escapeHtml(translateDeal(d.text))+'</strong><small>'+tr('source')+': OLIVE YOUNG Global</small><a href="'+d.url+'" target="_blank" rel="noopener">'+tr('openOfficial')+'</a></div>').join('');
+  };
+  const escapeHtml=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+  const loadDeals = async () => {
+    try{
+      const r=await fetch('/api/oliveyoung-deals',{cache:'no-store'});
+      const data=await r.json();
+      window.__oyDeals=data;renderDeals(data);
+    }catch(e){
+      window.__oyDeals={ok:false,checkedAt:new Date().toISOString(),deals:[]};renderDeals(window.__oyDeals);
+    }
+  };
+
+  const footer=document.querySelector('footer');
+  if(footer&&!footer.querySelector('.launchLinks')){const links=document.createElement('div');links.className='launchLinks';links.innerHTML='<a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms</a>';footer.appendChild(links)}
+
+  applyPlatformLanguage();
+  new MutationObserver(()=>{const next=getLang();if(next!==platformLang)applyPlatformLanguage()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+  loadDeals();
 })();
 </script>
 </body></html>
