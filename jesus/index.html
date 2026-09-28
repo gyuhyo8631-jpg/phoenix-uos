@@ -159,8 +159,7 @@
           <button class="profile-btn" id="profile-fortuna" onclick="switchProfile('fortuna')">🍀 포튜나</button>
         </div>
         <button class="ghost" onclick="lockNow()">🔒 잠그기</button>
-        <button class="ghost" onclick="exportData()">내 기록 백업</button>
-        <button class="ghost" onclick="resetToday()">오늘 비우기</button>
+        <button class="ghost" onclick="resetToday()">입력 비우기</button>
       </div>
     </header>
 
@@ -191,7 +190,7 @@
         <div class="nav">
           <button class="tab-btn active" data-tab="today">오늘의 기록</button>
           <button class="tab-btn" data-tab="calendar">말씀 달력</button>
-          <button class="tab-btn" data-tab="records">지난 기록</button>
+          <button class="tab-btn" data-tab="records">저장된 글</button>
           <button class="tab-btn" data-tab="search">기록 검색</button>
           <button class="tab-btn" data-tab="guide">묵상 가이드</button>
         </div>
@@ -254,7 +253,7 @@
 
         <section class="card section tab-panel hidden" id="records">
           <div class="section-head">
-            <h2 id="recordsSectionTitle">레몬의 지난 기록</h2>
+            <h2 id="recordsSectionTitle">레몬의 저장된 글</h2>
             <span>시간이 지난 뒤 다시 읽어보면 믿음의 흐름이 보입니다.</span>
           </div>
           <div class="record-list" id="recordList"></div>
@@ -397,8 +396,7 @@
     $('dailyVerseRef').textContent='오늘의 말씀 · '+verse.ref;
     $('dailyVerseText').textContent='“'+verse.text+'”';
     $('todayReading').textContent='오늘의 말씀 · '+verse.ref;
-    const r=getRecords()[todayKey]||{};
-    if(!r.reading) $('reading').value=verse.ref;
+    if(!$('reading').value) $('reading').value=verse.ref;
   }
 
   const fields=['reading','keyverse','reflection','prayer','g1','g2','g3','action'];
@@ -529,7 +527,7 @@
     $('activeProfilePill').textContent='작성자 · '+profileIcon()+' '+profileName();
     $('todaySectionTitle').textContent=profileName()+'의 오늘 말씀과 묵상';
     $('calendarSectionTitle').textContent=profileName()+'의 말씀 달력';
-    $('recordsSectionTitle').textContent=profileName()+'의 지난 기록';
+    $('recordsSectionTitle').textContent=profileName()+'의 저장된 글';
     $('searchSectionTitle').textContent=profileName()+'의 기록 검색';
   }
 
@@ -561,12 +559,35 @@
     showLock();
   }
 
+  function entryDate(key,record){
+    if(record && record.savedAt){
+      const d=new Date(record.savedAt);
+      if(!isNaN(d.getTime())) return dateKey(d);
+    }
+    return String(key).slice(0,10);
+  }
+
+  function hasRecordOnDate(day){
+    const records=getRecords();
+    return Object.entries(records).some(function(entry){
+      return entryDate(entry[0],entry[1])===day;
+    });
+  }
+
+  function recordsOnDate(day){
+    const records=getRecords();
+    const filtered={};
+    Object.entries(records).forEach(function(entry){
+      if(entryDate(entry[0],entry[1])===day) filtered[entry[0]]=entry[1];
+    });
+    return filtered;
+  }
+
   function loadToday(){
-    const r=getRecords()[todayKey]||{};
-    fields.forEach(function(f){$(f).value=r[f]||''});
-    if(!r.reading) $('reading').value=plannedRef();
+    fields.forEach(function(f){$(f).value=''});
+    $('reading').value=plannedRef();
     $('todayReading').textContent='오늘의 말씀 · '+plannedRef();
-    $('completionPill').textContent=r.savedAt?profileName()+' 기록 완료':profileName()+' 기록 전';
+    $('completionPill').textContent=hasRecordOnDate(todayKey)?profileName()+' 기록 저장됨':profileName()+' 기록 전';
   }
 
   function saveToday(){
@@ -579,30 +600,26 @@
       return;
     }
     data.savedAt=new Date().toISOString();
-    records[todayKey]=data;
+    const entryKey=todayKey+'__'+Date.now();
+    records[entryKey]=data;
     setRecords(records);
     fields.forEach(function(f){$(f).value=''});
-    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 오늘 기록이 저장되었습니다. 입력한 내용은 화면에서 비워졌습니다.';
-    $('completionPill').textContent=profileName()+' 기록 완료';
+    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 글이 저장된 글에 따로 보관되었습니다.';
+    $('completionPill').textContent=profileName()+' 기록 저장됨';
     renderStats();renderCalendar();renderRecords();
   }
 
   function resetToday(){
-    if(!confirm(profileName()+'님의 오늘 기록을 삭제할까요?')) return;
-    const records=getRecords();
-    delete records[todayKey];
-    setRecords(records);
     fields.forEach(function(f){$(f).value=''});
     $('reading').value=plannedRef();
-    $('saveStatus').textContent=profileName()+'님의 오늘 기록을 비웠습니다.';
-    loadToday();renderStats();renderCalendar();renderRecords();
+    $('saveStatus').textContent='입력 화면만 비웠습니다. 이미 저장된 글은 그대로 보관됩니다.';
   }
 
   function renderStats(){
     const records=getRecords();
     let streak=0;
     let d=new Date();
-    while(records[dateKey(d)]){
+    while(hasRecordOnDate(dateKey(d))){
       streak++;
       d.setDate(d.getDate()-1);
     }
@@ -616,7 +633,7 @@
     for(let i=0;i<7;i++){
       const x=new Date(start);
       x.setDate(start.getDate()+i);
-      if(records[dateKey(x)]) count++;
+      if(hasRecordOnDate(dateKey(x))) count++;
     }
     $('weekSummary').textContent=count?profileIcon()+' '+profileName()+'님은 이번 주 '+count+'일 말씀을 기록했습니다.':profileName()+'님의 이번 주 기록을 시작해보세요.';
   }
@@ -645,37 +662,69 @@
       const d=new Date(y,m,day);
       const key=dateKey(d);
       const el=document.createElement('div');
-      el.className='day'+(records[key]?' has':'')+(key===todayKey?' today':'');
+      const has=hasRecordOnDate(key);
+      el.className='day'+(has?' has':'')+(key===todayKey?' today':'');
       el.textContent=day;
-      if(records[key]) el.onclick=function(){openRecord(key)};
+      if(has) el.onclick=function(){openDateRecords(key)};
       grid.appendChild(el);
     }
+  }
+
+  function recordTimestamp(key,r){
+    if(r && r.savedAt){
+      const t=new Date(r.savedAt).getTime();
+      if(!isNaN(t)) return t;
+    }
+    const suffix=String(key).split('__')[1];
+    return Number(suffix)||0;
+  }
+
+  function formatSavedTime(key,r){
+    if(r && r.savedAt){
+      const d=new Date(r.savedAt);
+      if(!isNaN(d.getTime())){
+        return dateKey(d)+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+      }
+    }
+    return String(key).slice(0,10);
   }
 
   function renderRecords(listObj,target){
     const records=listObj||getRecords();
     const box=$(target||'recordList');
     box.innerHTML='';
-    const keys=Object.keys(records).sort().reverse();
+    const keys=Object.keys(records).sort(function(a,b){
+      return recordTimestamp(b,records[b])-recordTimestamp(a,records[a]);
+    });
     if(!keys.length){
-      box.innerHTML='<div class="empty">'+profileIcon()+' '+profileName()+'님의 저장된 기록이 아직 없습니다.</div>';
+      box.innerHTML='<div class="empty">'+profileIcon()+' '+profileName()+'님의 저장된 글이 아직 없습니다.</div>';
       return;
     }
     keys.forEach(function(key){
       const r=records[key];
       const el=document.createElement('article');
       el.className='record';
-      const preview=(r.reflection||r.prayer||r.keyverse||'').slice(0,160);
-      el.innerHTML='<div class="record-top"><div class="record-date">'+key+'</div><div class="record-ref">'+escapeHtml(r.reading||'본문 미입력')+'</div></div>'+(preview?'<p>'+escapeHtml(preview)+(preview.length>=160?'…':'')+'</p>':'');
+      const preview=(r.reflection||r.prayer||r.keyverse||r.action||'').slice(0,180);
+      el.innerHTML='<div class="record-top"><div class="record-date">'+formatSavedTime(key,r)+'</div><div class="record-ref">'+escapeHtml(r.reading||'본문 미입력')+'</div></div>'+(preview?'<p>'+escapeHtml(preview)+(preview.length>=180?'…':'')+'</p>':'');
       el.onclick=function(){openRecord(key)};
       box.appendChild(el);
     });
   }
 
+  function openDateRecords(day){
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.add('hidden')});
+    const btn=document.querySelector('.tab-btn[data-tab="records"]');
+    if(btn) btn.classList.add('active');
+    $('records').classList.remove('hidden');
+    $('recordsSectionTitle').textContent=profileName()+'의 '+day+' 저장된 글';
+    renderRecords(recordsOnDate(day),'recordList');
+  }
+
   function openRecord(key){
     const r=getRecords()[key];
     if(!r) return;
-    alert(profileIcon()+' '+profileName()+' · '+key+'\n'+(r.reading||'')+'\n\n[마음에 남은 말씀]\n'+(r.keyverse||'-')+'\n\n[묵상]\n'+(r.reflection||'-')+'\n\n[기도]\n'+(r.prayer||'-')+'\n\n[감사]\n'+([r.g1,r.g2,r.g3].filter(Boolean).join(' / ')||'-')+'\n\n[실천]\n'+(r.action||'-'));
+    alert(profileIcon()+' '+profileName()+' · '+formatSavedTime(key,r)+'\n'+(r.reading||'')+'\n\n[마음에 남은 말씀]\n'+(r.keyverse||'-')+'\n\n[묵상]\n'+(r.reflection||'-')+'\n\n[기도]\n'+(r.prayer||'-')+'\n\n[감사]\n'+([r.g1,r.g2,r.g3].filter(Boolean).join(' / ')||'-')+'\n\n[실천]\n'+(r.action||'-'));
   }
 
   function searchRecords(){
@@ -690,21 +739,6 @@
       if(JSON.stringify(entry[1]).toLowerCase().includes(q)) filtered[entry[0]]=entry[1];
     });
     renderRecords(filtered,'searchResults');
-  }
-
-  function exportData(){
-    const data=JSON.stringify({
-      profile:activeProfile,
-      profileName:profileName(),
-      exportedAt:new Date().toISOString(),
-      records:getRecords()
-    },null,2);
-    const blob=new Blob([data],{type:'application/json'});
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download='harumalssum-'+activeProfile+'-'+todayKey+'.json';
-    a.click();
-    URL.revokeObjectURL(a.href);
   }
 
   function escapeHtml(str){
