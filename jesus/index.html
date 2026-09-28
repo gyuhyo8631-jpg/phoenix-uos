@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5efe6" />
+  <title>하루말씀 | 성경 묵상 일기</title>
+  <style>
+    :root{
+      --bg:#f7f2ea;
+      --paper:#fffdf8;
+      --ink:#2f2a24;
+      --muted:#7b7064;
+      --line:#e8ddd0;
+      --accent:#7f6a52;
+      --accent-2:#b8a58e;
+      --soft:#efe5d8;
+      --green:#66755f;
+      --shadow:0 18px 45px rgba(73,58,42,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#f6f0e8 0%,#fbf8f3 40%,#f4eee6 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;min-height:100vh}
+    button,input,textarea,select{font:inherit}
+    .app{max-width:1180px;margin:0 auto;padding:28px 18px 80px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.03em}
+    .logo{width:44px;height:44px;border-radius:14px;background:var(--ink);color:white;display:grid;place-items:center;font-size:21px;box-shadow:var(--shadow)}
+    .brand small{display:block;font-weight:500;color:var(--muted);margin-top:2px}
+    .header-actions{display:flex;gap:10px}
+    .ghost,.primary,.tab-btn,.small-btn{border:none;cursor:pointer;border-radius:14px;transition:.2s ease}
+    .ghost{background:rgba(255,255,255,.6);border:1px solid var(--line);padding:10px 14px;color:var(--ink)}
+    .ghost:hover{background:white}
+    .hero{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;margin-bottom:18px}
+    .card{background:rgba(255,253,248,.92);border:1px solid rgba(232,221,208,.9);box-shadow:var(--shadow);border-radius:var(--radius)}
+    .hero-main{padding:28px}
+    .eyebrow{font-size:13px;color:var(--green);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    h1{font-family:Georgia,"Times New Roman","Noto Serif KR",serif;font-size:clamp(30px,4vw,54px);line-height:1.08;margin:10px 0 12px;letter-spacing:-.045em}
+    .hero-main p{color:var(--muted);font-size:16px;line-height:1.7;margin:0 0 20px}
+    .today-row{display:flex;gap:10px;flex-wrap:wrap}
+    .pill{background:var(--soft);border-radius:999px;padding:9px 13px;font-size:13px;color:#5d5043}
+    .hero-side{padding:22px;display:flex;flex-direction:column;justify-content:space-between;min-height:220px;background:linear-gradient(145deg,#6f5b48,#3f352d);color:white;overflow:hidden;position:relative}
+    .hero-side:after{content:"✦";position:absolute;right:20px;top:8px;font-size:72px;opacity:.06}
+    .streak{font-size:54px;font-weight:800;line-height:1}
+    .streak-label{color:#e8ddd0;margin-top:8px}
+    .hero-side .mini{font-size:13px;color:#ddd0c3;line-height:1.6}
+    .layout{display:grid;grid-template-columns:250px 1fr;gap:18px}
+    .sidebar{padding:16px;position:sticky;top:18px;height:fit-content}
+    .nav{display:grid;gap:8px}
+    .tab-btn{padding:12px 14px;text-align:left;background:transparent;color:var(--muted);font-weight:650}
+    .tab-btn.active{background:var(--soft);color:var(--ink)}
+    .tab-btn:hover{background:#f5eee4}
+    .content{display:grid;gap:18px}
+    .section{padding:22px}
+    .section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+    .section h2{font-size:20px;margin:0;letter-spacing:-.02em}
+    .section-head span{font-size:13px;color:var(--muted)}
+    .verse-box{padding:18px;border-radius:18px;background:linear-gradient(180deg,#f3eadf,#f9f4ed);border:1px solid #eadfce}
+    .verse-ref{font-weight:800;margin-bottom:8px}
+    .verse-hint{font-family:Georgia,"Noto Serif KR",serif;line-height:1.8;color:#5c5147;font-size:16px}
+    .field{margin-top:16px}
+    label{display:block;font-weight:750;font-size:14px;margin-bottom:8px}
+    textarea,input[type="text"],input[type="date"],select{width:100%;border:1px solid var(--line);background:#fffdfa;border-radius:14px;padding:13px 14px;color:var(--ink);outline:none}
+    textarea{min-height:110px;resize:vertical;line-height:1.65}
+    textarea:focus,input:focus,select:focus{border-color:#b29a81;box-shadow:0 0 0 3px rgba(178,154,129,.12)}
+    .gratitude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .primary{background:var(--ink);color:white;padding:13px 18px;font-weight:800}
+    .primary:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(47,42,36,.14)}
+    .save-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:18px;flex-wrap:wrap}
+    .save-status{font-size:13px;color:var(--green)}
+    .question{padding:16px;border-left:4px solid var(--accent-2);background:#fbf7f1;border-radius:10px 16px 16px 10px;color:#5b5148;line-height:1.6}
+    .record-list{display:grid;gap:12px}
+    .record{padding:16px;border:1px solid var(--line);border-radius:16px;background:#fffdfa}
+    .record-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
+    .record-date{font-weight:800}
+    .record-ref{font-size:13px;color:var(--green)}
+    .record p{margin:6px 0 0;color:#655a50;line-height:1.6;white-space:pre-wrap}
+    .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+    .dow,.day{text-align:center;font-size:13px;padding:8px 0}
+    .dow{font-weight:800;color:var(--muted)}
+    .day{background:#fffdfa;border:1px solid var(--line);border-radius:12px;min-height:54px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+    .day.has{background:#efe7dc;border-color:#d8c7b3;font-weight:800}
+    .day.today{outline:2px solid var(--accent)}
+    .day.muted{opacity:.35;cursor:default}
+    .day.has:after{content:"";width:5px;height:5px;border-radius:50%;background:var(--green);position:absolute;bottom:6px}
+    .hidden{display:none!important}
+    .empty{color:var(--muted);text-align:center;padding:26px 10px}
+    .search-row{display:flex;gap:10px;margin-bottom:14px}
+    .search-row input{flex:1}
+    .small-btn{padding:11px 14px;background:var(--soft);color:var(--ink);font-weight:700}
+    footer{text-align:center;color:#938678;font-size:12px;margin-top:28px;line-height:1.7}
+    @media (max-width:860px){
+      .hero,.layout{grid-template-columns:1fr}
+      .sidebar{position:static;overflow:auto}
+      .nav{grid-template-columns:repeat(5,minmax(110px,1fr));min-width:610px}
+      .sidebar{padding:8px}
+      .gratitude-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .app{padding:18px 12px 60px}
+      header{align-items:flex-start}
+      .brand small{font-size:11px}
+      .header-actions .ghost:first-child{display:none}
+      .hero-main,.section{padding:18px}
+      .hero-side{min-height:185px}
+      .streak{font-size:48px}
+      .section-head{align-items:flex-start;flex-direction:column}
+      .search-row{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="logo">†</div>
+        <div>하루말씀<small>말씀을 읽는 하루에서, 말씀을 살아가는 하루로.</small></div>
+      </div>
+      <div class="header-actions">
+        <button class="ghost" onclick="exportData()">기록 내보내기</button>
+        <button class="ghost" onclick="resetToday()">오늘 비우기</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="card hero-main">
+        <div class="eyebrow">DAILY BIBLE JOURNAL</div>
+        <h1>하루 한 말씀,<br>하루 한 기록.</h1>
+        <p>읽은 말씀을 남기고, 마음의 움직임과 기도, 감사를 기록하세요.<br>기록은 이 브라우저에 안전하게 저장됩니다.</p>
+        <div class="today-row">
+          <span class="pill" id="todayLabel"></span>
+          <span class="pill" id="todayReading">오늘의 본문 · 요한복음 15장</span>
+          <span class="pill" id="completionPill">오늘 기록 전</span>
+        </div>
+      </div>
+      <div class="card hero-side">
+        <div>
+          <div class="mini">연속 묵상</div>
+          <div class="streak" id="streakCount">0</div>
+          <div class="streak-label">days with the Word</div>
+        </div>
+        <div class="mini" id="weekSummary">이번 주 기록을 시작해보세요.</div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="card sidebar">
+        <div class="nav">
+          <button class="tab-btn active" data-tab="today">오늘의 기록</button>
+          <button class="tab-btn" data-tab="calendar">말씀 달력</button>
+          <button class="tab-btn" data-tab="records">지난 기록</button>
+          <button class="tab-btn" data-tab="search">기록 검색</button>
+          <button class="tab-btn" data-tab="guide">묵상 가이드</button>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section class="card section tab-panel" id="today">
+          <div class="section-head">
+            <h2>오늘의 말씀과 묵상</h2>
+            <span>완벽하게 쓰기보다 솔직하게 남겨보세요.</span>
+          </div>
+
+          <div class="verse-box">
+            <div class="verse-ref">오늘의 본문</div>
+            <div class="verse-hint">성경 번역본의 저작권을 존중하기 위해 본문 전문은 넣지 않았습니다. 오늘 읽은 성경 범위를 직접 기록해 주세요.</div>
+          </div>
+
+          <div class="field">
+            <label for="reading">읽은 말씀</label>
+            <input id="reading" type="text" placeholder="예: 요한복음 15장 1–17절" />
+          </div>
+          <div class="field">
+            <label for="keyverse">마음에 남은 말씀</label>
+            <textarea id="keyverse" placeholder="마음에 남은 구절이나 핵심 문장을 적어보세요."></textarea>
+          </div>
+          <div class="field">
+            <label for="reflection">오늘의 묵상</label>
+            <textarea id="reflection" placeholder="이 말씀을 통해 무엇을 느꼈나요? 오늘 내 삶과 어떻게 연결되나요?"></textarea>
+          </div>
+          <div class="field">
+            <label for="prayer">오늘의 기도</label>
+            <textarea id="prayer" placeholder="하나님께 드리고 싶은 기도, 부탁, 고백을 적어보세요."></textarea>
+          </div>
+          <div class="field">
+            <label>오늘 감사한 것</label>
+            <div class="gratitude-grid">
+              <input id="g1" type="text" placeholder="감사 1" />
+              <input id="g2" type="text" placeholder="감사 2" />
+              <input id="g3" type="text" placeholder="감사 3" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="action">오늘 내가 실천할 한 가지</label>
+            <input id="action" type="text" placeholder="예: 먼저 연락하기, 용서하기, 10분 기도하기" />
+          </div>
+          <div class="save-row">
+            <span class="save-status" id="saveStatus">작성한 내용은 저장 버튼을 누르면 보관됩니다.</span>
+            <button class="primary" onclick="saveToday()">오늘의 기록 저장</button>
+          </div>
+        </section>
+
+        <section class="card section tab-panel hidden" id="calendar">
+          <div class="section-head">
+            <h2>말씀 달력</h2>
+            <span id="monthTitle"></span>
+          </div>
+          <div class="calendar" id="calendarGrid"></div>
+        </section>
+
+        <section class="card section tab-panel hidden" id="records">
+          <div class="section-head">
+            <h2>지난 기록</h2>
+            <span>시간이 지난 뒤 다시 읽어보면 믿음의 흐름이 보입니다.</span>
+          </div>
+          <div class="record-list" id="recordList"></div>
+        </section>
+
+        <section class="card section tab-panel hidden" id="search">
+          <div class="section-head">
+            <h2>기록 검색</h2>
+            <span>말씀, 감정, 기도제목을 찾아보세요.</span>
+          </div>
+          <div class="search-row">
+            <input id="searchInput" type="text" placeholder="예: 감사, 용서, 두려움, 가족" onkeydown="if(event.key==='Enter') searchRecords()" />
+            <button class="small-btn" onclick="searchRecords()">검색</button>
+          </div>
+          <div class="record-list" id="searchResults"></div>
+        </section>
+
+        <section class="card section tab-panel hidden" id="guide">
+          <div class="section-head">
+            <h2>묵상 가이드</h2>
+            <span>AI가 정답을 대신 말하기보다, 스스로 깊이 생각하도록 돕는 질문입니다.</span>
+          </div>
+          <div class="record-list">
+            <div class="question">1. 오늘 읽은 말씀에서 가장 오래 마음에 머무른 단어는 무엇인가요?</div>
+            <div class="question">2. 이 말씀은 지금의 내 상황과 어떤 점에서 연결되나요?</div>
+            <div class="question">3. 내가 내려놓아야 할 것과 붙들어야 할 것은 무엇인가요?</div>
+            <div class="question">4. 오늘 단 한 가지 행동으로 옮긴다면 무엇을 할 수 있을까요?</div>
+            <div class="question">5. 이 말씀을 한 문장의 기도로 바꾼다면 어떻게 기도하고 싶나요?</div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      하루말씀 Prototype · 모든 기록은 현재 브라우저의 로컬 저장소에만 저장됩니다.<br>
+      실제 서비스 배포 시 로그인, 암호화, 백업, 성경 API 또는 정식 라이선스 연동을 추가할 수 있습니다.
+    </footer>
+  </div>
+
+<script>
+  const STORAGE_KEY='harumalssum_records_v1';
+  const $=id=>document.getElementById(id);
+  const dateKey=(d=new Date())=>{
+    const y=d.getFullYear();
+    const m=String(d.getMonth()+1).padStart(2,'0');
+    const day=String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
+  };
+  const todayKey=dateKey();
+
+  const fields=['reading','keyverse','reflection','prayer','g1','g2','g3','action'];
+  function getRecords(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}
+  function setRecords(v){localStorage.setItem(STORAGE_KEY,JSON.stringify(v))}
+
+  function formatKoreanDate(d=new Date()){
+    const days=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+    return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 ${days[d.getDay()]}`;
+  }
+
+  function init(){
+    $('todayLabel').textContent=formatKoreanDate();
+    loadToday();
+    renderStats();
+    renderCalendar();
+    renderRecords();
+  }
+
+  function loadToday(){
+    const r=getRecords()[todayKey]||{};
+    fields.forEach(f=>$(f).value=r[f]||'');
+    $('todayReading').textContent='오늘의 본문 · '+(r.reading||'직접 기록해 주세요');
+    $('completionPill').textContent=r.savedAt?'오늘 기록 완료':'오늘 기록 전';
+  }
+
+  function saveToday(){
+    const records=getRecords();
+    const data={};
+    fields.forEach(f=>data[f]=$(f).value.trim());
+    const meaningful = data.reading||data.keyverse||data.reflection||data.prayer||data.g1||data.g2||data.g3||data.action;
+    if(!meaningful){
+      $('saveStatus').textContent='먼저 한 가지라도 기록해 주세요.';
+      return;
+    }
+    data.savedAt=new Date().toISOString();
+    records[todayKey]=data;
+    setRecords(records);
+    $('saveStatus').textContent='오늘의 기록이 저장되었습니다.';
+    loadToday(); renderStats(); renderCalendar(); renderRecords();
+  }
+
+  function resetToday(){
+    if(!confirm('오늘 작성 중인 내용을 화면에서 비울까요? 저장된 기록도 삭제됩니다.')) return;
+    const records=getRecords(); delete records[todayKey]; setRecords(records);
+    fields.forEach(f=>$(f).value='');
+    $('saveStatus').textContent='오늘 기록을 비웠습니다.';
+    loadToday(); renderStats(); renderCalendar(); renderRecords();
+  }
+
+  function renderStats(){
+    const records=getRecords();
+    let streak=0; let d=new Date();
+    while(records[dateKey(d)]){streak++; d.setDate(d.getDate()-1)}
+    $('streakCount').textContent=streak;
+
+    const now=new Date(); const start=new Date(now); start.setDate(now.getDate()-now.getDay()); start.setHours(0,0,0,0);
+    let count=0;
+    for(let i=0;i<7;i++){const x=new Date(start);x.setDate(start.getDate()+i); if(records[dateKey(x)]) count++;}
+    $('weekSummary').textContent=count?`이번 주 ${count}일 말씀을 기록했습니다.`:'이번 주 기록을 시작해보세요.';
+  }
+
+  function renderCalendar(){
+    const records=getRecords(); const now=new Date();
+    const y=now.getFullYear(), m=now.getMonth();
+    $('monthTitle').textContent=`${y}년 ${m+1}월`;
+    const grid=$('calendarGrid'); grid.innerHTML='';
+    ['일','월','화','수','목','금','토'].forEach(x=>{const el=document.createElement('div');el.className='dow';el.textContent=x;grid.appendChild(el)});
+    const first=new Date(y,m,1).getDay(); const days=new Date(y,m+1,0).getDate();
+    for(let i=0;i<first;i++){const el=document.createElement('div');el.className='day muted';grid.appendChild(el)}
+    for(let day=1;day<=days;day++){
+      const d=new Date(y,m,day); const key=dateKey(d); const el=document.createElement('div');
+      el.className='day'+(records[key]?' has':'')+(key===todayKey?' today':''); el.textContent=day;
+      if(records[key]) el.onclick=()=>openRecord(key);
+      grid.appendChild(el);
+    }
+  }
+
+  function renderRecords(listObj=null,target='recordList'){
+    const records=listObj||getRecords(); const box=$(target); box.innerHTML='';
+    const keys=Object.keys(records).sort().reverse();
+    if(!keys.length){box.innerHTML='<div class="empty">아직 저장된 기록이 없습니다.</div>';return;}
+    keys.forEach(key=>{
+      const r=records[key]; const el=document.createElement('article'); el.className='record';
+      const preview=(r.reflection||r.prayer||r.keyverse||'').slice(0,160);
+      el.innerHTML=`<div class="record-top"><div class="record-date">${key}</div><div class="record-ref">${escapeHtml(r.reading||'본문 미입력')}</div></div>${preview?`<p>${escapeHtml(preview)}${preview.length>=160?'…':''}</p>`:''}`;
+      el.onclick=()=>openRecord(key); box.appendChild(el);
+    });
+  }
+
+  function openRecord(key){
+    const r=getRecords()[key]; if(!r) return;
+    alert(`${key}\n${r.reading||''}\n\n[마음에 남은 말씀]\n${r.keyverse||'-'}\n\n[묵상]\n${r.reflection||'-'}\n\n[기도]\n${r.prayer||'-'}\n\n[감사]\n${[r.g1,r.g2,r.g3].filter(Boolean).join(' / ')||'-'}\n\n[실천]\n${r.action||'-'}`);
+  }
+
+  function searchRecords(){
+    const q=$('searchInput').value.trim().toLowerCase();
+    const all=getRecords();
+    if(!q){renderRecords(all,'searchResults');return;}
+    const filtered={};
+    Object.entries(all).forEach(([k,v])=>{if(JSON.stringify(v).toLowerCase().includes(q)) filtered[k]=v;});
+    renderRecords(filtered,'searchResults');
+  }
+
+  function exportData(){
+    const data=JSON.stringify(getRecords(),null,2);
+    const blob=new Blob([data],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`harumalssum-${todayKey}.json`;a.click();URL.revokeObjectURL(a.href);
+  }
+
+  function escapeHtml(str=''){
+    return str.replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.add('hidden'));
+    btn.classList.add('active'); $(btn.dataset.tab).classList.remove('hidden');
+    if(btn.dataset.tab==='records') renderRecords();
+    if(btn.dataset.tab==='calendar') renderCalendar();
+  }));
+
+  init();
+</script>
+</body>
+</html>
