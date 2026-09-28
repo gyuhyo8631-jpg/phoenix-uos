@@ -47,6 +47,25 @@
     .hotspotGrid{gap:8px}.hotspot{overflow:hidden;min-height:118px;padding:0;border-radius:11px}.hotspot img{display:block;width:100%;height:78px;object-fit:cover;background:#295441}.hotspot span{display:block;padding:8px 9px;line-height:1.25}.planner .restaurantFeature{margin-top:8px}.planner .restaurantToggle{border-color:#ffffff42;background:#ffffff0d;color:#fff}.planner .restaurantPanel{border-color:#ffffff32;background:#ffffff0d}.planner .restaurantPanel>p{color:#d8e7de}.planner .restaurantCard{color:var(--ink)}
     @media(max-width:480px){.brand{font-size:.94rem}.chat{font-size:.76rem}.lang{font-size:.74rem}.eyebrow{font-size:.78rem}.hero h1{font-size:2.18rem}.hero p{font-size:1rem}.airport{font-size:.88rem}.step h2{font-size:1.38rem}.route p{font-size:.9rem}.tool{font-size:.8rem}}
   </style>
+<style id="platform-expansion-css">
+.platformExpansion{margin-top:14px;padding:clamp(18px,4vw,27px);border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:var(--shadow)}
+.platformExpansion h2{margin:0;font-size:clamp(1.45rem,4vw,2.15rem);letter-spacing:-.035em}
+.platformExpansion>p{margin:7px 0 15px;color:var(--muted);line-height:1.55}
+.platformGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.platformCard{display:flex;min-height:124px;flex-direction:column;padding:15px;border:1px solid var(--line);border-radius:15px;background:#f9fbf9;color:var(--ink);text-align:left;transition:.16s;cursor:pointer}
+.platformCard:hover,.platformCard:focus-visible{border-color:#7db193;background:#eff8f2;transform:translateY(-1px)}
+.platformCard b{font-size:1.45rem}.platformCard strong{margin-top:8px;font-size:1rem}.platformCard span{margin-top:5px;color:var(--muted);font-size:.82rem;line-height:1.45}
+.platformCard .platformCta{margin-top:auto;padding-top:12px;color:var(--green);font-size:.8rem;font-weight:950}
+.beautyCoupon{margin-top:14px;padding:18px;border:1px dashed #8fb39d;border-radius:17px;background:linear-gradient(135deg,#fbfdfb,#f3f8f5)}
+.couponHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.couponBrand{color:var(--green);font-size:.78rem;font-weight:950;letter-spacing:.06em}.couponHead h3{margin:4px 0 0;font-size:1.2rem}.couponStatus{padding:6px 9px;border-radius:999px;background:#e8f4ed;color:var(--green);font-size:.72rem;font-weight:950;white-space:nowrap}
+.couponText{margin:8px 0 0;color:var(--muted);font-size:.86rem;line-height:1.55}.couponCodeRow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:#fff}.couponCode{font-weight:950;color:var(--muted)}
+.couponActions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.couponAction{min-height:42px;padding:0 14px;border:1px solid var(--green);border-radius:10px;background:#fff;color:var(--green);font-weight:950;cursor:pointer}.couponAction.primary{background:var(--green);color:#fff}.couponNotice{margin-top:9px;color:var(--muted);font-size:.72rem;line-height:1.5}
+.myTripBar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding:16px 17px;border-radius:16px;background:var(--ink);color:#fff}.myTripBar strong{display:block}.myTripBar span{display:block;margin-top:3px;color:#d4ddd7;font-size:.78rem}.myTripButton{min-height:42px;padding:0 14px;border:0;border-radius:10px;background:var(--gold);color:#26361e;font-weight:950;cursor:pointer}
+.appBottomNav{display:none}.platformToast{position:fixed;left:50%;bottom:84px;z-index:80;transform:translateX(-50%);padding:10px 14px;border-radius:999px;background:#14231b;color:#fff;font-size:.82rem;font-weight:900;box-shadow:var(--shadow)}
+.launchLinks{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px}.launchLinks a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:720px){.platformGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){body{padding-bottom:74px}.platformExpansion{padding:18px 12px}.platformGrid{grid-template-columns:repeat(2,1fr);gap:7px}.platformCard{min-height:112px;padding:13px}.platformCard strong{font-size:.92rem}.platformCard span{font-size:.76rem}.couponHead{display:block}.couponStatus{display:inline-block;margin-top:8px}.couponCodeRow{align-items:flex-start;flex-direction:column}.myTripBar{align-items:flex-start;flex-direction:column}.myTripButton{width:100%}.appBottomNav{position:fixed;left:0;right:0;bottom:0;z-index:70;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 6px calc(8px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fffefaf5;backdrop-filter:blur(12px)}.appBottomNav a,.appBottomNav button{display:flex;min-height:46px;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:transparent;color:var(--muted);font:inherit;font-size:.68rem;font-weight:900}.appBottomNav b{color:var(--ink);font-size:1.15rem}}
+</style>
 </head>
 <body>
   <header><nav class="wrap"><a class="brand" href="./"><img src="assets/korea-easy-logo.png" alt="">KOREA EASY</a><div class="navRight"><button class="installApp" id="installApp">⬇ App</button><a class="chat" href="account.html">👥 <span data-t="chat">Chat</span></a><div class="languages" aria-label="Language"><button class="lang on" data-lang="en">EN</button><button class="lang" data-lang="ja">日本</button><button class="lang" data-lang="zh">中文</button></div></div></nav></header><aside class="installHelp" id="installHelp" hidden><button class="installClose" id="installClose" aria-label="Close">×</button><strong id="installHelpTitle">Install KOREA EASY</strong><p id="installHelpText"></p></aside>
@@ -60,7 +79,41 @@
       <div class="results" id="results" hidden><div class="step"><span class="stepNo">4</span><h2 class="resultTitle" id="resultTitle">Route options</h2></div><div class="destinationSwitcher"><label id="resultDestinationLabel" for="resultDestinationInput">Choose another destination</label><div class="destinationSwitcherRow"><input class="resultDestinationInput" id="resultDestinationInput" list="destinationSuggestions" autocomplete="off"><button class="resultDestinationGo" id="resultDestinationGo" type="button">Show detailed route</button></div><div class="repeatChoices" id="repeatChoices"></div></div><div class="compare" id="compare"></div><div class="detail" id="detail" aria-live="polite"></div><p class="hint" data-t="hint">Times, fares and operating conditions can change. Confirm the airport display and navigation app before travel.</p></div>
     </section>
     <section class="after"><h2 data-t="afterTitle">Everything you need after landing</h2><p data-t="afterDesc">The most useful tools, ready when you need them.</p><div class="tools"><a class="tool" href="best-esim-korea-2026.html"><b>📶</b><span data-t="esim">eSIM & Wi-Fi</span></a><a class="tool" href="tmoney-guide-foreigners.html"><b>💳</b><span data-t="tmoney">T-money</span></a><a class="tool" href="toilet-sos.html"><b>🚻</b><span data-t="toilet">Toilet</span></a><a class="tool" href="pharmacy-sos.html"><b>💊</b><span data-t="pharmacy">Pharmacy</span></a><a class="tool" href="hotel-guide.html"><b>🏨</b><span data-t="hotel">Hotel</span></a><a class="tool" href="emergency-info.html"><b>🆘</b><span data-t="emergency">Emergency</span></a></div></section>
-  </main><footer class="wrap">KOREA EASY · Independent Korea travel guide</footer>
+  </main><!-- PLATFORM EXPANSION START -->
+<section class="platformExpansion wrap" id="explore-more">
+  <div class="eyebrow">CONTINUE YOUR KOREA TRIP</div>
+  <h2>After you arrive, keep everything in one place.</h2>
+  <p>Your airport-to-destination guide now continues into stays, food, experiences, nearby essentials, K-Beauty and traveler coupons.</p>
+  <div class="platformGrid">
+    <a class="platformCard" href="hotel-guide.html"><b>🏨</b><strong>Stay</strong><span>Hotels and accommodation around your destination.</span><span class="platformCta">Explore stays →</span></a>
+    <button class="platformCard" type="button" data-platform-toast="Restaurant discovery is being connected to destination results."><b>🍜</b><strong>Eat</strong><span>Restaurants, cafés and local food near your destination.</span><span class="platformCta">Find food →</span></button>
+    <a class="platformCard" href="seoul-explorer.html"><b>🎫</b><strong>Experience</strong><span>Culture, tours, attractions and photo spots.</span><span class="platformCta">Explore Korea →</span></a>
+    <a class="platformCard" href="toilet-sos.html"><b>📍</b><strong>Nearby</strong><span>Toilets and essential help when you need it quickly.</span><span class="platformCta">Find nearby →</span></a>
+    <button class="platformCard" type="button" data-platform-toast="K-Beauty offers will appear here as official partner promotions are added."><b>💄</b><strong>K-Beauty</strong><span>Skincare, cosmetics and traveler shopping offers.</span><span class="platformCta">Beauty deals →</span></button>
+    <button class="platformCard" type="button" data-platform-toast="Saved traveler coupons will be collected in My Trip."><b>🎟️</b><strong>Coupons</strong><span>Save eligible promotions and use them during your trip.</span><span class="platformCta">View coupons →</span></button>
+  </div>
+
+  <div class="beautyCoupon" id="kbeauty-coupon">
+    <div class="couponHead">
+      <div><div class="couponBrand">OLIVE YOUNG · K-BEAUTY</div><h3>Traveler coupon connection</h3></div>
+      <span class="couponStatus">PARTNER READY</span>
+    </div>
+    <p class="couponText">This area is ready to connect an official Olive Young or authorized partner coupon, promotion link, or store campaign once approved.</p>
+    <div class="couponCodeRow"><span class="couponCode">Official coupon not connected yet</span><button class="couponAction" type="button" data-platform-toast="Official coupon code will be enabled after partnership approval.">Coupon info</button></div>
+    <div class="couponActions">
+      <button class="couponAction primary" type="button" data-platform-toast="Coupon saved area is ready for launch.">Save to My Trip</button>
+      <a class="couponAction" href="https://www.google.com/maps/search/?api=1&query=Olive+Young+South+Korea" target="_blank" rel="noopener">Nearby stores ↗</a>
+    </div>
+    <div class="couponNotice">No unofficial discount or coupon code is represented as valid. Activate only with an official or authorized promotion.</div>
+  </div>
+
+  <div class="myTripBar">
+    <div><strong>🧳 My Trip</strong><span>Keep routes, future bookings and saved coupons together.</span></div>
+    <button class="myTripButton" type="button" data-platform-toast="My Trip foundation is ready. Account sync can be connected next.">Open My Trip</button>
+  </div>
+</section>
+<!-- PLATFORM EXPANSION END -->
+<footer class="wrap">KOREA EASY · Independent Korea travel guide</footer>
   <script>
     const TEXT={
       en:{chat:'Chat',headline:'From the airport,<br>without confusion.',lead:'Choose your arrival airport and destination. Get instructions detailed enough to copy and send.',stepAirport:'Where did you land?',stepDestination:'Where are you going?',incheon:'✈️ Incheon',gimpo:'✈️ Gimpo',gimhae:'✈️ Gimhae',jeju:'✈️ Jeju',show:'Show detailed route',exactLabel:'Hotel or exact place (optional)',exactPlaceholder:'Example: hotel name or street address',hint:'Times, fares, platforms and operating conditions can change. Check the airport display and Naver Map or KakaoMap before travel.',afterTitle:'Everything you need after landing',afterDesc:'The most useful tools, ready when you need them.',esim:'eSIM & Wi-Fi',tmoney:'T-money',toilet:'Toilet',pharmacy:'Pharmacy',hotel:'Hotel',emergency:'Emergency',fast:'Fast choice',budget:'Budget choice',easy:'Easy choice',guide:'Open airport guide ›',options:d=>`Easy routes to ${d}`,recommended:'RECOMMENDED STEP-BY-STEP ROUTE',time:'Typical time',fare:'Typical fare',transfer:'Transfers',boarding:'Where to board',arrival:'At the destination',shareTitle:'Message to send',copy:'Copy directions',share:'Share directions',map:'Open map',copied:'Directions copied.',shareFallback:'Sharing is not supported here. The directions were copied instead.',none:'0',times:n=>`${n}`,approx:'Approx.'},
@@ -256,4 +309,37 @@
     function reopenDestinationList(){if(lastConfirmedDestination&&destination.value.trim()===lastConfirmedDestination)destination.value='';renderDestinationPicker(destination.value);document.getElementById('destinationPickerPanel').hidden=false}
     window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;renderAppUI()});window.addEventListener('appinstalled',()=>{installHelp.hidden=true;renderAppUI()});installApp.addEventListener('click',requestInstall);document.getElementById('installClose').addEventListener('click',()=>installHelp.hidden=true);hotspotToggle.addEventListener('click',()=>{hotspotsOpen=!hotspotsOpen;renderHotspots()});restaurantToggle.addEventListener('click',()=>{restaurantsOpen=!restaurantsOpen;renderRestaurants()});document.getElementById('subwayToggle').addEventListener('click',()=>{subwayGuideOpen=!subwayGuideOpen;renderSubwayNetwork()});document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));document.querySelectorAll('.airport').forEach(b=>b.addEventListener('click',()=>chooseAirport(b.dataset.airport)));document.getElementById('showRoutes').addEventListener('click',renderRoutes);document.getElementById('destinationPickerPanel').addEventListener('click',e=>{const choice=e.target.closest('.destinationPickerChoice');if(!choice)return;destination.value=choice.dataset.pickerDestination;renderRoutes()});document.getElementById('repeatChoices').addEventListener('click',e=>{const choice=e.target.closest('.repeatChoice');if(!choice)return;destination.value=choice.dataset.destination;renderRoutes()});document.getElementById('compare').addEventListener('click',e=>{const choice=e.target.closest('.routeChoice');if(!choice)return;selectedRoute=Number(choice.dataset.route);renderCurrent(false,false)});document.getElementById('resultDestinationGo').addEventListener('click',repeatRoute);document.getElementById('resultDestinationInput').addEventListener('focus',e=>e.currentTarget.select());document.getElementById('resultDestinationInput').addEventListener('change',e=>{if(e.currentTarget.value.trim())repeatRoute()});document.getElementById('resultDestinationInput').addEventListener('keydown',e=>{if(e.key==='Enter')repeatRoute()});destination.addEventListener('pointerdown',reopenDestinationList);destination.addEventListener('input',()=>{renderDestinationPicker(destination.value);document.getElementById('destinationPickerPanel').hidden=false});destination.addEventListener('keydown',e=>{if(e.key==='Enter')renderRoutes()});document.addEventListener('pointerdown',e=>{if(!e.target.closest('.destinationRow')&&!e.target.closest('#destinationPickerPanel'))document.getElementById('destinationPickerPanel').hidden=true});setLang(lang);if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
   </script>
+<nav class="appBottomNav" aria-label="App navigation">
+  <a href="./"><b>🏠</b>Home</a>
+  <a href="#explore-more"><b>🗺️</b>Explore</a>
+  <a href="#kbeauty-coupon"><b>🎟️</b>Deals</a>
+  <button type="button" data-platform-toast="My Trip foundation is ready."><b>🧳</b>My Trip</button>
+</nav>
+<script id="platform-expansion-js">
+(() => {
+  const showPlatformToast = (message) => {
+    let toast = document.getElementById('platformToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'platformToast';
+      toast.className = 'platformToast';
+      toast.setAttribute('role','status');
+      toast.hidden = true;
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.hidden = false;
+    clearTimeout(window.__platformToastTimer);
+    window.__platformToastTimer = setTimeout(() => toast.hidden = true, 1800);
+  };
+  document.querySelectorAll('[data-platform-toast]').forEach(el => el.addEventListener('click', () => showPlatformToast(el.dataset.platformToast)));
+  const footer = document.querySelector('footer');
+  if (footer && !footer.querySelector('.launchLinks')) {
+    const links = document.createElement('div');
+    links.className = 'launchLinks';
+    links.innerHTML = '<a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms</a>';
+    footer.appendChild(links);
+  }
+})();
+</script>
 </body></html>
