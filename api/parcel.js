@@ -21,14 +21,62 @@ export default async function handler(req, res) {
     });
   }
 
-  const domain = process.env.VWORLD_DOMAIN || 'estate.phoenix-uos.com';
+  const configuredDomain = process.env.VWORLD_DOMAIN || 'estate.phoenix-uos.com';
   const base = 'https://api.vworld.kr';
+  const domainCandidates = Array.from(new Set([
+    configuredDomain,
+    'estate.phoenix-uos.com',
+    'https://estate.phoenix-uos.com',
+    'https://estate.phoenix-uos.com/'
+  ].filter(Boolean)));
 
   async function getJson(url) {
-    const r = await fetch(url, { headers:{ 'User-Agent':'MeridianProperties/1.0 (+https://estate.phoenix-uos.com)' } });
-    if (!r.ok) throw new Error('VWorld HTTP '+r.status);
+    const r = await fetch(url, {
+      headers:{
+        'User-Agent':'MeridianProperties/1.0 (+https://estate.phoenix-uos.com)',
+        'Accept':'application/json'
+      }
+    });
     const txt = await r.text();
-    try { return JSON.parse(txt); } catch { throw new Error('Invalid JSON from VWorld'); }
+    let data;
+    try { data = JSON.parse(txt); }
+    catch { throw new Error('Invalid JSON from VWorld: '+txt.slice(0,180)); }
+    if (!r.ok) throw new Error('VWorld HTTP '+r.status+': '+txt.slice(0,180));
+    return data;
+  }
+
+  function upstreamError(data) {
+    if (!data || typeof data !== 'object') return null;
+    const status = data?.response?.status;
+    const err = data?.response?.error || data?.error;
+    if (status === 'ERROR' || err) {
+      const code = err?.code || data?.response?.resultCode || data?.resultCode || 'VWORLD_ERROR';
+      const text = err?.text || err?.message || data?.response?.resultMsg || data?.resultMsg || status || 'VWorld request failed';
+      return { code:String(code), text:String(text) };
+    }
+    return null;
+  }
+
+  async function requestWithDomain(urlObj, allowNoDomain=true) {
+    const attempts = [];
+    for (const d of domainCandidates) attempts.push(d);
+    if (allowNoDomain) attempts.push('');
+    let last = null;
+    for (const d of attempts) {
+      const u = new URL(urlObj.toString());
+      if (d) u.searchParams.set('domain', d); else u.searchParams.delete('domain');
+      try {
+        const data = await getJson(u.toString());
+        const err = upstreamError(data);
+        if (!err) return { data, domain:d || '(none)' };
+        last = { domain:d || '(none)', error:err };
+      } catch (e) {
+        last = { domain:d || '(none)', error:{ code:'FETCH_ERROR', text:e?.message || String(e) } };
+      }
+    }
+    const e = new Error(last?.error?.text || 'VWorld request failed');
+    e.vworld = last;
+    throw e;
   }
 
   function pickFeature(data) {
@@ -58,14 +106,14 @@ export default async function handler(req, res) {
     for (let y=now; y>=now-4; y--) {
       const u = new URL(base + path);
       u.searchParams.set('key', key);
-      u.searchParams.set('domain', domain);
       u.searchParams.set('pnu', pnu);
       u.searchParams.set('stdrYear', String(y));
       u.searchParams.set('format', 'json');
       u.searchParams.set('numOfRows', '10');
       u.searchParams.set('pageNo', '1');
       try {
-        const data = await getJson(u.toString());
+        const wrapped = await requestWithDomain(u, true);
+        const data = wrapped.data;
         const total = Number(data?.response?.totalCount ?? data?.totalCount ?? 0);
         const rec = chooseRecord(data);
         if (rec && (total > 0 || Object.keys(rec).length)) return { year:y, record:rec, raw:data };
@@ -80,14 +128,14 @@ export default async function handler(req, res) {
     parcelUrl.searchParams.set('request','GetFeature');
     parcelUrl.searchParams.set('data','LP_PA_CBND_BUBUN');
     parcelUrl.searchParams.set('key',key);
-    parcelUrl.searchParams.set('domain',domain);
     parcelUrl.searchParams.set('geomFilter',`POINT(${lng} ${lat})`);
     parcelUrl.searchParams.set('crs','EPSG:4326');
     parcelUrl.searchParams.set('size','1');
     parcelUrl.searchParams.set('page','1');
     parcelUrl.searchParams.set('format','json');
 
-    const parcelData = await getJson(parcelUrl.toString());
+    const parcelWrapped = await requestWithDomain(parcelUrl, false);
+    const parcelData = parcelWrapped.data;
     const feature = pickFeature(parcelData);
     const props = feature?.properties || {};
     const pnu = String(props.pnu || props.PNU || props.pnu_cd || props.PNU_CD || '');
@@ -109,7 +157,7 @@ export default async function handler(req, res) {
     addressUrl.searchParams.set('key',key);
 
     const [addressData, characteristics, price] = await Promise.all([
-      getJson(addressUrl.toString()).catch(()=>null),
+      requestWithDomain(addressUrl, true).then(x=>x.data).catch(()=>null),
       fetchWithYear('/ned/data/getLandCharacteristics', pnu),
       fetchWithYear('/ned/data/getIndvdLandPriceAttr', pnu)
     ]);
@@ -147,8 +195,9 @@ export default async function handler(req, res) {
     return res.status(200).json({
       ok:false,
       configured:true,
-      code:'VWORLD_ERROR',
-      message:error?.message || 'Parcel lookup failed'
+      code:error?.vworld?.error?.code || 'VWORLD_ERROR',
+      message:error?.vworld?.error?.text || error?.message || 'Parcel lookup failed',
+      triedDomain:error?.vworld?.domain || null
     });
   }
 }
