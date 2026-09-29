@@ -44,6 +44,22 @@
       }
     },
     {
+      "src": "^/3d-city/?$",
+      "has": [{ "type": "host", "value": "estate\\.phoenix-uos\\.com" }],
+      "dest": "/estate/3d-city.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "src": "^/3d-city/?$",
+      "has": [{ "type": "host", "value": "estate-phoenix-uos\\.vercel\\.app|estate-phoenix-uos\\.com|www\\.estate-phoenix-uos\\.com" }],
+      "dest": "/estate/3d-city.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
       "handle": "filesystem"
     }
   ]
