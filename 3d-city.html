@@ -31,7 +31,7 @@ button,a,input,select{font:inherit}button{cursor:pointer}
 .projects{display:grid;gap:7px}.project{width:100%;text-align:left;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.035);color:#fff;padding:11px 12px}.project:hover,.project.active{border-color:var(--gold);background:rgba(215,165,102,.09)}.project small{display:flex;justify-content:space-between;gap:10px;color:#9cabbf;font-size:9px}.project strong{display:block;font:600 15px 'Playfair Display','Noto Sans KR',serif;margin-top:5px}.project em{font-style:normal;color:#d9b27c}
 .build-toggle{width:100%;border:1px solid var(--gold);background:linear-gradient(135deg,#d7a566,#9a622d);color:#091322;padding:12px;font-weight:800;font-size:12px}.build-toggle.on{background:#fff;color:#071324}
 .build-panel{display:none;margin-top:11px;padding:13px;border:1px solid rgba(215,165,102,.35);background:rgba(215,165,102,.07)}.build-panel.on{display:block}.build-note{font-size:11px;color:#d8c3a7;line-height:1.55;margin:0 0 10px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}.field label{display:block;color:#8e9cb0;font-size:9px;margin-bottom:4px}.field select,.field input{width:100%;height:36px;border:1px solid var(--line);background:#0d1d33;color:#fff;padding:0 9px}.build-meta{display:flex;justify-content:space-between;color:#b6c1d0;font-size:10px;margin-top:8px}.reset{margin-top:9px;width:100%;padding:8px;border:1px solid var(--line);background:transparent;color:#cbd5e1;font-size:10px}
-.legend{position:absolute;right:18px;bottom:18px;z-index:10;background:rgba(7,19,36,.88);backdrop-filter:blur(15px);border:1px solid var(--line);padding:12px 14px;font-size:10px;color:#c7d1df;display:grid;gap:7px}.legend div{display:flex;align-items:center;gap:8px}.swatch{width:18px;height:8px}.existing{background:#6e7888}.planned{background:#d7a566}.custom{background:#54d6b1}
+.estimate-card{border:1px solid rgba(215,165,102,.42);background:linear-gradient(180deg,rgba(215,165,102,.08),rgba(255,255,255,.025));padding:14px}.estimate-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px}.estimate-head strong{font:600 17px 'Playfair Display','Noto Sans KR',serif}.estimate-badge{font-size:8px;letter-spacing:.08em;color:#f1cf9e;border:1px solid rgba(215,165,102,.38);padding:4px 6px;white-space:nowrap}.estimate-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.estimate-grid .field input,.estimate-grid .field select{height:34px}.estimate-actions{display:flex;gap:7px;margin-top:10px}.estimate-btn{flex:1;border:1px solid rgba(215,165,102,.42);background:rgba(215,165,102,.1);color:#f5d4a7;padding:9px 7px;font-size:9px;font-weight:700}.estimate-btn.primary{background:linear-gradient(135deg,#d7a566,#9a622d);color:#081322;border-color:transparent}.estimate-results{margin-top:12px;border-top:1px solid rgba(255,255,255,.1);padding-top:10px;display:grid;gap:6px}.estimate-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px;color:#aeb9c8}.estimate-row strong{font-size:11px;color:#fff}.estimate-row.total{margin-top:3px;padding-top:7px;border-top:1px solid rgba(255,255,255,.1)}.estimate-row.total strong{color:#f2cf9d;font-size:13px}.estimate-row.profit strong.positive{color:#54d6b1}.estimate-row.profit strong.negative{color:#ff8f8f}.estimate-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.estimate-kpi{padding:9px 6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);text-align:center}.estimate-kpi span{display:block;color:#8392a7;font-size:8px;margin-bottom:4px}.estimate-kpi strong{font-size:11px}.estimate-note{margin:10px 0 0;color:#8796aa;font-size:8px;line-height:1.55}.legend{position:absolute;right:18px;bottom:18px;z-index:10;background:rgba(7,19,36,.88);backdrop-filter:blur(15px);border:1px solid var(--line);padding:12px 14px;font-size:10px;color:#c7d1df;display:grid;gap:7px}.legend div{display:flex;align-items:center;gap:8px}.swatch{width:18px;height:8px}.existing{background:#6e7888}.planned{background:#d7a566}.custom{background:#54d6b1}
 .disclaimer{position:absolute;z-index:4;left:50%;bottom:18px;transform:translateX(-50%);max-width:590px;width:calc(100% - 500px);background:rgba(7,19,36,.76);backdrop-filter:blur(12px);padding:9px 13px;border:1px solid var(--line);font-size:9px;line-height:1.5;color:#9aa8ba;text-align:center}
 .build-hint{position:absolute;z-index:12;left:50%;top:18px;transform:translateX(-50%);background:#d7a566;color:#081322;padding:10px 16px;font-size:11px;font-weight:800;display:none;box-shadow:0 10px 30px rgba(0,0,0,.2)}.build-hint.on{display:block}
 .fallback{display:none;position:absolute;inset:0;place-items:center;background:rgba(7,19,36,.72);padding:30px;text-align:center;z-index:2;pointer-events:none}.fallback strong{display:block;font:600 30px 'Playfair Display',serif;margin-bottom:8px}.fallback p{color:#aab6c6;max-width:520px}
@@ -66,6 +66,38 @@ button,a,input,select{font:inherit}button{cursor:pointer}
 <div class="fields"><div class="field"><label data-i18n="buildingType">건물 용도</label><select id="buildType"><option value="OFFICE">OFFICE</option><option value="RESIDENCE">RESIDENCE</option><option value="HOTEL">HOTEL</option><option value="RETAIL">RETAIL</option><option value="MIXED">MIXED</option></select></div><div class="field"><label data-i18n="floors">층수</label><input id="floors" type="number" min="3" max="100" value="30"></div></div>
 <div class="build-meta"><span data-i18n="height">예상 높이</span><strong id="heightValue">108 m</strong></div><button class="reset" id="resetCustom" type="button" data-i18n="reset">내가 만든 건물 초기화</button>
 </div></section>
+<section class="section" id="costSection">
+<div class="estimate-card">
+<div class="estimate-head"><div><div class="eyebrow">DEVELOPMENT FEASIBILITY</div><strong data-i18n="costTitle">COST & PROFIT 견적</strong></div><span class="estimate-badge" data-i18n="samplePreset">SAMPLE PRESET · 수정 가능</span></div>
+<div class="estimate-grid">
+<div class="field"><label data-i18n="landArea">대지면적 (㎡)</label><input id="landArea" type="number" min="10" step="10" value="1000"></div>
+<div class="field"><label data-i18n="siteCoverage">건폐 가정 (%)</label><input id="siteCoverage" type="number" min="10" max="95" step="1" value="55"></div>
+<div class="field"><label data-i18n="landUnit">토지단가 /㎡</label><input id="landUnit" type="number" min="0" step="1000"></div>
+<div class="field"><label data-i18n="constructionUnit">공사단가 /㎡</label><input id="constructionUnit" type="number" min="0" step="1000"></div>
+<div class="field"><label data-i18n="finishGrade">마감 등급</label><select id="finishGrade"><option value="1">STANDARD</option><option value="1.18" selected>PREMIUM</option><option value="1.38">LUXURY</option></select></div>
+<div class="field"><label data-i18n="exitUnit">예상 매각단가 /㎡</label><input id="exitUnit" type="number" min="0" step="1000"></div>
+<div class="field"><label data-i18n="acqTax">취득·세금 가정 (%)</label><input id="acqTax" type="number" min="0" max="30" step=".5" value="5"></div>
+<div class="field"><label data-i18n="softCost">설계·인허가 (%)</label><input id="softCost" type="number" min="0" max="30" step=".5" value="12"></div>
+<div class="field"><label data-i18n="financeCost">금융비용 (%)</label><input id="financeCost" type="number" min="0" max="30" step=".5" value="6"></div>
+<div class="field"><label data-i18n="contingency">예비비 (%)</label><input id="contingency" type="number" min="0" max="30" step=".5" value="5"></div>
+</div>
+<div class="estimate-actions"><button class="estimate-btn" id="resetCostPreset" type="button" data-i18n="resetPreset">도시 기본값</button><button class="estimate-btn primary" id="calculateCost" type="button" data-i18n="calculate">CALCULATE</button></div>
+<div class="estimate-results">
+<div class="estimate-row"><span data-i18n="gfa">예상 연면적</span><strong id="estGfa">-</strong></div>
+<div class="estimate-row"><span data-i18n="landCost">토지비</span><strong id="estLand">-</strong></div>
+<div class="estimate-row"><span data-i18n="acquisition">취득·세금</span><strong id="estAcq">-</strong></div>
+<div class="estimate-row"><span data-i18n="construction">공사비</span><strong id="estConstruction">-</strong></div>
+<div class="estimate-row"><span data-i18n="soft">설계·인허가</span><strong id="estSoft">-</strong></div>
+<div class="estimate-row"><span data-i18n="finance">금융비용</span><strong id="estFinance">-</strong></div>
+<div class="estimate-row"><span data-i18n="reserve">예비비</span><strong id="estContingency">-</strong></div>
+<div class="estimate-row total"><span data-i18n="totalProject">총사업비</span><strong id="estTotal">-</strong></div>
+<div class="estimate-row"><span data-i18n="exitValue">예상 매각가</span><strong id="estExit">-</strong></div>
+<div class="estimate-row profit"><span data-i18n="devProfit">예상 개발이익</span><strong id="estProfit">-</strong></div>
+</div>
+<div class="estimate-kpis"><div class="estimate-kpi"><span data-i18n="roi">ROI</span><strong id="estRoi">-</strong></div><div class="estimate-kpi"><span data-i18n="costPerGfa">연면적당 원가</span><strong id="estCostPerGfa">-</strong></div><div class="estimate-kpi"><span data-i18n="breakEven">손익분기 매각단가</span><strong id="estBreakEven">-</strong></div></div>
+<p class="estimate-note" data-i18n="costDisclaimer">본 계산은 초기 사업성 검토용 추정치입니다. 실제 토지가격, 용도지역·용적률, 공사 계약단가, 세금, 금융조건, 인허가에 따라 크게 달라질 수 있습니다.</p>
+</div>
+</section>
 </aside>
 <div class="legend"><div><span class="swatch existing"></span><span data-i18n="existing">현재 도시 건물</span></div><div><span class="swatch planned"></span><span data-i18n="planned">Meridian 개발안</span></div><div><span class="swatch custom"></span><span data-i18n="custom">사용자 배치 건물</span></div></div>
 <div class="disclaimer" data-i18n="disclaimer">본 화면은 도시계획 아이디어를 시각화하는 개념 시뮬레이터입니다. 실제 토지 소유, 개발 가능 여부, 용도지역, 용적률, 인허가, 공사비 또는 투자수익을 의미하지 않습니다.</div>
@@ -74,10 +106,10 @@ button,a,input,select{font:inherit}button{cursor:pointer}
 <script>
 (function(){
 var T={
-ko:{back:'← 부동산 플랫폼으로 돌아가기',intro:'서울·오사카·두바이의 실제 3D 건물을 보면서 Meridian의 미래 개발 시나리오를 겹쳐 보고, 직접 가상 건물을 배치해볼 수 있습니다.',viewModeSub:'도시 레이어',timelineSub:'개발 시나리오 연도',buildMode:'＋ BUILD MODE · 직접 건물 세우기',buildNote:'건물 용도와 층수를 정한 뒤 지도에서 위치를 클릭하세요. 이 배치는 브라우저에서만 보이는 개념 시뮬레이션입니다.',buildingType:'건물 용도',floors:'층수',height:'예상 높이',reset:'내가 만든 건물 초기화',existing:'현재 도시 건물',planned:'Meridian 개발안',custom:'사용자 배치 건물',disclaimer:'본 화면은 도시계획 아이디어를 시각화하는 개념 시뮬레이터입니다. 실제 토지 소유, 개발 가능 여부, 용도지역, 용적률, 인허가, 공사비 또는 투자수익을 의미하지 않습니다.',buildHint:'지도에서 건물을 세울 위치를 클릭하세요.',mapFail:'지도를 불러오지 못했습니다. 네트워크 연결을 확인한 뒤 새로고침해 주세요.',concept:'개념안',complete:'완성 시나리오',floorUnit:'층'},
-en:{back:'← Back to property platform',intro:'Explore real 3D buildings in Seoul, Osaka and Dubai, overlay Meridian development scenarios, and place your own conceptual buildings.',viewModeSub:'City layers',timelineSub:'Scenario year',buildMode:'＋ BUILD MODE · Place a building',buildNote:'Choose a use and floor count, then click the map. Your building is a browser-only concept simulation.',buildingType:'Building use',floors:'Floors',height:'Approx. height',reset:'Reset my buildings',existing:'Existing buildings',planned:'Meridian concepts',custom:'User buildings',disclaimer:'This is a conceptual city-planning visualization. It does not represent land ownership, development rights, zoning, FAR, permits, construction cost or investment returns.',buildHint:'Click the map where you want to place a building.',mapFail:'The map could not be loaded. Check your connection and refresh.',concept:'Concept',complete:'Scenario completion',floorUnit:'F'},
-ja:{back:'← 不動産プラットフォームへ戻る',intro:'ソウル・大阪・ドバイの実際の3D建物を見ながら、Meridianの将来開発シナリオを重ね、仮想建物を配置できます。',viewModeSub:'都市レイヤー',timelineSub:'開発シナリオ年',buildMode:'＋ BUILD MODE · 建物を配置',buildNote:'用途と階数を設定し、地図上の位置をクリックしてください。ブラウザ上だけの概念シミュレーションです。',buildingType:'建物用途',floors:'階数',height:'想定高さ',reset:'自作建物をリセット',existing:'現在の建物',planned:'Meridian開発案',custom:'ユーザー配置建物',disclaimer:'本画面は都市計画アイデアを可視化する概念シミュレーターです。土地所有、開発可否、用途地域、容積率、許認可、建設費、投資収益を示すものではありません。',buildHint:'建物を配置する場所を地図上でクリックしてください。',mapFail:'地図を読み込めませんでした。接続を確認して再読み込みしてください。',concept:'構想',complete:'完成シナリオ',floorUnit:'階'},
-zh:{back:'← 返回房地产平台',intro:'在首尔、大阪和迪拜的真实3D建筑上叠加 Meridian 未来开发方案，并可自行放置概念建筑。',viewModeSub:'城市图层',timelineSub:'开发方案年份',buildMode:'＋ BUILD MODE · 放置建筑',buildNote:'选择用途和楼层后点击地图。该建筑仅是浏览器中的概念模拟。',buildingType:'建筑用途',floors:'楼层',height:'预计高度',reset:'重置我的建筑',existing:'现有建筑',planned:'Meridian 开发方案',custom:'用户建筑',disclaimer:'本页面仅用于城市规划概念可视化，不代表土地所有权、开发权、分区、容积率、许可、建设成本或投资收益。',buildHint:'点击地图选择建筑位置。',mapFail:'地图加载失败，请检查网络并刷新。',concept:'概念',complete:'方案完成',floorUnit:'层'}};
+ko:{back:'← 부동산 플랫폼으로 돌아가기',intro:'서울·오사카·두바이의 실제 3D 건물을 보면서 Meridian의 미래 개발 시나리오를 겹쳐 보고, 직접 가상 건물을 배치해볼 수 있습니다.',viewModeSub:'도시 레이어',timelineSub:'개발 시나리오 연도',buildMode:'＋ BUILD MODE · 직접 건물 세우기',buildNote:'건물 용도와 층수를 정한 뒤 지도에서 위치를 클릭하세요. 이 배치는 브라우저에서만 보이는 개념 시뮬레이션입니다.',buildingType:'건물 용도',floors:'층수',height:'예상 높이',reset:'내가 만든 건물 초기화',existing:'현재 도시 건물',planned:'Meridian 개발안',custom:'사용자 배치 건물',disclaimer:'본 화면은 도시계획 아이디어를 시각화하는 개념 시뮬레이터입니다. 실제 토지 소유, 개발 가능 여부, 용도지역, 용적률, 인허가, 공사비 또는 투자수익을 의미하지 않습니다.',buildHint:'지도에서 건물을 세울 위치를 클릭하세요.',mapFail:'지도를 불러오지 못했습니다. 네트워크 연결을 확인한 뒤 새로고침해 주세요.',concept:'개념안',complete:'완성 시나리오',floorUnit:'층',costTitle:'COST & PROFIT 견적',samplePreset:'SAMPLE PRESET · 수정 가능',landArea:'대지면적 (㎡)',siteCoverage:'건폐 가정 (%)',landUnit:'토지단가 /㎡',constructionUnit:'공사단가 /㎡',finishGrade:'마감 등급',exitUnit:'예상 매각단가 /㎡',acqTax:'취득·세금 가정 (%)',softCost:'설계·인허가 (%)',financeCost:'금융비용 (%)',contingency:'예비비 (%)',resetPreset:'도시 기본값',calculate:'CALCULATE',gfa:'예상 연면적',landCost:'토지비',acquisition:'취득·세금',construction:'공사비',soft:'설계·인허가',finance:'금융비용',reserve:'예비비',totalProject:'총사업비',exitValue:'예상 매각가',devProfit:'예상 개발이익',roi:'ROI',costPerGfa:'연면적당 원가',breakEven:'손익분기 매각단가',costDisclaimer:'본 계산은 초기 사업성 검토용 추정치입니다. 실제 토지가격, 용도지역·용적률, 공사 계약단가, 세금, 금융조건, 인허가에 따라 크게 달라질 수 있습니다.'},
+en:{back:'← Back to property platform',intro:'Explore real 3D buildings in Seoul, Osaka and Dubai, overlay Meridian development scenarios, and place your own conceptual buildings.',viewModeSub:'City layers',timelineSub:'Scenario year',buildMode:'＋ BUILD MODE · Place a building',buildNote:'Choose a use and floor count, then click the map. Your building is a browser-only concept simulation.',buildingType:'Building use',floors:'Floors',height:'Approx. height',reset:'Reset my buildings',existing:'Existing buildings',planned:'Meridian concepts',custom:'User buildings',disclaimer:'This is a conceptual city-planning visualization. It does not represent land ownership, development rights, zoning, FAR, permits, construction cost or investment returns.',buildHint:'Click the map where you want to place a building.',mapFail:'The map could not be loaded. Check your connection and refresh.',concept:'Concept',complete:'Scenario completion',floorUnit:'F',costTitle:'COST & PROFIT ESTIMATE',samplePreset:'SAMPLE PRESET · EDITABLE',landArea:'Land area (㎡)',siteCoverage:'Site coverage assumption (%)',landUnit:'Land price /㎡',constructionUnit:'Construction cost /㎡',finishGrade:'Finish grade',exitUnit:'Expected sale price /㎡',acqTax:'Acquisition & tax (%)',softCost:'Design & permits (%)',financeCost:'Finance cost (%)',contingency:'Contingency (%)',resetPreset:'City preset',calculate:'CALCULATE',gfa:'Estimated GFA',landCost:'Land cost',acquisition:'Acquisition & tax',construction:'Construction cost',soft:'Design & permits',finance:'Finance cost',reserve:'Contingency',totalProject:'Total project cost',exitValue:'Estimated exit value',devProfit:'Estimated development profit',roi:'ROI',costPerGfa:'Cost / GFA',breakEven:'Break-even sale /㎡',costDisclaimer:'This is an early-stage feasibility estimate. Actual land value, zoning/FAR, contractor pricing, taxes, financing and permits can materially change the result.'},
+ja:{back:'← 不動産プラットフォームへ戻る',intro:'ソウル・大阪・ドバイの実際の3D建物を見ながら、Meridianの将来開発シナリオを重ね、仮想建物を配置できます。',viewModeSub:'都市レイヤー',timelineSub:'開発シナリオ年',buildMode:'＋ BUILD MODE · 建物を配置',buildNote:'用途と階数を設定し、地図上の位置をクリックしてください。ブラウザ上だけの概念シミュレーションです。',buildingType:'建物用途',floors:'階数',height:'想定高さ',reset:'自作建物をリセット',existing:'現在の建物',planned:'Meridian開発案',custom:'ユーザー配置建物',disclaimer:'本画面は都市計画アイデアを可視化する概念シミュレーターです。土地所有、開発可否、用途地域、容積率、許認可、建設費、投資収益を示すものではありません。',buildHint:'建物を配置する場所を地図上でクリックしてください。',mapFail:'地図を読み込めませんでした。接続を確認して再読み込みしてください。',concept:'構想',complete:'完成シナリオ',floorUnit:'階',costTitle:'COST & PROFIT 概算',samplePreset:'参考プリセット · 編集可能',landArea:'敷地面積 (㎡)',siteCoverage:'建ぺい率想定 (%)',landUnit:'土地単価 /㎡',constructionUnit:'建設単価 /㎡',finishGrade:'仕上げグレード',exitUnit:'想定売却単価 /㎡',acqTax:'取得・税費用 (%)',softCost:'設計・許認可 (%)',financeCost:'金融費用 (%)',contingency:'予備費 (%)',resetPreset:'都市プリセット',calculate:'CALCULATE',gfa:'想定延床面積',landCost:'土地費',acquisition:'取得・税費用',construction:'建設費',soft:'設計・許認可',finance:'金融費用',reserve:'予備費',totalProject:'総事業費',exitValue:'想定売却額',devProfit:'想定開発利益',roi:'ROI',costPerGfa:'延床面積当たり原価',breakEven:'損益分岐売却単価',costDisclaimer:'初期事業性検討用の概算です。実際の土地価格、用途地域・容積率、工事単価、税金、融資条件、許認可により大きく変動します。'},
+zh:{back:'← 返回房地产平台',intro:'在首尔、大阪和迪拜的真实3D建筑上叠加 Meridian 未来开发方案，并可自行放置概念建筑。',viewModeSub:'城市图层',timelineSub:'开发方案年份',buildMode:'＋ BUILD MODE · 放置建筑',buildNote:'选择用途和楼层后点击地图。该建筑仅是浏览器中的概念模拟。',buildingType:'建筑用途',floors:'楼层',height:'预计高度',reset:'重置我的建筑',existing:'现有建筑',planned:'Meridian 开发方案',custom:'用户建筑',disclaimer:'本页面仅用于城市规划概念可视化，不代表土地所有权、开发权、分区、容积率、许可、建设成本或投资收益。',buildHint:'点击地图选择建筑位置。',mapFail:'地图加载失败，请检查网络并刷新。',concept:'概念',complete:'方案完成',floorUnit:'层',costTitle:'COST & PROFIT 估算',samplePreset:'参考预设 · 可编辑',landArea:'土地面积 (㎡)',siteCoverage:'建筑覆盖率假设 (%)',landUnit:'土地单价 /㎡',constructionUnit:'建造成本 /㎡',finishGrade:'装修等级',exitUnit:'预计销售单价 /㎡',acqTax:'取得及税费 (%)',softCost:'设计及许可 (%)',financeCost:'融资成本 (%)',contingency:'预备费 (%)',resetPreset:'城市预设',calculate:'CALCULATE',gfa:'预计总建筑面积',landCost:'土地成本',acquisition:'取得及税费',construction:'建造成本',soft:'设计及许可',finance:'融资成本',reserve:'预备费',totalProject:'项目总成本',exitValue:'预计出售价值',devProfit:'预计开发利润',roi:'ROI',costPerGfa:'单位建筑面积成本',breakEven:'盈亏平衡销售单价',costDisclaimer:'本计算仅用于项目早期可行性估算。实际土地价格、规划容积率、施工合同价格、税费、融资条件及许可可能使结果发生重大变化。'}};
 var cities={
 seoul:{center:[127.0473,37.5036],zoom:15.6,bearing:-18,pitch:66,area:'SEOUL · TEHERAN-RO',title:{ko:'업무·주거·보행녹지를 연결하는 수직도시',en:'A vertical city linking work, living and green mobility',ja:'業務・住居・歩行緑地をつなぐ垂直都市',zh:'连接办公、居住与步行绿地的垂直城市'},desc:{ko:'테헤란로의 업무 기능을 유지하면서 주거, 문화, 녹지와 보행 동선을 결합하는 개념 시나리오입니다.',en:'A concept that keeps Teheran-ro’s business role while layering housing, culture, green space and walkability.',ja:'テヘラン路の業務機能を維持しつつ、住居・文化・緑地・歩行動線を重ねる構想です。',zh:'在保留德黑兰路商务功能的同时，叠加住宅、文化、绿地与步行系统。'},tags:['OFFICE','RESIDENCE','GREEN WALK','TRANSIT'],projects:[
 {name:'MERIDIAN TOWER SEOUL',lng:127.0467,lat:37.5047,floors:48,height:182,year:2030,type:'MIXED'},
@@ -91,6 +123,11 @@ dubai:{center:[55.2744,25.1974],zoom:15.3,bearing:-28,pitch:67,area:'DUBAI · DO
 {name:'MERIDIAN DUBAI TOWER',lng:55.2762,lat:25.1959,floors:62,height:248,year:2031,type:'MIXED'},
 {name:'BUSINESS BAY SKY RESIDENCE',lng:55.2718,lat:25.1947,floors:52,height:205,year:2034,type:'RESIDENCE'},
 {name:'DOWNTOWN URBAN HOTEL',lng:55.2776,lat:25.1993,floors:41,height:166,year:2029,type:'HOTEL'}]}
+};
+var costPresets={
+seoul:{currency:'KRW',symbol:'₩',land:65000000,coverage:55,acq:5,soft:12,finance:6,cont:5,types:{OFFICE:{build:4200000,exit:15000000},RESIDENCE:{build:3800000,exit:18000000},HOTEL:{build:4800000,exit:16000000},RETAIL:{build:4000000,exit:18000000},MIXED:{build:4300000,exit:17000000}}},
+osaka:{currency:'JPY',symbol:'¥',land:2500000,coverage:55,acq:5,soft:12,finance:6,cont:5,types:{OFFICE:{build:600000,exit:1500000},RESIDENCE:{build:520000,exit:1450000},HOTEL:{build:700000,exit:1650000},RETAIL:{build:580000,exit:1600000},MIXED:{build:630000,exit:1550000}}},
+dubai:{currency:'AED',symbol:'AED ',land:28000,coverage:55,acq:4,soft:12,finance:6,cont:5,types:{OFFICE:{build:7500,exit:18000},RESIDENCE:{build:7000,exit:21000},HOTEL:{build:9000,exit:22000},RETAIL:{build:7800,exit:20000},MIXED:{build:8200,exit:20500}}}
 };
 var lang='ko',city='seoul',mode='plan',buildOn=false,custom=[];
 var mapReady=typeof window.maplibregl!=='undefined',map=null;
@@ -135,15 +172,60 @@ function applyLang(){
  document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(T[lang][k])el.textContent=T[lang][k]});document.querySelectorAll('.lang').forEach(function(b){b.classList.toggle('active',b.dataset.lang===lang)});renderCity()
 }
 document.querySelectorAll('.lang').forEach(function(b){b.onclick=function(){lang=b.dataset.lang;applyLang()}});
-document.querySelectorAll('.city').forEach(function(b){b.onclick=function(){city=b.dataset.city;document.querySelectorAll('.city').forEach(function(x){x.classList.remove('active')});b.classList.add('active');renderCity()}});
+document.querySelectorAll('.city').forEach(function(b){b.onclick=function(){city=b.dataset.city;document.querySelectorAll('.city').forEach(function(x){x.classList.remove('active')});b.classList.add('active');renderCity();loadCostPreset()}});
 document.querySelectorAll('.mode').forEach(function(b){b.onclick=function(){mode=b.dataset.mode;document.querySelectorAll('.mode').forEach(function(x){x.classList.remove('active')});b.classList.add('active');if(mode==='future'){document.getElementById('yearRange').value=2035;document.getElementById('yearValue').textContent='2035'}updateSources()}});
 document.getElementById('yearRange').oninput=function(){document.getElementById('yearValue').textContent=this.value;updateSources()};
+function activeType(){var t=document.getElementById('buildType').value;return costPresets[city].types[t]?t:'MIXED'}
+function num(id,fallback){var v=Number(document.getElementById(id).value);return isFinite(v)?v:(fallback||0)}
+function formatMoney(v){
+ var p=costPresets[city],a=Math.abs(v),n=a>=1e12?(v/1e12).toFixed(2)+'T':a>=1e9?(v/1e9).toFixed(2)+'B':a>=1e6?(v/1e6).toFixed(2)+'M':a>=1e3?(v/1e3).toFixed(1)+'K':Math.round(v).toLocaleString();
+ return p.symbol+n;
+}
+function setTypeRates(){
+ var p=costPresets[city],t=activeType(),r=p.types[t];
+ document.getElementById('constructionUnit').value=r.build;
+ document.getElementById('exitUnit').value=r.exit;
+ calculateEstimate();
+}
+function loadCostPreset(){
+ var p=costPresets[city];
+ document.getElementById('landArea').value=1000;
+ document.getElementById('siteCoverage').value=p.coverage;
+ document.getElementById('landUnit').value=p.land;
+ document.getElementById('acqTax').value=p.acq;
+ document.getElementById('softCost').value=p.soft;
+ document.getElementById('financeCost').value=p.finance;
+ document.getElementById('contingency').value=p.cont;
+ document.getElementById('finishGrade').value='1.18';
+ setTypeRates();
+}
+function calculateEstimate(){
+ var area=Math.max(0,num('landArea')),coverage=Math.max(0,num('siteCoverage'))/100,floors=Math.max(1,num('floors',30)),landUnit=Math.max(0,num('landUnit')),buildUnit=Math.max(0,num('constructionUnit')),finish=Math.max(.5,num('finishGrade',1)),exitUnit=Math.max(0,num('exitUnit'));
+ var gfa=area*coverage*floors,land=area*landUnit,acq=land*Math.max(0,num('acqTax'))/100,construction=gfa*buildUnit*finish,soft=construction*Math.max(0,num('softCost'))/100,cont=construction*Math.max(0,num('contingency'))/100;
+ var financeBase=land+acq+construction+soft+cont,finance=financeBase*Math.max(0,num('financeCost'))/100,total=financeBase+finance,exit=gfa*exitUnit,profit=exit-total,roi=total>0?profit/total*100:0,costPerGfa=gfa>0?total/gfa:0,breakEven=gfa>0?total/gfa:0;
+ document.getElementById('estGfa').textContent=Math.round(gfa).toLocaleString()+' ㎡';
+ document.getElementById('estLand').textContent=formatMoney(land);
+ document.getElementById('estAcq').textContent=formatMoney(acq);
+ document.getElementById('estConstruction').textContent=formatMoney(construction);
+ document.getElementById('estSoft').textContent=formatMoney(soft);
+ document.getElementById('estFinance').textContent=formatMoney(finance);
+ document.getElementById('estContingency').textContent=formatMoney(cont);
+ document.getElementById('estTotal').textContent=formatMoney(total);
+ document.getElementById('estExit').textContent=formatMoney(exit);
+ var profitEl=document.getElementById('estProfit');profitEl.textContent=(profit>=0?'+':'')+formatMoney(profit);profitEl.className=profit>=0?'positive':'negative';
+ document.getElementById('estRoi').textContent=(roi>=0?'+':'')+roi.toFixed(1)+'%';
+ document.getElementById('estCostPerGfa').textContent=formatMoney(costPerGfa);
+ document.getElementById('estBreakEven').textContent=formatMoney(breakEven);
+}
 function updateHeight(){var f=Math.max(3,Math.min(100,Number(document.getElementById('floors').value)||30));document.getElementById('floors').value=f;document.getElementById('heightValue').textContent=Math.round(f*3.6)+' m'}
-document.getElementById('floors').oninput=updateHeight;
+document.getElementById('floors').oninput=function(){updateHeight();calculateEstimate()};document.getElementById('buildType').onchange=setTypeRates;
 document.getElementById('buildToggle').onclick=function(){buildOn=!buildOn;this.classList.toggle('on',buildOn);document.getElementById('buildPanel').classList.toggle('on',buildOn);document.getElementById('buildHint').classList.toggle('on',buildOn);map.getCanvas().style.cursor=buildOn?'crosshair':''};
 map.on('click',function(e){if(!buildOn)return;var f=Number(document.getElementById('floors').value)||30;custom.push({city:city,lng:e.lngLat.lng,lat:e.lngLat.lat,floors:f,height:Math.round(f*3.6),type:document.getElementById('buildType').value});updateSources()});
+document.getElementById('resetCostPreset').onclick=loadCostPreset;
+document.getElementById('calculateCost').onclick=calculateEstimate;
+['landArea','siteCoverage','landUnit','constructionUnit','finishGrade','exitUnit','acqTax','softCost','financeCost','contingency'].forEach(function(id){var el=document.getElementById(id);el.addEventListener(el.tagName==='SELECT'?'change':'input',calculateEstimate)});
 document.getElementById('resetCustom').onclick=function(){custom=[];updateSources()};
-updateHeight();applyLang();
+updateHeight();loadCostPreset();applyLang();calculateEstimate();
 })();
 </script>
 </body>
