@@ -93,8 +93,19 @@ dubai:{center:[55.2744,25.1974],zoom:15.3,bearing:-28,pitch:67,area:'DUBAI · DO
 {name:'DOWNTOWN URBAN HOTEL',lng:55.2776,lat:25.1993,floors:41,height:166,year:2029,type:'HOTEL'}]}
 };
 var lang='ko',city='seoul',mode='plan',buildOn=false,custom=[];
-var map=new maplibregl.Map({container:'map',style:'https://tiles.openfreemap.org/styles/liberty',center:cities.seoul.center,zoom:cities.seoul.zoom,bearing:cities.seoul.bearing,pitch:cities.seoul.pitch,antialias:true});
-map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'bottom-right');
+var mapReady=typeof window.maplibregl!=='undefined',map=null;
+try{
+  if(mapReady) map=new maplibregl.Map({container:'map',style:'https://tiles.openfreemap.org/styles/liberty',center:cities.seoul.center,zoom:cities.seoul.zoom,bearing:cities.seoul.bearing,pitch:cities.seoul.pitch,antialias:true});
+}catch(err){mapReady=false}
+if(!mapReady){
+  map={
+    addControl:function(){},on:function(){},getStyle:function(){return {layers:[]}},addLayer:function(){},addSource:function(){},
+    getSource:function(){return null},flyTo:function(){},getCanvas:function(){return {style:{}}},loaded:function(){return false}
+  };
+  var fb0=document.getElementById('fallback');if(fb0)fb0.style.display='grid';
+}else{
+  map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'bottom-right');
+}
 function square(lng,lat,size){var dx=size/(111320*Math.cos(lat*Math.PI/180)),dy=size/110540;return [[lng-dx,lat-dy],[lng+dx,lat-dy],[lng+dx,lat+dy],[lng-dx,lat+dy],[lng-dx,lat-dy]]}
 function plannedGeo(){var f=[];cities[city].projects.forEach(function(p,i){if(mode==='real'||p.year>Number(document.getElementById('yearRange').value))return;f.push({type:'Feature',properties:{name:p.name,height:p.height,year:p.year,type:p.type,idx:i},geometry:{type:'Polygon',coordinates:[square(p.lng,p.lat,24+i*4)]}})});return {type:'FeatureCollection',features:f}}
 function customGeo(){return {type:'FeatureCollection',features:custom.filter(function(x){return x.city===city}).map(function(p){return {type:'Feature',properties:p,geometry:{type:'Polygon',coordinates:[square(p.lng,p.lat,20)]}}})}}
