@@ -10,7 +10,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ ok:false, message:'lng and lat are required' });
   }
 
-  const key = process.env.VWORLD_API_KEY || process.env.VWORLD_KEY;
+  const browserKey = String(req.headers['x-vworld-key'] || '').trim();
+  const key = browserKey || process.env.VWORLD_API_KEY || process.env.VWORLD_KEY;
   if (!key) {
     return res.status(200).json({
       ok:false,
