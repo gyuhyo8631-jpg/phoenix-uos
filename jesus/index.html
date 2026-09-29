@@ -309,6 +309,8 @@
   if(!PROFILES[activeProfile]) activeProfile='lemon';
   let pendingProfile=null;
   let unlockedProfile=null;
+  let sessionPin='';
+  const CLOUD_SYNC_URL='https://tugszseaxoqubggbtphu.supabase.co/functions/v1/journal-sync';
 
   const FALLBACK_VERSES=[
     {ref:'시편 23:1',text:'여호와는 나의 목자시니 내가 부족함이 없으리로다'},
@@ -428,6 +430,91 @@
     localStorage.setItem(storageKey(),JSON.stringify(v));
   }
 
+  function recordsToCloudArray(records){
+    return Object.entries(records||{}).map(function(entry){
+      const key=entry[0], r=entry[1]||{};
+      const day=entryDate(key,r);
+      return {
+        clientEntryId:key,
+        entryDate:day,
+        reading:r.reading||'',
+        keyverse:r.keyverse||'',
+        reflection:r.reflection||'',
+        prayer:r.prayer||'',
+        g1:r.g1||'',
+        g2:r.g2||'',
+        g3:r.g3||'',
+        action:r.action||'',
+        savedAt:r.savedAt||(day+'T12:00:00+09:00')
+      };
+    });
+  }
+
+  function cloudRowsToRecords(rows){
+    const out={};
+    (rows||[]).forEach(function(r){
+      const key=r.client_entry_id||((r.entry_date||todayKey)+'__'+Date.now());
+      out[key]={
+        profile:activeProfile,
+        profileName:profileName(),
+        reading:r.reading||'',
+        keyverse:r.keyverse||'',
+        reflection:r.reflection||'',
+        prayer:r.prayer||'',
+        g1:r.g1||'',
+        g2:r.g2||'',
+        g3:r.g3||'',
+        action:r.action||'',
+        savedAt:r.saved_at||new Date().toISOString()
+      };
+    });
+    return out;
+  }
+
+  async function cloudRequest(action,pin,extra){
+    const res=await fetch(CLOUD_SYNC_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(Object.assign({
+        action:action,
+        profile:activeProfile,
+        pin:pin
+      },extra||{}))
+    });
+    let body={};
+    try{body=await res.json()}catch(e){}
+    if(!res.ok) throw new Error(body.error||'클라우드 연결에 실패했습니다.');
+    return body;
+  }
+
+  async function syncWithCloud(pin){
+    const local=getRecords();
+    const body=await cloudRequest('sync',pin,{entries:recordsToCloudArray(local)});
+    setRecords(cloudRowsToRecords(body.entries||[]));
+    return body;
+  }
+
+  async function saveEntryToCloud(key,data){
+    if(!sessionPin) return false;
+    const day=entryDate(key,data);
+    await cloudRequest('save',sessionPin,{
+      entry:{
+        clientEntryId:key,
+        entryDate:day,
+        reading:data.reading||'',
+        keyverse:data.keyverse||'',
+        reflection:data.reflection||'',
+        prayer:data.prayer||'',
+        g1:data.g1||'',
+        g2:data.g2||'',
+        g3:data.g3||'',
+        action:data.action||'',
+        savedAt:data.savedAt||new Date().toISOString()
+      }
+    });
+    return true;
+  }
+
   function profileName(){return PROFILES[activeProfile].name}
   function profileIcon(){return PROFILES[activeProfile].icon}
   function pinKey(profile){return 'harumalssum_pin_hash_v1_'+profile}
@@ -491,36 +578,53 @@
       $('lockError').textContent='PIN은 숫자 4~8자리로 입력해 주세요.';
       return;
     }
-    const key=pinKey(pendingProfile);
+
+    const targetProfile=pendingProfile;
+    const key=pinKey(targetProfile);
     const saved=localStorage.getItem(key);
     const hashed=await hashPin(pin);
 
-    if(!saved){
-      localStorage.setItem(key,hashed);
-    }else if(saved!==hashed){
+    if(saved && saved!==hashed){
       $('lockError').textContent='PIN이 맞지 않습니다.';
       $('pinInput').select();
       return;
     }
 
-    activeProfile=pendingProfile;
-    unlockedProfile=activeProfile;
-    localStorage.setItem(PROFILE_KEY,activeProfile);
-    $('privacyLock').classList.add('hidden');
-    document.body.classList.remove('locked');
-    updateProfileUI();
-    loadToday();
-    renderDailyVerse();
-    renderStats();
-    renderCalendar();
-    renderRecords();
-    $('searchResults').innerHTML='';
-    $('searchInput').value='';
-    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 개인 기록 공간입니다.';
+    activeProfile=targetProfile;
+    $('unlockBtn').disabled=true;
+    $('unlockBtn').textContent='기록 동기화 중…';
+    $('lockError').textContent='';
+
+    try{
+      await syncWithCloud(pin);
+      if(!saved) localStorage.setItem(key,hashed);
+      sessionPin=pin;
+      unlockedProfile=activeProfile;
+      localStorage.setItem(PROFILE_KEY,activeProfile);
+      $('privacyLock').classList.add('hidden');
+      document.body.classList.remove('locked');
+      updateProfileUI();
+      loadToday();
+      renderDailyVerse();
+      renderStats();
+      renderCalendar();
+      renderRecords();
+      $('searchResults').innerHTML='';
+      $('searchInput').value='';
+      $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 기록이 컴퓨터와 휴대폰에 동기화되었습니다.';
+    }catch(e){
+      activeProfile=localStorage.getItem(PROFILE_KEY);
+      if(!PROFILES[activeProfile]) activeProfile='lemon';
+      $('lockError').textContent=e.message||'동기화에 실패했습니다.';
+      $('unlockBtn').disabled=false;
+      $('unlockBtn').textContent=saved?'잠금 해제':'내 PIN 설정';
+      $('pinInput').select();
+    }
   }
 
   function lockNow(){
     unlockedProfile=null;
+    sessionPin='';
     showLock();
   }
 
@@ -540,6 +644,7 @@
     if(!PROFILES[profile]) return;
     if(profile===activeProfile && unlockedProfile===activeProfile) return;
     unlockedProfile=null;
+    sessionPin='';
     showLock(profile);
   }
 
@@ -595,7 +700,7 @@
     $('completionPill').textContent=hasRecordOnDate(todayKey)?profileName()+' 기록 저장됨':profileName()+' 기록 전';
   }
 
-  function saveToday(){
+  async function saveToday(){
     const records=getRecords();
     const data={profile:activeProfile,profileName:profileName()};
     fields.forEach(function(f){data[f]=$(f).value.trim()});
@@ -609,9 +714,15 @@
     records[entryKey]=data;
     setRecords(records);
     fields.forEach(function(f){$(f).value=''});
-    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 글이 저장된 글에 따로 보관되었습니다.';
+    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 글을 저장하고 있습니다…';
     $('completionPill').textContent=profileName()+' 기록 저장됨';
     renderStats();renderCalendar();renderRecords();
+    try{
+      await saveEntryToCloud(entryKey,data);
+      $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 글이 저장되었습니다. 컴퓨터와 휴대폰에서 함께 볼 수 있습니다.';
+    }catch(e){
+      $('saveStatus').textContent='이 기기에는 저장되었습니다. 다음 로그인 때 클라우드와 다시 동기화됩니다.';
+    }
   }
 
   function resetToday(){
