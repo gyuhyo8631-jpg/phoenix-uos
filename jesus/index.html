@@ -430,6 +430,48 @@
     localStorage.setItem(storageKey(),JSON.stringify(v));
   }
 
+  function pendingKey(profile){
+    return 'harumalssum_pending_v1_'+(profile||activeProfile);
+  }
+
+  function getPending(){
+    try{return JSON.parse(localStorage.getItem(pendingKey())||'{}')}
+    catch(e){return {}}
+  }
+
+  function setPending(v){
+    localStorage.setItem(pendingKey(),JSON.stringify(v));
+  }
+
+  function addPending(key,data){
+    const p=getPending();
+    p[key]=data;
+    setPending(p);
+  }
+
+  function removePending(key){
+    const p=getPending();
+    delete p[key];
+    setPending(p);
+  }
+
+  function mergeRecordSets(){
+    const merged={};
+    Array.prototype.slice.call(arguments).forEach(function(obj){
+      Object.entries(obj||{}).forEach(function(entry){
+        const key=entry[0], value=entry[1];
+        if(!merged[key]){
+          merged[key]=value;
+          return;
+        }
+        const oldTime=recordTimestamp(key,merged[key]);
+        const newTime=recordTimestamp(key,value);
+        if(newTime>=oldTime) merged[key]=value;
+      });
+    });
+    return merged;
+  }
+
   function recordsToCloudArray(records){
     return Object.entries(records||{}).map(function(entry){
       const key=entry[0], r=entry[1]||{};
@@ -489,8 +531,18 @@
 
   async function syncWithCloud(pin){
     const local=getRecords();
-    const body=await cloudRequest('sync',pin,{entries:recordsToCloudArray(local)});
-    setRecords(cloudRowsToRecords(body.entries||[]));
+    const pending=getPending();
+    const localAndPending=mergeRecordSets(local,pending);
+    const body=await cloudRequest('sync',pin,{entries:recordsToCloudArray(localAndPending)});
+    const cloud=cloudRowsToRecords(body.entries||[]);
+    const merged=mergeRecordSets(cloud,localAndPending);
+    setRecords(merged);
+
+    const remaining={};
+    Object.entries(pending).forEach(function(entry){
+      if(!cloud[entry[0]]) remaining[entry[0]]=entry[1];
+    });
+    setPending(remaining);
     return body;
   }
 
@@ -713,15 +765,17 @@
     const entryKey=todayKey+'__'+Date.now();
     records[entryKey]=data;
     setRecords(records);
+    addPending(entryKey,data);
     fields.forEach(function(f){$(f).value=''});
-    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 글을 저장하고 있습니다…';
+    $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 글을 안전하게 보관하고 있습니다…';
     $('completionPill').textContent=profileName()+' 기록 저장됨';
     renderStats();renderCalendar();renderRecords();
     try{
       await saveEntryToCloud(entryKey,data);
+      removePending(entryKey);
       $('saveStatus').textContent=profileIcon()+' '+profileName()+'님의 글이 저장되었습니다. 컴퓨터와 휴대폰에서 함께 볼 수 있습니다.';
     }catch(e){
-      $('saveStatus').textContent='이 기기에는 저장되었습니다. 다음 로그인 때 클라우드와 다시 동기화됩니다.';
+      $('saveStatus').textContent='이 기기에 안전하게 보관했습니다. 다음 로그인 때 자동으로 다시 동기화합니다.';
     }
   }
 
