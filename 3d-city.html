@@ -200,15 +200,18 @@ async function validateVworldKey(v){
  if(hint){hint.classList.remove('vworld-connected');hint.textContent='VWorld 권한 확인 중...'}
  if(btn)btn.disabled=true;
  try{
-  var r=await fetch('/api/parcel?lng=127.0473&lat=37.5036',{headers:{'Accept':'application/json','X-VWorld-Key':v}});
+  var r=await fetch('/api/parcel?lng=126.93031717597813&lat=37.52338067416902',{headers:{'Accept':'application/json','X-VWorld-Key':v}});
   var d=await r.json();
   if(d&&d.ok){
    setVworldSessionKey(v);refreshVworldUi();setParcelStatus('parcelReady','');return true;
   }
   var msg=(d&&d.message)?d.message:'VWorld API validation failed';
-  if(d&&d.code==='NED_NO_DATA') msg='국가중점데이터 API 권한이 필요합니다. VWorld 인증키 활용 API에서 국가중점데이터 API를 추가해 주세요.';
-  else if(d&&(/KEY|AUTH|INCORRECT/i.test(String(d.code||'')))) msg='인증키 또는 서비스 URL 권한을 확인해 주세요: '+msg;
-  else if(d&&(/PNU|PARCEL/i.test(String(d.code||'')))) msg='검색 API 또는 2D데이터 API 권한을 확인해 주세요: '+msg;
+  if(d&&d.code==='NED_LOOKUP_FAILED'){
+    var cx=d.diagnostics&&d.diagnostics.characteristics&&d.diagnostics.characteristics.length?d.diagnostics.characteristics[d.diagnostics.characteristics.length-1]:null;
+    var px=d.diagnostics&&d.diagnostics.landPrice&&d.diagnostics.landPrice.length?d.diagnostics.landPrice[d.diagnostics.landPrice.length-1]:null;
+    msg='토지특성: '+(cx?(cx.code+' '+cx.message):'실패')+' / 공시지가: '+(px?(px.code+' '+px.message):'실패');
+  } else if(d&&(/KEY|AUTH|INCORRECT/i.test(String(d.code||'')))) msg='인증키 또는 서비스 URL 권한을 확인해 주세요: '+msg;
+  else if(d&&(/PNU|PARCEL/i.test(String(d.code||'')))) msg='필지 식별 단계 실패: '+msg;
   setVworldSessionKey('');
   if(hint){hint.classList.remove('vworld-connected');hint.textContent=((d&&d.code)?d.code+': ':'')+msg}
   return false;
@@ -255,7 +258,16 @@ async function lookupParcel(lng,lat){
   if(d&&d.ok&&d.parcel){renderParcel(d.parcel);var vh=document.getElementById('vworldHint');if(vh){vh.textContent=T[lang].vworldConnected||T.ko.vworldConnected;vh.classList.add('vworld-connected')}return}
   if(d&&d.code==='VWORLD_KEY_MISSING'){setParcelStatus('parcelKeyMissing','error');return}
   setParcelStatus('parcelError','error');
-  var hint=document.getElementById('vworldHint');if(hint){hint.classList.remove('vworld-connected');hint.textContent=((d&&d.code)?d.code+': ':'')+((d&&d.message)?d.message:'VWorld lookup failed')+(d&&d.triedDomain?' · domain '+d.triedDomain:'')}
+  var hint=document.getElementById('vworldHint');if(hint){
+    hint.classList.remove('vworld-connected');
+    var detail='';
+    if(d&&d.diagnostics){
+      var a=d.diagnostics.characteristics&&d.diagnostics.characteristics.length?d.diagnostics.characteristics[d.diagnostics.characteristics.length-1]:null;
+      var b=d.diagnostics.landPrice&&d.diagnostics.landPrice.length?d.diagnostics.landPrice[d.diagnostics.landPrice.length-1]:null;
+      if(a||b) detail=' · '+(a?('토지특성 '+a.code+': '+a.message):'')+(a&&b?' / ':'')+(b?('공시지가 '+b.code+': '+b.message):'');
+    }
+    hint.textContent=((d&&d.code)?d.code+': ':'')+((d&&d.message)?d.message:'VWorld lookup failed')+detail+(d&&d.triedDomain?' · domain '+d.triedDomain:'')
+  }
  }catch(e){setParcelStatus('parcelError','error');var hint2=document.getElementById('vworldHint');if(hint2){hint2.classList.remove('vworld-connected');hint2.textContent='NETWORK: '+(e&&e.message?e.message:'request failed')}}
 }
 function applyParcelToEstimate(){
