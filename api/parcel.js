@@ -101,25 +101,56 @@ export default async function handler(req, res) {
     return recs.find(x => x.lndpclAr || x.pblntfPclnd || x.stdrYear || x.pnu || x.PNU) || null;
   }
 
-  async function fetchWithYear(path, pnu) {
+  async function fetchNed(path, pnu, withYear) {
     const now = new Date().getFullYear();
-    for (let y=now; y>=now-4; y--) {
+    const years = withYear ? Array.from({length:6},(_,i)=>now-i) : [null];
+    const errors = [];
+    for (const y of years) {
       const u = new URL(base + path);
       u.searchParams.set('key', key);
       u.searchParams.set('pnu', pnu);
-      u.searchParams.set('stdrYear', String(y));
       u.searchParams.set('format', 'json');
       u.searchParams.set('numOfRows', '10');
       u.searchParams.set('pageNo', '1');
+      if (y) u.searchParams.set('stdrYear', String(y));
       try {
         const wrapped = await requestWithDomain(u, true);
         const data = wrapped.data;
-        const total = Number(data?.response?.totalCount ?? data?.totalCount ?? 0);
         const rec = chooseRecord(data);
-        if (rec && (total > 0 || Object.keys(rec).length)) return { year:y, record:rec, raw:data };
-      } catch {}
+        const total = Number(
+          data?.response?.totalCount ??
+          data?.totalCount ??
+          data?.landCharacteristics?.totalCount ??
+          data?.indvdLandPrices?.totalCount ??
+          0
+        );
+        if (rec && (total > 0 || Object.keys(rec).length)) {
+          return { ok:true, year:y, record:rec, raw:data, domain:wrapped.domain, errors };
+        }
+        errors.push({year:y,code:'EMPTY',message:'No data'});
+      } catch (e) {
+        errors.push({
+          year:y,
+          code:e?.vworld?.error?.code || 'FETCH_ERROR',
+          message:e?.vworld?.error?.text || e?.message || String(e),
+          domain:e?.vworld?.domain || null
+        });
+      }
     }
-    return null;
+    return { ok:false, errors };
+  }
+
+  async function fetchLandCharacteristics(pnu) {
+    // Try latest/all-years first, then recent explicit years for compatibility.
+    let r = await fetchNed('/ned/data/getLandCharacteristics', pnu, false);
+    if (r.ok) return r;
+    const yearly = await fetchNed('/ned/data/getLandCharacteristics', pnu, true);
+    yearly.errors = [...(r.errors||[]), ...(yearly.errors||[])];
+    return yearly;
+  }
+
+  async function fetchLandPrice(pnu) {
+    return fetchNed('/ned/data/getIndvdLandPriceAttr', pnu, true);
   }
 
   function pnuFromAddressResult(addressData) {
@@ -147,7 +178,7 @@ export default async function handler(req, res) {
     addressUrl.searchParams.set('crs','EPSG:4326');
     addressUrl.searchParams.set('point',lng+','+lat);
     addressUrl.searchParams.set('format','json');
-    addressUrl.searchParams.set('type','PARCEL');
+    addressUrl.searchParams.set('type','BOTH');
     addressUrl.searchParams.set('zipcode','true');
     addressUrl.searchParams.set('simple','false');
     addressUrl.searchParams.set('key',key);
@@ -190,24 +221,38 @@ export default async function handler(req, res) {
       });
     }
 
-    const characteristics = await fetchWithYear('/ned/data/getLandCharacteristics', pnu);
-    if (!characteristics?.record) {
+    const [characteristics, landPrice] = await Promise.all([
+      fetchLandCharacteristics(pnu),
+      fetchLandPrice(pnu)
+    ]);
+
+    if (!characteristics.ok && !landPrice.ok) {
       return res.status(200).json({
         ok:false,
-        code:'NED_NO_DATA',
+        code:'NED_LOOKUP_FAILED',
         configured:true,
-        stage:'land-characteristics',
-        message:'토지특성/공시지가 데이터를 조회하지 못했습니다. VWorld 인증키의 활용 API에서 국가중점데이터 API가 허용되어 있는지 확인해 주세요.',
+        stage:'ned',
+        message:'VWorld 토지특성/개별공시지가 조회가 모두 실패했습니다.',
         pnu,
-        address:addressData?.response?.result?.[0]?.text || ''
+        address:(addressData?.response?.result || []).find(x=>String(x.type||'').toLowerCase()==='parcel')?.text || '',
+        diagnostics:{
+          characteristics:characteristics.errors?.slice(-3) || [],
+          landPrice:landPrice.errors?.slice(-3) || [],
+          parcelLayer:parcelLayerError || null
+        }
       });
     }
 
     const ch = characteristics.record || {};
-    const addr = addressData?.response?.result?.[0]?.text || props.addr || props.full_nm || '';
+    const pr = landPrice.record || {};
+    const parcelAddr = (addressData?.response?.result || []).find(x=>String(x.type||'').toLowerCase()==='parcel');
+    const addr = parcelAddr?.text || props.addr || props.full_nm || '';
     const area = Number(ch.lndpclAr ?? ch.lndpcl_ar ?? props.lndpclAr ?? props.area ?? 0) || null;
-    const officialPrice = Number(ch.pblntfPclnd ?? ch.pblntf_pclnd ?? 0) || null;
-    const officialYear = Number(ch.stdrYear ?? characteristics?.year ?? 0) || null;
+    const officialPrice = Number(
+      pr.pblntfPclnd ?? pr.pblntf_pclnd ??
+      ch.pblntfPclnd ?? ch.pblntf_pclnd ?? 0
+    ) || null;
+    const officialYear = Number(pr.stdrYear ?? landPrice.year ?? ch.stdrYear ?? characteristics.year ?? 0) || null;
     const landCategory = ch.lndcgrCodeNm || ch.lndcgrNm || ch.jimok || props.jimok || '';
     const zoning = ch.prposArea1Nm || ch.prposAreaNm || ch.useAreaNm || '';
     const useSituation = ch.ladUseSittnNm || ch.landUseNm || '';
@@ -218,6 +263,12 @@ export default async function handler(req, res) {
       configured:true,
       provider:'VWorld / MOLIT',
       checkedAt:new Date().toISOString(),
+      partial:!(characteristics.ok && landPrice.ok),
+      diagnostics:{
+        characteristics:characteristics.ok ? null : characteristics.errors?.slice(-2),
+        landPrice:landPrice.ok ? null : landPrice.errors?.slice(-2),
+        parcelLayer:parcelLayerError || null
+      },
       parcel:{
         pnu,
         address:addr,
