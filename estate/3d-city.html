@@ -229,10 +229,11 @@ async function lookupParcel(lng,lat){
  try{
   var headers={'Accept':'application/json'},vk=getVworldSessionKey();if(vk)headers['X-VWorld-Key']=vk;var r=await fetch('/api/parcel?lng='+encodeURIComponent(lng)+'&lat='+encodeURIComponent(lat),{headers:headers});
   var d=await r.json();
-  if(d&&d.ok&&d.parcel){renderParcel(d.parcel);return}
+  if(d&&d.ok&&d.parcel){renderParcel(d.parcel);var vh=document.getElementById('vworldHint');if(vh){vh.textContent=T[lang].vworldConnected||T.ko.vworldConnected;vh.classList.add('vworld-connected')}return}
   if(d&&d.code==='VWORLD_KEY_MISSING'){setParcelStatus('parcelKeyMissing','error');return}
   setParcelStatus('parcelError','error');
- }catch(e){setParcelStatus('parcelError','error')}
+  var hint=document.getElementById('vworldHint');if(hint){hint.classList.remove('vworld-connected');hint.textContent=((d&&d.code)?d.code+': ':'')+((d&&d.message)?d.message:'VWorld lookup failed')+(d&&d.triedDomain?' · domain '+d.triedDomain:'')}
+ }catch(e){setParcelStatus('parcelError','error');var hint2=document.getElementById('vworldHint');if(hint2){hint2.classList.remove('vworld-connected');hint2.textContent='NETWORK: '+(e&&e.message?e.message:'request failed')}}
 }
 function applyParcelToEstimate(){
  if(!selectedParcel)return;
