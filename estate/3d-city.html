@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Meridian 3D City — Seoul · Osaka · Dubai</title>
+<meta name="description" content="서울, 오사카, 두바이를 3D로 탐색하고 미래 개발 시나리오를 설계하는 Meridian Properties 도시계획 시뮬레이터">
+<link rel="canonical" href="https://estate.phoenix-uos.com/3d-city">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.11.2/dist/maplibre-gl.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#071324;--navy2:#0d1d33;--gold:#d7a566;--gold2:#a96d31;--line:rgba(255,255,255,.14)}
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:'DM Sans','Noto Sans KR','Noto Sans JP',sans-serif;background:#071324;color:#fff}
+button,a,input,select{font:inherit}button{cursor:pointer}
+.topbar{height:68px;display:flex;align-items:center;gap:18px;padding:0 22px;background:rgba(7,19,36,.97);border-bottom:1px solid var(--line);position:relative;z-index:30}
+.brand{font-family:'Playfair Display',serif;font-size:20px;text-decoration:none;color:#fff;white-space:nowrap}.brand b{color:var(--gold)}
+.back{color:#cbd5e1;text-decoration:none;font-size:12px;border-left:1px solid var(--line);padding-left:16px}.back:hover{color:#fff}
+.top-actions{margin-left:auto}.language{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}.lang{border:0;background:transparent;color:#94a3b8;font-size:11px;padding:6px 8px;border-radius:999px}.lang.active{background:#fff;color:#071324}
+.shell{height:calc(100vh - 68px);min-height:620px;position:relative;overflow:hidden}#map{position:absolute;inset:0;background:#111827}
+.maplibregl-popup-content{background:#071324!important;color:#fff!important;border:1px solid rgba(215,165,102,.55);border-radius:2px!important;padding:14px 16px!important;min-width:220px}.maplibregl-popup-tip{border-top-color:#071324!important}.maplibregl-popup-close-button{color:#fff;font-size:18px}
+.side{position:absolute;z-index:5;top:18px;left:18px;width:min(370px,calc(100% - 36px));max-height:calc(100% - 36px);overflow:auto;background:rgba(7,19,36,.89);backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:0 22px 60px rgba(0,0,0,.28)}
+.side::-webkit-scrollbar{width:7px}.side::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2)}
+.intro{padding:22px}.eyebrow{color:var(--gold);font-size:10px;letter-spacing:.17em;font-weight:700;text-transform:uppercase}.intro h1{font:600 34px/1.08 'Playfair Display','Noto Sans KR',serif;margin:8px 0 12px}.intro p{color:#bdc7d6;font-size:13px;line-height:1.7;margin:0}
+.cities{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.city{border:0;border-right:1px solid var(--line);background:transparent;color:#aab6c6;padding:14px 8px;font-size:11px;font-weight:700}.city:last-child{border-right:0}.city.active{background:rgba(215,165,102,.16);color:#f8dab2;box-shadow:inset 0 -2px var(--gold)}
+.section{padding:18px 22px;border-bottom:1px solid rgba(255,255,255,.11)}.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}.section-title strong{font-size:12px;letter-spacing:.08em}.section-title small{color:#8190a5;font-size:10px}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.mode{border:1px solid var(--line);background:rgba(255,255,255,.04);color:#bac4d2;padding:9px 5px;font-size:10px;font-weight:700}.mode.active{border-color:var(--gold);background:rgba(215,165,102,.16);color:#ffe7c6}
+.year-row{display:flex;align-items:center;gap:13px}.year-row input{width:100%;accent-color:var(--gold)}.year{font:600 22px 'Playfair Display',serif;color:#f1cf9e;min-width:52px;text-align:right}
+.plan{padding:16px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.11)}.plan h2{font:600 23px/1.15 'Playfair Display','Noto Sans KR',serif;margin:4px 0 8px}.plan p{font-size:12px;color:#b9c4d3;line-height:1.65;margin:0}.plan-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}.plan-tags span{border:1px solid rgba(215,165,102,.35);color:#f0c890;font-size:9px;padding:4px 7px}
+.projects{display:grid;gap:7px}.project{width:100%;text-align:left;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.035);color:#fff;padding:11px 12px}.project:hover,.project.active{border-color:var(--gold);background:rgba(215,165,102,.09)}.project small{display:flex;justify-content:space-between;gap:10px;color:#9cabbf;font-size:9px}.project strong{display:block;font:600 15px 'Playfair Display','Noto Sans KR',serif;margin-top:5px}.project em{font-style:normal;color:#d9b27c}
+.build-toggle{width:100%;border:1px solid var(--gold);background:linear-gradient(135deg,#d7a566,#9a622d);color:#091322;padding:12px;font-weight:800;font-size:12px}.build-toggle.on{background:#fff;color:#071324}
+.build-panel{display:none;margin-top:11px;padding:13px;border:1px solid rgba(215,165,102,.35);background:rgba(215,165,102,.07)}.build-panel.on{display:block}.build-note{font-size:11px;color:#d8c3a7;line-height:1.55;margin:0 0 10px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}.field label{display:block;color:#8e9cb0;font-size:9px;margin-bottom:4px}.field select,.field input{width:100%;height:36px;border:1px solid var(--line);background:#0d1d33;color:#fff;padding:0 9px}.build-meta{display:flex;justify-content:space-between;color:#b6c1d0;font-size:10px;margin-top:8px}.reset{margin-top:9px;width:100%;padding:8px;border:1px solid var(--line);background:transparent;color:#cbd5e1;font-size:10px}
+.legend{position:absolute;right:18px;bottom:18px;z-index:5;background:rgba(7,19,36,.88);backdrop-filter:blur(15px);border:1px solid var(--line);padding:12px 14px;font-size:10px;color:#c7d1df;display:grid;gap:7px}.legend div{display:flex;align-items:center;gap:8px}.swatch{width:18px;height:8px}.existing{background:#6e7888}.planned{background:#d7a566}.custom{background:#54d6b1}
+.disclaimer{position:absolute;z-index:4;left:50%;bottom:18px;transform:translateX(-50%);max-width:590px;width:calc(100% - 500px);background:rgba(7,19,36,.76);backdrop-filter:blur(12px);padding:9px 13px;border:1px solid var(--line);font-size:9px;line-height:1.5;color:#9aa8ba;text-align:center}
+.build-hint{position:absolute;z-index:8;left:50%;top:18px;transform:translateX(-50%);background:#d7a566;color:#081322;padding:10px 16px;font-size:11px;font-weight:800;display:none;box-shadow:0 10px 30px rgba(0,0,0,.2)}.build-hint.on{display:block}
+.fallback{display:none;position:absolute;inset:0;place-items:center;background:#071324;padding:30px;text-align:center;z-index:20}.fallback strong{display:block;font:600 30px 'Playfair Display',serif;margin-bottom:8px}.fallback p{color:#aab6c6;max-width:520px}
+@media(max-width:760px){.topbar{height:62px;padding:0 14px}.brand{font-size:17px}.back{display:none}.shell{height:calc(100vh - 62px);min-height:660px}.side{top:10px;left:10px;width:calc(100% - 20px);max-height:54%}.intro{padding:15px 16px}.intro h1{font-size:25px}.intro p{font-size:11px}.section{padding:13px 16px}.legend{right:10px;bottom:10px}.disclaimer{left:10px;bottom:82px;transform:none;width:calc(100% - 20px);font-size:8px}.build-hint{top:auto;bottom:145px;white-space:nowrap}.maplibregl-ctrl-bottom-right{bottom:145px!important}.lang{padding:5px 6px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+<a class="brand" href="/">Meridian <b>Properties</b></a>
+<a class="back" href="/" data-i18n="back">← 부동산 플랫폼으로 돌아가기</a>
+<div class="top-actions"><div class="language" role="group" aria-label="Language">
+<button class="lang active" data-lang="ko">KR</button><button class="lang" data-lang="en">EN</button><button class="lang" data-lang="ja">JP</button><button class="lang" data-lang="zh">中文</button>
+</div></div>
+</header>
+<main class="shell">
+<div id="map" aria-label="3D city map"></div>
+<div class="fallback" id="fallback"><div><strong>3D City</strong><p data-i18n="mapFail">지도를 불러오지 못했습니다. 네트워크 연결을 확인한 뒤 새로고침해 주세요.</p></div></div>
+<div class="build-hint" id="buildHint" data-i18n="buildHint">지도에서 건물을 세울 위치를 클릭하세요.</div>
+<aside class="side">
+<div class="intro"><div class="eyebrow">GLOBAL DIGITAL TWIN · BETA</div><h1>Meridian 3D City</h1><p data-i18n="intro">서울·오사카·두바이의 실제 3D 건물을 보면서 Meridian의 미래 개발 시나리오를 겹쳐 보고, 직접 가상 건물을 배치해볼 수 있습니다.</p></div>
+<div class="cities"><button class="city active" data-city="seoul">SEOUL</button><button class="city" data-city="osaka">OSAKA</button><button class="city" data-city="dubai">DUBAI</button></div>
+<section class="section">
+<div class="section-title"><strong data-i18n="viewMode">VIEW MODE</strong><small data-i18n="viewModeSub">도시 레이어</small></div>
+<div class="modes"><button class="mode" data-mode="real">REAL CITY</button><button class="mode active" data-mode="plan">MERIDIAN PLAN</button><button class="mode" data-mode="future">FUTURE 2035</button></div>
+</section>
+<section class="section"><div class="section-title"><strong>TIMELINE</strong><small data-i18n="timelineSub">개발 시나리오 연도</small></div><div class="year-row"><input id="yearRange" type="range" min="2026" max="2035" step="1" value="2030"><span class="year" id="yearValue">2030</span></div></section>
+<section class="section"><div class="plan"><div class="eyebrow" id="planArea"></div><h2 id="planTitle"></h2><p id="planDesc"></p><div class="plan-tags" id="planTags"></div></div></section>
+<section class="section"><div class="section-title"><strong>MERIDIAN PROJECTS</strong><small id="projectCount"></small></div><div class="projects" id="projectList"></div></section>
+<section class="section">
+<button class="build-toggle" id="buildToggle" type="button" data-i18n="buildMode">＋ BUILD MODE · 직접 건물 세우기</button>
+<div class="build-panel" id="buildPanel"><p class="build-note" data-i18n="buildNote">건물 용도와 층수를 정한 뒤 지도에서 위치를 클릭하세요. 이 배치는 브라우저에서만 보이는 개념 시뮬레이션입니다.</p>
+<div class="fields"><div class="field"><label data-i18n="buildingType">건물 용도</label><select id="buildType"><option value="OFFICE">OFFICE</option><option value="RESIDENCE">RESIDENCE</option><option value="HOTEL">HOTEL</option><option value="RETAIL">RETAIL</option><option value="MIXED">MIXED</option></select></div><div class="field"><label data-i18n="floors">층수</label><input id="floors" type="number" min="3" max="100" value="30"></div></div>
+<div class="build-meta"><span data-i18n="height">예상 높이</span><strong id="heightValue">108 m</strong></div><button class="reset" id="resetCustom" type="button" data-i18n="reset">내가 만든 건물 초기화</button>
+</div></section>
+</aside>
+<div class="legend"><div><span class="swatch existing"></span><span data-i18n="existing">현재 도시 건물</span></div><div><span class="swatch planned"></span><span data-i18n="planned">Meridian 개발안</span></div><div><span class="swatch custom"></span><span data-i18n="custom">사용자 배치 건물</span></div></div>
+<div class="disclaimer" data-i18n="disclaimer">본 화면은 도시계획 아이디어를 시각화하는 개념 시뮬레이터입니다. 실제 토지 소유, 개발 가능 여부, 용도지역, 용적률, 인허가, 공사비 또는 투자수익을 의미하지 않습니다.</div>
+</main>
+<script src="https://unpkg.com/maplibre-gl@6.11.2/dist/maplibre-gl.js"></script>
+<script>
+(function(){
+var T={
+ko:{back:'← 부동산 플랫폼으로 돌아가기',intro:'서울·오사카·두바이의 실제 3D 건물을 보면서 Meridian의 미래 개발 시나리오를 겹쳐 보고, 직접 가상 건물을 배치해볼 수 있습니다.',viewModeSub:'도시 레이어',timelineSub:'개발 시나리오 연도',buildMode:'＋ BUILD MODE · 직접 건물 세우기',buildNote:'건물 용도와 층수를 정한 뒤 지도에서 위치를 클릭하세요. 이 배치는 브라우저에서만 보이는 개념 시뮬레이션입니다.',buildingType:'건물 용도',floors:'층수',height:'예상 높이',reset:'내가 만든 건물 초기화',existing:'현재 도시 건물',planned:'Meridian 개발안',custom:'사용자 배치 건물',disclaimer:'본 화면은 도시계획 아이디어를 시각화하는 개념 시뮬레이터입니다. 실제 토지 소유, 개발 가능 여부, 용도지역, 용적률, 인허가, 공사비 또는 투자수익을 의미하지 않습니다.',buildHint:'지도에서 건물을 세울 위치를 클릭하세요.',mapFail:'지도를 불러오지 못했습니다. 네트워크 연결을 확인한 뒤 새로고침해 주세요.',concept:'개념안',complete:'완성 시나리오',floorUnit:'층'},
+en:{back:'← Back to property platform',intro:'Explore real 3D buildings in Seoul, Osaka and Dubai, overlay Meridian development scenarios, and place your own conceptual buildings.',viewModeSub:'City layers',timelineSub:'Scenario year',buildMode:'＋ BUILD MODE · Place a building',buildNote:'Choose a use and floor count, then click the map. Your building is a browser-only concept simulation.',buildingType:'Building use',floors:'Floors',height:'Approx. height',reset:'Reset my buildings',existing:'Existing buildings',planned:'Meridian concepts',custom:'User buildings',disclaimer:'This is a conceptual city-planning visualization. It does not represent land ownership, development rights, zoning, FAR, permits, construction cost or investment returns.',buildHint:'Click the map where you want to place a building.',mapFail:'The map could not be loaded. Check your connection and refresh.',concept:'Concept',complete:'Scenario completion',floorUnit:'F'},
+ja:{back:'← 不動産プラットフォームへ戻る',intro:'ソウル・大阪・ドバイの実際の3D建物を見ながら、Meridianの将来開発シナリオを重ね、仮想建物を配置できます。',viewModeSub:'都市レイヤー',timelineSub:'開発シナリオ年',buildMode:'＋ BUILD MODE · 建物を配置',buildNote:'用途と階数を設定し、地図上の位置をクリックしてください。ブラウザ上だけの概念シミュレーションです。',buildingType:'建物用途',floors:'階数',height:'想定高さ',reset:'自作建物をリセット',existing:'現在の建物',planned:'Meridian開発案',custom:'ユーザー配置建物',disclaimer:'本画面は都市計画アイデアを可視化する概念シミュレーターです。土地所有、開発可否、用途地域、容積率、許認可、建設費、投資収益を示すものではありません。',buildHint:'建物を配置する場所を地図上でクリックしてください。',mapFail:'地図を読み込めませんでした。接続を確認して再読み込みしてください。',concept:'構想',complete:'完成シナリオ',floorUnit:'階'},
+zh:{back:'← 返回房地产平台',intro:'在首尔、大阪和迪拜的真实3D建筑上叠加 Meridian 未来开发方案，并可自行放置概念建筑。',viewModeSub:'城市图层',timelineSub:'开发方案年份',buildMode:'＋ BUILD MODE · 放置建筑',buildNote:'选择用途和楼层后点击地图。该建筑仅是浏览器中的概念模拟。',buildingType:'建筑用途',floors:'楼层',height:'预计高度',reset:'重置我的建筑',existing:'现有建筑',planned:'Meridian 开发方案',custom:'用户建筑',disclaimer:'本页面仅用于城市规划概念可视化，不代表土地所有权、开发权、分区、容积率、许可、建设成本或投资收益。',buildHint:'点击地图选择建筑位置。',mapFail:'地图加载失败，请检查网络并刷新。',concept:'概念',complete:'方案完成',floorUnit:'层'}};
+var cities={
+seoul:{center:[127.0473,37.5036],zoom:15.6,bearing:-18,pitch:66,area:'SEOUL · TEHERAN-RO',title:{ko:'업무·주거·보행녹지를 연결하는 수직도시',en:'A vertical city linking work, living and green mobility',ja:'業務・住居・歩行緑地をつなぐ垂直都市',zh:'连接办公、居住与步行绿地的垂直城市'},desc:{ko:'테헤란로의 업무 기능을 유지하면서 주거, 문화, 녹지와 보행 동선을 결합하는 개념 시나리오입니다.',en:'A concept that keeps Teheran-ro’s business role while layering housing, culture, green space and walkability.',ja:'テヘラン路の業務機能を維持しつつ、住居・文化・緑地・歩行動線を重ねる構想です。',zh:'在保留德黑兰路商务功能的同时，叠加住宅、文化、绿地与步行系统。'},tags:['OFFICE','RESIDENCE','GREEN WALK','TRANSIT'],projects:[
+{name:'MERIDIAN TOWER SEOUL',lng:127.0467,lat:37.5047,floors:48,height:182,year:2030,type:'MIXED'},
+{name:'TEHERAN GREEN DECK',lng:127.0491,lat:37.5028,floors:8,height:34,year:2028,type:'RETAIL + PARK'},
+{name:'GANGNAM URBAN RESIDENCE',lng:127.0448,lat:37.5023,floors:36,height:126,year:2033,type:'RESIDENCE'}]},
+osaka:{center:[135.5019,34.6687],zoom:15.7,bearing:22,pitch:66,area:'OSAKA · DOTONBORI / NAMBA',title:{ko:'관광·상업·주거가 겹치는 보행 중심 수변도시',en:'A walkable waterfront district mixing tourism, retail and living',ja:'観光・商業・住居が重なる歩行中心の水辺都市',zh:'融合旅游、商业与居住的步行型滨水城区'},desc:{ko:'도톤보리와 난바의 관광 흐름을 숙박·상업·주거와 연결하는 복합 개발 시나리오입니다.',en:'A mixed-use scenario connecting Dotonbori and Namba visitor flows with hospitality, retail and housing.',ja:'道頓堀・難波の観光動線を宿泊・商業・住居につなぐ複合開発構想です。',zh:'将道顿堀和难波的旅游客流与酒店、商业和住宅相连接。'},tags:['HOSPITALITY','RETAIL','RESIDENCE','WATERFRONT'],projects:[
+{name:'MERIDIAN OSAKA GATE',lng:135.5027,lat:34.6678,floors:32,height:118,year:2030,type:'HOTEL + RETAIL'},
+{name:'NAMBA CREATIVE RESIDENCE',lng:135.4998,lat:34.6671,floors:27,height:96,year:2032,type:'RESIDENCE'},
+{name:'DOTONBORI CULTURE HUB',lng:135.5050,lat:34.6691,floors:12,height:46,year:2029,type:'CULTURE + RETAIL'}]},
+dubai:{center:[55.2744,25.1974],zoom:15.3,bearing:-28,pitch:67,area:'DUBAI · DOWNTOWN / BUSINESS BAY',title:{ko:'업무·주거·호텔을 연결하는 고밀도 글로벌 허브',en:'A high-density global hub connecting office, living and hospitality',ja:'業務・住居・ホテルを結ぶ高密度グローバル拠点',zh:'连接办公、住宅与酒店的高密度全球枢纽'},desc:{ko:'다운타운과 비즈니스 베이 사이를 업무·주거·호텔·공공공간으로 연결하는 미래 도시 시나리오입니다.',en:'A future-city scenario linking Downtown and Business Bay with offices, homes, hotels and public space.',ja:'ダウンタウンとビジネスベイを業務・住居・ホテル・公共空間でつなぐ構想です。',zh:'以办公、住宅、酒店和公共空间连接 Downtown 与 Business Bay。'},tags:['LUXURY','OFFICE','HOTEL','PUBLIC SPACE'],projects:[
+{name:'MERIDIAN DUBAI TOWER',lng:55.2762,lat:25.1959,floors:62,height:248,year:2031,type:'MIXED'},
+{name:'BUSINESS BAY SKY RESIDENCE',lng:55.2718,lat:25.1947,floors:52,height:205,year:2034,type:'RESIDENCE'},
+{name:'DOWNTOWN URBAN HOTEL',lng:55.2776,lat:25.1993,floors:41,height:166,year:2029,type:'HOTEL'}]}
+};
+var lang='ko',city='seoul',mode='plan',buildOn=false,custom=[];
+var map=new maplibregl.Map({container:'map',style:'https://tiles.openfreemap.org/styles/liberty',center:cities.seoul.center,zoom:cities.seoul.zoom,bearing:cities.seoul.bearing,pitch:cities.seoul.pitch,antialias:true});
+map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'bottom-right');
+function square(lng,lat,size){var dx=size/(111320*Math.cos(lat*Math.PI/180)),dy=size/110540;return [[lng-dx,lat-dy],[lng+dx,lat-dy],[lng+dx,lat+dy],[lng-dx,lat+dy],[lng-dx,lat-dy]]}
+function plannedGeo(){var f=[];cities[city].projects.forEach(function(p,i){if(mode==='real'||p.year>Number(document.getElementById('yearRange').value))return;f.push({type:'Feature',properties:{name:p.name,height:p.height,year:p.year,type:p.type,idx:i},geometry:{type:'Polygon',coordinates:[square(p.lng,p.lat,24+i*4)]}})});return {type:'FeatureCollection',features:f}}
+function customGeo(){return {type:'FeatureCollection',features:custom.filter(function(x){return x.city===city}).map(function(p){return {type:'Feature',properties:p,geometry:{type:'Polygon',coordinates:[square(p.lng,p.lat,20)]}}})}}
+function firstBuildingLayer(){var ls=map.getStyle().layers||[],candidate=null;for(var i=0;i<ls.length;i++){var l=ls[i];if(l['source-layer']==='building'){candidate=l;break}}return candidate}
+map.on('load',function(){
+  var b=firstBuildingLayer();
+  if(b && b.source){
+    try{map.addLayer({id:'meridian-existing-3d',source:b.source,'source-layer':'building',type:'fill-extrusion',minzoom:14,paint:{'fill-extrusion-color':'#6e7888','fill-extrusion-height':['coalesce',['get','render_height'],['get','height'],12],'fill-extrusion-base':['coalesce',['get','render_min_height'],['get','min_height'],0],'fill-extrusion-opacity':.72}},b.id)}catch(e){}
+  }
+  map.addSource('meridian-plan',{type:'geojson',data:plannedGeo()});
+  map.addLayer({id:'meridian-plan-3d',type:'fill-extrusion',source:'meridian-plan',paint:{'fill-extrusion-color':['interpolate',['linear'],['get','year'],2026,'#b67935',2035,'#f4d39f'],'fill-extrusion-height':['get','height'],'fill-extrusion-opacity':.9}});
+  map.addSource('meridian-custom',{type:'geojson',data:customGeo()});
+  map.addLayer({id:'meridian-custom-3d',type:'fill-extrusion',source:'meridian-custom',paint:{'fill-extrusion-color':'#54d6b1','fill-extrusion-height':['get','height'],'fill-extrusion-opacity':.9}});
+  map.on('click','meridian-plan-3d',function(e){var p=e.features[0].properties;new maplibregl.Popup().setLngLat(e.lngLat).setHTML('<strong>'+p.name+'</strong><br><small>'+p.type+' · '+p.height+'m · '+p.year+'</small>').addTo(map)});
+  map.on('click','meridian-custom-3d',function(e){var p=e.features[0].properties;new maplibregl.Popup().setLngLat(e.lngLat).setHTML('<strong>MY '+p.type+'</strong><br><small>'+p.floors+'F · '+p.height+'m</small>').addTo(map)});
+  renderCity();
+});
+map.on('error',function(e){if(!map.loaded()&&e&&e.error)document.getElementById('fallback').style.display='grid'});
+function updateSources(){if(map.getSource('meridian-plan'))map.getSource('meridian-plan').setData(plannedGeo());if(map.getSource('meridian-custom'))map.getSource('meridian-custom').setData(customGeo())}
+function renderCity(){
+ var c=cities[city];document.getElementById('planArea').textContent=c.area;document.getElementById('planTitle').textContent=c.title[lang]||c.title.ko;document.getElementById('planDesc').textContent=c.desc[lang]||c.desc.ko;document.getElementById('planTags').innerHTML=c.tags.map(function(x){return '<span>'+x+'</span>'}).join('');
+ document.getElementById('projectCount').textContent=c.projects.length+' PROJECTS';var list=document.getElementById('projectList');list.innerHTML='';
+ c.projects.forEach(function(p,i){var btn=document.createElement('button');btn.className='project';btn.innerHTML='<small><span>'+p.type+'</span><em>'+p.year+'</em></small><strong>'+p.name+'</strong><small><span>'+p.floors+' '+T[lang].floorUnit+'</span><span>'+p.height+' m</span></small>';btn.onclick=function(){document.querySelectorAll('.project').forEach(function(x){x.classList.remove('active')});btn.classList.add('active');map.flyTo({center:[p.lng,p.lat],zoom:17.1,pitch:70,bearing:c.bearing,duration:1400})};list.appendChild(btn)});
+ map.flyTo({center:c.center,zoom:c.zoom,pitch:c.pitch,bearing:c.bearing,duration:1800});updateSources()
+}
+function applyLang(){
+ document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(T[lang][k])el.textContent=T[lang][k]});document.querySelectorAll('.lang').forEach(function(b){b.classList.toggle('active',b.dataset.lang===lang)});renderCity()
+}
+document.querySelectorAll('.lang').forEach(function(b){b.onclick=function(){lang=b.dataset.lang;applyLang()}});
+document.querySelectorAll('.city').forEach(function(b){b.onclick=function(){city=b.dataset.city;document.querySelectorAll('.city').forEach(function(x){x.classList.remove('active')});b.classList.add('active');renderCity()}});
+document.querySelectorAll('.mode').forEach(function(b){b.onclick=function(){mode=b.dataset.mode;document.querySelectorAll('.mode').forEach(function(x){x.classList.remove('active')});b.classList.add('active');if(mode==='future'){document.getElementById('yearRange').value=2035;document.getElementById('yearValue').textContent='2035'}updateSources()}});
+document.getElementById('yearRange').oninput=function(){document.getElementById('yearValue').textContent=this.value;updateSources()};
+function updateHeight(){var f=Math.max(3,Math.min(100,Number(document.getElementById('floors').value)||30));document.getElementById('floors').value=f;document.getElementById('heightValue').textContent=Math.round(f*3.6)+' m'}
+document.getElementById('floors').oninput=updateHeight;
+document.getElementById('buildToggle').onclick=function(){buildOn=!buildOn;this.classList.toggle('on',buildOn);document.getElementById('buildPanel').classList.toggle('on',buildOn);document.getElementById('buildHint').classList.toggle('on',buildOn);map.getCanvas().style.cursor=buildOn?'crosshair':''};
+map.on('click',function(e){if(!buildOn)return;var f=Number(document.getElementById('floors').value)||30;custom.push({city:city,lng:e.lngLat.lng,lat:e.lngLat.lat,floors:f,height:Math.round(f*3.6),type:document.getElementById('buildType').value});updateSources()});
+document.getElementById('resetCustom').onclick=function(){custom=[];updateSources()};
+updateHeight();applyLang();
+})();
+</script>
+</body>
+</html>
